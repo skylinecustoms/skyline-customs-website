@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# High-priority pages for search engines
+Allow: /ceramic-coating
+Allow: /ppf
+Allow: /window-tint
+Allow: /wraps
+
+# Sitemap
+Sitemap: https://skylinecustomshop.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
