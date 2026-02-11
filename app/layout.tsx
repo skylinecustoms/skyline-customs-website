@@ -80,7 +80,7 @@ export default function RootLayout({
               "alternateName": "Skyline Customs Chantilly",
               "description": "Premier automotive protection specialists offering ceramic coating, paint protection film (PPF), window tinting, and vehicle wraps in Chantilly, VA.",
               "url": "https://skylinecustomshop.com",
-              "telephone": "+1-703-378-9222",
+              "telephone": "+1-703-775-4383",
               "priceRange": "$$",
               "address": {
                 "@type": "PostalAddress",

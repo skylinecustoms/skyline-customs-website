@@ -21,7 +21,7 @@ export default function Home() {
             <Link href="#contact" className="hover:text-blue-400 transition">Contact</Link>
           </nav>
           <div className="flex items-center space-x-4">
-            <a href="tel:+1-703-378-9222" className="hidden md:flex items-center space-x-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            <a href="tel:+1-703-775-4383" className="hidden md:flex items-center space-x-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition">
               <Phone size={16} />
               <span>(703) 378-9222</span>
             </a>
@@ -69,7 +69,7 @@ export default function Home() {
               <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
                 Get Free Quote
               </button>
-              <a href="tel:+1-703-378-9222" className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all flex items-center space-x-2">
+              <a href="tel:+1-703-775-4383" className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all flex items-center space-x-2">
                 <Phone size={20} />
                 <span>Call Now</span>
               </a>
@@ -254,7 +254,7 @@ export default function Home() {
               <Calendar size={20} />
               <span>Schedule Consultation</span>
             </button>
-            <a href="tel:+1-703-378-9222" className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all flex items-center space-x-2">
+            <a href="tel:+1-703-775-4383" className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all flex items-center space-x-2">
               <Phone size={20} />
               <span>(703) 378-9222</span>
             </a>
