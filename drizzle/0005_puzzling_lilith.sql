@@ -1,0 +1,1 @@
+ALTER TABLE `promos` MODIFY COLUMN `includedServices` text;

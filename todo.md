@@ -1,0 +1,201 @@
+- [x] Add /home → / redirect to fix 404 in Google Search Console
+- [x] Create /privacy-policy page to fix 404 in Google Search Console
+- [x] Add Privacy Policy link to footer
+- [x] Fix JSON-LD image field on homepage schema
+- [x] Create Terms of Service page and wire into router and footer
+- [x] Add Review JSON-LD schema to PPF service page
+- [x] Add Review JSON-LD schema to Ceramic Coating service page
+- [x] Add Review JSON-LD schema to Window Tinting service page
+- [x] Add Review JSON-LD schema to Vinyl Wraps service page
+- [x] Update sitemap with all pages including Privacy Policy and Terms of Service
+- [x] Update Google Business Profile sameAs URL in homepage JSON-LD
+- [x] Add FAQPage JSON-LD schema to PPF service page
+- [x] Add FAQPage JSON-LD schema to Ceramic Coating service page
+- [x] Add FAQPage JSON-LD schema to Window Tinting service page
+- [x] Add FAQPage JSON-LD schema to Vinyl Wraps service page
+- [x] Add BreadcrumbList JSON-LD to PPF service page
+- [x] Add BreadcrumbList JSON-LD to Ceramic Coating service page
+- [x] Add BreadcrumbList JSON-LD to Window Tinting service page
+- [x] Add BreadcrumbList JSON-LD to Vinyl Wraps service page
+- [x] Replace Gallery placeholder images with real before/after photos [PARTIAL - 6 real job photos added from Google Drive; additional photos can be added via Telegram bot /gallery add command]
+- [x] Add tRPC backend procedure for AI Quote Assistant chat (invokeLLM)
+- [x] Build floating AI chat widget UI component (QuoteAssistant.tsx)
+- [x] Wire QuoteAssistant into App.tsx (global floating widget)
+- [x] Pre-fill Get a Quote form when AI chat completes data collection
+- [x] Create /ppf-chantilly-va local SEO landing page
+- [x] Create /ceramic-coating-chantilly-va local SEO landing page
+- [x] Create /window-tinting-chantilly-va local SEO landing page
+- [x] Create /vinyl-wraps-chantilly-va local SEO landing page
+- [x] Register all 4 local landing page routes in App.tsx
+- [x] Add all 4 local landing pages to sitemap.xml
+- [x] Create reusable LocalBanner component (internal link to local landing page)
+- [x] Create reusable Testimonials component with star ratings
+- [x] Add LocalBanner to ServicePPF, ServiceCeramic, ServiceTint, ServiceWrap pages
+- [x] Add Testimonials section to all four local landing pages
+- [x] Fetch real Google Business reviews for Skyline Custom Shop
+- [x] Upgrade Testimonials to a carousel with real reviews and photos
+- [x] Build Centreville landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Build Herndon landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 8 new city routes in App.tsx and sitemap.xml
+- [x] Replace Home page static reviews section with Testimonials carousel component
+- [x] Create /ppf-fairfax-va local SEO landing page
+- [x] Create /ceramic-coating-fairfax-va local SEO landing page
+- [x] Create /window-tinting-fairfax-va local SEO landing page
+- [x] Create /vinyl-wraps-fairfax-va local SEO landing page
+- [x] Register all 4 Fairfax routes in App.tsx
+- [x] Add all 4 Fairfax pages to sitemap.xml
+- [x] Extract blog source code from attached file
+- [x] Create client/src/pages/BlogIndex.tsx with Skyline theme
+- [x] Create client/src/pages/BlogPost.tsx with Skyline theme
+- [x] Create client/src/lib/blogData.ts with blog post data
+- [x] Add Blog link to Navbar
+- [x] Register /blog and /blog/:slug routes in App.tsx
+- [x] Save checkpoint after blog integration
+- [x] Fix canonical and og:url in index.html (non-www → www)
+- [x] Fix SEO component base URL constant (non-www → www)
+- [x] Fix robots.txt sitemap URL (non-www → www)
+- [x] Fix all sitemap.xml URLs (non-www → www)
+- [x] Global find-and-replace all remaining non-www URLs across source files
+- [x] Add per-post SEO meta tags to BlogPost.tsx
+- [x] Build Vienna landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Build Reston landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 8 new city routes in App.tsx and sitemap.xml
+- [x] Build McLean landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Build Tysons landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 8 new McLean/Tysons routes in App.tsx and sitemap.xml
+- [x] Publish Virginia Window Tint Laws 2026 blog post to blogData.ts
+- [x] Build Alexandria landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 4 Alexandria routes in App.tsx and sitemap.xml
+- [x] Build Arlington landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 4 Arlington routes in App.tsx and sitemap.xml
+- [x] Build Falls Church VA landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Build Springfield VA landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 8 Falls Church + Springfield routes in App.tsx and sitemap.xml (now 64 total URLs)
+- [x] Build Manassas VA landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Build Woodbridge VA landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 8 Manassas + Woodbridge routes in App.tsx and sitemap.xml (72 total URLs)
+- [x] Fix GSC: Remove 404 URLs from sitemap (/booking-page, /home, /thank-you, /disconnected, /contact-us)
+- [x] Fix GSC: Remove non-www and http redirect URLs from sitemap
+- [x] Fix GSC: Verify all pages have self-referencing canonical tags
+- [x] Fix GSC: Add canonical to homepage (https://www.skylinecustomshop.com/)
+- [x] Add Facebook Pixel base code to index.html (ID: 1754124245286032)
+- [x] Track Lead event on quote form submission
+- [x] Add Facebook Pixel ViewContent event to PPF service page
+- [x] Add Facebook Pixel ViewContent event to Ceramic Coating service page
+- [x] Add Facebook Pixel ViewContent event to Window Tinting service page
+- [x] Add Facebook Pixel ViewContent event to Vinyl Wraps service page
+- [x] Add Facebook Pixel InitiateCheckout event on booking modal open / Get a Quote CTA clicks
+- [x] Build Stafford VA landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Build Fredericksburg VA landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Register 8 Stafford + Fredericksburg routes in App.tsx and sitemap.xml (80 total URLs)
+- [x] Build Service Areas hub page listing all 15 cities with service links
+- [x] Add /service-areas route to App.tsx and sitemap
+- [x] Link Service Areas from Navbar and Footer
+- [x] Add "View all service areas" internal link to all 64 city landing pages
+- [x] Add geographic cross-links (Nearby Service Areas) to all 60 city landing pages
+- [x] Add geographic cross-links (Nearby Service Areas) to all 60 city landing pages
+- [x] Build Chantilly VA landing pages (PPF, Ceramic, Tint, Wrap)
+- [x] Build /pricing page with full tables (sedan/SUV/truck) + bundle packages + SEO schema
+- [x] Add bundle pricing section to Services.tsx
+- [x] Register /pricing route in App.tsx, sitemap, and navbar
+- [x] Build interactive PriceConfigurator component (vehicle type → services → packages → bundle upsells) [REMOVED - replaced by direct quote form per owner request]
+- [x] Add "Starting at" pricing to all 4 service detail pages
+- [x] Integrate configurator into Services page with "Build Your Quote" CTA [REMOVED - Build Your Quote removed per owner request]
+- [x] Register /configure route in App.tsx and sitemap [DONE - /configure redirects to /get-a-quote]
+- [x] Remove all "Starting at $X" pricing from service tabs and replace with Get a Quote CTAs
+
+## June Special Promo System
+- [x] Save original Home.tsx as Home.original.tsx backup
+- [x] Create database tables: promos + promoSlots
+- [x] Build /june-special landing page (hero, deal details, STEK section, ceramic benefits, live progress bar, customer gallery)
+- [x] Add high-attention homepage hero banner linking to /june-special
+- [x] Build tRPC procedures: getPromo, getPromoSlots, addSlot (owner-only)
+- [x] Save reusable promo template as PromoLanding.template.tsx for future months
+- [x] Update sitemap with /june-special URL
+
+## Dynamic Promo System + New Bot
+- [x] Add getActivePromoByActive() DB helper (queries active=1 promo, most recent)
+- [x] Add insertPromo() and deactivateAllPromos() DB helpers
+- [x] Add trpc.promo.getActive procedure (returns active promo + slots, no slug required)
+- [x] Rewrite homepage ActivePromoBanner to pull all content (title, price, dates, services) from DB
+- [x] Rewrite JuneSpecial.tsx to pull all content dynamically from DB via trpc.promo.getActive
+- [x] Add /promo_new Telegram command to create a new monthly promo (deactivates old one)
+- [x] Add /promo on, /promo off, /promo status commands using getActivePromoRow helper
+- [x] Normalize underscore command aliases (/promo_on, /promo_off, /promo_status) in webhook handler
+- [x] Update bot to @SkylineManusbot (new token: 8935872481:...)
+- [x] Register webhook on new bot at https://skylinecustomshop.com/api/telegram/webhook
+- [x] Set Telegram command menu on new bot (12 commands including /promo_new)
+- [x] Add Promo link to Navbar (desktop + mobile) — only shown when an active promo exists, uses first two words of promo title
+- [x] Auto-update sitemap /promo lastmod date when /promo_new command runs
+
+## Full Context Prompt Applied to Website
+- [x] Rebuild /promo page (JuneSpecial.tsx) with all sections: Problem, Offer, Included Services, Guarantees, 4-Step Process, Customer Gallery, FAQ, Final CTA
+- [x] Add VSL player placeholder with orange play button to /promo hero
+- [x] Fix hero headline to "How to Keep Your Factory Paint / Flawless for 10+ Years" (white + orange)
+- [x] Add social proof bar (5 stars, 500+ Google Reviews) to /promo hero
+- [x] Add eyebrow "CHANTILLY, VA · LIMITED TO 21 CARS / MONTH" to /promo hero
+- [x] Fix CTA button label to "YES! PROTECT MY PAINT — CLAIM MY SPOT →"
+- [x] Add "No catch. Just flawless paint, guaranteed 12 years." sub-CTA line
+- [x] Add $4,500 strikethrough → $2,400 price box with "You save $2,100" line
+- [x] Add "Included Free — $2,100 Value" breakdown card (Ceramic, Paint Correction, Door-Edge, A-Pillar)
+- [x] Add 3 Guarantees section (Walk-and-Pay, 12-Year No-Chip Promise, 21 Cars Cap)
+- [x] Add 4-Step Process section (Decontamination, Paint Correction, PPF Install, Ceramic + Inspection)
+- [x] Add FAQ accordion with 5 questions to /promo page
+- [x] Rebuild ActivePromoBanner on Home.tsx: asymmetric 2-col layout, price box with strikethrough, segmented progress bar, trust row, correct CTA text
+
+## Waitlist, Countdown Timer & SEO Improvements
+- [ ] Add promoWaitlist table to drizzle schema (name, email, phone, promoId, createdAt)
+- [ ] Run pnpm db:push to migrate the new table
+- [ ] Add trpc.promo.joinWaitlist procedure (public, validates input, saves to DB, notifies via Telegram)
+- [ ] Build WaitlistForm component on /promo page — auto-shows when sold out, hides when slots available
+- [ ] Add sold-out state to homepage ActivePromoBanner CTA (shows "Join Waitlist" button linking to /promo#waitlist)
+- [ ] Add countdown timer to homepage ActivePromoBanner (live "X days left" counter)
+- [ ] Add countdown timer to /promo page hero
+- [ ] Add SEO meta tags to /promo page (title, description, og:image, og:type, canonical)
+- [ ] Add JSON-LD SpecialAnnouncement schema to /promo page
+- [ ] Add /promo to sitemap.xml with correct lastmod and priority
+
+## Promo Archive System
+- [ ] Add archivedSlug + isArchived fields to promos DB schema and migrate
+- [ ] Update /promo_new in telegramWebhook.ts to auto-archive current promo before creating new one
+- [ ] Build PromoArchive.tsx page with disabled CTA and ended banner
+- [ ] Add dynamic archive route in App.tsx (e.g. /june-special shows archived June promo)
+- [ ] Add Last Month strip on /promo page linking to previous month's archive
+- [ ] Update sitemap to include archive URLs
+
+## GHL Integration + Website Improvements
+- [ ] GHL urgency SMS to ppf lead contacts on every slot confirm
+- [ ] Sticky mobile CTA bar on /promo page
+- [ ] Live "X spots left" micro-copy on homepage banner
+- [ ] /waitlist Telegram command
+- [ ] /stats Telegram command
+
+## Waitlist Form Enhancements
+- [x] Add intent-level buttons (ASAP / This Week / This Month) to waitlist form
+- [x] Tag GHL contacts based on intent: "intent: asap", "intent: this week", "intent: this month"
+- [x] Fix SMS message to be customer-facing (Hi [Name], you're on the waitlist...)
+- [x] Add qualifying question: "What made you look into PPF?"
+- [x] Add Year / Make / Model vehicle fields to waitlist form (parsed into GHL custom fields same as contact form)
+- [x] Update promoWaitlist DB schema: add intent, ppfReason, desiredTiming columns
+- [x] Run pnpm db:push to migrate new waitlist columns
+
+## Promo CTA → Get a Quote Flow
+- [x] Pass promoTitle and promoNote as URL params from all promo CTA buttons to /get-a-quote
+- [x] Get a Quote page reads promoTitle/promoNote params and pre-fills message field
+- [x] Show orange promo badge (e.g. "JULY SPECIAL") at top of Get a Quote form when arriving from promo
+- [x] Build promoTag from promoTitle (e.g. "july-special-promo") and pass to contact.submit
+- [x] contact.submit adds promoTag to GHL contact tags
+- [x] contact.submit sets GHL source to "Promo CTA — july-special-promo" when promoTag present
+- [x] contact.submit always writes a GHL note when promoTag is set (even without a message)
+- [x] GHL note header shows "PROMO QUOTE REQUEST — JULY SPECIAL PROMO" for promo leads
+
+## July Special Landing Page Improvements
+- [x] Savings callout badge "You save $2,100" more prominent in hero price box
+- [x] SEO H2 "July 2026 PPF Deal Chantilly VA" on page
+- [x] Scarcity "last slot claimed X ago" live indicator near progress bar
+- [x] Before/after photo slider component on promo page
+- [x] Customer review snippet below CTA buttons
+- [x] Sticky mobile CTA bar with countdown + Claim My Spot button
+- [x] Promo-specific FAQ questions in accordion
+- [x] "This Month's Special" section on homepage with internal link
+- [x] Waitlist queue number confirmation after signup

@@ -1,0 +1,368 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * SKYLINE CUSTOM SHOP — DESIGN SYSTEM
+ * Philosophy: Industrial Brutalism meets Automotive Precision
+ * Colors: Deep matte black (#0A0A0A) + Burnt orange (#E85D04) + Off-white (#F5F0E8)
+ * Fonts: Bebas Neue (display) + DM Sans (body) + DM Mono (specs/prices)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Skyline Brand Colors */
+  --color-brand-orange: oklch(0.62 0.21 40);
+  --color-brand-orange-dark: oklch(0.50 0.19 40);
+  --color-brand-black: oklch(0.10 0.005 285);
+  --color-brand-surface: oklch(0.14 0.006 285);
+  --color-brand-surface-2: oklch(0.18 0.006 285);
+  --color-brand-offwhite: oklch(0.96 0.008 85);
+  --color-brand-muted: oklch(0.55 0.01 285);
+}
+
+:root {
+  --radius: 0.25rem;
+  
+  /* Dark industrial theme */
+  --background: oklch(0.10 0.005 285);
+  --foreground: oklch(0.96 0.008 85);
+  --card: oklch(0.14 0.006 285);
+  --card-foreground: oklch(0.96 0.008 85);
+  --popover: oklch(0.14 0.006 285);
+  --popover-foreground: oklch(0.96 0.008 85);
+  --primary: oklch(0.62 0.21 40);
+  --primary-foreground: oklch(0.10 0.005 285);
+  --secondary: oklch(0.18 0.006 285);
+  --secondary-foreground: oklch(0.96 0.008 85);
+  --muted: oklch(0.18 0.006 285);
+  --muted-foreground: oklch(0.55 0.01 285);
+  --accent: oklch(0.62 0.21 40);
+  --accent-foreground: oklch(0.10 0.005 285);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.25 0.006 285);
+  --input: oklch(0.20 0.006 285);
+  --ring: oklch(0.62 0.21 40);
+  --chart-1: oklch(0.62 0.21 40);
+  --chart-2: oklch(0.55 0.18 40);
+  --chart-3: oklch(0.45 0.15 40);
+  --chart-4: oklch(0.35 0.12 40);
+  --chart-5: oklch(0.25 0.08 40);
+  --sidebar: oklch(0.12 0.005 285);
+  --sidebar-foreground: oklch(0.96 0.008 85);
+  --sidebar-primary: oklch(0.62 0.21 40);
+  --sidebar-primary-foreground: oklch(0.10 0.005 285);
+  --sidebar-accent: oklch(0.18 0.006 285);
+  --sidebar-accent-foreground: oklch(0.96 0.008 85);
+  --sidebar-border: oklch(0.25 0.006 285);
+  --sidebar-ring: oklch(0.62 0.21 40);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Skyline Brand Utilities */
+  .font-display {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  
+  .font-mono-brand {
+    font-family: 'DM Mono', monospace;
+  }
+  
+  .text-brand-orange {
+    color: oklch(0.62 0.21 40);
+  }
+  
+  .bg-brand-orange {
+    background-color: oklch(0.62 0.21 40);
+  }
+  
+  .bg-brand-surface {
+    background-color: oklch(0.14 0.006 285);
+  }
+  
+  .bg-brand-surface-2 {
+    background-color: oklch(0.18 0.006 285);
+  }
+  
+  .border-brand-orange {
+    border-color: oklch(0.62 0.21 40);
+  }
+  
+  /* Diagonal slash divider */
+  .diagonal-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    padding-bottom: 8rem;
+  }
+  
+  .diagonal-top {
+    clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
+    margin-top: -5rem;
+    padding-top: 8rem;
+  }
+  
+  /* Orange glow effect */
+  .orange-glow {
+    box-shadow: 0 0 30px oklch(0.62 0.21 40 / 0.3);
+  }
+  
+  /* Grain texture overlay */
+  .grain-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  /* CTA button sweep effect */
+  .btn-sweep {
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+  
+  .btn-sweep::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: oklch(0.10 0.005 285);
+    transition: left 0.3s ease;
+    z-index: 0;
+  }
+  
+  .btn-sweep:hover::before {
+    left: 0;
+  }
+  
+  .btn-sweep > * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Scroll fade-up animation */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  
+  /* Counter animation */
+  @keyframes countUp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Section number style */
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: oklch(0.62 0.21 40);
+    text-transform: uppercase;
+  }
+
+  /* Orange rule — used in blog and local pages */
+  .orange-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #e85d04;
+    text-transform: uppercase;
+  }
+  .orange-rule::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: #e85d04;
+    flex-shrink: 0;
+  }
+
+  /* Blog prose — direct CSS classes used in renderSection */
+  .blog-prose .blog-prose-h2,
+  .blog-prose-h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e85d04;
+    line-height: 1.2;
+  }
+  .blog-prose .blog-prose-h3,
+  .blog-prose-h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #e85d04;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  .blog-prose .blog-prose-p,
+  .blog-prose-p {
+    color: rgba(255,255,255,0.80);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+    font-size: 1.0625rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .blog-prose .blog-prose-ul,
+  .blog-prose-ul {
+    color: rgba(255,255,255,0.80);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.0625rem;
+    list-style-type: disc;
+  }
+  .blog-prose .blog-prose-ul li,
+  .blog-prose-ul li {
+    margin-bottom: 0.5rem;
+  }
+  .blog-prose .blog-prose-ul li::marker,
+  .blog-prose-ul li::marker {
+    color: #e85d04;
+  }
+  .blog-prose .blog-prose-ol,
+  .blog-prose-ol {
+    color: rgba(255,255,255,0.80);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.0625rem;
+    list-style-type: decimal;
+  }
+  .blog-prose .blog-prose-ol li::marker,
+  .blog-prose-ol li::marker {
+    color: #e85d04;
+    font-weight: 700;
+  }
+  .blog-prose .blog-prose-blockquote,
+  .blog-prose-blockquote {
+    border-left: 4px solid #e85d04;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(232, 93, 4, 0.08);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+}
