@@ -27,7 +27,7 @@ export default function VideoSection() {
             </a>
           </div>
         </div>
-        <VideoCarousel videos={videosByCategory("learn")} reels={reelsByCategory("learn")} preview autoAdvanceMs={60_000} />
+        <VideoCarousel videos={videosByCategory("learn")} reels={reelsByCategory("learn")} preview autoAdvanceMs={10_000} />
       </div>
     </section>
   );

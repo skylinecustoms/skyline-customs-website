@@ -6,9 +6,9 @@
  * loop, like a social feed; tapping a card turns the sound on. Players are only
  * mounted while visible, so off-screen cards cost nothing.
  * Instagram reels (`reels`) follow the YouTube cards; clicking one opens the
- * official Instagram embed in a dialog. `autoAdvanceMs` slides the carousel
- * forward on a timer (and back to the start at the end), pausing while a reel
- * dialog is open.
+ * official Instagram embed in a dialog. The carousel loops (no end), and
+ * `autoAdvanceMs` slides it forward on a timer, pausing while a reel dialog
+ * is open or the tab is hidden.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -145,8 +145,7 @@ export default function VideoCarousel({
     if (!api || !autoAdvanceMs || open) return;
     const t = setInterval(() => {
       if (document.hidden) return;
-      if (api.canScrollNext()) api.scrollNext();
-      else api.scrollTo(0);
+      api.scrollNext();
     }, autoAdvanceMs);
     return () => clearInterval(t);
   }, [api, autoAdvanceMs, open]);
@@ -155,7 +154,7 @@ export default function VideoCarousel({
   const itemClass = "pl-4 basis-[78%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5";
   return (
     <>
-      <Carousel opts={{ align: "start", loop: false }} setApi={setApi} className="relative">
+      <Carousel opts={{ align: "start", loop: true }} setApi={setApi} className="relative">
         <CarouselContent className="-ml-4">
           {videos.map((v) => (
             <CarouselItem key={`yt-${v.id}`} className={itemClass}>
