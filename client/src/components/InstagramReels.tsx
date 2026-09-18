@@ -3,8 +3,9 @@
  * - ReelCard: autoplays the reel muted and looping while on screen (direct MP4
  *   from the live feed via trpc.site.instagram), exactly like the YouTube
  *   preview cards; tapping opens the popup player with sound.
- * - ReelPlayer: the popup player (direct MP4 with controls). Falls back to the
- *   official Instagram embed when the feed has no video URL for the reel.
+ * - ReelPlayer: the popup player (direct MP4 with controls). Reels whose video
+ *   file Instagram withholds (licensed music) use Instagram's own embedded
+ *   player iframe instead, which plays with sound on tap.
  * Curated reels live in lib/instagramPosts.ts.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -12,10 +13,6 @@ import { Instagram, Play, Volume2 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { reelUrl, type InstagramReel } from "@/lib/instagramPosts";
 import { INSTAGRAM_HANDLE } from "@/lib/social";
-
-declare global {
-  interface Window { instgrm?: { Embeds: { process: () => void } } }
-}
 
 export interface ReelMedia { thumb?: string; video?: string }
 
@@ -32,29 +29,22 @@ export function useReelMedia(enabled: boolean) {
   }, [feed]);
 }
 
-function loadEmbedScript() {
-  if (typeof document === "undefined") return;
-  if (document.querySelector('script[src="https://www.instagram.com/embed.js"]')) {
-    window.instgrm?.Embeds.process();
-    return;
-  }
-  const s = document.createElement("script");
-  s.src = "https://www.instagram.com/embed.js";
-  s.async = true;
-  document.body.appendChild(s);
-}
-
+/**
+ * Instagram's own embedded player for a reel (the same iframe embed.js would
+ * build, without depending on the script). Plays with sound on tap.
+ */
 function ReelEmbed({ reel }: { reel: InstagramReel }) {
-  const url = reelUrl(reel);
-  useEffect(() => {
-    loadEmbedScript();
-    const t = setTimeout(() => window.instgrm?.Embeds.process(), 50);
-    return () => clearTimeout(t);
-  }, [url]);
   return (
-    <blockquote className="instagram-media !m-0 !min-w-0 !w-full !bg-[#111] !border-0" data-instgrm-permalink={url} data-instgrm-version="14">
-      <a href={url} target="_blank" rel="noopener noreferrer" className="block p-6 text-zinc-400 text-sm">Open this reel on Instagram</a>
-    </blockquote>
+    <div className="aspect-[9/16] w-full bg-black overflow-hidden">
+      <iframe
+        src={`${reelUrl(reel)}embed/`}
+        title={reel.title}
+        className="w-full h-full bg-black"
+        allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"
+        allowFullScreen
+        loading="eager"
+      />
+    </div>
   );
 }
 
