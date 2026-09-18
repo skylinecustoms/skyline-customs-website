@@ -120,13 +120,16 @@ async function fetchViaFacebook(): Promise<InstagramFeed> {
   await exchangeFacebookToken();
   let username = "";
   if (!igUserId) {
-    const pages = await graph<{ data: { name: string; instagram_business_account?: { id: string; username?: string } }[] }>(
-      `${FB}/me/accounts?fields=name,instagram_business_account{id,username}&limit=50&access_token=${encodeURIComponent(token)}`
+    const pages = await graph<{ data: { name: string; access_token?: string; instagram_business_account?: { id: string; username?: string } }[] }>(
+      `${FB}/me/accounts?fields=name,access_token,instagram_business_account{id,username}&limit=50&access_token=${encodeURIComponent(token)}`
     );
+    const names = (pages.data ?? []).map((p) => p.name).join(", ") || "none";
     const withIg = (pages.data ?? []).find((p) => p.instagram_business_account?.id);
-    if (!withIg) throw new Error("No Facebook Page with a linked Instagram Business account was returned for this token (check pages_show_list + instagram_basic permissions and that the Page is linked to @skylinecustomshop).");
+    if (!withIg) throw new Error(`None of the Facebook Pages this token can see (${names}) has a linked Instagram Business account. Link @skylinecustomshop to the Skyline Customs Page and regenerate the token with that Page selected.`);
     igUserId = withIg.instagram_business_account!.id;
     username = withIg.instagram_business_account!.username ?? "";
+    // A Page token issued from a long-lived user token does not expire; prefer it.
+    if (withIg.access_token) token = withIg.access_token;
     console.log(`[instagram] resolved Instagram Business account ${igUserId} (${username}) via Page "${withIg.name}"`);
   }
   const media = await graph<{ data: RawMedia[] }>(`${FB}/${igUserId}/media?fields=${FIELDS}&limit=12&access_token=${encodeURIComponent(token)}`);
@@ -141,7 +144,7 @@ async function fetchFeed(): Promise<InstagramFeed> {
   // Instagram-login tokens start with "IG"; try that path first, then Facebook.
   const order: Array<"instagram" | "facebook"> =
     tokenKind ? [tokenKind] : token.startsWith("IG") ? ["instagram", "facebook"] : ["facebook", "instagram"];
-  let lastErr: Error | null = null;
+  const errors: string[] = [];
   for (const kind of order) {
     try {
       const feed = kind === "instagram" ? await fetchViaInstagramLogin() : await fetchViaFacebook();
@@ -150,10 +153,10 @@ async function fetchFeed(): Promise<InstagramFeed> {
       if (kind === "instagram") void refreshInstagramToken();
       return feed;
     } catch (err) {
-      lastErr = err as Error;
+      errors.push(`[${kind}] ${(err as Error).message}`);
     }
   }
-  throw lastErr ?? new Error("Instagram feed unavailable");
+  throw new Error(errors.join(" || ") || "Instagram feed unavailable");
 }
 
 export async function getInstagramFeed(): Promise<InstagramFeed | null> {
