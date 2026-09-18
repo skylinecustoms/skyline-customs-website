@@ -49,11 +49,11 @@ export const VIDEOS: Video[] = [
   { id: "284uuWTiKAg", category: "learn", service: "tint", title: "Is Window Tint More Than Just Looks?", blurb: "UV protection, heat, glare, and privacy broken down in under a minute." },
   { id: "FsQ8yZxh4Es", category: "learn", service: "tint", title: "How We Tint a Bronco, Legally", blurb: "Choosing a shade that looks right and still passes Virginia inspection." },
   { id: "dChKOZmEEEw", category: "learn", service: "tint", title: "Tint Isn't Just for Summer", blurb: "Why winter drivers still get glare relief, UV protection, and privacy from ceramic tint." },
-  { id: "pxpi-uF0eO0", category: "learn", service: "tint", title: "Light, Medium, or Dark?", blurb: "One shade change, a whole new mood. See the three most common levels side by side." },
+  { id: "pxpi-uF0eO0", category: "customers", service: "tint", title: "Light, Medium, or Dark?", blurb: "One shade change, a whole new mood. See the three most common levels side by side." },
   { id: "M-4dznrTTVY", category: "learn", service: "tint", title: "Dark, Clean, and Legal", blurb: "No bubbles, no shortcuts. What a proper tint install looks like up close." },
   { id: "dI6_E2HSmmE", category: "learn", service: "ppf", title: "Does Tesla Give Away Free PPF Kits?", blurb: "What Tesla owners should know before relying on a factory kit for paint protection." },
   { id: "ZvVdjXH06ug", category: "learn", service: "ppf", title: "Even BMW Doesn't Trust BMW Paint", blurb: "Why manufacturers recommend film on the front end, and what a full-front install costs at Skyline." },
-  { id: "SugVScEKEWM", category: "learn", service: "tint", title: "Tesla Ceramic Tint: More Shade, Less Heat", blurb: "How ceramic film keeps a glass-roof Tesla cooler without touching signal or range." },
+  { id: "SugVScEKEWM", category: "customers", service: "tint", title: "Tesla Ceramic Tint: More Shade, Less Heat", blurb: "How ceramic film keeps a glass-roof Tesla cooler without touching signal or range." },
   { id: "_PCNkjLfG7Y", category: "learn", service: "tint", title: "Smoked Taillight Tint Options", blurb: "Light, medium, and dark smoke finishes, and what stays street-legal." },
 
   // ---- Customer stories ----
@@ -67,9 +67,9 @@ export const VIDEOS: Video[] = [
   { id: "DVYvaVEy2-4", category: "work", service: "ppf", title: "Mercedes-AMG G63 PPF", blurb: "Big square panels, zero visible edges." },
   { id: "yFTB2S3bZbw", category: "work", service: "ppf", title: "2026 Honda Civic Type R Full Front", blurb: "Bumper, hood, fenders, mirrors, and headlights protected before the first road trip." },
   { id: "JCxngvQnTP0", category: "work", service: "tint", title: "Lexus: Window Tint + Ceramic Coating", blurb: "Fresh tint for a smooth private look plus a ceramic coat for the paint." },
-  { id: "U0hjC5pdMZM", category: "work", service: "tint", title: "Corvette Stingray Ceramic Tint", blurb: "From showroom clean to street lethal." },
+  { id: "U0hjC5pdMZM", category: "customers", service: "tint", title: "Corvette Stingray Ceramic Tint", blurb: "From showroom clean to street lethal." },
   { id: "A6AptHNL5kc", category: "work", service: "tint", title: "Genesis G70 Privacy Tint", blurb: "Privacy on max, comfort on lock." },
-  { id: "tdSO-c8EZS0", category: "work", service: "tint", title: "Alfa Romeo: Factory Clear to Luxury Dark", blurb: "A clean, even shade across every window." },
+  { id: "tdSO-c8EZS0", category: "customers", service: "tint", title: "Alfa Romeo: Factory Clear to Luxury Dark", blurb: "A clean, even shade across every window." },
 ];
 
 const rank = (id: string) => { const i = CHANNEL_ORDER.indexOf(id); return i === -1 ? Number.MAX_SAFE_INTEGER : i; };

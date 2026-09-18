@@ -1,16 +1,23 @@
 /**
- * VideoCarousel — horizontal carousel of YouTube Shorts.
+ * VideoCarousel — one horizontal carousel of YouTube Shorts and Instagram reels.
  *
  * Default mode: cards show the YouTube thumbnail and load the player on click.
- * Preview mode (`preview`): cards that are on screen autoplay muted and loop,
- * like a social feed; tapping a card turns the sound on. Players are only
+ * Preview mode (`preview`): YouTube cards that are on screen autoplay muted and
+ * loop, like a social feed; tapping a card turns the sound on. Players are only
  * mounted while visible, so off-screen cards cost nothing.
+ * Instagram reels (`reels`) follow the YouTube cards; clicking one opens the
+ * official Instagram embed in a dialog. `autoAdvanceMs` slides the carousel
+ * forward on a timer (and back to the start at the end), pausing while a reel
+ * dialog is open.
  */
 
 import { useEffect, useRef, useState } from "react";
 import { Play, Volume2, VolumeX } from "lucide-react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { videoEmbedUrl, videoThumb, type Video } from "@/lib/videos";
+import { ReelCard, ReelEmbed, useReelThumbs } from "@/components/InstagramReels";
+import type { InstagramReel } from "@/lib/instagramPosts";
 
 const previewUrl = (id: string) =>
   `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1` +
@@ -118,19 +125,60 @@ function VideoCard({ video, preview }: { video: Video; preview: boolean }) {
   );
 }
 
-export default function VideoCarousel({ videos, preview = false }: { videos: Video[]; preview?: boolean }) {
-  if (videos.length === 0) return null;
+export default function VideoCarousel({
+  videos,
+  reels = [],
+  preview = false,
+  autoAdvanceMs,
+}: {
+  videos: Video[];
+  reels?: InstagramReel[];
+  preview?: boolean;
+  /** Slide forward every N ms (wraps to the start). Omit for manual only. */
+  autoAdvanceMs?: number;
+}) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [open, setOpen] = useState<InstagramReel | null>(null);
+  const thumbs = useReelThumbs(reels.length > 0);
+
+  useEffect(() => {
+    if (!api || !autoAdvanceMs || open) return;
+    const t = setInterval(() => {
+      if (document.hidden) return;
+      if (api.canScrollNext()) api.scrollNext();
+      else api.scrollTo(0);
+    }, autoAdvanceMs);
+    return () => clearInterval(t);
+  }, [api, autoAdvanceMs, open]);
+
+  if (videos.length === 0 && reels.length === 0) return null;
+  const itemClass = "pl-4 basis-[78%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5";
   return (
-    <Carousel opts={{ align: "start", loop: false }} className="relative">
-      <CarouselContent className="-ml-4">
-        {videos.map((v) => (
-          <CarouselItem key={v.id} className="pl-4 basis-[78%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-            <VideoCard video={v} preview={preview} />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious className="hidden md:flex -left-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
-      <CarouselNext className="hidden md:flex -right-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
-    </Carousel>
+    <>
+      <Carousel opts={{ align: "start", loop: false }} setApi={setApi} className="relative">
+        <CarouselContent className="-ml-4">
+          {videos.map((v) => (
+            <CarouselItem key={`yt-${v.id}`} className={itemClass}>
+              <VideoCard video={v} preview={preview} />
+            </CarouselItem>
+          ))}
+          {reels.map((r) => (
+            <CarouselItem key={`ig-${r.code}`} className={itemClass}>
+              <ReelCard reel={r} thumb={thumbs.get(r.code)} onOpen={() => setOpen(r)} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="hidden md:flex -left-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
+        <CarouselNext className="hidden md:flex -right-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
+      </Carousel>
+      {reels.length > 0 && (
+        <Dialog open={!!open} onOpenChange={(o) => { if (!o) setOpen(null); }}>
+          <DialogContent className="max-w-[420px] p-0 bg-[#111] border-zinc-800 max-h-[90vh] overflow-y-auto">
+            <DialogTitle className="sr-only">{open?.title ?? "Instagram reel"}</DialogTitle>
+            {open && <ReelEmbed reel={open} />}
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 }

@@ -1,17 +1,14 @@
 /**
- * Carousel of curated @skylinecustomshop reels for one category (see
- * lib/instagramPosts.ts). Cards show the reel thumbnail from the live feed
- * (trpc.site.instagram) with an Instagram badge; clicking opens the official
- * Instagram embed in a dialog, so likes, comments and the follow button all work.
+ * Instagram reel pieces used inside VideoCarousel: the card (thumbnail from the
+ * live feed via trpc.site.instagram, Instagram badge, play button) and the
+ * official Instagram embed shown in a dialog on click, so likes, comments and
+ * the follow button all work. Curated reels live in lib/instagramPosts.ts.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { Instagram, Play } from "lucide-react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { trpc } from "@/lib/trpc";
-import { reelsByCategory, reelUrl, type InstagramReel } from "@/lib/instagramPosts";
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
-import type { VideoCategory } from "@/lib/videos";
+import { reelUrl, type InstagramReel } from "@/lib/instagramPosts";
+import { INSTAGRAM_HANDLE } from "@/lib/social";
 
 declare global {
   interface Window { instgrm?: { Embeds: { process: () => void } } }
@@ -29,7 +26,7 @@ function loadEmbedScript() {
   document.body.appendChild(s);
 }
 
-function ReelEmbed({ reel }: { reel: InstagramReel }) {
+export function ReelEmbed({ reel }: { reel: InstagramReel }) {
   const url = reelUrl(reel);
   useEffect(() => {
     loadEmbedScript();
@@ -44,7 +41,7 @@ function ReelEmbed({ reel }: { reel: InstagramReel }) {
   );
 }
 
-function ReelCard({ reel, thumb, onOpen }: { reel: InstagramReel; thumb?: string; onOpen: () => void }) {
+export function ReelCard({ reel, thumb, onOpen }: { reel: InstagramReel; thumb?: string; onOpen: () => void }) {
   return (
     <div className="bg-[#111] border border-zinc-800 hover:border-[#E85D04]/50 transition-colors h-full flex flex-col">
       <button type="button" onClick={onOpen} className="group relative aspect-[9/16] bg-black overflow-hidden text-left w-full" aria-label={`Watch on Instagram: ${reel.title}`}>
@@ -71,11 +68,10 @@ function ReelCard({ reel, thumb, onOpen }: { reel: InstagramReel; thumb?: string
   );
 }
 
-export default function InstagramReels({ category, heading = "On Instagram" }: { category: VideoCategory; heading?: string }) {
-  const reels = reelsByCategory(category);
-  const { data: feed } = trpc.site.instagram.useQuery(undefined, { staleTime: 30 * 60 * 1000, retry: false });
-  const [open, setOpen] = useState<InstagramReel | null>(null);
-  const thumbs = useMemo(() => {
+/** Reel shortcode -> thumbnail URL from the live Instagram feed (empty until the feed loads). */
+export function useReelThumbs(enabled: boolean) {
+  const { data: feed } = trpc.site.instagram.useQuery(undefined, { staleTime: 30 * 60 * 1000, retry: false, enabled });
+  return useMemo(() => {
     const map = new Map<string, string>();
     for (const p of feed?.posts ?? []) {
       const m = p.permalink.match(/\/(?:reel|p)\/([^/]+)\//);
@@ -83,31 +79,4 @@ export default function InstagramReels({ category, heading = "On Instagram" }: {
     }
     return map;
   }, [feed]);
-  if (reels.length === 0) return null;
-
-  return (
-    <div className="mt-10">
-      <div className="flex items-center justify-between gap-4 mb-4">
-        <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase inline-flex items-center gap-2"><Instagram className="w-4 h-4 text-[#E85D04]" /> {heading}</p>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white">Follow @{INSTAGRAM_HANDLE}</a>
-      </div>
-      <Carousel opts={{ align: "start", loop: false }} className="relative">
-        <CarouselContent className="-ml-4">
-          {reels.map((r) => (
-            <CarouselItem key={r.code} className="pl-4 basis-[78%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-              <ReelCard reel={r} thumb={thumbs.get(r.code)} onOpen={() => setOpen(r)} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="hidden md:flex -left-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
-        <CarouselNext className="hidden md:flex -right-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
-      </Carousel>
-      <Dialog open={!!open} onOpenChange={(o) => { if (!o) setOpen(null); }}>
-        <DialogContent className="max-w-[420px] p-0 bg-[#111] border-zinc-800 max-h-[90vh] overflow-y-auto">
-          <DialogTitle className="sr-only">{open?.title ?? "Instagram reel"}</DialogTitle>
-          {open && <ReelEmbed reel={open} />}
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
 }
