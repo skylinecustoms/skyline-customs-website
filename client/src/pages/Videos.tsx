@@ -86,7 +86,7 @@ export default function Videos() {
               <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{cat.label}</p>
               <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-3">{cat.heading}</h2>
               <p className="text-zinc-400 max-w-2xl mb-10">{cat.intro}</p>
-              <VideoCarousel videos={videosByCategory(key)} />
+              <VideoCarousel videos={videosByCategory(key)} preview />
             </div>
           </section>
         );

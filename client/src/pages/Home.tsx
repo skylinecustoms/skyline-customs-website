@@ -123,6 +123,16 @@ interface IncludedService {
   badge?: string;
 }
 
+/** Sum the dollar amounts in included-service value strings ("$800 value" -> 800). */
+function promoMath(price: string, included: IncludedService[]) {
+  const freeItems = included.filter((i) => i.isFree);
+  const paidItems = included.filter((i) => !i.isFree);
+  const freeValue = freeItems.reduce((sum, i) => sum + (Number((i.value ?? "").replace(/[^0-9.]/g, "")) || 0), 0);
+  const priceNum = Number(String(price).replace(/[^0-9.]/g, "")) || 0;
+  const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;
+  return { freeItems, paidItems, freeValue, fullPrice: priceNum + freeValue, fmt };
+}
+
 // ---- Homepage Countdown Timer -----------------------------------------------
 function HomepageCountdown({ endDate }: { endDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -193,6 +203,7 @@ function ActivePromoBanner() {
     try { includedServices = JSON.parse(promo.includedServices) as IncludedService[]; }
     catch { includedServices = []; }
   }
+  const { freeValue, fullPrice, fmt } = promoMath(price, includedServices);
 
   return (
     <section className="relative overflow-hidden bg-[#080808]">
@@ -281,10 +292,12 @@ function ActivePromoBanner() {
             <div className="border border-[#E85D04]/30 bg-[#E85D04]/5 p-6">
               <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Starting At</p>
               <div className="flex items-baseline gap-3 mb-1">
-                <span className="font-mono-brand text-zinc-600 text-xl line-through">$4,500</span>
-                <span className="font-display text-[#E85D04] text-5xl">${price}</span>
+                {freeValue > 0 && <span className="font-mono-brand text-zinc-600 text-xl line-through">{fmt(fullPrice)}</span>}
+                <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
               </div>
-              <p className="text-zinc-400 text-sm">You save $2,100 off the full package price.</p>
+              <p className="text-zinc-400 text-sm">
+                {freeValue > 0 ? `You save ${fmt(freeValue)} in included services.` : "Everything included. No add-ons."}
+              </p>
             </div>
 
             {/* Progress bar */}

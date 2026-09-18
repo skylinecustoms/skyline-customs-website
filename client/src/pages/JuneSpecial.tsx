@@ -31,6 +31,16 @@ interface IncludedService {
   badge?: string;
 }
 
+/** Sum the dollar amounts in included-service value strings ("$800 value" -> 800). */
+function promoMath(price: string, included: IncludedService[]) {
+  const freeItems = included.filter((i) => i.isFree);
+  const paidItems = included.filter((i) => !i.isFree);
+  const freeValue = freeItems.reduce((sum, i) => sum + (Number((i.value ?? "").replace(/[^0-9.]/g, "")) || 0), 0);
+  const priceNum = Number(String(price).replace(/[^0-9.]/g, "")) || 0;
+  const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;
+  return { freeItems, paidItems, freeValue, fullPrice: priceNum + freeValue, fmt };
+}
+
 // ---- Progress Bar ------------------------------------------------------------
 function ProgressBar({ filled, total, endDate }: { filled: number; total: number; endDate?: string }) {
   const pct = Math.min((filled / total) * 100, 100);
@@ -269,50 +279,69 @@ function ReviewSnippet() {
 }
 
 // ---- FAQ Accordion -----------------------------------------------------------
-const FAQ_ITEMS = [
-  {
-    q: "What exactly is included in the $2,400 package?",
-    a: "Stek DYNOshield Full Front PPF is what you pay for — that covers the hood, front bumper, both fenders, side mirrors, and headlights. Included free: 9H Ceramic Coating on the full vehicle ($1,000 value), Full Paint Correction ($600 value), Door-Edge Guard Strips ($200 value), and A-Pillar Wrap ($300 value). That's $2,100 in additional work we include because it's the only way to do the job right.",
-  },
-  {
-    q: "What does the Walk-and-Pay Guarantee mean?",
-    a: "Before you pay the balance, we walk every panel with you under high-intensity lighting. If anything isn't right — an edge lifting, a bubble, anything — we fix it before you pay. If you're not satisfied, you don't pay. Simple as that.",
-  },
-  {
-    q: "What exactly does the 12-Year No-Chip Promise cover?",
-    a: "If a rock chips the paint under our film — through intact, untampered film, from normal road driving — we don't just replace the film. We repaint the panel, free. Film and paint, for as long as you own the car. This is not a limited warranty claim process. If the film is intact and a chip happens underneath, we make it right.",
-  },
-  {
-    q: "Why only 21 cars a month?",
-    a: "Because doing the job right takes time. A proper PPF install with paint correction and ceramic coating takes 2–3 days per car. We cap at 21 so every vehicle gets the same level of attention. This isn't a marketing gimmick — it's how we maintain our 5-star standard.",
-  },
-  {
-    q: "How long does the install take?",
-    a: "Plan for 2–3 days. Day 1 is decontamination and paint correction. Day 2 is the PPF installation. Day 3 is ceramic coating application and final inspection. We'll give you a specific timeline when you book.",
-  },
-  {
-    q: "Is this really full front coverage — or just a partial kit?",
-    a: "Full front. That means the entire hood, both front fenders, the front bumper, side mirrors, and headlights. Not a partial hood, not just the bumper. The full front end in Stek DYNOshield.",
-  },
-  {
-    q: "Can I add rear coverage or full-body PPF?",
-    a: "Yes. The monthly special price covers the full front package. If you want to add rear bumper, rocker panels, full rear, or full-body coverage, we'll quote that separately when you book. Many customers add at least the rear bumper.",
-  },
-  {
-    q: "What's included in the paint correction — and why does it matter?",
-    a: "Paint correction is a multi-stage machine polish that removes swirl marks, light scratches, water spots, and oxidation from the clear coat. We include it because trapping imperfections under PPF is permanent — you'd see them forever. Every car gets corrected before film goes on.",
-  },
-  {
+interface FaqItem { q: string; a: string }
+
+/** FAQ copy follows the active promo: price, what is included free, and whether paint correction is part of it. */
+function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: boolean): FaqItem[] {
+  const priceText = `$${(Number(price) || 0).toLocaleString("en-US")}`;
+  const freeList = freeItems.length
+    ? freeItems.map((f) => `${f.name}${f.value ? ` (${f.value})` : ""}`).join(", ")
+    : "nothing extra this month";
+  const items: FaqItem[] = [
+    {
+      q: `What exactly is included in the ${priceText} package?`,
+      a: `STEK DYNOshield Full Front PPF is what you pay for — that covers the hood, front bumper, both fenders, side mirrors, and headlights. Included free this month: ${freeList}. Every car also gets a full decontamination wash and our walk-and-pay inspection before you pay a dime.`,
+    },
+    {
+      q: "What does the Walk-and-Pay Guarantee mean?",
+      a: "Before you pay the balance, we walk every panel with you under high-intensity lighting. If anything isn't right — an edge lifting, a bubble, anything — we fix it before you pay. If you're not satisfied, you don't pay.",
+    },
+    {
+      q: "What exactly does the 12-Year No-Chip Promise cover?",
+      a: "If a rock chips the paint under our film — through intact, untampered film, from normal road driving — we don't just replace the film. We repaint the panel, free. Film and paint, for as long as you own the car, up to 12 years.",
+    },
+    {
+      q: "Why only 21 cars a month?",
+      a: `Because doing the job right takes time. A proper PPF install${hasCorrection ? " with paint correction" : ""}${freeItems.some((f) => /ceramic/i.test(f.name)) ? " and a full ceramic coating" : ""} takes 2–3 days per car. We cap at 21 so every vehicle gets the same level of attention. This isn't a marketing number — it's our real capacity.`,
+    },
+    {
+      q: "How long does the install take?",
+      a: hasCorrection
+        ? "Plan for 2–3 days. Day 1 is decontamination and paint correction. Day 2 is the PPF installation. Day 3 is ceramic coating application and final inspection. We'll give you a specific timeline when you book."
+        : "Plan for 2–3 days. Day 1 is decontamination and surface prep. Day 2 is the PPF installation. Day 3 is the ceramic coating and final inspection. We'll give you a specific timeline when you book.",
+    },
+    {
+      q: "Is this really full front coverage — or just a partial kit?",
+      a: "Full front. That means the entire hood, both front fenders, the front bumper, side mirrors, and headlights. Not a partial hood, not just the bumper. The full front end in STEK DYNOshield.",
+    },
+    {
+      q: "Can I add rear coverage or full-body PPF?",
+      a: "Yes. The monthly special price covers the full front package. If you want to add rear bumper, rocker panels, full rear, or full-body coverage, we'll quote that separately when you book. Many customers add at least the rocker panels.",
+    },
+  ];
+  if (hasCorrection) {
+    items.push({
+      q: "What's included in the paint correction — and why does it matter?",
+      a: "Paint correction is a machine polish that removes swirl marks, light scratches, water spots, and oxidation from the clear coat. We include it because trapping imperfections under PPF is permanent — you'd see them forever.",
+    });
+  } else {
+    items.push({
+      q: "Does my paint need correction before PPF?",
+      a: "Every car gets a full decontamination and inspection first. If your paint has swirls or scratches that would show under film, we'll show you under the lights and quote a single-stage correction before we start — never a surprise on the invoice.",
+    });
+  }
+  items.push({
     q: "Do I need to do anything to prepare my car?",
     a: "Just bring it in clean (a basic wash is fine — we'll do the full decontamination). Don't apply any wax or sealant in the week before your appointment. That's it.",
-  },
-];
+  });
+  return items;
+}
 
-function FaqAccordion() {
+function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="divide-y divide-zinc-800 border border-zinc-800">
-      {FAQ_ITEMS.map((item, i) => (
+      {items.map((item, i) => (
         <div key={i}>
           <button
             className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-zinc-900/50 transition-colors"
@@ -746,6 +775,13 @@ export default function JuneSpecial() {
       includedServices = JSON.parse(promo.includedServices) as IncludedService[];
     } catch { includedServices = []; }
   }
+  const { freeItems, paidItems, freeValue, fullPrice, fmt } = promoMath(price, includedServices);
+  const hasCorrection = freeItems.some((f) => /correction/i.test(f.name));
+  const hasCeramic = freeItems.some((f) => /ceramic/i.test(f.name));
+  const faqItems = buildFaq(price, freeItems, hasCorrection);
+  const paidName = paidItems[0]?.name ?? "STEK DYNOshield Full Front PPF";
+  const freeNames = freeItems.map((f) => f.name.toLowerCase());
+  const freeSentence = freeNames.length === 0 ? "" : freeNames.length === 1 ? freeNames[0] : `${freeNames.slice(0, -1).join(", ")} and ${freeNames[freeNames.length - 1]}`;
 
   const allSlots = Array.from({ length: totalSlots }, (_, i) => {
     const slot = filledSlots.find((s) => s.slotNumber === i + 1);
@@ -806,7 +842,7 @@ export default function JuneSpecial() {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": FAQ_ITEMS.map(item => ({
+      "mainEntity": faqItems.map(item => ({
         "@type": "Question",
         "name": item.q,
         "acceptedAnswer": { "@type": "Answer", "text": item.a }
@@ -957,13 +993,15 @@ export default function JuneSpecial() {
               {/* Price preview */}
               <div className="border border-[#E85D04]/30 bg-[#E85D04]/5 p-6 relative overflow-hidden">
                 {/* Savings badge */}
-                <div className="absolute top-0 right-0 bg-[#E85D04] text-white font-display text-xs tracking-widest px-3 py-1.5">
-                  YOU SAVE $2,100
-                </div>
+                {freeValue > 0 && (
+                  <div className="absolute top-0 right-0 bg-[#E85D04] text-white font-display text-xs tracking-widest px-3 py-1.5">
+                    YOU SAVE {fmt(freeValue)}
+                  </div>
+                )}
                 <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Starting At</p>
                 <div className="flex items-baseline gap-3 mb-1">
-                  <span className="font-mono-brand text-zinc-600 text-xl line-through">$4,500</span>
-                  <span className="font-display text-[#E85D04] text-5xl">${price}</span>
+                  {freeValue > 0 && <span className="font-mono-brand text-zinc-600 text-xl line-through">{fmt(fullPrice)}</span>}
+                  <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
                 </div>
                 <p className="text-zinc-400 text-sm mb-3">Full package price &mdash; everything included. No add-ons.</p>
                 <div className="flex items-center gap-2 text-xs">
@@ -1038,17 +1076,17 @@ export default function JuneSpecial() {
             {/* Left: copy + price box */}
             <div>
               <p className="text-zinc-300 text-lg leading-relaxed mb-8">
-                You pay for the Stek PPF front package. The ceramic coating, paint correction, door-edge strips, and A-pillar wrap? All included free. That&apos;s $2,100 in work we throw in because it&apos;s the only way to do the job right.
+                You pay for the {paidName}. {freeSentence ? `${freeSentence.charAt(0).toUpperCase()}${freeSentence.slice(1)}? Included free.` : ""} {freeValue > 0 ? `That's ${fmt(freeValue)} in work we throw in because it's the only way to do the job right.` : "One price, no add-ons."}
               </p>
 
               {/* Price box */}
               <div className="border border-zinc-800 bg-[#0D0D0D] p-8 mb-8">
                 <p className="text-zinc-500 text-xs tracking-[0.3em] uppercase mb-3">Package Price</p>
                 <div className="flex items-baseline gap-4 mb-2">
-                  <span className="font-mono-brand text-zinc-600 text-2xl line-through">$4,500</span>
-                  <span className="font-display text-[#E85D04] text-6xl">${price}</span>
+                  {freeValue > 0 && <span className="font-mono-brand text-zinc-600 text-2xl line-through">{fmt(fullPrice)}</span>}
+                  <span className="font-display text-[#E85D04] text-6xl">{fmt(Number(price) || 0)}</span>
                 </div>
-                <p className="text-zinc-400 text-sm mb-4">You save $2,100 off the full package price.</p>
+                <p className="text-zinc-400 text-sm mb-4">{freeValue > 0 ? `You save ${fmt(freeValue)} off the full package price.` : "Everything included. No add-ons."}</p>
                 <div className="flex items-center gap-2 text-zinc-500 text-xs">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
                   Price locked for {endDate ? `all bookings before ${endDate}` : "all slots this month"}
@@ -1059,7 +1097,7 @@ export default function JuneSpecial() {
               <div className="mb-6">
                 <p className="text-white font-bold text-sm tracking-widest uppercase mb-4">What You&apos;re Paying For</p>
                 <div className="border-l-2 border-[#E85D04] pl-5">
-                  <p className="font-display text-xl text-white mb-1">Stek PPF &mdash; Full Front</p>
+                  <p className="font-display text-xl text-white mb-1">{paidName}</p>
                   <p className="text-zinc-400 text-sm leading-relaxed">
                     Hood, fenders, mirrors, and front bumper in Stek DYNOshield. Self-healing, optically clear. Backed by our 12-Year No-Chip Promise.
                   </p>
@@ -1083,15 +1121,10 @@ export default function JuneSpecial() {
                 <div className="bg-[#E85D04] text-white text-xs font-bold tracking-widest px-3 py-1.5">
                   INCLUDED FREE
                 </div>
-                <span className="font-mono-brand text-zinc-400 text-sm">$2,100 Value</span>
+                <span className="font-mono-brand text-zinc-400 text-sm">{freeValue > 0 ? `${fmt(freeValue)} Value` : ""}</span>
               </div>
               <div className="space-y-5">
-                {[
-                  { name: "9H Ceramic Coating", sub: "Full Vehicle", value: "$1,000 value" },
-                  { name: "Full Paint Correction", sub: "Single-Stage Machine Polish", value: "$600 value" },
-                  { name: "Door-Edge Guard Strips", sub: "All four doors", value: "$200 value" },
-                  { name: "A-Pillar Wrap", sub: "Permanent inclusion, not a bonus", value: "$300 value" },
-                ].map(({ name, sub, value }, i) => (
+                {freeItems.map((f) => ({ name: f.name, sub: f.badge ?? "Included with this month's special", value: f.value })).map(({ name, sub, value }, i) => (
                   <div key={i} className="flex items-start justify-between gap-4 pb-5 border-b border-[#E85D04]/20 last:border-0 last:pb-0">
                     <div className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#E85D04] shrink-0 mt-0.5" />
@@ -1138,7 +1171,8 @@ export default function JuneSpecial() {
               </ul>
             </div>
 
-            {/* Paint Correction */}
+            {/* Paint Correction (only when the promo includes it) */}
+            {hasCorrection && (
             <div className="bg-[#111] p-10 relative">
               <div className="absolute top-4 right-4 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
@@ -1157,8 +1191,10 @@ export default function JuneSpecial() {
                 ))}
               </ul>
             </div>
+            )}
 
-            {/* Ceramic Coating */}
+            {/* Ceramic Coating (only when the promo includes it) */}
+            {hasCeramic && (
             <div className="bg-[#0D0D0D] p-10 relative">
               <div className="absolute top-4 right-4 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
@@ -1177,6 +1213,7 @@ export default function JuneSpecial() {
                 ))}
               </ul>
             </div>
+            )}
           </div>
         </div>
       </section>
@@ -1243,24 +1280,38 @@ export default function JuneSpecial() {
                 title: "Decontamination",
                 body: "Full wash, iron decontamination, clay bar treatment. Every contaminant removed before a single tool touches the paint.",
               },
-              {
-                step: "02",
-                icon: Sparkles,
-                title: "Paint Correction",
-                body: "Machine polish to remove swirl marks, light scratches, and water spots. We never trap imperfections under film.",
-              },
+              hasCorrection
+                ? {
+                    step: "02",
+                    icon: Sparkles,
+                    title: "Paint Correction",
+                    body: "Machine polish to remove swirl marks, light scratches, and water spots. We never trap imperfections under film.",
+                  }
+                : {
+                    step: "02",
+                    icon: Sparkles,
+                    title: "Surface Prep",
+                    body: "Clay bar, iron removal, and a panel-by-panel inspection under the lights so nothing gets trapped under the film.",
+                  },
               {
                 step: "03",
                 icon: Layers,
                 title: "PPF Install",
                 body: "Stek DYNOshield applied to the full front end. Computer-cut patterns, no bulk edges, optically clear finish.",
               },
-              {
-                step: "04",
-                icon: Shield,
-                title: "Ceramic + Inspection",
-                body: "9H ceramic coating applied over PPF and full vehicle. Final walk-and-pay inspection under high-intensity lighting.",
-              },
+              hasCeramic
+                ? {
+                    step: "04",
+                    icon: Shield,
+                    title: "Ceramic + Inspection",
+                    body: "Ceramic coating applied over the PPF and across the full vehicle. Final walk-and-pay inspection under high-intensity lighting.",
+                  }
+                : {
+                    step: "04",
+                    icon: Shield,
+                    title: "Final Inspection",
+                    body: "Every edge and panel checked with you under high-intensity lighting before you pay a dime.",
+                  },
             ].map(({ step, icon: Icon, title: t, body }, i) => (
               <div key={i} className="bg-[#0D0D0D] p-8 text-center">
                 <div className="font-display text-5xl text-[#E85D04] mb-4">{step}</div>
@@ -1370,7 +1421,7 @@ export default function JuneSpecial() {
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Questions</p>
             <h2 className="font-display text-5xl md:text-6xl text-white">FREQUENTLY ASKED</h2>
           </div>
-          <FaqAccordion />
+          <FaqAccordion items={faqItems} />
         </div>
       </section>
 

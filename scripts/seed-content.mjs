@@ -24,6 +24,7 @@ function load(name) {
 
 const blogPosts = load("blogPosts.json");
 const galleryPhotos = load("galleryPhotos.json");
+const promos = load("promos.json");
 
 const url = process.env.DATABASE_URL;
 if (!url && !DRY) {
@@ -75,6 +76,29 @@ try {
     );
   }
   console.log(`[seed] gallery photos: ${galAdded} added, ${galSkipped} already present`);
+
+  // --- Promos (unique by slug). A new active promo deactivates the others,
+  // matching what the Telegram bot's /promo_new does. Existing slugs are left
+  // untouched so the bot stays the source of truth after the first seed. ---
+  let promoAdded = 0, promoSkipped = 0;
+  for (const pr of promos) {
+    let exists = false;
+    if (conn) {
+      const [rows] = await conn.execute("SELECT id FROM promos WHERE slug = ? LIMIT 1", [pr.slug]);
+      exists = rows.length > 0;
+    }
+    if (exists) { promoSkipped++; continue; }
+    promoAdded++;
+    if (DRY) { console.log(`[seed] would insert promo: ${pr.slug} (${pr.title}, $${pr.price})`); continue; }
+    if (pr.active) await conn.execute("UPDATE promos SET active = 0 WHERE active = 1");
+    await conn.execute(
+      `INSERT INTO promos (slug, title, tagline, dealDescription, totalSlots, startDate, endDate, price, includedServices, active, isArchived)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`,
+      [pr.slug, pr.title, pr.tagline, pr.dealDescription, Number(pr.totalSlots ?? 21), pr.startDate, pr.endDate, String(pr.price),
+       pr.includedServices ? JSON.stringify(pr.includedServices) : null, pr.active ? 1 : 0]
+    );
+  }
+  console.log(`[seed] promos: ${promoAdded} added, ${promoSkipped} already present`);
 } catch (err) {
   console.error("[seed] FAILED (site will still start):", err?.message ?? err);
 } finally {
