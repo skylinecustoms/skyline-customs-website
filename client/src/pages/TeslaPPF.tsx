@@ -22,11 +22,11 @@ const BASE_URL = "https://www.skylinecustomshop.com";
 
 type Pkg = "partial" | "full-front" | "full-front-plus" | "full-vehicle";
 
-const PACKAGES: { key: Pkg; name: string; sub: string; sedan: string; suv: string; truck: string; covers: string[]; popular?: boolean }[] = [
-  { key: "partial", name: "Partial Front", sub: "Budget rock-chip defense", sedan: "$1,800", suv: "$1,800", truck: "$1,800", covers: ["Front bumper", "Leading 18\" of hood", "Mirror caps"] },
-  { key: "full-front", name: "Full Front", sub: "What most Tesla owners choose", sedan: "$2,400", suv: "$2,400", truck: "$2,400", covers: ["Full hood", "Front bumper", "Both fenders", "Mirrors & headlights", "A-pillars"], popular: true },
-  { key: "full-front-plus", name: "Full Front + Rockers", sub: "Adds the panels that catch gravel", sedan: "$3,200", suv: "$3,200", truck: "$3,200", covers: ["Everything in Full Front", "Both rocker panels", "Door cups & edges"] },
-  { key: "full-vehicle", name: "Full Vehicle", sub: "Every painted panel", sedan: "$4,500", suv: "$5,500", truck: "$6,000", covers: ["Every exterior panel", "Roof, doors, trunk", "Bumpers front & rear"] },
+const PACKAGES: { key: Pkg; name: string; sub: string; covers: string[]; popular?: boolean }[] = [
+  { key: "partial", name: "Partial Front", sub: "Budget rock-chip defense", covers: ["Front bumper", "Leading 18\" of hood", "Mirror caps"] },
+  { key: "full-front", name: "Full Front", sub: "What most Tesla owners choose", covers: ["Full hood", "Front bumper", "Both fenders", "Mirrors & headlights", "A-pillars"], popular: true },
+  { key: "full-front-plus", name: "Full Front + Rockers", sub: "Adds the panels that catch gravel", covers: ["Everything in Full Front", "Both rocker panels", "Door cups & edges"] },
+  { key: "full-vehicle", name: "Full Vehicle", sub: "Every painted panel", covers: ["Every exterior panel", "Roof, doors, trunk", "Bumpers front & rear"] },
 ];
 
 const MODELS = [
@@ -42,8 +42,8 @@ const FAQS = [
   { q: "Does PPF void the Tesla warranty?", a: "No. Paint protection film is a removable, non-permanent product that Tesla itself sells kits for. It does not affect the vehicle, battery, or paint warranty." },
   { q: "Is Tesla's own PPF kit good enough?", a: "The Tesla kit covers only the rear wheel arch area and is meant for DIY application. It does nothing for the hood, bumper, fenders, or mirrors where nearly all chips happen. A professional full-front install covers the panels that actually take damage." },
   { q: "Will film interfere with Autopilot cameras or sensors?", a: "No. Our computer-cut patterns are trimmed around every camera, ultrasonic sensor, and the front radar area, so nothing is covered that shouldn't be." },
-  { q: "How much does Tesla PPF cost in Northern Virginia?", a: "Full front coverage is $2,400 for any Tesla model. Partial front starts at $1,800, full front plus rockers $3,200, and full-vehicle coverage from $4,500 for a Model 3 or Model S and $5,500 for a Model Y or Model X. Prices are confirmed at inspection." },
-  { q: "Can you PPF a Cybertruck?", a: "Yes. Film on the stainless panels prevents fingerprints, scuffs, and light scratches, and many owners choose a matte or satin film to change the look while protecting the metal. Full-vehicle Cybertruck coverage is $6,000." },
+  { q: "How much does Tesla PPF cost in Northern Virginia?", a: "It depends on the coverage you choose and the model: full-vehicle film on a Model Y or Cybertruck uses more material than on a Model 3. Every price is confirmed at an in-person inspection. Send us your model and the coverage you want through the free quote form and we reply with an exact number, usually within the hour." },
+  { q: "Can you PPF a Cybertruck?", a: "Yes. Film on the stainless panels prevents fingerprints, scuffs, and light scratches, and many owners choose a matte or satin film to change the look while protecting the metal. Full-vehicle Cybertruck coverage is quoted per truck." },
   { q: "How long does a Tesla PPF install take?", a: "Full front is usually one day; full-vehicle coverage takes 2–3 days. Every install starts with a decontamination wash and finishes with our walk-and-pay inspection under high-intensity lighting." },
   { q: "Should I add ceramic coating on top of the film?", a: "Yes — a ceramic coating over PPF keeps the film hydrophobic, protects it from UV and bird droppings, and makes the whole car easier to wash. This month's special includes a full-car ceramic coating with every full-front install." },
 ];
@@ -59,7 +59,7 @@ export default function TeslaPPF() {
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
         title="Tesla PPF Northern Virginia | Model 3, Y, S, X & Cybertruck Paint Protection"
-        description="Tesla paint protection film in Chantilly, VA. Full front from $2,400 with self-healing STEK DYNOshield, computer-cut for Model 3, Model Y, Model S, Model X, and Cybertruck. 12-year warranty. Free quotes."
+        description="Tesla paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for Model 3, Model Y, Model S, Model X, and Cybertruck. 12-year warranty. Free quotes."
         canonical={`${BASE_URL}/tesla-ppf`}
         jsonLd={[
           {
@@ -70,7 +70,7 @@ export default function TeslaPPF() {
             "url": `${BASE_URL}/tesla-ppf`,
             "areaServed": { "@type": "State", "name": "Virginia" },
             "provider": { "@type": "AutoBodyShop", "name": "Skyline Custom Shop", "url": BASE_URL, "telephone": "+17037754383" },
-            "offers": PACKAGES.map((p) => ({ "@type": "Offer", "name": `${p.name} PPF (Tesla)`, "price": p.sedan.replace(/[^0-9]/g, ""), "priceCurrency": "USD" })),
+            "offers": PACKAGES.map((p) => ({ "@type": "Offer", "name": `${p.name} PPF (Tesla)`, "url": `${BASE_URL}/get-a-quote?service=ppf&make=Tesla` })),
           },
           {
             "@context": "https://schema.org",
@@ -109,7 +109,7 @@ export default function TeslaPPF() {
             Tesla paint is thin. Northern Virginia roads are not kind. Self-healing STEK DYNOshield, computer-cut for your exact model, installed in a dust-free bay in Chantilly.
           </p>
           <div className="flex flex-wrap gap-3 mb-6">
-            {["Full front from $2,400", "12-Year Warranty", "Cut around every camera & sensor", "5.0 ★ Google Rating"].map((b) => (
+            {["Free quotes within the hour", "12-Year Warranty", "Cut around every camera & sensor", "5.0 ★ Google Rating"].map((b) => (
               <span key={b} className="flex items-center gap-1.5 text-sm text-zinc-300 border border-zinc-700 px-3 py-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#E85D04]" />{b}</span>
             ))}
           </div>
@@ -155,8 +155,6 @@ export default function TeslaPPF() {
                     {p.popular && <span className="bg-[#E85D04] text-white text-[10px] font-bold tracking-widest px-2 py-1">MOST POPULAR</span>}
                   </div>
                   <p className="text-zinc-500 text-xs mb-3">{p.sub}</p>
-                  <p className="font-['Bebas_Neue',sans-serif] text-3xl text-[#E85D04]">{p.sedan}<span className="text-zinc-500 text-sm font-sans ml-2">Model 3 / S</span></p>
-                  <p className="text-zinc-400 text-xs">{p.suv} Model Y / X · {p.truck} Cybertruck</p>
                   <ul className="mt-3 space-y-1">
                     {p.covers.map((c) => <li key={c} className="flex items-center gap-2 text-zinc-400 text-xs"><CheckCircle className="w-3 h-3 text-[#E85D04] shrink-0" />{c}</li>)}
                   </ul>
@@ -164,7 +162,7 @@ export default function TeslaPPF() {
               ))}
             </div>
           </div>
-          <p className="text-zinc-500 text-sm mt-6">Selected: <span className="text-white font-medium">{active.name}</span>. All prices in STEK DYNOshield, confirmed at in-person inspection. Stealth (matte) film available on request.</p>
+          <p className="text-zinc-500 text-sm mt-6">Selected: <span className="text-white font-medium">{active.name}</span>. All packages in STEK DYNOshield, priced by free quote and confirmed at in-person inspection. Stealth (matte) film available on request.</p>
         </div>
       </section>
 
@@ -178,8 +176,7 @@ export default function TeslaPPF() {
               <div key={m.name} className="bg-[#0A0A0A] p-6 hover:bg-[#111] transition-colors">
                 <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-2">{m.name}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed mb-4">{m.note}</p>
-                <p className="text-[#E85D04] text-sm font-bold">Full front $2,400</p>
-                <p className="text-zinc-500 text-xs">Full vehicle {m.cls === "sedan" ? "$4,500" : m.cls === "suv" ? "$5,500" : "$6,000"}</p>
+                <Link href={`/get-a-quote?service=ppf&make=Tesla&model=${encodeURIComponent(m.name)}`} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white">Quote my {m.name} →</Link>
               </div>
             ))}
           </div>

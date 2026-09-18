@@ -118,7 +118,7 @@ export async function notifyPpfLeadsSlotClaimed(
   const slotsWord = remaining === 1 ? "spot" : "spots";
   const message =
     `Hey ${"{firstName}"} - just a heads up, Slot #${slotNumber} on our ${promoTitle} just got claimed. ` +
-    `Only ${remaining} ${slotsWord} left at $2,400 before ${promoEndDate}. ` +
+    `Only ${remaining} ${slotsWord} left before ${promoEndDate}. ` +
     `See who's already in and grab your spot: https://www.skylinecustomshop.com/promo`;
 
   let sent = 0;

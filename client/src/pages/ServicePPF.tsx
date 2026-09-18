@@ -21,7 +21,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Testimonials from "@/components/Testimonials";
 import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS } from "@/lib/videos";
-import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES, priceFor } from "@/lib/ppf";
+import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES } from "@/lib/ppf";
 import { CITY_ORDER } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 
@@ -60,20 +60,11 @@ export default function ServicePPF() {
     }
   }, []);
 
-  const offers = PPF_PACKAGES.map((p) => ({
-    "@type": "Offer",
-    "name": `${p.name} PPF`,
-    "price": priceFor(p.key, "sedan").replace(/[^0-9]/g, ""),
-    "priceCurrency": "USD",
-    "url": `${BASE_URL}/ppf-cost`,
-    "itemOffered": { "@type": "Service", "name": `${p.name} paint protection film`, "description": p.coverage.join(", ") },
-  }));
-
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
         title="Paint Protection Film (PPF) Chantilly, VA | STEK Certified PPF Installer, Northern Virginia"
-        description="Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Full front $2,400, partial from $1,800, full vehicle from $4,500. Self-healing DYNOshield, 12-year warranty, 141 five-star reviews. Free quotes."
+        description="Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Partial front, full front, extended, and full-vehicle coverage in self-healing DYNOshield with a 12-year warranty. 141 five-star reviews. Free quotes, usually within the hour."
         canonical={`${BASE_URL}/services/ppf`}
         jsonLd={[
           {
@@ -92,7 +83,7 @@ export default function ServicePPF() {
             "areaServed": CITY_ORDER.map((c) => ({ "@type": "City", "name": `${c}, VA` })),
             "brand": { "@type": "Brand", "name": "STEK DYNOshield" },
             "description": "STEK DYNOshield paint protection film installed by certified technicians in Chantilly, VA. Partial front, full front, full front extended, and full-vehicle coverage with a 12-year manufacturer warranty.",
-            "hasOfferCatalog": { "@type": "OfferCatalog", "name": "PPF packages", "itemListElement": offers },
+            "hasOfferCatalog": { "@type": "OfferCatalog", "name": "PPF packages", "itemListElement": PPF_PACKAGES.map((p) => ({ "@type": "Offer", "name": `${p.name} PPF`, "url": `${BASE_URL}/get-a-quote?service=ppf`, "itemOffered": { "@type": "Service", "name": `${p.name} paint protection film`, "description": p.coverage.join(", ") } })) },
             "review": [
               { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Marcus T." }, "reviewBody": "Got full front PPF on my BMW M4. The installation was flawless — you can't even tell it's there. Skyline's attention to detail is unmatched in Northern Virginia." },
               { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Jennifer L." }, "reviewBody": "Had PPF installed on my new Tesla Model 3. The team was professional, the shop was immaculate, and the result was perfect. Worth every penny for peace of mind." },
@@ -133,10 +124,10 @@ export default function ServicePPF() {
               FILM
             </h1>
             <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
-              Northern Virginia's STEK-certified PPF installer. Self-healing, invisible DYNOshield film, computer-cut for your exact model and installed in a dust-controlled bay in Chantilly. Full front is $2,400 on any vehicle and carries a 12-year warranty.
+              Northern Virginia's STEK-certified PPF installer. Self-healing, invisible DYNOshield film, computer-cut for your exact model and installed in a dust-controlled bay in Chantilly, with a 12-year manufacturer warranty on every install.
             </p>
             <div className="flex flex-wrap gap-2 mb-8 text-xs text-zinc-300">
-              {["STEK certified installer", "12-year film warranty", "5.0 ★ · 141 Google reviews", "Full front $2,400", "Free quotes, same-day reply"].map((t) => (
+              {["STEK certified installer", "12-year film warranty", "5.0 ★ · 141 Google reviews", "Computer-cut for your exact model", "Free quotes, usually within the hour"].map((t) => (
                 <span key={t} className="border border-zinc-700 bg-black/30 px-3 py-1.5">{t}</span>
               ))}
             </div>
@@ -147,8 +138,8 @@ export default function ServicePPF() {
               <a href="tel:+17037754383" className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 inline-flex items-center gap-2">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
-              <a href="#pricing" className="text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-4 py-4 inline-flex items-center gap-2">
-                SEE PRICING <ChevronDown className="w-4 h-4" />
+              <a href="#packages" className="text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-4 py-4 inline-flex items-center gap-2">
+                SEE PACKAGES <ChevronDown className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -166,7 +157,7 @@ export default function ServicePPF() {
               Paint protection film, also called PPF or clear bra, is a thick, transparent urethane film bonded over your factory paint. When a rock comes off a truck on I-66 or Route 28, the film takes the hit and heals the mark instead of leaving a chip in your clear coat. It is the only product that physically stops rock chips; waxes, sealants, and ceramic coatings cannot.
             </p>
             <p>
-              At Skyline Customs we install one film, STEK DYNOshield, cut on the manufacturer's pattern software for your exact year and model, with edges wrapped under the panels so there is no visible line. Most customers protect the front end (hood, bumper, fenders, mirrors, headlights) for $2,400, and many add a ceramic coating on top for gloss and easy washing.
+              At Skyline Customs we install one film, STEK DYNOshield, cut on the manufacturer's pattern software for your exact year and model, with edges wrapped under the panels so there is no visible line. Most customers protect the front end (hood, bumper, fenders, mirrors, headlights), and many add a ceramic coating on top for gloss and easy washing.
             </p>
           </div>
           <p className="text-zinc-400 text-sm mt-6">
@@ -201,7 +192,7 @@ export default function ServicePPF() {
           <div className="mb-16">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Coverage Options</p>
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">CHOOSE YOUR PROTECTION</h2>
-            <p className="text-zinc-400 mt-4 max-w-2xl">Four packages, one film. Prices below are for sedans and coupes; SUVs and trucks only differ on full-vehicle coverage.</p>
+            <p className="text-zinc-400 mt-4 max-w-2xl">Four packages, one film. Tell us your vehicle and we quote the exact price, usually within the hour.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {PPF_PACKAGES.map((pkg) => (
@@ -213,7 +204,6 @@ export default function ServicePPF() {
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-1">{pkg.name}</h3>
                   <p className="text-zinc-400 text-xs uppercase tracking-widest mb-3">{pkg.tagline}</p>
-                  <p className="text-[#E85D04] font-bold text-2xl mb-4">{priceFor(pkg.key, "sedan")}{pkg.key === "fullVehicle" && <span className="text-zinc-400 text-sm font-normal"> sedan</span>}</p>
                   <ul className="space-y-2 flex-1 mb-4">
                     {pkg.coverage.map((item) => (
                       <li key={item} className="flex items-start gap-2 text-sm text-zinc-300"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{item}</li>
@@ -231,38 +221,32 @@ export default function ServicePPF() {
         </div>
       </section>
 
-      {/* Pricing by vehicle class */}
+      {/* How quotes work */}
       <section className="py-24 bg-[#0D0D0D] border-t border-zinc-800" id="pricing">
         <div className="container max-w-5xl">
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">PPF cost</p>
-          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">HOW MUCH PPF COSTS IN NORTHERN VIRGINIA</h2>
-          <p className="text-zinc-400 max-w-2xl mb-8">Real prices, not "starting at" bait. Every package includes the decontamination wash, computer-cut STEK DYNOshield, edge wrapping, and the 12-year warranty. Confirmed at inspection.</p>
+          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">HOW PPF PRICING WORKS IN NORTHERN VIRGINIA</h2>
+          <p className="text-zinc-400 max-w-2xl mb-8">Your quote comes down to two things: how much of the car you cover and how big the car is. Every package includes the decontamination wash, computer-cut STEK DYNOshield, edge wrapping, and the 12-year warranty. We confirm the number at inspection, and nothing changes after that.</p>
           {promo && (
             <div className="border border-[#E85D04]/50 bg-[#E85D04]/10 p-4 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <p className="text-white text-sm"><span className="text-[#E85D04] font-bold uppercase tracking-widest text-xs mr-2">{promo.title}</span>Every full-front PPF this month includes a free full-car ceramic coating. Spots are limited.</p>
               <Link href="/promo" className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white whitespace-nowrap">Details →</Link>
             </div>
           )}
-          <div className="overflow-x-auto -mx-4 px-4">
-            <table className="w-full min-w-[640px] text-sm border-collapse">
-              <thead>
-                <tr className="border-b border-zinc-700">
-                  <th className="text-left text-zinc-400 font-normal py-3 pr-4">Vehicle</th>
-                  {PPF_PACKAGES.map((p) => <th key={p.key} className={`text-left py-3 pr-4 ${p.featured ? "text-[#E85D04]" : "text-white"}`}>{p.name}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {VEHICLE_CLASSES.map((c) => (
-                  <tr key={c.key} className="border-b border-zinc-800">
-                    <th scope="row" className="text-left py-4 pr-4 font-semibold text-white">{c.label}<span className="block text-zinc-400 text-xs font-normal">{c.examples}</span></th>
-                    {PPF_PACKAGES.map((p) => <td key={p.key} className={`py-4 pr-4 font-bold ${p.featured ? "text-[#E85D04]" : "text-zinc-200"}`}>{priceFor(p.key, c.key)}</td>)}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-800">
+            {VEHICLE_CLASSES.map((c) => (
+              <div key={c.key} className="bg-[#0D0D0D] p-6">
+                <h3 className="text-white font-bold">{c.label}</h3>
+                <p className="text-zinc-400 text-xs mt-1">{c.examples}</p>
+                <ul className="mt-4 space-y-1">
+                  {PPF_PACKAGES.map((p) => <li key={p.key} className="flex items-center gap-2 text-zinc-300 text-sm"><CheckCircle className="w-3.5 h-3.5 text-[#E85D04] shrink-0" />{p.name}</li>)}
+                </ul>
+              </div>
+            ))}
           </div>
           <div className="flex flex-wrap gap-4 mt-8">
-            <Link href="/ppf-cost" className="inline-flex items-center gap-2 text-[#E85D04] font-bold tracking-widest uppercase text-sm hover:text-white">What changes the price, bundles, and financing questions <ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">GET MY EXACT PRICE <ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/ppf-cost" className="inline-flex items-center gap-2 text-[#E85D04] font-bold tracking-widest uppercase text-sm hover:text-white self-center">What changes a PPF quote <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </div>
       </section>
@@ -426,7 +410,7 @@ export default function ServicePPF() {
           <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-4">Keep reading about PPF</p>
           <div className="flex flex-wrap gap-3">
             {[
-              { href: "/ppf-cost", label: "PPF cost guide" },
+              { href: "/ppf-cost", label: "What goes into a PPF quote" },
               { href: "/blog/how-long-does-ppf-last-northern-virginia", label: "How long PPF lasts" },
               { href: "/blog/self-healing-ppf-northern-virginia", label: "Self-healing PPF explained" },
               { href: "/blog/full-front-vs-full-body-ppf-what-to-cover", label: "Full front vs full body" },

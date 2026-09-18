@@ -72,8 +72,6 @@ const BlogPost = lazy(() => import("./pages/BlogPost"));
 const ServiceAreas = lazy(() => import("./pages/ServiceAreas"));
 const JuneSpecial = lazy(() => import("./pages/JuneSpecial"));
 const PromoArchive = lazy(() => import("./pages/PromoArchive"));
-// import Pricing from "./pages/Pricing"; // temporarily hidden from nav
-const Pricing = lazy(() => import("./pages/Pricing"));
 // City × service landing pages (lazy-loaded; content in lib/localSeo.ts)
 const ChantillyPPF = lazy(() => import("./pages/ChantillyPPF"));
 const ChantillyCeramic = lazy(() => import("./pages/ChantillyCeramic"));
@@ -305,9 +303,6 @@ function Router() {
       <Route path="/pricing">
         <Redirect to="/get-a-quote" />
       </Route>
-
-      {/* Internal-only price sheet reference — not in navbar, sitemap, or robots.txt */}
-      <Route path="/price-sheet" component={Pricing} />
 
       {/* /configure redirects to quote form */}
       <Route path="/configure">

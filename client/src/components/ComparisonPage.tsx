@@ -16,7 +16,7 @@ import { VIDEOS } from "@/lib/videos";
 const BASE_URL = "https://www.skylinecustomshop.com";
 
 export type Cell = { text: string; mark?: "yes" | "no" | "partial" };
-export interface ComparisonColumn { key: string; name: string; sub: string; href?: string; price: string; bestFor: string }
+export interface ComparisonColumn { key: string; name: string; sub: string; href?: string; bestFor: string }
 export interface ComparisonRow { label: string; cells: Record<string, Cell> }
 export interface Verdict { title: string; body: string; href: string; cta: string }
 export interface ComparisonData {
@@ -106,11 +106,10 @@ export default function ComparisonPage({ data }: { data: ComparisonData }) {
             <div key={c.key} className="border border-zinc-800 bg-[#111] p-6">
               <p className="text-zinc-400 text-xs tracking-[0.3em] uppercase mb-1">{c.sub}</p>
               <h2 className="font-['Bebas_Neue',sans-serif] text-3xl text-white">{c.name}</h2>
-              <p className="text-[#E85D04] font-bold mt-2">{c.price}</p>
               <p className="text-zinc-400 text-sm mt-3">{c.bestFor}</p>
               {c.href && (
                 <Link href={c.href} className="inline-flex items-center gap-1 text-white text-xs font-bold tracking-widest uppercase mt-4 hover:text-[#E85D04]">
-                  See pricing <ArrowRight className="w-3 h-3" />
+                  Learn more <ArrowRight className="w-3 h-3" />
                 </Link>
               )}
             </div>

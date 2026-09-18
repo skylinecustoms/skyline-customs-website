@@ -1,12 +1,12 @@
 /**
- * Single source of truth for PPF packages, prices, and FAQ used by the PPF
- * pillar page (/services/ppf), the cost page (/ppf-cost) and the vehicle pages.
- * Prices mirror the shop price list; confirm at inspection.
+ * Single source of truth for PPF packages and FAQ used by the PPF pillar page
+ * (/services/ppf), the cost guide (/ppf-cost) and the vehicle pages.
+ * The site does not publish prices; every page points to the free quote form.
  */
-import { PPF_PRICES, type VehicleClass } from "@/lib/modelPpf";
+import type { VehicleClass } from "@/lib/modelPpf";
 
 export interface PpfPackage {
-  key: keyof (typeof PPF_PRICES)["sedan"];
+  key: "partial" | "fullFront" | "fullFrontPlus" | "fullVehicle";
   name: string;
   tagline: string;
   coverage: string[];
@@ -62,12 +62,10 @@ export const VEHICLE_CLASSES: { key: VehicleClass; label: string; examples: stri
   { key: "truck", label: "Truck / large SUV", examples: "Cybertruck, Rivian R1T, Tacoma, Escalade, G-Wagon" },
 ];
 
-export const priceFor = (pkg: PpfPackage["key"], cls: VehicleClass) => PPF_PRICES[cls][pkg];
-
 export const PPF_FAQS: { q: string; a: string }[] = [
-  { q: "How much does PPF cost in Northern Virginia?", a: "At Skyline Customs in Chantilly, partial front is $1,800, full front is $2,400 on any vehicle, full front extended (adds rockers and door edges) is $3,200, and full-vehicle coverage is $4,500 for sedans, $5,500 for SUVs, and $6,000 for trucks. Prices are confirmed at an in-person inspection and include decontamination, computer-cut STEK DYNOshield film, and the 12-year manufacturer warranty." },
+  { q: "How much does PPF cost in Northern Virginia?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour. Every install includes decontamination, computer-cut STEK DYNOshield film, and the 12-year manufacturer warranty." },
   { q: "How long does PPF last?", a: "STEK DYNOshield carries a 12-year manufacturer warranty against yellowing, cracking, peeling, and delamination. With hand washing and no automatic brush washes, most installs look new well past ten years." },
-  { q: "Is PPF worth it?", a: "If you drive Northern Virginia highways, yes. One bumper respray with fender blends costs real money, takes the car off the road, and never matches factory paint. Full-front film prevents that damage in the first place and comes off cleanly if you sell or return the car." },
+  { q: "Is PPF worth it?", a: "If you drive Northern Virginia highways, yes. One bumper respray with fender blends takes the car off the road, and never matches factory paint. Full-front film prevents that damage in the first place and comes off cleanly if you sell or return the car." },
   { q: "Will PPF change how my car looks?", a: "No. DYNOshield is optically clear with no orange peel or haze, so the only difference is a slightly deeper gloss. If you want a satin look, we also install matte (stealth) PPF that turns gloss paint into a factory-style matte finish." },
   { q: "Does PPF self-heal?", a: "Yes. DYNOshield's thermoplastic polyurethane top layer closes light scratches and swirl marks when it warms up in the sun or under hot water. Deep gouges from keys or impacts are not self-healing, but the film takes that damage instead of your paint." },
   { q: "Can I see the edges of the film?", a: "Not on a proper install. We wrap edges under the hood, fenders, and bumper wherever the panel allows instead of leaving a visible seam on the face of the panel. Computer-cut patterns for your exact year and model make that possible without cutting on the car." },
@@ -80,10 +78,10 @@ export const PPF_FAQS: { q: string; a: string }[] = [
 ];
 
 export const PPF_COST_FACTORS = [
-  { title: "How much you cover", body: "Coverage drives price more than anything else. Partial front is $1,800, full front $2,400, extended $3,200, and full vehicle $4,500 to $6,000. Most daily drivers land on full front because it protects every panel that actually takes chips." },
-  { title: "Vehicle size", body: "Full front is the same $2,400 on a Model 3 or a Cybertruck. Full-vehicle coverage scales with panel area: $4,500 for a sedan or coupe, $5,500 for an SUV, $6,000 for a truck or large SUV." },
-  { title: "Gloss vs. matte film", body: "Clear DYNOshield is the standard price. Matte (stealth) film that converts gloss paint to a satin finish is quoted per vehicle because it is normally installed on the whole car." },
+  { title: "How much you cover", body: "Coverage drives your quote more than anything else. Partial front is the entry point, full front is what most daily drivers choose, extended adds the rockers and door edges, and full vehicle covers every painted panel." },
+  { title: "Vehicle size", body: "Full-front coverage uses similar material on most vehicles. Full-vehicle coverage scales with panel area, so a truck or large SUV is quoted higher than a coupe." },
+  { title: "Gloss vs. matte film", body: "Clear DYNOshield is the standard. Matte (stealth) film that converts gloss paint to a satin finish is normally installed on the whole car and quoted per vehicle." },
   { title: "Paint condition", body: "Film locks in whatever is under it, so swirled or scratched paint needs correction first. A brand-new car usually needs none; a two-year-old daily driver may need a light polish before the film goes on." },
-  { title: "Bundles", body: "Full front PPF plus a full-car ceramic coating is $3,300 without correction, and adding GeoShield ceramic tint brings it to $3,750, our most popular combo. Full vehicle PPF plus ceramic is $6,500 and includes tint." },
+  { title: "Bundles", body: "Adding a full-car ceramic coating or GeoShield ceramic tint to a PPF install is quoted as a package and costs less than booking each service separately. This month's special includes a free ceramic coating with every full front." },
   { title: "Film brand and installer", body: "Cheaper quotes usually mean bulk film with hand-cut edges and a short warranty. We only install STEK DYNOshield with computer-cut patterns and a 12-year manufacturer warranty, in a dust-free bay, by certified installers." },
 ];

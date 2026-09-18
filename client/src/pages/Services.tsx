@@ -10,7 +10,7 @@ const TINT_IMAGE = "/images/tint_bmw_m2_847caa83.webp";
 const CERAMIC_IMAGE = "/images/ceramic_1_53c9aefc.webp";
 const PPF_IMAGE = "/images/ppf_1_c7c64665.webp";
 
-const services: { id: string; number: string; title: string; subtitle: string; image: string; description: string; benefits: string[]; packages: { name: string; price: string; note: string }[]; bookingService: BookingService; href: string }[] = [
+const services: { id: string; number: string; title: string; subtitle: string; image: string; description: string; benefits: string[]; packages: { name: string; note: string }[]; bookingService: BookingService; href: string }[] = [
   {
     id: "ppf",
     number: "01",
@@ -27,9 +27,9 @@ const services: { id: string; number: string; title: string; subtitle: string; i
       "Preserves factory paint and resale value",
     ],
     packages: [
-      { name: "Partial Front", price: "$1,800", note: "Bumper + partial hood (18in) — budget-friendly front coverage" },
-      { name: "Full Front", price: "$2,400", note: "Bumper, hood, fenders, mirrors, headlights, A-pillars" },
-      { name: "Full Vehicle", price: "From $4,500", note: "Complete paint protection — sedan pricing" },
+      { name: "Partial Front", note: "Bumper + partial hood (18in) — budget-friendly front coverage" },
+      { name: "Full Front", note: "Bumper, hood, fenders, mirrors, headlights, A-pillars" },
+      { name: "Full Vehicle", note: "Complete paint protection" },
     ],
     bookingService: "ppf" as BookingService,
     href: "/services/ppf",
@@ -50,9 +50,9 @@ const services: { id: string; number: string; title: string; subtitle: string; i
       "Warranty options up to 7 years",
     ],
     packages: [
-      { name: "Ceramic (No Correction)", price: "From $800", note: "Gtechniq CSL + Exo — new/like-new paint only, 7-year warranty" },
-      { name: "Crystal Package (5 Year)", price: "From $1,300", note: "Stage 2 correction + Gtechniq 5yr coating + paint & glass — save $100" },
-      { name: "Ultimate Coating (7 Year)", price: "From $1,500", note: "Stage 3 correction + Gtechniq/Exo 7yr + paint, glass, trim & wheels — save $100" },
+      { name: "Ceramic (No Correction)", note: "Gtechniq CSL + Exo — new/like-new paint only, 7-year warranty" },
+      { name: "Crystal Package (5 Year)", note: "Stage 2 correction + Gtechniq 5yr coating + paint & glass" },
+      { name: "Ultimate Coating (7 Year)", note: "Stage 3 correction + Gtechniq/Exo 7yr + paint, glass, trim & wheels" },
     ],
     bookingService: "ceramic" as BookingService,
     href: "/services/ceramic-coating",
@@ -73,9 +73,9 @@ const services: { id: string; number: string; title: string; subtitle: string; i
       "Lifetime warranty against bubbling and peeling",
     ],
     packages: [
-      { name: "Frontseat Package", price: "$350", note: "Front 2 side windows only" },
-      { name: "Rear Package", price: "$425", note: "Rear windshield + back windows — Most Popular" },
-      { name: "Full Car", price: "$575", note: "Windshield + all sides + rear — GeoShield Pro Nano Ceramic" },
+      { name: "Frontseat Package", note: "Front 2 side windows only" },
+      { name: "Rear Package", note: "Rear windshield + back windows — Most Popular" },
+      { name: "Full Car", note: "Windshield + all sides + rear — GeoShield Pro Nano Ceramic" },
     ],
     bookingService: "tint" as BookingService,
     href: "/services/window-tinting",

@@ -41,8 +41,19 @@ try {
   for (const p of blogPosts) {
     let exists = false;
     if (conn) {
-      const [rows] = await conn.execute("SELECT id FROM blogPosts WHERE slug = ? LIMIT 1", [p.slug]);
+      const [rows] = await conn.execute("SELECT id, updatedAt FROM blogPosts WHERE slug = ? LIMIT 1", [p.slug]);
       exists = rows.length > 0;
+      // Refresh an existing post when the JSON copy is newer than the database row.
+      if (exists && p.updatedAt && rows[0].updatedAt && new Date(p.updatedAt) > new Date(rows[0].updatedAt)) {
+        if (DRY) { console.log(`[seed] would update blog post: ${p.slug}`); blogSkipped++; continue; }
+        await conn.execute(
+          "UPDATE blogPosts SET title = ?, excerpt = ?, date = ?, readTime = ?, category = ?, heroImage = ?, heroImageAlt = ?, content = ?, status = ?, updatedAt = ? WHERE id = ?",
+          [p.title, p.excerpt, p.date, p.readTime, p.category, p.heroImage, p.heroImageAlt,
+           typeof p.content === "string" ? p.content : JSON.stringify(p.content), p.status ?? "published", new Date(p.updatedAt), rows[0].id]
+        );
+        console.log(`[seed] updated blog post: ${p.slug}`);
+        blogSkipped++; continue;
+      }
     }
     if (exists) { blogSkipped++; continue; }
     blogAdded++;

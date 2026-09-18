@@ -38,7 +38,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "When you search \"window tinting near me\" in Chantilly, VA, you'll find a handful of options — but not all window tint shops are equal. The difference between a $99 tint job and a professional ceramic installation isn't just price. It's the film quality, the installation precision, the heat rejection performance, and whether the shop will still be around to honor a warranty two years from now.",
+          "When you search \"window tinting near me\" in Chantilly, VA, you'll find a handful of options — but not all window tint shops are equal. The difference between a bargain tint job and a professional ceramic installation isn't just price. It's the film quality, the installation precision, the heat rejection performance, and whether the shop will still be around to honor a warranty two years from now.",
       },
       {
         type: "p",
@@ -379,7 +379,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "A professional ceramic coating costs more upfront than a wax job — but when you calculate the cost over time, it's significantly more economical. A quality wax job costs $150–$300 and needs to be reapplied every 3–4 months. Over 3 years, that's $1,800–$3,600 in wax treatments. A professional ceramic coating costs $800–$2,000 and lasts 3–5 years with minimal maintenance.",
+          "A professional ceramic coating costs more upfront than a wax job — but when you calculate the cost over time, it's significantly more economical. A quality wax job needs to be reapplied every 3–4 months, so over three years you pay for it nine to twelve times. A professional ceramic coating is applied once and lasts 3–5 years with minimal maintenance.",
       },
       {
         type: "blockquote",
@@ -423,7 +423,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "Paint Protection Film (PPF) — also called clear bra — is the most effective solution available. But with prices ranging from $500 to $5,000+, many drivers wonder: is it actually worth it? Let's break it down.",
+          "Paint Protection Film (PPF) — also called clear bra — is the most effective solution available. But with a wide range of coverage options, many drivers wonder: is it actually worth it? Let's break it down.",
       },
       {
         type: "blockquote",
@@ -474,7 +474,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "The front bumper takes the most abuse on Northern Virginia highways. Rock chips from I-66 and Route 50 are inevitable without protection. A front bumper PPF kit typically costs $300–$600 and is the single best investment for most drivers.",
+          "The front bumper takes the most abuse on Northern Virginia highways. Rock chips from I-66 and Route 50 are inevitable without protection. Front bumper coverage is the single best investment for most drivers.",
       },
       {
         type: "h3",
@@ -483,7 +483,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "The hood and front fenders are the next most vulnerable areas. A partial hood wrap (covering the leading edge) costs $400–$800. A full hood wrap costs $600–$1,200 depending on the vehicle.",
+          "The hood and front fenders are the next most vulnerable areas. A partial hood covers the leading edge where most chips land; a full hood has no visible film line and protects the whole panel.",
       },
       {
         type: "h3",
@@ -492,7 +492,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "Side mirrors are constantly hit by debris and bugs at highway speeds. Mirror PPF kits are relatively inexpensive ($150–$250) and highly effective.",
+          "Side mirrors are constantly hit by debris and bugs at highway speeds. Mirror PPF is a small add-on and highly effective.",
       },
       {
         type: "h3",
@@ -501,7 +501,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "For luxury and exotic vehicles, a full PPF wrap provides complete protection. Prices range from $3,000 to $8,000+ depending on the vehicle size and film brand. For a $100,000+ vehicle, this is a no-brainer investment.",
+          "For luxury and exotic vehicles, a full PPF wrap provides complete protection. The quote depends on vehicle size and film choice. For a six-figure vehicle, this is a no-brainer investment.",
       },
       {
         type: "h2",
@@ -524,7 +524,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: "p",
         content:
-          "For most Northern Virginia drivers, the answer is yes — especially if you drive on highways regularly. Here's a simple way to think about it: a single rock chip repair on a luxury vehicle costs $200–$500. A front bumper PPF kit costs $400–$600. After just 1–2 rock chips, the PPF has paid for itself.",
+          "For most Northern Virginia drivers, the answer is yes — especially if you drive on highways regularly. Here's a simple way to think about it: a single rock chip repair on a luxury vehicle is not cheap, and a respray never matches factory paint. After just a couple of rock chips, the PPF has paid for itself.",
       },
       {
         type: "p",

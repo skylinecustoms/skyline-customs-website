@@ -13,7 +13,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Testimonials from "@/components/Testimonials";
 import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS } from "@/lib/videos";
-import { PPF_PRICES, type VehicleBrand } from "@/lib/modelPpf";
+import type { VehicleBrand } from "@/lib/modelPpf";
 import VehicleLinks from "@/components/VehicleLinks";
 import { trpc } from "@/lib/trpc";
 
@@ -45,8 +45,8 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
             "areaServed": { "@type": "State", "name": "Virginia" },
             "provider": { "@type": "AutoBodyShop", "name": "Skyline Custom Shop", "url": BASE_URL, "telephone": "+17037754383" },
             "offers": [
-              { "@type": "Offer", "name": `Full Front PPF (${brand.name})`, "price": "2400", "priceCurrency": "USD" },
-              { "@type": "Offer", "name": `Partial Front PPF (${brand.name})`, "price": "1800", "priceCurrency": "USD" },
+              { "@type": "Offer", "name": `Full Front PPF (${brand.name})`, "url": `${BASE_URL}/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}` },
+              { "@type": "Offer", "name": `Partial Front PPF (${brand.name})`, "url": `${BASE_URL}/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}` },
             ],
           },
           { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": brand.faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) },
@@ -75,7 +75,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
           </h1>
           <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">{brand.intro}</p>
           <div className="flex flex-wrap gap-3 mb-6">
-            {["Full front from $2,400", "12-Year Warranty", "Computer-cut patterns", "5.0 ★ on Google"].map((b) => (
+            {["Free quotes within the hour", "12-Year Warranty", "Computer-cut patterns", "5.0 ★ on Google"].map((b) => (
               <span key={b} className="flex items-center gap-1.5 text-sm text-zinc-300 border border-zinc-700 px-3 py-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#E85D04]" />{b}</span>
             ))}
           </div>
@@ -101,38 +101,20 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
         </section>
       )}
 
-      {/* Models + pricing */}
+      {/* Models */}
       <section className="py-20 bg-[#0D0D0D]">
         <div className="container">
-          <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Pricing by Model</p>
-          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl text-white mb-3">WHAT IT COSTS ON YOUR {brand.name.toUpperCase()}</h2>
-          <p className="text-zinc-400 max-w-2xl mb-10">All film is STEK DYNOshield, self-healing, with a 12-year warranty. Prices are confirmed at an in-person inspection.</p>
-          <div className="overflow-x-auto border border-zinc-800">
-            <table className="w-full text-sm">
-              <thead className="bg-[#111] text-zinc-400 text-xs uppercase tracking-widest">
-                <tr>
-                  <th className="text-left p-4 font-medium">Model</th>
-                  <th className="text-left p-4 font-medium">Partial Front</th>
-                  <th className="text-left p-4 font-medium text-[#E85D04]">Full Front</th>
-                  <th className="text-left p-4 font-medium">Front + Rockers</th>
-                  <th className="text-left p-4 font-medium">Full Vehicle</th>
-                </tr>
-              </thead>
-              <tbody>
-                {brand.models.map((m) => {
-                  const p = PPF_PRICES[m.cls];
-                  return (
-                    <tr key={m.name} className="border-t border-zinc-800 hover:bg-[#111] transition-colors">
-                      <td className="p-4"><span className="text-white font-semibold">{m.name}</span><br /><span className="text-zinc-400 text-xs">{m.note}</span></td>
-                      <td className="p-4 text-zinc-300">{p.partial}</td>
-                      <td className="p-4 text-[#E85D04] font-bold">{p.fullFront}</td>
-                      <td className="p-4 text-zinc-300">{p.fullFrontPlus}</td>
-                      <td className="p-4 text-zinc-300">{p.fullVehicle}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">By model</p>
+          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl text-white mb-3">WHAT WE COVER ON YOUR {brand.name.toUpperCase()}</h2>
+          <p className="text-zinc-400 max-w-2xl mb-10">All film is STEK DYNOshield, self-healing, with a 12-year warranty. Partial front, full front, full front extended, and full-vehicle coverage are available on every model; pricing is by free quote and confirmed at an in-person inspection.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
+            {brand.models.map((m) => (
+              <div key={m.name} className="bg-[#0D0D0D] p-6 hover:bg-[#111] transition-colors flex flex-col">
+                <h3 className="text-white font-semibold text-lg">{m.name}</h3>
+                <p className="text-zinc-400 text-sm mt-1 flex-1">{m.note}</p>
+                <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}&model=${encodeURIComponent(m.name)}`} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white mt-4">Quote my {m.name} →</Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

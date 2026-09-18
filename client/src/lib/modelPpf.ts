@@ -5,12 +5,6 @@
 
 export type VehicleClass = "sedan" | "suv" | "truck";
 
-export const PPF_PRICES: Record<VehicleClass, { partial: string; fullFront: string; fullFrontPlus: string; fullVehicle: string }> = {
-  sedan: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$3,200", fullVehicle: "$4,500" },
-  suv: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$3,200", fullVehicle: "$5,500" },
-  truck: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$3,200", fullVehicle: "$6,000" },
-};
-
 export interface VehicleBrand {
   slug: string;            // "bmw" -> /bmw-ppf
   name: string;            // "BMW"
@@ -37,7 +31,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   {
     slug: "bmw", name: "BMW", headline: "PPF",
     seoTitle: "BMW PPF Northern Virginia | 3 Series, 5 Series, X3, X5, iX & M Paint Protection",
-    seoDescription: "BMW paint protection film in Chantilly, VA. Full front from $2,400 in self-healing STEK DYNOshield, computer-cut for 3 Series, M3, 5 Series, X3, X5, iX, and M models. 12-year warranty.",
+    seoDescription: "BMW paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 3 Series, M3, 5 Series, X3, X5, iX, and M models. 12-year warranty.",
     intro: "BMW's modern clear coat is thin, the front bumpers are large and low, and the kidney grilles and lower intakes take the brunt of every highway mile on I-66 and the Toll Road. Film on the front end is the single most common request we get from BMW owners in Northern Virginia, from M340i daily drivers to iX EVs.",
     photoMatch: /bmw/i,
     videoIds: ["ZvVdjXH06ug"],
@@ -57,14 +51,14 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Does PPF affect BMW's warranty?", a: "No. Paint protection film is a removable product that does not alter the vehicle or its paint. It has no effect on BMW's new-vehicle or paint warranty." },
       { q: "Can you protect frozen or matte BMW paint?", a: "Yes. We use stealth (matte) STEK film that preserves the satin look of BMW Individual frozen colors while adding the same self-healing protection." },
-      { q: "How much does BMW PPF cost?", a: "Full front is $2,400 for any BMW. Partial front starts at $1,800, full front plus rockers $3,200, and full-vehicle coverage from $4,500 for sedans and coupes or $5,500 for X models. Prices are confirmed at inspection." },
+      { q: "How much does BMW PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
   {
     slug: "porsche", name: "Porsche", headline: "PPF",
     seoTitle: "Porsche PPF Northern Virginia | 911, Cayman, Taycan, Macan & Cayenne Paint Protection",
-    seoDescription: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front from $2,400, full vehicle from $4,500. 12-year warranty.",
+    seoDescription: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front and full vehicle coverage. 12-year warranty. Free quotes.",
     intro: "Porsche owners in Northern Virginia drive their cars, whether that means a Cayenne on the Beltway every day, a 911 to Skyline Drive on Sunday, or a GT car to Summit Point for a track day. Wide front bumpers, exposed radiator intakes, and painted rocker panels mean the film needs to cover more than a partial kit does, and most Porsche customers choose full front with rockers or full vehicle.",
     photoMatch: /porsche/i,
     videoIds: ["ZvVdjXH06ug"],
@@ -84,14 +78,14 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Can you wrap the front intakes and lower lip on a 911?", a: "Yes. Our computer-cut patterns wrap the intake edges and lower lip, and we hand-finish the tight radii so the edges are tucked, not trimmed short." },
       { q: "Is PPF worth it on a Porsche that only sees weekends?", a: "Weekend cars often see the worst roads: Skyline Drive gravel, Route 211 construction, and track paddocks. Film on the front and rockers is the difference between a clean car and a respray at resale." },
-      { q: "How much does Porsche PPF cost?", a: "Full front is $2,400 on any Porsche. Full front with rockers is $3,200, and full-vehicle coverage is from $4,500 for 911, 718, Taycan, and Panamera or $5,500 for Macan and Cayenne. Prices are confirmed at inspection." },
+      { q: "How much does Porsche PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
   {
     slug: "corvette", name: "Corvette", headline: "PPF",
     seoTitle: "Corvette PPF Northern Virginia | C8 Stingray, Z06 & E-Ray Paint Protection Film",
-    seoDescription: "Corvette paint protection film in Chantilly, VA. Full-body and full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. From $2,400.",
+    seoDescription: "Corvette paint protection film in Chantilly, VA. Full-body and full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. Free quotes.",
     intro: "The mid-engine C8 puts a low, wide nose and a front splitter inches off the pavement, right where every pebble on I-66 and Route 28 lands. We've done full-body film on a 2026 E-Ray and a C8 Z06 in the Chantilly bay, and Corvette owners are the group most likely to choose full-vehicle coverage from day one.",
     photoMatch: /corvette|c8/i,
     videoIds: ["euOKAH_QStE", "U0hjC5pdMZM"],
@@ -109,14 +103,14 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Can you film the Corvette's front splitter and side intakes?", a: "Yes. Those are the first pieces to chip, and our C8 patterns include the splitter, rocker extensions, and the side intake surrounds." },
       { q: "Full front or full body on a C8?", a: "Most C8 owners choose full body because the doors and rear quarters sit right behind the front tires and catch what they throw. Full front is the minimum we recommend." },
-      { q: "How much does Corvette PPF cost?", a: "Full front is $2,400. Full front with rockers is $3,200. Full-vehicle coverage on a Corvette is from $4,500. Prices are confirmed at inspection." },
+      { q: "How much does Corvette PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
   {
     slug: "rivian", name: "Rivian", headline: "PPF",
     seoTitle: "Rivian PPF Northern Virginia | R1T & R1S Paint Protection Film in Chantilly, VA",
-    seoDescription: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front from $2,400, full vehicle from $5,500. 12-year warranty.",
+    seoDescription: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front and full vehicle coverage. 12-year warranty. Free quotes.",
     intro: "Rivians get used the way they were designed to be: gravel roads out past Leesburg, trailheads in Shenandoah, and daily commutes on the Dulles Toll Road. The tall front end, wide fenders, and painted rocker area on the R1T and R1S take constant abuse, and because Rivian paint is only available in a handful of colors, keeping the original finish matters for resale.",
     photoMatch: /rivian/i,
     videoIds: [],
@@ -133,14 +127,14 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Does PPF interfere with Rivian's cameras or sensors?", a: "No. Our patterns are trimmed around every camera, ultrasonic sensor, and the charge port door, so nothing that needs a clear view is covered." },
       { q: "What coverage makes sense for off-road use?", a: "Full front plus rockers and lower doors at minimum. Owners who run trails regularly usually choose full-vehicle coverage so branch scratches self-heal instead of scarring paint." },
-      { q: "How much does Rivian PPF cost?", a: "Full front is $2,400 on the R1T and R1S. Full front extended (rockers and door edges) is $3,200. Full-vehicle coverage is from $5,500 for the R1S and $6,000 for the R1T. Prices are confirmed at inspection." },
+      { q: "How much does Rivian PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
   {
     slug: "bronco", name: "Bronco", headline: "PPF",
     seoTitle: "Ford Bronco PPF Northern Virginia | Rocker, Fender & Full Front Paint Protection",
-    seoDescription: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Bronco Raptor, and Bronco Sport: full front from $2,400 with rocker and fender-flare coverage for trail use. 12-year warranty.",
+    seoDescription: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Bronco Raptor, and Bronco Sport: full front with rocker and fender-flare coverage for trail use. 12-year warranty.",
     intro: "Broncos live two lives in Northern Virginia: commuting on I-66 during the week and running trails, beaches, and gravel on the weekend. Fender flares, rocker panels, and the flat hood take the abuse, and with the doors and roof coming off, the door edges and jambs get more wear than on any other vehicle we see. We've filmed and tinted Broncos in the Chantilly bay, and the same STEK DYNOshield film covers all of it.",
     photoMatch: /bronco/i,
     videoIds: ["FsQ8yZxh4Es"],
@@ -157,7 +151,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Can you protect the fender flares and rocker panels?", a: "Yes, and on a Bronco we recommend it. Trail scratches on the flares and rockers self-heal on film instead of gouging paint." },
       { q: "Does the film hold up if I take the doors and roof off?", a: "Yes. The film is bonded to the paint, not the seams. We film door edges and jambs so repeated removal doesn't chip them." },
-      { q: "How much does Bronco PPF cost?", a: "Full front is $2,400. Full front extended (rockers and door edges) is $3,200. Full-vehicle coverage is from $5,500. Prices are confirmed at inspection, and Raptor flares are quoted separately." },
+      { q: "How much does Bronco PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour. Raptor flares are quoted separately." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
