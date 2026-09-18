@@ -6,7 +6,7 @@ import { useParams, Link } from "wouter";
 import { useEffect, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SEO from "@/components/SEO";
+import SEO, { absoluteUrl } from "@/components/SEO";
 import { getBlogPost, blogPosts as staticPosts, type BlogSection } from "@/lib/blogData";
 import { trpc } from "@/lib/trpc";
 
@@ -143,7 +143,7 @@ export default function BlogPost() {
           "description": post.excerpt,
           "image": {
             "@type": "ImageObject",
-            "url": post.heroImage,
+            "url": absoluteUrl(post.heroImage),
             "description": post.heroImageAlt
           },
           "datePublished": post.date,

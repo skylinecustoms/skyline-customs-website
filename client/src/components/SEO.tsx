@@ -16,7 +16,10 @@ interface SEOProps {
 
 const SITE_NAME = "Skyline Customs";
 const BASE_URL = "https://www.skylinecustomshop.com";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/images/blog-hero-window-tint-laws-2026_1c3e77bb.webp`;
+
+// Social/JSON-LD images must be absolute URLs; accept site-relative paths too.
+export const absoluteUrl = (u: string) => (u.startsWith("http") ? u : `${BASE_URL}${u.startsWith("/") ? "" : "/"}${u}`);
 
 export default function SEO({ title, description, canonical, ogImage, jsonLd }: SEOProps) {
   const fullTitle = `${title} | ${SITE_NAME}`;
@@ -25,7 +28,7 @@ export default function SEO({ title, description, canonical, ogImage, jsonLd }: 
       ? canonical
       : `${BASE_URL}${canonical}`
     : BASE_URL;
-  const imageUrl = ogImage ?? DEFAULT_OG_IMAGE;
+  const imageUrl = ogImage ? absoluteUrl(ogImage) : DEFAULT_OG_IMAGE;
 
   useEffect(() => {
     // Title
