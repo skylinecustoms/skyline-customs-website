@@ -8,6 +8,8 @@ import { useBooking } from "@/contexts/BookingContext";
 import type { BookingService } from "@/components/BookingModal";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
+import VideoSection from "@/components/VideoSection";
+import InstagramSection from "@/components/InstagramSection";
 
 const HERO_IMAGE = "/images/hero-bg.webp";
 
@@ -686,6 +688,9 @@ export default function Home() {
       {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
       <Testimonials />
 
+      {/* ── VIDEOS (educational Shorts carousel) ─────────────────────────────── */}
+      <VideoSection />
+
       {/* ── RECENT CARS (social proof from last month's promo) ──────────────── */}
       <RecentCarsSection />
 
@@ -713,6 +718,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── INSTAGRAM ───────────────────────────────────────────────────────── */}
+      <InstagramSection />
 
       {/* ── PROCESS ──────────────────────────────────────────────────────────── */}
       <section className="py-32 bg-[oklch(0.10_0.005_285)]">

@@ -8,6 +8,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/videos", label: "Videos" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
   // { href: "/pricing", label: "Pricing" }, // temporarily hidden

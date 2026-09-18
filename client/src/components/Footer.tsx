@@ -60,6 +60,7 @@ export default function Footer() {
                 { label: "Ceramic Coating", href: "/services/ceramic-coating" },
                 { label: "Paint Protection Film", href: "/services/ppf" },
                 { label: "All Services", href: "/services" },
+                { label: "Videos", href: "/videos" },
                 { label: "Pricing", href: "/pricing" },
                 { label: "Service Areas", href: "/service-areas" },
               ].map((s) => (

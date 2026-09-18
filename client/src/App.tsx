@@ -44,6 +44,7 @@ function ScrollToTop() {
 import Home from "./pages/Home";
 const Services = lazy(() => import("./pages/Services"));
 const Gallery = lazy(() => import("./pages/Gallery"));
+const Videos = lazy(() => import("./pages/Videos"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ServicePPF = lazy(() => import("./pages/ServicePPF"));
@@ -137,6 +138,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/services"} component={Services} />
       <Route path={"/gallery"} component={Gallery} />
+      <Route path={"/videos"} component={Videos} />
       <Route path={"/about"} component={About} />
       <Route path={"/contact"} component={Contact} />
 
