@@ -70,7 +70,7 @@ export default function Navbar() {
       <div className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
             <img
               src="/images/NaRyJghitOfUAxex.jpg"
               alt="Skyline Customs"
@@ -87,13 +87,13 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-4 2xl:gap-7">
             {navLinks.map((link) =>
               link.label === "Services" ? (
                 <div key={link.href} className="relative" ref={servicesRef}>
                   <button
                     onClick={() => setServicesOpen(!servicesOpen)}
-                    className={`relative font-display text-base tracking-wider transition-colors group flex items-center gap-1 ${
+                    className={`relative font-display text-sm 2xl:text-base tracking-wider transition-colors group flex items-center gap-1 ${
                       location.startsWith("/services")
                         ? "text-brand-orange"
                         : "text-[oklch(0.75_0.008_85)] hover:text-[oklch(0.96_0.008_85)]"
@@ -131,7 +131,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative font-display text-base tracking-wider transition-colors group ${
+                  className={`relative font-display text-sm 2xl:text-base tracking-wider transition-colors group ${
                     location === link.href
                       ? "text-brand-orange"
                       : "text-[oklch(0.75_0.008_85)] hover:text-[oklch(0.96_0.008_85)]"
@@ -151,14 +151,15 @@ export default function Navbar() {
             {activePromo && (
               <Link
                 href="/promo"
-                className={`relative font-display text-base tracking-wider transition-colors group flex items-center gap-1.5 ${
+                className={`relative font-display text-sm 2xl:text-base tracking-wider transition-colors group flex items-center gap-1.5 whitespace-nowrap ${
                   location === "/promo"
                     ? "text-brand-orange"
                     : "text-brand-orange/80 hover:text-brand-orange"
                 }`}
               >
                 <Zap size={13} className="fill-brand-orange text-brand-orange" />
-                {promoLabel}
+                <span className="2xl:hidden">Special</span>
+                <span className="hidden 2xl:inline">{promoLabel}</span>
                 <span className={`absolute -bottom-1 left-0 h-[2px] bg-brand-orange transition-all duration-300 ${
                   location === "/promo" ? "w-full" : "w-0 group-hover:w-full"
                 }`} />
@@ -169,20 +170,20 @@ export default function Navbar() {
           {/* CTA + Mobile Toggle */}
           <div className="flex items-center gap-4">
             {/* Phone + Book Now stacked group */}
-            <div className="hidden md:flex items-center gap-4">
-              <div className="flex flex-col items-end leading-none gap-0.5">
-                <span className="font-mono-brand text-[10px] text-[oklch(0.45_0.008_285)] uppercase tracking-widest">
+            <div className="hidden lg:flex items-center gap-3 2xl:gap-4">
+              <div className="hidden 2xl:flex flex-col items-end leading-none gap-0.5">
+                <span className="block font-mono-brand text-[10px] text-[oklch(0.45_0.008_285)] uppercase tracking-widest">
                   Call Us
                 </span>
                 <a
                   href="tel:+17037754383"
-                  className="flex items-center gap-1.5 text-[oklch(0.90_0.008_85)] font-mono-brand text-sm hover:text-brand-orange transition-colors"
+                  className="flex items-center gap-1.5 text-[oklch(0.90_0.008_85)] font-mono-brand text-sm hover:text-brand-orange transition-colors whitespace-nowrap"
                 >
                   <Phone size={13} className="text-brand-orange" />
                   (703) 775-4383
                 </a>
               </div>
-              <div className="w-px h-8 bg-[oklch(0.25_0.006_285)]" />
+              <div className="hidden 2xl:block w-px h-8 bg-[oklch(0.25_0.006_285)]" />
               <Link
                 href="/get-a-quote"
                 className="bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest px-6 py-2.5 hover:bg-[oklch(0.72_0.21_40)] transition-colors whitespace-nowrap"
@@ -192,7 +193,7 @@ export default function Navbar() {
             </div>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-[oklch(0.96_0.008_85)] p-1"
+              className="lg:hidden text-[oklch(0.96_0.008_85)] p-1"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -203,7 +204,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-[oklch(0.12_0.005_285)] border-t border-[oklch(0.25_0.006_285)]">
+        <div className="lg:hidden bg-[oklch(0.12_0.005_285)] border-t border-[oklch(0.25_0.006_285)]">
           <div className="container py-6 flex flex-col gap-4">
             {navLinks.map((link) =>
               link.label === "Services" ? (
