@@ -11,8 +11,8 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
-    "db:migrate": "drizzle-kit migrate",
-    "start:railway": "pnpm db:migrate && pnpm start"
+    "db:migrate": "node scripts/migrate.mjs",
+    "start:railway": "node scripts/migrate.mjs && pnpm start"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",
