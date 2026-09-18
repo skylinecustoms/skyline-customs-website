@@ -62,9 +62,9 @@ export default function CeramicCoating() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
+              <Link href="/quote?service=ceramic-coating" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
                 Get Free Quote
-              </button>
+              </Link>
               <a href="tel:+1-703-775-4383" className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all flex items-center space-x-2">
                 <Phone size={20} />
                 <span>Call Now</span>
@@ -226,9 +226,9 @@ export default function CeramicCoating() {
                 </li>
               </ul>
               
-              <button className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold transition">
+              <Link href="/quote?service=ceramic-coating&package=Essential" className="block text-center w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold transition">
                 Get Quote
-              </button>
+              </Link>
             </div>
 
             {/* Premium Package */}
@@ -270,9 +270,9 @@ export default function CeramicCoating() {
                 </li>
               </ul>
               
-              <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 py-3 rounded-lg font-semibold transition">
+              <Link href="/quote?service=ceramic-coating&package=Premium" className="block text-center w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 py-3 rounded-lg font-semibold transition">
                 Get Quote
-              </button>
+              </Link>
             </div>
 
             {/* Elite Package */}
@@ -310,9 +310,9 @@ export default function CeramicCoating() {
                 </li>
               </ul>
               
-              <button className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold transition">
+              <Link href="/quote?service=ceramic-coating&package=Elite" className="block text-center w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold transition">
                 Get Quote
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -329,9 +329,9 @@ export default function CeramicCoating() {
             in Chantilly, VA. Same-day consultation available.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105">
+            <Link href="/quote?service=ceramic-coating" className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 text-center">
               Schedule Consultation
-            </button>
+            </Link>
             <a href="tel:+1-703-775-4383" className="border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all flex items-center justify-center space-x-2">
               <Phone size={20} />
               <span>(703) 378-9222</span>
