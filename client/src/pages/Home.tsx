@@ -17,7 +17,6 @@ const CERAMIC_IMAGE = "/images/ceramic_1_53c9aefc.webp";
 
 const TINT_IMAGE = "/images/tint_bmw_m2_847caa83.webp";
 
-const WRAP_IMAGE = "/images/chrome_1_6ee68f4c.webp";
 
 const services: { number: string; title: string; subtitle: string; description: string; image: string; imageAlt: string; href: string; bookingService: BookingService }[] = [
   {
@@ -49,16 +48,6 @@ const services: { number: string; title: string; subtitle: string; description: 
     imageAlt: "Window tinting on a BMW M2 coupe in front of Skyline Custom Shop in Chantilly, VA",
     href: "/services/window-tinting",
     bookingService: "tint",
-  },
-  {
-    number: "04",
-    title: "Vinyl Wraps",
-    subtitle: "Unlimited Customization",
-    description: "Transform your vehicle with unlimited color and finish options. Fully reversible, protects your original paint, and can be changed whenever you want.",
-    image: WRAP_IMAGE,
-    imageAlt: "Chrome delete vinyl wrap on a black SUV at Skyline Custom Shop in Chantilly, VA",
-    href: "/services/vinyl-wraps",
-    bookingService: "wrap",
   },
 ];
 
@@ -117,10 +106,6 @@ const faqs = [
   {
     q: "How long does window tinting take?",
     a: "Most full-vehicle tint jobs are completed in 2–4 hours. We use computer-cut patterns for a precise fit with no trimming on the glass, which reduces installation time and improves quality.",
-  },
-  {
-    q: "Is vinyl wrap reversible?",
-    a: "Yes — vinyl wrap is fully reversible. When removed properly, it leaves your original paint completely intact. This makes it ideal for leased vehicles or anyone who wants to change colors without committing permanently.",
   },
   {
     q: "Do you offer mobile service or do I come to you?",
@@ -580,7 +565,7 @@ export default function Home() {
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)] text-[oklch(0.95_0.005_85)]">
       <SEO
         title="Skyline Custom Shop — PPF, Ceramic Coating & Window Tinting in Chantilly, VA"
-        description="Skyline Custom Shop in Chantilly, VA offers professional paint protection film (PPF), ceramic coating, window tinting, and vinyl wraps. STEK DYNOshield certified installer. Get a free quote today."
+        description="Skyline Custom Shop in Chantilly, VA offers professional paint protection film (PPF), ceramic coating, and window tinting. STEK DYNOshield certified installer. Get a free quote today."
         canonical="https://www.skylinecustomshop.com/"
       />
       <Navbar />
@@ -622,7 +607,7 @@ export default function Home() {
             </h1>
 
             <p className="text-[oklch(0.75_0.008_285)] text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
-              Professional paint protection film, ceramic coating, window tinting, and vinyl wraps — installed in a controlled facility in Chantilly, VA.
+              Professional paint protection film, ceramic coating, and window tinting — installed in a controlled facility in Chantilly, VA.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -670,7 +655,7 @@ export default function Home() {
             <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">OUR SERVICES</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[oklch(0.18_0.006_285)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[oklch(0.18_0.006_285)]">
             {services.map((service) => (
               <Link key={service.number} href={service.href}>
                 <div className="group relative bg-[oklch(0.10_0.005_285)] overflow-hidden cursor-pointer h-[400px]">

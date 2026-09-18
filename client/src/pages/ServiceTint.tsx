@@ -473,12 +473,6 @@ export default function ServiceTint() {
             >
               FREE CONSULTATION <ArrowRight className="w-4 h-4" />
             </a>
-            <Link
-              href="/services/vinyl-wraps"
-              className="border-2 border-white text-white hover:bg-white hover:text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200"
-            >
-              EXPLORE VINYL WRAPS
-            </Link>
           </div>
         </div>
       </section>

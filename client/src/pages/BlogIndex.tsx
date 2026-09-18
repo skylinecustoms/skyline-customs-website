@@ -40,13 +40,13 @@ export default function BlogIndex() {
     <div className="min-h-screen bg-[#0d0d0d] text-white">
       <SEO
         title="Auto Detailing Blog | Ceramic Coating, PPF & Window Tinting Tips"
-        description="Expert guides on ceramic coating, PPF, window tinting, and vinyl wraps for Northern Virginia drivers. Tips, comparisons, and local insights from Skyline Customs."
+        description="Expert guides on ceramic coating, PPF, and window tinting for Northern Virginia drivers. Tips, comparisons, and local insights from Skyline Customs."
         canonical="https://www.skylinecustomshop.com/blog"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Blog",
           "name": "Skyline Customs Blog",
-          "description": "Expert guides on ceramic coating, PPF, window tinting, and vinyl wraps for Northern Virginia drivers.",
+          "description": "Expert guides on ceramic coating, PPF, and window tinting for Northern Virginia drivers.",
           "url": "https://www.skylinecustomshop.com/blog",
           "publisher": {
             "@type": "Organization",
@@ -144,7 +144,7 @@ export default function BlogIndex() {
         <div className="mt-12 border border-dashed border-white/20 p-8 text-center">
           <div className="orange-rule justify-center mb-3">COMING SOON</div>
           <p className="text-white/40 text-sm">
-            New articles published every Monday and Thursday. Topics include window tinting, paint correction, vinyl wraps, and more.
+            New articles published every Monday and Thursday. Topics include window tinting, paint correction, PPF, and more.
           </p>
         </div>
       </section>

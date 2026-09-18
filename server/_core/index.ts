@@ -51,6 +51,9 @@ async function startServer() {
     "/_preview/": "/",
     "/privacy-policy-112467": "/privacy-policy",
   };
+  // Vinyl wraps are no longer offered: send old wrap URLs to the closest live page.
+  app.get("/services/vinyl-wraps", (_req, res) => res.redirect(301, "/services"));
+  app.get(/^\/vinyl-wraps-([a-z-]+-va)$/, (req, res) => res.redirect(301, `/ppf-${req.params[0]}`));
   Object.entries(legacyRedirects).forEach(([from, to]) => {
     // Always redirect to the canonical www+https destination regardless of incoming host
     app.get(from, (req, _res, next) => {

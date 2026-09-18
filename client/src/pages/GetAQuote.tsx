@@ -16,7 +16,6 @@ const SERVICE_OPTIONS = [
   { value: "Ceramic Coating", label: "Ceramic Coating" },
   { value: "Tints", label: "Window Tinting" },
   { value: "PPF", label: "Paint Protection Film (PPF)" },
-  { value: "Wraps", label: "Vinyl Wraps" },
   { value: "Multiple Services - Bundle & Save", label: "Multiple Services — Bundle & Save" },
   { value: "Not Sure Yet", label: "Not Sure Yet" },
 ];
@@ -28,7 +27,6 @@ function normalizeService(raw: string): string {
   if (lower.includes("ppf") || lower.includes("paint protection") || lower.includes("film")) return "PPF";
   if (lower.includes("ceramic")) return "Ceramic Coating";
   if (lower.includes("tint") || lower.includes("window")) return "Tints";
-  if (lower.includes("wrap") || lower.includes("vinyl")) return "Wraps";
   return raw;
 }
 
@@ -168,7 +166,7 @@ export default function GetAQuote() {
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
         title="Get a Free Quote | Chantilly VA"
-        description="Request a free quote for PPF, ceramic coating, window tinting, or vinyl wraps in Northern Virginia. A Skyline specialist will reach out within the hour."
+        description="Request a free quote for PPF, ceramic coating, or window tinting in Northern Virginia. A Skyline specialist will reach out within the hour."
         canonical="https://www.skylinecustomshop.com/get-a-quote"
       />
       <Navbar />

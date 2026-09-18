@@ -252,7 +252,6 @@ export default function BlogPost() {
                     { label: "Ceramic Coating", href: "https://www.skylinecustomshop.com/services/ceramic-coating" },
                     { label: "Paint Protection Film", href: "https://www.skylinecustomshop.com/services/ppf" },
                     { label: "Window Tinting", href: "https://www.skylinecustomshop.com/services/window-tinting" },
-                    { label: "Vinyl Wraps", href: "https://www.skylinecustomshop.com/services/vinyl-wraps" },
                   ].map((s) => (
                     <li key={s.label}>
                       <a

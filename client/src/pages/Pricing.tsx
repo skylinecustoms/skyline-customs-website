@@ -28,7 +28,7 @@ export default function Pricing() {
     "@type": "WebPage",
     name: "Auto Protection Pricing | Skyline Customs — Chantilly VA",
     description:
-      "Full pricing for PPF, ceramic coating, window tinting, and vinyl wraps in Chantilly VA. Transparent pricing for sedans, SUVs, and trucks. Bundle packages available.",
+      "Full pricing for PPF, ceramic coating, and window tinting in Chantilly VA. Transparent pricing for sedans, SUVs, and trucks. Bundle packages available.",
     url: "https://www.skylinecustomshop.com/pricing",
     breadcrumb: {
       "@type": "BreadcrumbList",
@@ -42,8 +42,8 @@ export default function Pricing() {
   return (
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
-        title="Auto Protection Pricing | PPF, Ceramic, Tint & Wraps — Chantilly VA"
-        description="Transparent pricing for PPF, ceramic coating, window tinting, and vinyl wraps in Chantilly VA. Sedan, SUV, and truck pricing. Bundle packages available. Serving all of Northern Virginia."
+        title="Auto Protection Pricing | PPF, Ceramic & Tint — Chantilly VA"
+        description="Transparent pricing for PPF, ceramic coating, and window tinting in Chantilly VA. Sedan, SUV, and truck pricing. Bundle packages available. Serving all of Northern Virginia."
         canonical="https://www.skylinecustomshop.com/pricing"
       />
       <script
@@ -270,76 +270,6 @@ export default function Pricing() {
           </div>
           <Link href="/get-a-quote?service=tint" className="text-[oklch(0.75_0.18_40)] font-bold text-sm uppercase tracking-wider hover:underline flex items-center gap-2">
             Get a Tint Quote <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
-      {/* Vinyl Wraps Pricing */}
-      <section className="py-20 px-4 bg-[oklch(0.12_0.005_285)]">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-4 mb-10">
-            <div className="w-12 h-12 bg-[oklch(0.65_0.22_40)] flex items-center justify-center font-black text-white text-lg">04</div>
-            <div>
-              <h2 className="text-3xl font-black text-white uppercase">Vinyl Wraps &amp; Chrome Delete</h2>
-              <p className="text-[oklch(0.55_0.005_285)] text-sm">Standard gloss/matte/satin finishes — specialty finishes priced as upcharges</p>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto mb-6">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[oklch(0.25_0.005_285)]">
-                  <th className="text-left py-3 px-4 text-[oklch(0.55_0.005_285)] font-semibold uppercase tracking-wider">Service</th>
-                  <th className="text-center py-3 px-4 text-[oklch(0.55_0.005_285)] font-semibold uppercase tracking-wider">Sedan</th>
-                  <th className="text-center py-3 px-4 text-[oklch(0.55_0.005_285)] font-semibold uppercase tracking-wider">SUV / Crossover</th>
-                  <th className="text-center py-3 px-4 text-[oklch(0.55_0.005_285)] font-semibold uppercase tracking-wider">Truck</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { pkg: "Full Color Change Wrap", sedan: "$3,000", suv: "$4,000", truck: "$4,500", popular: true },
-                  { pkg: "Hood Wrap", sedan: "$400", suv: "$500", truck: "$550" },
-                  { pkg: "Roof Wrap", sedan: "$400", suv: "$500", truck: "$500" },
-                  { pkg: "Trunk / Hatch Wrap", sedan: "$350", suv: "$400", truck: "$450 (Tailgate)" },
-                  { pkg: "Mirror Caps (pair)", sedan: "$150", suv: "$150", truck: "$150" },
-                  { pkg: "Roof + Hood + Mirrors Combo", sedan: "$850", suv: "$1,050", truck: "$1,100" },
-                  { pkg: "Full Chrome Delete", sedan: "$600", suv: "$800", truck: "$1,000" },
-                  { pkg: "Partial Chrome Delete (window trim)", sedan: "$300", suv: "$400", truck: "$500" },
-                ].map((row, i) => (
-                  <tr key={i} className={`border-b border-[oklch(0.18_0.005_285)] ${row.popular ? "bg-[oklch(0.14_0.01_285)]" : ""}`}>
-                    <td className="py-4 px-4 text-white font-medium">
-                      {row.pkg}
-                      {row.popular && <span className="ml-2 text-[oklch(0.75_0.18_40)] text-xs font-bold uppercase">Most Popular</span>}
-                    </td>
-                    <td className="py-4 px-4 text-center text-[oklch(0.75_0.18_40)] font-bold">{row.sedan}</td>
-                    <td className="py-4 px-4 text-center text-[oklch(0.75_0.18_40)] font-bold">{row.suv}</td>
-                    <td className="py-4 px-4 text-center text-[oklch(0.75_0.18_40)] font-bold">{row.truck}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Specialty Finishes */}
-          <div className="border border-[oklch(0.25_0.005_285)] p-6 mb-6">
-            <h3 className="text-white font-bold uppercase tracking-wider text-sm mb-4">Specialty Finish Upcharges</h3>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {[
-                { finish: "Metallic / Satin Finish", price: "+$500–$800" },
-                { finish: "Color Shift / Chameleon", price: "+$1,500–$2,500" },
-                { finish: "Chrome Finish", price: "+$2,500–$4,000" },
-                { finish: "Carbon Fiber Accents (per panel)", price: "+$200–$500" },
-              ].map((row, i) => (
-                <div key={i} className="flex items-center justify-between py-2 border-b border-[oklch(0.18_0.005_285)]">
-                  <span className="text-[oklch(0.65_0.005_285)] text-sm">{row.finish}</span>
-                  <span className="text-[oklch(0.75_0.18_40)] font-bold text-sm ml-4">{row.price}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <p className="text-[oklch(0.45_0.005_285)] text-xs mb-6">Wrap longevity: 5–7 years with proper care. All prices subject to in-person inspection.</p>
-          <Link href="/get-a-quote?service=wrap" className="text-[oklch(0.75_0.18_40)] font-bold text-sm uppercase tracking-wider hover:underline flex items-center gap-2">
-            Get a Wrap Quote <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

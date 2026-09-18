@@ -27,12 +27,12 @@ export interface PageMeta {
 export const STATIC_META: Record<string, PageMeta> = {
   "/": {
     title: `${SITE_NAME} | PPF, Ceramic Coating & Window Tinting — Chantilly, VA`,
-    description: "Northern Virginia's premier PPF, ceramic coating, window tinting & vinyl wrap shop. 500+ five-star reviews in Chantilly, VA. Free quotes.",
+    description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 500+ five-star reviews in Chantilly, VA. Free quotes.",
     canonical: `${BASE_URL}/`,
   },
   "/services": {
-    title: `Services | PPF, Ceramic Coating, Window Tinting & Vinyl Wraps | ${SITE_NAME}`,
-    description: "Explore Skyline Customs' full range of automotive protection services: PPF, ceramic coating, window tinting, and vinyl wraps in Chantilly, VA.",
+    title: `Services | PPF, Ceramic Coating, Window Tinting | ${SITE_NAME}`,
+    description: "Explore Skyline Customs' full range of automotive protection services: PPF, ceramic coating, window tinting in Chantilly, VA.",
     canonical: `${BASE_URL}/services`,
   },
   "/services/ppf": {
@@ -50,14 +50,9 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting in Chantilly, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/services/window-tinting`,
   },
-  "/services/vinyl-wraps": {
-    title: `Vinyl Wrap Services | ${SITE_NAME}`,
-    description: "Professional vinyl wraps in Chantilly, VA. Color-change wraps, partial wraps, and commercial vehicle wraps. Free quotes.",
-    canonical: `${BASE_URL}/services/vinyl-wraps`,
-  },
   "/gallery": {
     title: `Gallery | Recent Work | ${SITE_NAME}`,
-    description: "See our recent PPF, ceramic coating, window tinting, and vinyl wrap work. Serving Northern Virginia from Chantilly, VA.",
+    description: "See our recent PPF, ceramic coating, and window tinting work. Serving Northern Virginia from Chantilly, VA.",
     canonical: `${BASE_URL}/gallery`,
   },
   "/about": {
@@ -72,7 +67,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/get-a-quote": {
     title: `Get a Free Quote | ${SITE_NAME}`,
-    description: "Request a free quote for PPF, ceramic coating, window tinting, or vinyl wraps from Skyline Customs in Chantilly, VA.",
+    description: "Request a free quote for PPF, ceramic coating, window tinting from Skyline Customs in Chantilly, VA.",
     canonical: `${BASE_URL}/get-a-quote`,
   },
   "/service-areas": {
@@ -82,12 +77,12 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/blog": {
     title: `Blog | Car Protection Tips & Guides | ${SITE_NAME}`,
-    description: "Expert guides on PPF, ceramic coating, window tinting, and vinyl wraps for Northern Virginia drivers. Tips from Skyline Customs in Chantilly, VA.",
+    description: "Expert guides on PPF, ceramic coating, window tinting for Northern Virginia drivers. Tips from Skyline Customs in Chantilly, VA.",
     canonical: `${BASE_URL}/blog`,
   },
   "/pricing": {
     title: `Pricing | ${SITE_NAME}`,
-    description: "Transparent pricing for PPF, ceramic coating, window tinting, and vinyl wraps at Skyline Customs in Chantilly, VA.",
+    description: "Transparent pricing for PPF, ceramic coating, window tinting at Skyline Customs in Chantilly, VA.",
     canonical: `${BASE_URL}/pricing`,
   },
   // ===== CHANTILLY VA =====
@@ -106,11 +101,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting in Chantilly, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-chantilly-va`,
   },
-  "/vinyl-wraps-chantilly-va": {
-    title: `Vinyl Wraps Chantilly VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps in Chantilly, VA. Color-change wraps, partial wraps. 5.0 stars on Google. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-chantilly-va`,
-  },
   // ===== CENTREVILLE VA =====
   "/ppf-centreville-va": {
     title: `PPF Centreville VA | Paint Protection Film | ${SITE_NAME}`,
@@ -126,11 +116,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Centreville VA | Car Tinting Near Me | ${SITE_NAME}`,
     description: "Professional window tinting near Centreville, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-centreville-va`,
-  },
-  "/vinyl-wraps-centreville-va": {
-    title: `Vinyl Wraps Centreville VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Centreville, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-centreville-va`,
   },
   // ===== HERNDON VA =====
   "/ppf-herndon-va": {
@@ -148,11 +133,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near Herndon, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-herndon-va`,
   },
-  "/vinyl-wraps-herndon-va": {
-    title: `Vinyl Wraps Herndon VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Herndon, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-herndon-va`,
-  },
   // ===== FAIRFAX VA =====
   "/ppf-fairfax-va": {
     title: `PPF Fairfax VA | Paint Protection Film | ${SITE_NAME}`,
@@ -168,11 +148,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Fairfax VA | Car Tinting Near Me | ${SITE_NAME}`,
     description: "Professional window tinting near Fairfax, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-fairfax-va`,
-  },
-  "/vinyl-wraps-fairfax-va": {
-    title: `Vinyl Wraps Fairfax VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Fairfax, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-fairfax-va`,
   },
   // ===== VIENNA VA =====
   "/ppf-vienna-va": {
@@ -190,11 +165,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near Vienna, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-vienna-va`,
   },
-  "/vinyl-wraps-vienna-va": {
-    title: `Vinyl Wraps Vienna VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Vienna, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-vienna-va`,
-  },
   // ===== RESTON VA =====
   "/ppf-reston-va": {
     title: `PPF Reston VA | Paint Protection Film | ${SITE_NAME}`,
@@ -210,11 +180,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Reston VA | Car Tinting Near Me | ${SITE_NAME}`,
     description: "Professional window tinting near Reston, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-reston-va`,
-  },
-  "/vinyl-wraps-reston-va": {
-    title: `Vinyl Wraps Reston VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Reston, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-reston-va`,
   },
   // ===== MCLEAN VA =====
   "/ppf-mclean-va": {
@@ -232,11 +197,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near McLean, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-mclean-va`,
   },
-  "/vinyl-wraps-mclean-va": {
-    title: `Vinyl Wraps McLean VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near McLean, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-mclean-va`,
-  },
   // ===== TYSONS VA =====
   "/ppf-tysons-va": {
     title: `PPF Tysons VA | Paint Protection Film | ${SITE_NAME}`,
@@ -252,11 +212,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Tysons VA | Car Tinting Near Me | ${SITE_NAME}`,
     description: "Professional window tinting near Tysons, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-tysons-va`,
-  },
-  "/vinyl-wraps-tysons-va": {
-    title: `Vinyl Wraps Tysons VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Tysons, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-tysons-va`,
   },
   // ===== ALEXANDRIA VA =====
   "/ppf-alexandria-va": {
@@ -274,11 +229,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near Alexandria, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-alexandria-va`,
   },
-  "/vinyl-wraps-alexandria-va": {
-    title: `Vinyl Wraps Alexandria VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Alexandria, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-alexandria-va`,
-  },
   // ===== ARLINGTON VA =====
   "/ppf-arlington-va": {
     title: `PPF Arlington VA | Paint Protection Film | ${SITE_NAME}`,
@@ -294,11 +244,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Arlington VA | Car Tinting Near Me | ${SITE_NAME}`,
     description: "Professional window tinting near Arlington, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-arlington-va`,
-  },
-  "/vinyl-wraps-arlington-va": {
-    title: `Vinyl Wraps Arlington VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Arlington, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-arlington-va`,
   },
   // ===== FALLS CHURCH VA =====
   "/ppf-falls-church-va": {
@@ -316,11 +261,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near Falls Church, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-falls-church-va`,
   },
-  "/vinyl-wraps-falls-church-va": {
-    title: `Vinyl Wraps Falls Church VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Falls Church, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-falls-church-va`,
-  },
   // ===== SPRINGFIELD VA =====
   "/ppf-springfield-va": {
     title: `PPF Springfield VA | Paint Protection Film | ${SITE_NAME}`,
@@ -336,11 +276,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Springfield VA | Car Tinting Near Me | ${SITE_NAME}`,
     description: "Professional window tinting near Springfield, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-springfield-va`,
-  },
-  "/vinyl-wraps-springfield-va": {
-    title: `Vinyl Wraps Springfield VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Springfield, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-springfield-va`,
   },
   // ===== MANASSAS VA =====
   "/ppf-manassas-va": {
@@ -358,11 +293,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near Manassas, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-manassas-va`,
   },
-  "/vinyl-wraps-manassas-va": {
-    title: `Vinyl Wraps Manassas VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Manassas, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-manassas-va`,
-  },
   // ===== WOODBRIDGE VA =====
   "/ppf-woodbridge-va": {
     title: `PPF Woodbridge VA | Paint Protection Film | ${SITE_NAME}`,
@@ -378,11 +308,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Woodbridge VA | Car Tinting Near Me | ${SITE_NAME}`,
     description: "Professional window tinting near Woodbridge, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-woodbridge-va`,
-  },
-  "/vinyl-wraps-woodbridge-va": {
-    title: `Vinyl Wraps Woodbridge VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Woodbridge, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-woodbridge-va`,
   },
   // ===== STAFFORD VA =====
   "/ppf-stafford-va": {
@@ -400,11 +325,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near Stafford, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-stafford-va`,
   },
-  "/vinyl-wraps-stafford-va": {
-    title: `Vinyl Wraps Stafford VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Stafford, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-stafford-va`,
-  },
   // ===== FREDERICKSBURG VA =====
   "/ppf-fredericksburg-va": {
     title: `PPF Fredericksburg VA | Paint Protection Film | ${SITE_NAME}`,
@@ -421,11 +341,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting near Fredericksburg, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-fredericksburg-va`,
   },
-  "/vinyl-wraps-fredericksburg-va": {
-    title: `Vinyl Wraps Fredericksburg VA | Car Wraps Near Me | ${SITE_NAME}`,
-    description: "Professional vinyl wraps near Fredericksburg, VA. Color-change wraps and partial wraps. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-fredericksburg-va`,
-  },
   "/ppf-sterling-va": {
     title: `PPF Sterling VA | Paint Protection Film Near Me | ${SITE_NAME}`,
     description: "Top-rated paint protection film installer serving Sterling, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
@@ -440,11 +355,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Sterling VA | Car Tint Near Me | ${SITE_NAME}`,
     description: "Ceramic window tinting near Sterling, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-sterling-va`,
-  },
-  "/vinyl-wraps-sterling-va": {
-    title: `Vinyl Wraps Sterling VA | Car Wrap Near Me | ${SITE_NAME}`,
-    description: "Vinyl wraps near Sterling, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-sterling-va`,
   },
   "/ppf-ashburn-va": {
     title: `PPF Ashburn VA | Paint Protection Film Near Me | ${SITE_NAME}`,
@@ -461,11 +371,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Ceramic window tinting near Ashburn, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-ashburn-va`,
   },
-  "/vinyl-wraps-ashburn-va": {
-    title: `Vinyl Wraps Ashburn VA | Car Wrap Near Me | ${SITE_NAME}`,
-    description: "Vinyl wraps near Ashburn, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-ashburn-va`,
-  },
   "/ppf-oakton-va": {
     title: `PPF Oakton VA | Paint Protection Film Near Me | ${SITE_NAME}`,
     description: "Top-rated paint protection film installer serving Oakton, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
@@ -480,11 +385,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Oakton VA | Car Tint Near Me | ${SITE_NAME}`,
     description: "Ceramic window tinting near Oakton, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-oakton-va`,
-  },
-  "/vinyl-wraps-oakton-va": {
-    title: `Vinyl Wraps Oakton VA | Car Wrap Near Me | ${SITE_NAME}`,
-    description: "Vinyl wraps near Oakton, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-oakton-va`,
   },
   "/ppf-burke-va": {
     title: `PPF Burke VA | Paint Protection Film Near Me | ${SITE_NAME}`,
@@ -501,11 +401,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Ceramic window tinting near Burke, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-burke-va`,
   },
-  "/vinyl-wraps-burke-va": {
-    title: `Vinyl Wraps Burke VA | Car Wrap Near Me | ${SITE_NAME}`,
-    description: "Vinyl wraps near Burke, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-burke-va`,
-  },
   "/ppf-gainesville-va": {
     title: `PPF Gainesville VA | Paint Protection Film Near Me | ${SITE_NAME}`,
     description: "Top-rated paint protection film installer serving Gainesville, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
@@ -521,11 +416,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Ceramic window tinting near Gainesville, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-gainesville-va`,
   },
-  "/vinyl-wraps-gainesville-va": {
-    title: `Vinyl Wraps Gainesville VA | Car Wrap Near Me | ${SITE_NAME}`,
-    description: "Vinyl wraps near Gainesville, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-gainesville-va`,
-  },
   "/ppf-leesburg-va": {
     title: `PPF Leesburg VA | Paint Protection Film Near Me | ${SITE_NAME}`,
     description: "Top-rated paint protection film installer serving Leesburg, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
@@ -540,11 +430,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Window Tinting Leesburg VA | Car Tint Near Me | ${SITE_NAME}`,
     description: "Ceramic window tinting near Leesburg, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
     canonical: `${BASE_URL}/window-tinting-leesburg-va`,
-  },
-  "/vinyl-wraps-leesburg-va": {
-    title: `Vinyl Wraps Leesburg VA | Car Wrap Near Me | ${SITE_NAME}`,
-    description: "Vinyl wraps near Leesburg, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
-    canonical: `${BASE_URL}/vinyl-wraps-leesburg-va`,
   },
   "/privacy-policy": {
     title: `Privacy Policy | ${SITE_NAME}`,
@@ -621,7 +506,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
   // Default fallback
   return {
     title: `${SITE_NAME} | PPF, Ceramic Coating & Window Tinting — Chantilly, VA`,
-    description: "Northern Virginia's premier PPF, ceramic coating, window tinting & vinyl wrap shop. 500+ five-star reviews in Chantilly, VA.",
+    description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 500+ five-star reviews in Chantilly, VA.",
     canonical: `${BASE_URL}${cleanPath}`,
   };
 }

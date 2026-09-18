@@ -73,7 +73,7 @@ export default function About() {
                 Located in Chantilly, VA, we serve drivers across Northern Virginia, including Fairfax, Herndon, Reston, Ashburn, and the greater Washington D.C. metro area. Our team of certified installers has protected thousands of vehicles — from daily drivers to exotic supercars — with the same uncompromising attention to detail.
               </p>
               <p className="text-[oklch(0.65_0.008_85)] leading-relaxed mb-8">
-                We specialize in the four pillars of automotive protection: window tinting, ceramic coating, paint protection film (PPF), and vinyl wraps. Every service we offer is backed by premium materials from the industry's top manufacturers and a warranty that gives you peace of mind for years to come.
+                We specialize in the three pillars of automotive protection: window tinting, ceramic coating, and paint protection film (PPF). Every service we offer is backed by premium materials from the industry's top manufacturers and a warranty that gives you peace of mind for years to come.
               </p>
               <div className="flex gap-8">
                 <div>

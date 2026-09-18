@@ -16,7 +16,6 @@ const SERVICE_OPTIONS = [
   { value: "Ceramic Coating", label: "Ceramic Coating" },
   { value: "Tints", label: "Window Tinting" },
   { value: "PPF", label: "Paint Protection Film (PPF)" },
-  { value: "Wraps", label: "Vinyl Wraps" },
   { value: "Multiple Services - Bundle & Save", label: "Multiple Services — Bundle & Save" },
   { value: "Not Sure Yet", label: "Not Sure Yet" },
 ];
@@ -77,7 +76,7 @@ export default function Contact() {
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
         title="Contact Us | Chantilly VA Auto Protection"
-        description="Book a free consultation for PPF, ceramic coating, window tinting, or vinyl wraps. Call (703) 775-4383 or visit 4215 Walney Rd, Chantilly, VA."
+        description="Book a free consultation for PPF, ceramic coating, or window tinting. Call (703) 775-4383 or visit 4215 Walney Rd, Chantilly, VA."
         canonical="https://www.skylinecustomshop.com/contact"
       />
       <Navbar />

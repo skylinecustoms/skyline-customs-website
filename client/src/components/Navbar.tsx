@@ -19,7 +19,6 @@ const serviceLinks = [
   { href: "/services/ppf", label: "Paint Protection Film" },
   { href: "/services/ceramic-coating", label: "Ceramic Coating" },
   { href: "/services/window-tinting", label: "Window Tinting" },
-  { href: "/services/vinyl-wraps", label: "Vinyl Wraps" },
 ];
 
 export default function Navbar() {

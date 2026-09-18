@@ -9,7 +9,6 @@ import SEO from "@/components/SEO";
 const TINT_IMAGE = "/images/tint_bmw_m2_847caa83.webp";
 const CERAMIC_IMAGE = "/images/ceramic_1_53c9aefc.webp";
 const PPF_IMAGE = "/images/ppf_1_c7c64665.webp";
-const WRAP_IMAGE = "/images/chrome_1_6ee68f4c.webp";
 
 const services: { id: string; number: string; title: string; subtitle: string; image: string; description: string; benefits: string[]; packages: { name: string; price: string; note: string }[]; bookingService: BookingService; href: string }[] = [
   {
@@ -81,29 +80,6 @@ const services: { id: string; number: string; title: string; subtitle: string; i
     bookingService: "tint" as BookingService,
     href: "/services/window-tinting",
   },
-  {
-    id: "wraps",
-    number: "04",
-    title: "Vinyl Wraps",
-    subtitle: "Unlimited Customization",
-    image: WRAP_IMAGE,
-    description: "A full vinyl wrap is the most dramatic transformation available for your vehicle. Choose from hundreds of colors and finishes — gloss, matte, satin, chrome, color-shift, and more. Wraps are fully reversible, protect your original paint, and can be changed whenever you want a new look.",
-    benefits: [
-      "Hundreds of colors and finishes",
-      "Fully reversible — original paint protected",
-      "Protects paint from UV and minor scratches",
-      "Fraction of the cost of a paint job",
-      "Can be changed anytime",
-      "Commercial fleet wraps available",
-    ],
-    packages: [
-      { name: "Roof + Hood + Mirrors Combo", price: "From $850", note: "Popular partial combo — sedan pricing" },
-      { name: "Full Color Change — Sedan", price: "$3,000", note: "Complete exterior color change (gloss/matte/satin)" },
-      { name: "Full Color Change — SUV/Truck", price: "From $4,000", note: "Complete exterior color change — SUV/Truck pricing" },
-    ],
-    bookingService: "wrap" as BookingService,
-    href: "/services/vinyl-wraps",
-  },
 ];
 
 export default function Services() {
@@ -112,7 +88,7 @@ export default function Services() {
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
         title="Auto Protection Services | Chantilly VA"
-        description="PPF, ceramic coating, window tinting, and vinyl wraps in Chantilly, VA. Lifetime craftsmanship warranty. Serving all of Northern Virginia."
+        description="PPF, ceramic coating, and window tinting in Chantilly, VA. Lifetime craftsmanship warranty. Serving all of Northern Virginia."
         canonical="https://www.skylinecustomshop.com/services"
       />
       <Navbar />

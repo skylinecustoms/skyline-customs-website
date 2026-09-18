@@ -7,7 +7,7 @@
  * gets service-correct FAQs, features, and copy, and adding a city is one entry.
  */
 
-export type ServiceKey = "ppf" | "ceramic" | "tint" | "wrap";
+export type ServiceKey = "ppf" | "ceramic" | "tint";
 
 export interface City {
   /** Display name, e.g. "Falls Church" */
@@ -431,41 +431,6 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     testimonialsTitle: (city) => `WHAT ${city.toUpperCase()} DRIVERS SAY ABOUT OUR TINTING`,
     ctaHeading: "TINT IT RIGHT THE FIRST TIME",
     ctaText: (c) => `Get a free window tinting quote from Northern Virginia's top-rated installer. ${ctaDrive(c)}`,
-  },
-  wrap: {
-    key: "wrap",
-    label: "Vinyl Wraps",
-    short: "Vinyl Wraps",
-    slugPrefix: "vinyl-wraps",
-    serviceHref: "/services/vinyl-wraps",
-    quoteParam: "wrap",
-    badges: ["5.0 ★ Google Rating", "Free Quotes", "3–5 Year Warranty", "3M & Avery Films"],
-    seoTitle: (city) => `Vinyl Wraps ${city} VA | Car Wrap Near Me`,
-    seoDescription: (city) =>
-      `Vinyl wraps near ${city}, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes. 5.0 stars on Google.`,
-    heroLabel: "Vinyl Wraps",
-    heroHeading: "VINYL WRAPS NEAR",
-    heroText: (c) => `Northern Virginia's top-rated vinyl wrap shop, ${c.heroDrive}. Any color, any finish, fully reversible, with your factory paint protected underneath.`,
-    whyLabel: (city) => `Why Wrap in ${city}`,
-    whyHeading: "STAND OUT ON NOVA ROADS",
-    roadsBenefit: "A vinyl wrap takes that abuse instead of your factory paint, and a damaged panel can be re-wrapped without repainting.",
-    features: [
-      { title: "Any Color or Finish", desc: "Gloss, satin, matte, chrome delete, color-flip — hundreds of 3M and Avery Dennison finishes you can't get from a factory paint code." },
-      { title: "Paint-Safe & Reversible", desc: "Wraps protect OEM paint from sun and light scratches, and peel off cleanly when you're ready to sell or change looks." },
-      { title: "3–5 Year Warranty", desc: "Premium cast films installed in a controlled shop, backed by a 3–5 year warranty against lifting, fading, and cracking." },
-    ],
-    faqHeading: (city) => `VINYL WRAP QUESTIONS FROM ${city.toUpperCase()} DRIVERS`,
-    faqs: (c) => [
-      { q: `Do you serve ${c.name}, VA for vinyl wraps?`, a: serveAnswer(c, "vinyl wraps") },
-      { q: `How much does a vinyl wrap cost near ${c.name}?`, a: "Full color change wraps start at $3,000 for sedans, $4,000 for SUVs/crossovers, and $4,500 for trucks. Partial combos (roof + hood + mirrors) start at $850. Chrome delete starts at $600 for sedans. All prices subject to in-person inspection. Contact us for a free, no-obligation quote." },
-      { q: `Is a wrap a good idea for ${c.name} drivers on ${c.roads}?`, a: `Yes. ${c.roadsDesc} A wrap shields your factory paint from sun fade and light abrasion, and because it is removable it helps protect resale value.` },
-      { q: "How long does a vinyl wrap last?", a: "Quality 3M and Avery Dennison cast films last 5–7 years with proper care, and our installation carries a 3–5 year warranty. Garage parking and hand washing extend the life of any wrap." },
-      { q: "Will a wrap damage my paint?", a: "Not on healthy factory paint. Cast vinyl removes cleanly with heat. The only risk is on previously repainted or poorly prepped panels, which we inspect and flag before we start." },
-      { q: "Can you wrap just part of my car?", a: "Yes — partial wraps are popular: roof, hood, mirrors, chrome delete, racing stripes, or accent panels. It's an affordable way to change the look and protect high-wear areas." },
-    ],
-    testimonialsTitle: (city) => `WHAT ${city.toUpperCase()} DRIVERS SAY ABOUT OUR WRAPS`,
-    ctaHeading: "TRANSFORM YOUR RIDE",
-    ctaText: (c) => `Get a free vinyl wrap quote from Northern Virginia's top-rated installer. ${ctaDrive(c)}`,
   },
 };
 

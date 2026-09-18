@@ -24,7 +24,7 @@ const STATIC_ITEMS = [
   },
 ];
 
-const CATEGORIES = ["All", "PPF", "Window Tinting", "Ceramic Coating", "Vinyl Wraps"];
+const CATEGORIES = ["All", "PPF", "Window Tinting", "Ceramic Coating"];
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -54,14 +54,14 @@ export default function Gallery() {
   return (
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
-        title="Gallery | Real PPF, Window Tinting & Vinyl Wrap Work | Skyline Custom Shop"
-        description="Browse Skyline Customs' portfolio of real PPF, window tinting, and vinyl wrap jobs on luxury and performance vehicles in Chantilly, VA and Northern Virginia."
+        title="Gallery | Real PPF, Window Tinting & Ceramic Coating Work | Skyline Custom Shop"
+        description="Browse Skyline Customs' portfolio of real PPF, window tinting, and ceramic coating jobs on luxury and performance vehicles in Chantilly, VA and Northern Virginia."
         canonical="https://www.skylinecustomshop.com/gallery"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "ImageGallery",
           "name": "Skyline Custom Shop Gallery",
-          "description": "Real PPF, window tinting, and vinyl wrap work by Skyline Custom Shop in Chantilly, VA",
+          "description": "Real PPF, window tinting, and ceramic coating work by Skyline Custom Shop in Chantilly, VA",
           "url": "https://www.skylinecustomshop.com/gallery",
           "provider": {
             "@type": "LocalBusiness",
@@ -91,7 +91,7 @@ export default function Gallery() {
             <span className="text-brand-orange">GALLERY</span>
           </h1>
           <p className="text-[oklch(0.55_0.01_285)] text-lg max-w-2xl">
-            Real jobs. Real results. Browse our recent work across PPF, window tinting, ceramic coating, and vinyl wraps — all performed at our Chantilly, VA shop.
+            Real jobs. Real results. Browse our recent work across PPF, window tinting, and ceramic coating — all performed at our Chantilly, VA shop.
           </p>
         </div>
       </section>

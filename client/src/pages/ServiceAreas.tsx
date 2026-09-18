@@ -8,7 +8,7 @@ import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { MapPin, Shield, Droplets, Sun, Palette, ArrowRight, Phone } from "lucide-react";
+import { MapPin, Shield, Droplets, Sun, ArrowRight, Phone } from "lucide-react";
 import { CITIES, CITY_ORDER, cityPath } from "@/lib/localSeo";
 
 const cities = CITY_ORDER.map((name) => {
@@ -21,12 +21,11 @@ const cities = CITY_ORDER.map((name) => {
       { label: "Paint Protection Film", href: cityPath("ppf", name), icon: Shield },
       { label: "Ceramic Coating", href: cityPath("ceramic", name), icon: Droplets },
       { label: "Window Tinting", href: cityPath("tint", name), icon: Sun },
-      { label: "Vinyl Wraps", href: cityPath("wrap", name), icon: Palette },
     ],
   };
 });
 
-const serviceIcons: Record<string, typeof Shield> = { Shield, Droplets, Sun, Palette };
+const serviceIcons: Record<string, typeof Shield> = { Shield, Droplets, Sun };
 
 export default function ServiceAreas() {
   return (
@@ -119,7 +118,7 @@ export default function ServiceAreas() {
               { value: "22", label: "Cities Served" },
               { value: "500+", label: "Happy Customers" },
               { value: "5.0 ★", label: "Google Rating" },
-              { value: "4", label: "Services Offered" },
+              { value: "3", label: "Services Offered" },
             ].map((stat) => (
               <div key={stat.label}>
                 <div className="font-['Bebas_Neue',sans-serif] text-4xl text-[#E85D04]">{stat.value}</div>
@@ -221,7 +220,6 @@ export default function ServiceAreas() {
                 { icon: Shield, label: "Paint Protection Film", desc: "Self-healing PPF with 12-year warranty" },
                 { icon: Droplets, label: "Ceramic Coating", desc: "3–7 year hydrophobic protection" },
                 { icon: Sun, label: "Window Tinting", desc: "Virginia-legal ceramic & carbon films" },
-                { icon: Palette, label: "Vinyl Wraps", desc: "Full & partial wraps, commercial fleets" },
               ].map((svc) => (
                 <div key={svc.label} className="bg-[#0D0D0D] p-6 hover:bg-[#111] transition-colors">
                   <svc.icon className="w-6 h-6 text-[#E85D04] mb-3" />

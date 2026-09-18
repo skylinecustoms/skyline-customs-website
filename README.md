@@ -1,7 +1,7 @@
 # Skyline Customs Website
 
 Marketing site for Skyline Customs, Chantilly VA: paint protection film, ceramic
-coating, window tinting, and vinyl wraps. This is the site originally built on
+coating, and window tinting. This is the site originally built on
 Manus, moved into this repository as-is so it can be hosted and edited anywhere.
 
 ## Stack

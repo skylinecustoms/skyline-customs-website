@@ -7,7 +7,7 @@ export default function TermsOfService() {
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
         title="Terms of Service"
-        description="Skyline Custom Shop terms of service, work authorization, warranty summary, and aftercare guidelines for PPF, ceramic coating, window tinting, and vinyl wraps."
+        description="Skyline Custom Shop terms of service, work authorization, warranty summary, and aftercare guidelines for PPF, ceramic coating, and window tinting."
         canonical="https://www.skylinecustomshop.com/terms-of-service"
       />
       <Navbar />
@@ -68,11 +68,6 @@ export default function TermsOfService() {
                   <p className="text-[oklch(0.85_0.008_85)] font-semibold mb-1">Paint Protection Film (PPF)</p>
                   <p>Initial cure 24–48 hours. Full cure 1–2 weeks, depending on temperature and humidity. Do not wash the vehicle, apply wax, sealant, or any products to the film for a minimum of 7 days. Small bubbles or moisture beneath the film are part of the normal curing process and will dissipate within 2–3 weeks. Do not press or pick at bubbles — this may compromise the installation and adhesive bond. Avoid pressure washing near film edges. If possible, limit driving during the first week to allow optimal adhesion.</p>
                 </div>
-
-                <div className="border-l-2 border-brand-orange pl-4">
-                  <p className="text-[oklch(0.85_0.008_85)] font-semibold mb-1">Vinyl Wraps</p>
-                  <p>Initial cure 48–72 hours. Full cure 1–3 weeks, depending on temperature, humidity, and sun exposure. Do not wash the vehicle or expose it to rain for a minimum of 5 days after installation. Small bubbles or slight haze may appear during curing — this is normal and will settle with regular driving and sunlight exposure. Do not press or pick at bubbles. Avoid automatic car washes with brushes, pressure washers near edges, and traditional car wax. Use only vinyl-safe cleaning products and liquid sealants — never petroleum-based or abrasive compounds.</p>
-                </div>
               </div>
             </div>
 
@@ -110,7 +105,6 @@ export default function TermsOfService() {
                   { service: "Ceramic Coating — Crystal Package (Gtechniq Crystal Serum)", warranty: "5-Year warranty" },
                   { service: "Ceramic Coating — Ultimate Package", warranty: "7-Year warranty" },
                   { service: "Paint Protection Film (Stek DYNOshield)", warranty: "12-Year manufacturer warranty against yellowing, cracking, peeling, and delamination" },
-                  { service: "Vinyl Wraps", warranty: "One (1) year workmanship warranty; 5–7 year material lifespan with proper care" },
                 ].map((row, i) => (
                   <div key={i} className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4 p-4 bg-[oklch(0.12_0.005_285)]">
                     <span className="text-[oklch(0.85_0.008_85)] font-semibold sm:w-1/2 flex-shrink-0">{row.service}</span>
@@ -134,7 +128,6 @@ export default function TermsOfService() {
                   "Window tinting: typically same-day (1–3 hours depending on package)",
                   "Ceramic coating: 1–3 days, depending on correction level",
                   "PPF: 1–5 days, depending on coverage area",
-                  "Vinyl wraps: 1–5 days, depending on coverage area",
                 ].map((item, i) => (
                   <li key={i} className="flex gap-3">
                     <span className="text-brand-orange mt-0.5 flex-shrink-0">—</span>

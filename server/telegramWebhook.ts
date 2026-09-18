@@ -16,7 +16,7 @@
  *                            -> create a new monthly promo (deactivates old one)
  *
  * -- GALLERY -----------------------------------------------------------------
- *   /gallery add [PPF|Tint|Ceramic Coating|Wrap] -- [car description]  + photo
+ *   /gallery add [PPF|Tint|Ceramic Coating] -- [car description]  + photo
  *                            -> upload photo to CDN and add to gallery
  *   /gallery list            -> show last 10 gallery photos
  *   /gallery remove [id]     -> remove a gallery photo by ID
@@ -734,7 +734,7 @@ export async function handleTelegramWebhook(req: Request, res: Response) {
       `/new_month - guided step-by-step wizard (easiest)\n` +
       `<code>/promo_new Title | price | slots | startDate | endDate | description</code>\n\n` +
       `<b>-- Gallery --</b>\n` +
-      `/gallery add [PPF|Tint|Ceramic Coating|Wrap] -- [car] (+ photo)\n` +
+      `/gallery add [PPF|Tint|Ceramic Coating] -- [car] (+ photo)\n` +
       `/gallery list · /gallery remove [id]\n\n` +
       `<b>-- Hours --</b>\n` +
       `/hours Mon-Fri 9am-6pm\n` +
@@ -1000,7 +1000,7 @@ export async function handleTelegramWebhook(req: Request, res: Response) {
 
       if (dashMatch) {
         const rawCat = dashMatch[1].trim();
-        const validCats = ["PPF", "Tint", "Ceramic Coating", "Wrap"];
+        const validCats = ["PPF", "Tint", "Ceramic Coating"];
         const matched = validCats.find(c => c.toLowerCase() === rawCat.toLowerCase());
         category = matched ?? "PPF";
         carDesc = dashMatch[2].trim();

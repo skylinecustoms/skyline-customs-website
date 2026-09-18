@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { X, ArrowRight, ArrowLeft, Shield, Droplets, Sun, Palette } from "lucide-react";
+import { X, ArrowRight, ArrowLeft, Shield, Droplets, Sun } from "lucide-react";
 
 /*
  * SKYLINE CUSTOMS — BookingModal
@@ -9,7 +9,7 @@ import { X, ArrowRight, ArrowLeft, Shield, Droplets, Sun, Palette } from "lucide
  *   Step 2 — GHL calendar: the matching calendar loads in an iframe
  */
 
-export type BookingService = "ppf" | "ceramic" | "tint" | "wrap" | "general";
+export type BookingService = "ppf" | "ceramic" | "tint" | "general";
 
 interface ServiceOption {
   key: BookingService;
@@ -48,15 +48,6 @@ const SERVICE_OPTIONS: ServiceOption[] = [
     description: "Blocks 99% UV, reduces heat by 60%. No signal interference. Lifetime warranty.",
     icon: <Sun size={22} />,
     calendarUrl: "https://api.leadconnectorhq.com/widget/booking/ljUVbagdBufV6aInp4Lc",
-  },
-  {
-    key: "wrap",
-    number: "04",
-    title: "Vinyl Wraps",
-    subtitle: "Unlimited Customization",
-    description: "Hundreds of colors and finishes. Fully reversible, protects original paint.",
-    icon: <Palette size={22} />,
-    calendarUrl: "https://api.leadconnectorhq.com/widget/booking/MmVuOgWjRZzKiLSIQxFI",
   },
 ];
 

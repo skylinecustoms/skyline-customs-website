@@ -23,7 +23,6 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         ppf: "Paint Protection Film",
         ceramic: "Ceramic Coating",
         tint: "Window Tinting",
-        wrap: "Vinyl Wraps",
         general: "Auto Protection Service",
       };
       (window as any).fbq("track", "InitiateCheckout", {
