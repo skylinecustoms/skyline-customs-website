@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getAllBlogPosts, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo } from "./db";
 import { getDb } from "./db";
 import { getGoogleReviews } from "./googleReviews";
+import { getInstagramFeed } from "./instagram";
 import { siteSettings, galleryPhotos } from "../drizzle/schema";
 import { eq, asc } from "drizzle-orm";
 
@@ -360,6 +361,9 @@ Guidelines:
   site: router({
     // Public: live Google rating/count/newest reviews (null when no API key is configured)
     googleReviews: publicProcedure.query(async () => getGoogleReviews()),
+
+    // Public: latest Instagram posts (Graph API, cached 1h). Null when no token is set.
+    instagram: publicProcedure.query(async () => getInstagramFeed()),
 
     // Public: get all active site settings (hours, announcement, etc.)
     settings: publicProcedure.query(async () => {

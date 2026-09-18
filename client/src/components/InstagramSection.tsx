@@ -1,14 +1,16 @@
 /**
  * InstagramSection — "Follow us on Instagram" block for the home page.
  *
- * If INSTAGRAM_POSTS (lib/social.ts) has post URLs, they are embedded with
- * Instagram's official embed script. Otherwise a grid of recent shop photos
- * links to the profile. Instagram does not allow pulling a profile feed
- * without their API, so post URLs are the no-API way to show real posts.
+ * Order of preference:
+ *  1. Live feed from the server (trpc.site.instagram, Instagram Graph API with
+ *     INSTAGRAM_ACCESS_TOKEN set on the server): newest posts link to Instagram.
+ *  2. INSTAGRAM_POSTS (lib/social.ts) post URLs rendered with Instagram's
+ *     official embed script.
+ *  3. A grid of recent shop photos linking to the profile.
  */
 
 import { useEffect } from "react";
-import { Instagram, ArrowUpRight } from "lucide-react";
+import { Instagram, ArrowUpRight, Play, Images } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { INSTAGRAM_HANDLE, INSTAGRAM_POSTS, INSTAGRAM_URL } from "@/lib/social";
 
@@ -86,7 +88,40 @@ function PhotoGrid() {
   );
 }
 
+function LiveFeed({ posts }: { posts: { id: string; permalink: string; caption: string; mediaType: string; mediaUrl: string; timestamp: string }[] }) {
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-[oklch(0.18_0.006_285)]">
+      {posts.map((p) => (
+        <a
+          key={p.id}
+          href={p.permalink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative aspect-square overflow-hidden bg-[#111]"
+          aria-label={`${p.caption ? p.caption.slice(0, 80) : "Instagram post"} — open on Instagram`}
+        >
+          <img
+            src={p.mediaUrl}
+            alt={p.caption ? p.caption.slice(0, 120) : "Skyline Customs Instagram post"}
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          {p.mediaType === "VIDEO" && <Play className="absolute top-2 right-2 w-4 h-4 text-white drop-shadow" aria-hidden="true" />}
+          {p.mediaType === "CAROUSEL_ALBUM" && <Images className="absolute top-2 right-2 w-4 h-4 text-white drop-shadow" aria-hidden="true" />}
+          <span className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-colors flex items-end p-3">
+            <span className="text-white text-xs leading-snug opacity-0 group-hover:opacity-100 transition-opacity line-clamp-3">{p.caption}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export default function InstagramSection() {
+  const { data: feed } = trpc.site.instagram.useQuery(undefined, { staleTime: 30 * 60 * 1000, retry: false });
+  const livePosts = feed?.posts?.slice(0, 6) ?? [];
   return (
     <section className="py-24 bg-[#0A0A0A]">
       <div className="container">
@@ -111,7 +146,7 @@ export default function InstagramSection() {
             <Instagram className="w-4 h-4" /> Follow @{INSTAGRAM_HANDLE} <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
-        {INSTAGRAM_POSTS.length > 0 ? <PostEmbeds /> : <PhotoGrid />}
+        {livePosts.length >= 3 ? <LiveFeed posts={livePosts} /> : INSTAGRAM_POSTS.length > 0 ? <PostEmbeds /> : <PhotoGrid />}
       </div>
     </section>
   );

@@ -13,4 +13,8 @@ export const ENV = {
   ghlLocationId: process.env.GHL_LOCATION_ID ?? "",
   googlePlacesApiKey: process.env.GOOGLE_PLACES_API_KEY ?? "",
   googlePlaceId: process.env.GOOGLE_PLACE_ID ?? "ChIJNW7sCXJFtokRVBtPKs11cNI",
+  instagramAccessToken: (process.env.INSTAGRAM_ACCESS_TOKEN ?? "").trim(),
+  instagramUserId: (process.env.INSTAGRAM_USER_ID ?? "").trim(),
+  instagramAppId: (process.env.INSTAGRAM_APP_ID ?? "").trim(),
+  instagramAppSecret: (process.env.INSTAGRAM_APP_SECRET ?? "").trim(),
 };
