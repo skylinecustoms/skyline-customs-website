@@ -128,13 +128,13 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://maps.google.com/?q=4215+Walney+Rd+Suite+R+Chantilly+VA"
+                  href="https://maps.google.com/?q=4215+Walney+Rd+Suite+1A+%26+B+Chantilly+VA"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 text-[oklch(0.55_0.01_285)] text-sm hover:text-brand-orange transition-colors"
                 >
                   <MapPin size={14} className="mt-0.5 shrink-0 text-brand-orange" />
-                  4215 Walney Rd. Suite R<br />Chantilly, VA 20151
+                  4215 Walney Rd. Suite 1A &amp; B<br />Chantilly, VA 20151
                 </a>
               </li>
             </ul>

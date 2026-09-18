@@ -43,7 +43,7 @@ export default function ServiceAreas() {
             "telephone": "+17037754383",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "4215 Walney Rd Suite R",
+              "streetAddress": "4215 Walney Rd Suite 1A & B",
               "addressLocality": "Chantilly",
               "addressRegion": "VA",
               "postalCode": "20151",
@@ -190,13 +190,13 @@ export default function ServiceAreas() {
                 CONVENIENTLY LOCATED<br />IN CHANTILLY, VA
               </h2>
               <p className="text-zinc-400 leading-relaxed mb-6">
-                Our shop is located at <strong className="text-white">4215 Walney Rd Suite R, Chantilly, VA 20151</strong> — just off Route 28, minutes from Dulles Airport, and easily accessible from I-66, I-495, and the Dulles Toll Road. Free parking on site.
+                Our shop is located at <strong className="text-white">4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151</strong> — just off Route 28, minutes from Dulles Airport, and easily accessible from I-66, I-495, and the Dulles Toll Road. Free parking on site.
               </p>
               <div className="space-y-3 mb-8">
                 {[
                   { label: "Phone", value: "(703) 775-4383", href: "tel:+17037754383" },
                   { label: "Hours", value: "Mon–Sat: 8am–6pm" },
-                  { label: "Address", value: "4215 Walney Rd Suite R, Chantilly, VA 20151" },
+                  { label: "Address", value: "4215 Walney Rd Suite 1A & B, Chantilly, VA 20151" },
                 ].map((item) => (
                   <div key={item.label} className="flex gap-3 text-sm">
                     <span className="text-zinc-500 w-16 shrink-0">{item.label}</span>

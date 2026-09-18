@@ -157,7 +157,7 @@ export default function About() {
               <div className="space-y-4">
                 <div>
                   <p className="font-mono-brand text-xs text-brand-orange uppercase tracking-widest mb-1">Address</p>
-                  <p className="text-[oklch(0.75_0.008_85)]">4215 Walney Rd. Suite R<br />Chantilly, VA 20151</p>
+                  <p className="text-[oklch(0.75_0.008_85)]">4215 Walney Rd. Suite 1A &amp; B<br />Chantilly, VA 20151</p>
                 </div>
                 <div>
                   <p className="font-mono-brand text-xs text-brand-orange uppercase tracking-widest mb-1">Hours</p>

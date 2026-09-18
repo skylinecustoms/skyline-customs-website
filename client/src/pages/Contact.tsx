@@ -145,12 +145,12 @@ export default function Contact() {
                   <div>
                     <p className={labelClass}>Address</p>
                     <a
-                      href="https://maps.google.com/?q=4215+Walney+Rd+Suite+R+Chantilly+VA"
+                      href="https://maps.google.com/?q=4215+Walney+Rd+Suite+1A+%26+B+Chantilly+VA"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[oklch(0.75_0.008_85)] hover:text-brand-orange transition-colors text-sm"
                     >
-                      4215 Walney Rd. Suite R<br />Chantilly, VA 20151
+                      4215 Walney Rd. Suite 1A &amp; B<br />Chantilly, VA 20151
                     </a>
                   </div>
                 </div>
@@ -383,7 +383,7 @@ export default function Contact() {
         <div className="container">
           <div className="relative overflow-hidden" style={{ height: "420px" }}>
             <iframe
-              title="Skyline Customs Location — 4215 Walney Rd Suite R, Chantilly VA"
+              title="Skyline Customs Location — 4215 Walney Rd Suite 1A & B, Chantilly VA"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3107.523!2d-77.46572!3d38.86928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b64c2f7c9c3c3d%3A0x8e4b1e2f3a4b5c6d!2s4215%20Walney%20Rd%20Suite%20R%2C%20Chantilly%2C%20VA%2020151!5e0!3m2!1sen!2sus!4v1740000000000!5m2!1sen!2sus"
               width="100%"
               height="100%"
@@ -395,10 +395,10 @@ export default function Contact() {
             <div className="absolute bottom-0 left-0 bg-[oklch(0.08_0.005_285/0.90)] backdrop-blur-sm px-6 py-4 border-t border-r border-brand-orange/40">
               <p className="font-mono-brand text-xs text-brand-orange uppercase tracking-widest mb-1">Our Location</p>
               <p className="font-display text-base text-[oklch(0.96_0.008_85)] tracking-wider">
-                4215 Walney Rd. Suite R — Chantilly, VA 20151
+                4215 Walney Rd. Suite 1A &amp; B — Chantilly, VA 20151
               </p>
               <a
-                href="https://maps.google.com/?q=Skyline+Customs+4215+Walney+Rd+Suite+R+Chantilly+VA+20151"
+                href="https://maps.google.com/?q=Skyline+Customs+4215+Walney+Rd+Suite+1A+%26+B+Chantilly+VA+20151"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 mt-2 text-brand-orange font-mono-brand text-xs uppercase tracking-widest hover:underline"

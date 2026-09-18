@@ -34,13 +34,13 @@ export interface City {
   isHome?: boolean;
 }
 
-export const SHOP_ADDRESS = "4215 Walney Rd Suite R, Chantilly, VA 20151";
+export const SHOP_ADDRESS = "4215 Walney Rd Suite 1A & B, Chantilly, VA 20151";
 
 export const CITIES: Record<string, City> = {
   Chantilly: {
     name: "Chantilly", slug: "chantilly-va", isHome: true,
-    driveSentence: "We are located at 4215 Walney Rd Suite R, Chantilly, VA 20151 — just off Route 28, minutes from Dulles Airport and easily accessible from I-66, I-495, and the Dulles Toll Road. Free parking on site.",
-    heroDrive: "located right here at 4215 Walney Rd Suite R",
+    driveSentence: "We are located at 4215 Walney Rd Suite 1A & B, Chantilly, VA 20151 — just off Route 28, minutes from Dulles Airport and easily accessible from I-66, I-495, and the Dulles Toll Road. Free parking on site.",
+    heroDrive: "located right here at 4215 Walney Rd Suite 1A & B",
     roads: "Route 28, I-66, and the Dulles Toll Road",
     roadsTitle: "Route 28 & I-66 Defense",
     roadsDesc: "Chantilly sits at the intersection of Route 28, I-66, and the Dulles Toll Road — some of the highest-traffic roads in Northern Virginia, with constant gravel, construction debris, and highway chips.",

@@ -72,8 +72,8 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
     ...svc.features,
   ];
   const shopLine = city.isHome
-    ? `Our shop is at 4215 Walney Rd Suite R, Chantilly, VA 20151 — just off Route 28, minutes from Dulles Airport. Free parking on site.`
-    : `Our shop is at 4215 Walney Rd Suite R, Chantilly, VA 20151 — ${city.heroDrive}. Free parking on site.`;
+    ? `Our shop is at 4215 Walney Rd Suite 1A & B, Chantilly, VA 20151 — just off Route 28, minutes from Dulles Airport. Free parking on site.`
+    : `Our shop is at 4215 Walney Rd Suite 1A & B, Chantilly, VA 20151 — ${city.heroDrive}. Free parking on site.`;
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
@@ -90,7 +90,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             "telephone": "+17037754383",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "4215 Walney Rd Suite R",
+              "streetAddress": "4215 Walney Rd Suite 1A & B",
               "addressLocality": "Chantilly",
               "addressRegion": "VA",
               "postalCode": "20151",

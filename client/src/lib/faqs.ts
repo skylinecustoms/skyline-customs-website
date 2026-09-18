@@ -13,7 +13,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
     heading: "VISITING THE SHOP",
     intro: "Where we are, when we're open, and how booking works.",
     items: [
-      { q: "Where is Skyline Customs located?", a: "4215 Walney Rd Suite R, Chantilly, VA 20151 — just off Route 28, minutes from Dulles Airport and easy to reach from I-66, I-495, and the Dulles Toll Road. Free parking on site." },
+      { q: "Where is Skyline Customs located?", a: "4215 Walney Rd Suite 1A & B, Chantilly, VA 20151 — just off Route 28, minutes from Dulles Airport and easy to reach from I-66, I-495, and the Dulles Toll Road. Free parking on site." },
       { q: "What are your hours?", a: "Monday through Friday, 9 AM to 6 PM. We're closed on weekends, but you can request a quote online any time and we'll follow up the next business day." },
       { q: "Do I need an appointment?", a: "Yes. Every install is scheduled so the bay is ready and dust-free when your car arrives. Request a free quote and we'll offer dates, or call (703) 775-4383." },
       { q: "Do you offer mobile service or do I come to you?", a: "We operate from our controlled-environment facility in Chantilly, VA. Proper installation of PPF and ceramic coatings requires a dust-free environment that can't be replicated outdoors — this is how we guarantee quality." },

@@ -34,7 +34,7 @@ export default function LocalBanner({ localHref, serviceName }: LocalBannerProps
                 Serving Chantilly, VA &amp; Northern Virginia
               </h3>
               <p className="text-zinc-500 text-sm leading-relaxed">
-                Our shop is located at 4215 Walney Rd Suite R, Chantilly, VA 20151 — minutes from{" "}
+                Our shop is located at 4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151 — minutes from{" "}
                 {NEARBY_CITIES.slice(0, 5).join(", ")}, and more.
               </p>
               {/* Nearby city tags */}

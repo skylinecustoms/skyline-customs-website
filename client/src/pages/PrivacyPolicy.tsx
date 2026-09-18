@@ -127,7 +127,7 @@ export default function PrivacyPolicy() {
               <p className="mb-4">If you have any questions about this Privacy Policy, please contact us:</p>
               <div className="border border-[oklch(0.20_0.006_285)] bg-[oklch(0.12_0.005_285)] p-6 space-y-2">
                 <p className="text-[oklch(0.85_0.008_85)] font-semibold">Skyline Custom Shop</p>
-                <p>4215 Walney Rd Suite R, Chantilly, VA 20151</p>
+                <p>4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151</p>
                 <p>
                   Phone:{" "}
                   <a href="tel:+17037754383" className="text-brand-orange hover:underline">
