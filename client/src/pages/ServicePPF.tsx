@@ -38,7 +38,7 @@ const benefits = [
 ];
 
 const process = [
-  { num: "01", title: "Free Quote & Inspection", desc: "Tell us the year, make, and model and how you drive. We recommend partial, full front, extended, or full vehicle, and confirm pricing at the car." },
+  { num: "01", title: "Free Quote & Inspection", desc: "Tell us the year, make, and model and how you drive. We recommend partial, full front, or full front extended, and confirm pricing at the car." },
   { num: "02", title: "Decontamination Wash", desc: "Foam wash, iron fallout remover, and clay bar so nothing sits between the film and the paint. Fresh-from-the-dealer cars get this too." },
   { num: "03", title: "Paint Correction (If Needed)", desc: "Film locks in whatever is under it. Swirls or scratches are polished out first so the paint under the film is better than the paint next to it." },
   { num: "04", title: "Computer-Cut Patterns", desc: "Patterns are plotted for your exact year and model, with extra material to wrap edges. No blades touch your paint." },
@@ -64,7 +64,7 @@ export default function ServicePPF() {
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
         title="Paint Protection Film (PPF) Chantilly, VA | STEK Certified PPF Installer, Northern Virginia"
-        description="Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Partial front, full front, extended, and full-vehicle coverage in self-healing DYNOshield with a 12-year warranty. 141 five-star reviews. Free quotes, usually within the hour."
+        description="Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Partial front, full front, and full front extended coverage in self-healing DYNOshield with a 12-year warranty. 141 five-star reviews. Free quotes, usually within the hour."
         canonical={`${BASE_URL}/services/ppf`}
         jsonLd={[
           {
@@ -82,12 +82,11 @@ export default function ServicePPF() {
             },
             "areaServed": CITY_ORDER.map((c) => ({ "@type": "City", "name": `${c}, VA` })),
             "brand": { "@type": "Brand", "name": "STEK DYNOshield" },
-            "description": "STEK DYNOshield paint protection film installed by certified technicians in Chantilly, VA. Partial front, full front, full front extended, and full-vehicle coverage with a 12-year manufacturer warranty.",
+            "description": "STEK DYNOshield paint protection film installed by certified technicians in Chantilly, VA. Partial front, full front, and full front extended coverage with a 12-year manufacturer warranty.",
             "hasOfferCatalog": { "@type": "OfferCatalog", "name": "PPF packages", "itemListElement": PPF_PACKAGES.map((p) => ({ "@type": "Offer", "name": `${p.name} PPF`, "url": `${BASE_URL}/get-a-quote?service=ppf`, "itemOffered": { "@type": "Service", "name": `${p.name} paint protection film`, "description": p.coverage.join(", ") } })) },
             "review": [
               { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Marcus T." }, "reviewBody": "Got full front PPF on my BMW M4. The installation was flawless — you can't even tell it's there. Skyline's attention to detail is unmatched in Northern Virginia." },
               { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Jennifer L." }, "reviewBody": "Had PPF installed on my new Tesla Model 3. The team was professional, the shop was immaculate, and the result was perfect. Worth every penny for peace of mind." },
-              { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "David K." }, "reviewBody": "Best PPF shop in the DMV area. They did a full vehicle wrap on my Porsche 911 and it looks incredible. Highly recommend Skyline to anyone serious about protecting their investment." },
             ],
             "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "141", "bestRating": "5", "worstRating": "1" },
           },
@@ -192,7 +191,7 @@ export default function ServicePPF() {
           <div className="mb-16">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Coverage Options</p>
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">CHOOSE YOUR PROTECTION</h2>
-            <p className="text-zinc-400 mt-4 max-w-2xl">Four packages, one film. Tell us your vehicle and we quote the exact price, usually within the hour.</p>
+            <p className="text-zinc-400 mt-4 max-w-2xl">Three packages, one film. Tell us your vehicle and we quote the exact price, usually within the hour.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {PPF_PACKAGES.map((pkg) => (
@@ -413,7 +412,6 @@ export default function ServicePPF() {
               { href: "/ppf-cost", label: "What goes into a PPF quote" },
               { href: "/blog/how-long-does-ppf-last-northern-virginia", label: "How long PPF lasts" },
               { href: "/blog/self-healing-ppf-northern-virginia", label: "Self-healing PPF explained" },
-              { href: "/blog/full-front-vs-full-body-ppf-what-to-cover", label: "Full front vs full body" },
               { href: "/blog/how-to-wash-and-care-for-ppf", label: "How to wash and care for PPF" },
               { href: "/blog/ppf-paint-protection-film-northern-virginia", label: "Is PPF worth it?" },
             ].map((l) => (

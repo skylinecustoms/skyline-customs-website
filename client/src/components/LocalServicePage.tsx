@@ -19,7 +19,7 @@ import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 
 const SERVICE_MATCH: Record<ServiceKey, RegExp> = { ppf: /ppf|paint protection/i, ceramic: /ceramic coat/i, tint: /tint/i };
-const FALLBACK_PHOTO = { photoUrl: "/images/ppf_1_c7c64665.webp", alt: "Full-body paint protection film installation on a Corvette C8" };
+const FALLBACK_PHOTO = { photoUrl: "/images/ppf_1_c7c64665.webp", alt: "Paint protection film installation on a Corvette C8" };
 
 function hash(s: string) { let h = 0; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h; }
 

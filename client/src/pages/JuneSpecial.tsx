@@ -304,8 +304,8 @@ function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: bo
       a: "Full front. That means the entire hood, both front fenders, the front bumper, side mirrors, and headlights. Not a partial hood, not just the bumper. The full front end in STEK DYNOshield.",
     },
     {
-      q: "Can I add rear coverage or full-body PPF?",
-      a: "Yes. The monthly special price covers the full front package. If you want to add rear bumper, rocker panels, full rear, or full-body coverage, we'll quote that separately when you book. Many customers add at least the rocker panels.",
+      q: "Can I add more coverage than full front?",
+      a: "Yes. The monthly special price covers the full front package. If you want to add the rocker panels, door edges, and door cups (our full front extended package), we'll quote that separately when you book. Many customers add at least the rocker panels.",
     },
   ];
   if (hasCorrection) {

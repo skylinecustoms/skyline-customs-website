@@ -29,7 +29,6 @@ const services: { id: string; number: string; title: string; subtitle: string; i
     packages: [
       { name: "Partial Front", note: "Bumper + partial hood (18in) — budget-friendly front coverage" },
       { name: "Full Front", note: "Bumper, hood, fenders, mirrors, headlights, A-pillars" },
-      { name: "Full Vehicle", note: "Complete paint protection" },
     ],
     bookingService: "ppf" as BookingService,
     href: "/services/ppf",

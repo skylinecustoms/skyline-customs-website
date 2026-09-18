@@ -6,7 +6,7 @@
 import type { VehicleClass } from "@/lib/modelPpf";
 
 export interface PpfPackage {
-  key: "partial" | "fullFront" | "fullFrontPlus" | "fullVehicle";
+  key: "partial" | "fullFront" | "fullFrontPlus";
   name: string;
   tagline: string;
   coverage: string[];
@@ -41,18 +41,9 @@ export const PPF_PACKAGES: PpfPackage[] = [
     name: "Full Front Extended",
     tagline: "Front end plus the wear areas",
     coverage: ["Everything in Full Front", "Rocker panels", "Door edges and door cups", "Door strips", "A-pillars (halfway)"],
-    bestFor: "Trucks, SUVs, and anything that sees gravel, trails, or lots of passengers.",
+    bestFor: "Trucks, SUVs, and anything that sees gravel, trails, or lots of passengers. Our most complete package.",
     installTime: "One to two days",
     image: "/images/CvygVrceuSyvFqPY.webp",
-  },
-  {
-    key: "fullVehicle",
-    name: "Full Vehicle",
-    tagline: "Every painted panel",
-    coverage: ["Every painted panel", "Full roof and pillars", "All doors and quarter panels", "Trunk and rear bumper", "Matte (stealth) finish available"],
-    bestFor: "New exotics, collector cars, and anyone keeping the car for the long haul.",
-    installTime: "Two to three days",
-    image: "/images/lUHfbPByiOnODTUs.webp",
   },
 ];
 
@@ -69,7 +60,7 @@ export const PPF_FAQS: { q: string; a: string }[] = [
   { q: "Will PPF change how my car looks?", a: "No. DYNOshield is optically clear with no orange peel or haze, so the only difference is a slightly deeper gloss. If you want a satin look, we also install matte (stealth) PPF that turns gloss paint into a factory-style matte finish." },
   { q: "Does PPF self-heal?", a: "Yes. DYNOshield's thermoplastic polyurethane top layer closes light scratches and swirl marks when it warms up in the sun or under hot water. Deep gouges from keys or impacts are not self-healing, but the film takes that damage instead of your paint." },
   { q: "Can I see the edges of the film?", a: "Not on a proper install. We wrap edges under the hood, fenders, and bumper wherever the panel allows instead of leaving a visible seam on the face of the panel. Computer-cut patterns for your exact year and model make that possible without cutting on the car." },
-  { q: "How long does a PPF install take?", a: "Partial front is about half a day, full front is one day, full front extended one to two days, and full vehicle two to three days. Every install starts with a decontamination wash and paint inspection and ends with a walk-around under high-intensity lighting." },
+  { q: "How long does a PPF install take?", a: "Partial front is about half a day, full front is one day, and full front extended one to two days. Every install starts with a decontamination wash and paint inspection and ends with a walk-around under high-intensity lighting." },
   { q: "Can I wash my car normally after PPF?", a: "Yes, after a 7-day cure period. Hand wash or touchless wash only; automatic brush washes are what shorten film life. Avoid pressure-washing directly at film edges, and do not wax over the film; a ceramic coating on top is the right way to add gloss and easier cleaning." },
   { q: "Does PPF damage the paint when removed?", a: "No. Professionally removed film leaves factory paint intact, which is why PPF is popular on leases and cars people plan to sell. The paint under the film is usually in better shape than the uncovered panels around it." },
   { q: "Should I get PPF or a ceramic coating?", a: "They do different jobs. Film physically stops rock chips and scratches; a coating adds gloss, chemical resistance, and easy washing but cannot stop a chip. Most customers do both: film on the front end, coating on the whole car, and the coating bonds well to DYNOshield." },
@@ -78,9 +69,9 @@ export const PPF_FAQS: { q: string; a: string }[] = [
 ];
 
 export const PPF_COST_FACTORS = [
-  { title: "How much you cover", body: "Coverage drives your quote more than anything else. Partial front is the entry point, full front is what most daily drivers choose, extended adds the rockers and door edges, and full vehicle covers every painted panel." },
-  { title: "Vehicle size", body: "Full-front coverage uses similar material on most vehicles. Full-vehicle coverage scales with panel area, so a truck or large SUV is quoted higher than a coupe." },
-  { title: "Gloss vs. matte film", body: "Clear DYNOshield is the standard. Matte (stealth) film that converts gloss paint to a satin finish is normally installed on the whole car and quoted per vehicle." },
+  { title: "How much you cover", body: "Coverage drives your quote more than anything else. Partial front is the entry point, full front is what most daily drivers choose, and extended adds the rockers and door edges." },
+  { title: "Vehicle size", body: "Full-front coverage uses similar material on most vehicles. Extended coverage scales with the size of the rockers and doors, so a truck or large SUV is quoted a little higher than a coupe." },
+  { title: "Gloss vs. matte film", body: "Clear DYNOshield is the standard. Matte (stealth) film that converts gloss paint to a satin finish is quoted per vehicle." },
   { title: "Paint condition", body: "Film locks in whatever is under it, so swirled or scratched paint needs correction first. A brand-new car usually needs none; a two-year-old daily driver may need a light polish before the film goes on." },
   { title: "Bundles", body: "Adding a full-car ceramic coating or GeoShield ceramic tint to a PPF install is quoted as a package and costs less than booking each service separately. This month's special includes a free ceramic coating with every full front." },
   { title: "Film brand and installer", body: "Cheaper quotes usually mean bulk film with hand-cut edges and a short warranty. We only install STEK DYNOshield with computer-cut patterns and a 12-year manufacturer warranty, in a dust-free bay, by certified installers." },

@@ -106,7 +106,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
         <div className="container">
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">By model</p>
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl text-white mb-3">WHAT WE COVER ON YOUR {brand.name.toUpperCase()}</h2>
-          <p className="text-zinc-400 max-w-2xl mb-10">All film is STEK DYNOshield, self-healing, with a 12-year warranty. Partial front, full front, full front extended, and full-vehicle coverage are available on every model; pricing is by free quote and confirmed at an in-person inspection.</p>
+          <p className="text-zinc-400 max-w-2xl mb-10">All film is STEK DYNOshield, self-healing, with a 12-year warranty. Partial front, full front, and full front extended coverage are available on every model; pricing is by free quote and confirmed at an in-person inspection.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
             {brand.models.map((m) => (
               <div key={m.name} className="bg-[#0D0D0D] p-6 hover:bg-[#111] transition-colors flex flex-col">

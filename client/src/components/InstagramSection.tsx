@@ -20,7 +20,7 @@ const FALLBACK_PHOTOS = [
   { src: "/images/slot-bernard-c-1994-toyota-supra-1783276263431.jpg", alt: "1994 Toyota Supra protected with PPF" },
   { src: "/images/slot-keith-n-2024-mercedes-gle-53-amg-coupe-1782829578687.jpg", alt: "Mercedes GLE 53 AMG Coupe PPF and ceramic coating" },
   { src: "/images/tint_bmw_m2_847caa83.webp", alt: "BMW M2 ceramic window tint in Chantilly, VA" },
-  { src: "/images/ppf_1_c7c64665.webp", alt: "Corvette C8 full body paint protection film" },
+  { src: "/images/ppf_1_c7c64665.webp", alt: "Corvette C8 paint protection film" },
 ];
 
 declare global {

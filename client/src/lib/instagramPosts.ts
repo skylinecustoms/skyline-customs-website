@@ -49,12 +49,10 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
 
   // Recent work (b-roll)
   { code: "DbLfyt_vQSA", category: "work", title: "2026 Stingray: Full Front PPF + Ceramic" },
-  { code: "DbIvcUdB7HT", category: "work", title: "Black GT-R Full Body PPF" },
   { code: "DbGbLzwBEqg", category: "work", title: "Cybertruck: Matte Black PPF + Ceramic Tint" },
   { code: "DbBHdDiO-GM", category: "work", title: "White Supra: Full Front PPF + Ceramic" },
   { code: "DadOvluBAu_", category: "work", title: "Brand-New Escalade Full Front PPF" },
   { code: "DaQD_3Dun6S", category: "work", title: "Sanremo Green Z4: Full Front PPF + Ceramic" },
-  { code: "DZC-YMhAog0", category: "work", title: "2026 Stingray Full Body PPF" },
   { code: "DYIFA9IgpJQ", category: "work", title: "BMW M2 Ceramic Window Tint" },
   { code: "DXy68SxgpDf", category: "work", title: "2026 BMW iX PPF Track Package" },
   { code: "DVjMobOgOpG", category: "work", title: "Dealer Fresh to Fully Protected" },

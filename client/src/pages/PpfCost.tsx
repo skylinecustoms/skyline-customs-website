@@ -23,7 +23,7 @@ const BUNDLES = [
   { name: "Full Front PPF + Ceramic Coating", note: "Film on the front, Gtechniq coating on the whole car. Quoted as one package." },
   { name: "Full Front PPF + GeoShield Ceramic Tint", note: "Front-end film plus full-car ceramic window tint." },
   { name: "Full Front PPF + Ceramic + Tint", note: "Our most popular combination: chips, gloss, and heat handled in one visit.", popular: true },
-  { name: "Full Vehicle PPF + Ceramic Coating", note: "Every panel filmed and coated for cars you plan to keep." },
+  { name: "Full Front Extended PPF + Ceramic Coating", note: "Rockers and door edges filmed too, then the whole car coated. For trucks, SUVs, and cars you plan to keep." },
 ];
 
 const INCLUDED = [
@@ -37,7 +37,7 @@ const INCLUDED = [
 
 const FAQS = [
   { q: "How much does full front PPF cost?", a: "Full front is our most popular package and covers the full hood, full front bumper, both fenders, mirrors, headlights, and A-pillars in STEK DYNOshield with a 12-year warranty. The price depends on your vehicle, so send us the year, make, and model through the free quote form and we reply with an exact number, usually within the hour." },
-  { q: "How much does full body PPF cost?", a: "Full-vehicle PPF is quoted by vehicle size, because a truck or large SUV has far more painted area than a coupe. Matte (stealth) film for the whole car is quoted separately. Request a free quote for your exact vehicle." },
+  { q: "How much does full front extended PPF cost?", a: "Full front extended adds the rocker panels, door edges, and door cups to everything in full front, so it is quoted a little above full front and scales with the size of the vehicle. Request a free quote for your exact vehicle." },
   { q: "Why do PPF quotes vary so much between shops?", a: "Film brand, how much of each panel is covered, whether edges are wrapped or cut on the face of the panel, paint correction, and warranty length. A bargain 'full front' is usually a partial hood with a visible line and a short warranty. Ask any shop which film, which pattern software, and what the warranty covers." },
   { q: "Is a partial front worth it, or should I go full front?", a: "Partial front protects the bumper, the first 18 inches of the hood, and the mirrors, which is where most chips land. Full front adds the rest of the hood, both full fenders, and headlights, and has no film line on the hood. Most daily drivers choose full front once they see the difference in coverage." },
   { q: "Does the quote include paint correction?", a: "The decontamination wash and inspection are included. If the paint has swirls or scratches that would be locked under the film, we quote the correction separately after seeing the car. New cars usually need none." },
@@ -95,7 +95,7 @@ export default function PpfCost() {
             <h1 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white leading-none mb-6">HOW MUCH DOES PPF COST IN NORTHERN VIRGINIA?</h1>
             <div className="border-l-4 border-[#E85D04] bg-[#111] p-6 mb-6">
               <p className="text-white text-lg leading-relaxed">
-                <strong>Short answer:</strong> it depends on two things, how much of the car you cover and how big the car is. Most drivers choose <strong>full front</strong>, which covers the hood, bumper, fenders, mirrors, and headlights in STEK DYNOshield with a 12-year warranty. Send us your vehicle and we reply with an exact price, usually within the hour.
+                <strong>Short answer:</strong> it depends on two things, how much of the front end you cover and how big the car is. Most drivers choose <strong>full front</strong>, which covers the hood, bumper, fenders, mirrors, and headlights in STEK DYNOshield with a 12-year warranty. Send us your vehicle and we reply with an exact price, usually within the hour.
               </p>
             </div>
             <p className="text-zinc-300 leading-relaxed text-lg">
@@ -116,7 +116,7 @@ export default function PpfCost() {
         <section className="py-16 bg-[#0D0D0D] border-t border-zinc-800">
           <div className="container max-w-5xl">
             <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">What we quote</p>
-            <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-8">FOUR PACKAGES, THREE VEHICLE SIZES</h2>
+            <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-8">THREE PACKAGES, THREE VEHICLE SIZES</h2>
             {promo && (
               <div className="border border-[#E85D04]/50 bg-[#E85D04]/10 p-4 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <p className="text-white text-sm"><span className="text-[#E85D04] font-bold uppercase tracking-widest text-xs mr-2">{promo.title}</span>Full-front PPF this month includes a free full-car ceramic coating. Spots are limited.</p>
@@ -237,7 +237,6 @@ export default function PpfCost() {
               {[
                 { href: "/services/ppf", label: "PPF packages and process" },
                 { href: "/ppf-vs-ceramic-coating", label: "PPF vs ceramic coating" },
-                { href: "/blog/full-front-vs-full-body-ppf-what-to-cover", label: "Full front vs full body" },
                 { href: "/blog/how-long-does-ppf-last-northern-virginia", label: "How long PPF lasts" },
                 { href: "/ppf-chantilly-va", label: "PPF in Chantilly" },
                 { href: "/get-a-quote?service=ppf", label: "Get a quote" },

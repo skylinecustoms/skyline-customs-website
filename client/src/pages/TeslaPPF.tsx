@@ -20,13 +20,12 @@ import { trpc } from "@/lib/trpc";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 
-type Pkg = "partial" | "full-front" | "full-front-plus" | "full-vehicle";
+type Pkg = "partial" | "full-front" | "full-front-plus";
 
 const PACKAGES: { key: Pkg; name: string; sub: string; covers: string[]; popular?: boolean }[] = [
   { key: "partial", name: "Partial Front", sub: "Budget rock-chip defense", covers: ["Front bumper", "Leading 18\" of hood", "Mirror caps"] },
   { key: "full-front", name: "Full Front", sub: "What most Tesla owners choose", covers: ["Full hood", "Front bumper", "Both fenders", "Mirrors & headlights", "A-pillars"], popular: true },
   { key: "full-front-plus", name: "Full Front + Rockers", sub: "Adds the panels that catch gravel", covers: ["Everything in Full Front", "Both rocker panels", "Door cups & edges"] },
-  { key: "full-vehicle", name: "Full Vehicle", sub: "Every painted panel", covers: ["Every exterior panel", "Roof, doors, trunk", "Bumpers front & rear"] },
 ];
 
 const MODELS = [
@@ -42,9 +41,9 @@ const FAQS = [
   { q: "Does PPF void the Tesla warranty?", a: "No. Paint protection film is a removable, non-permanent product that Tesla itself sells kits for. It does not affect the vehicle, battery, or paint warranty." },
   { q: "Is Tesla's own PPF kit good enough?", a: "The Tesla kit covers only the rear wheel arch area and is meant for DIY application. It does nothing for the hood, bumper, fenders, or mirrors where nearly all chips happen. A professional full-front install covers the panels that actually take damage." },
   { q: "Will film interfere with Autopilot cameras or sensors?", a: "No. Our computer-cut patterns are trimmed around every camera, ultrasonic sensor, and the front radar area, so nothing is covered that shouldn't be." },
-  { q: "How much does Tesla PPF cost in Northern Virginia?", a: "It depends on the coverage you choose and the model: full-vehicle film on a Model Y or Cybertruck uses more material than on a Model 3. Every price is confirmed at an in-person inspection. Send us your model and the coverage you want through the free quote form and we reply with an exact number, usually within the hour." },
-  { q: "Can you PPF a Cybertruck?", a: "Yes. Film on the stainless panels prevents fingerprints, scuffs, and light scratches, and many owners choose a matte or satin film to change the look while protecting the metal. Full-vehicle Cybertruck coverage is quoted per truck." },
-  { q: "How long does a Tesla PPF install take?", a: "Full front is usually one day; full-vehicle coverage takes 2–3 days. Every install starts with a decontamination wash and finishes with our walk-and-pay inspection under high-intensity lighting." },
+  { q: "How much does Tesla PPF cost in Northern Virginia?", a: "It depends on the coverage you choose and the model: extended coverage on a Model Y or Cybertruck uses more material than on a Model 3. Every price is confirmed at an in-person inspection. Send us your model and the coverage you want through the free quote form and we reply with an exact number, usually within the hour." },
+  { q: "Can you PPF a Cybertruck?", a: "Yes. Film on the stainless panels prevents fingerprints, scuffs, and light scratches, and many owners choose a matte or satin film to change the look while protecting the metal. Cybertruck coverage is quoted per truck." },
+  { q: "How long does a Tesla PPF install take?", a: "Full front is usually one day; full front with rockers one to two days. Every install starts with a decontamination wash and finishes with our walk-and-pay inspection under high-intensity lighting." },
   { q: "Should I add ceramic coating on top of the film?", a: "Yes — a ceramic coating over PPF keeps the film hydrophobic, protects it from UV and bird droppings, and makes the whole car easier to wash. This month's special includes a full-car ceramic coating with every full-front install." },
 ];
 

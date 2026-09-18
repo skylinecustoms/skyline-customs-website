@@ -27,7 +27,7 @@ const services: { number: string; title: string; subtitle: string; description: 
     subtitle: "Self-Healing PPF",
     description: "An invisible barrier against rock chips, scratches, and road debris. Self-healing film absorbs impact and preserves your factory finish for years.",
     image: PPF_IMAGE,
-    imageAlt: "Full-body paint protection film installation on a Corvette C8 at Skyline Custom Shop in Chantilly, VA",
+    imageAlt: "Paint protection film installation on a Corvette C8 at Skyline Custom Shop in Chantilly, VA",
     href: "/services/ppf",
     bookingService: "ppf",
   },

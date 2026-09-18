@@ -22,7 +22,7 @@ export interface VehicleBrand {
 }
 
 const shared = {
-  install: { q: "How long does the install take?", a: "Full front is usually one day; full-vehicle coverage takes 2–3 days. Every job starts with a decontamination wash and ends with our walk-and-pay inspection under high-intensity lighting before you pay." },
+  install: { q: "How long does the install take?", a: "Full front is usually one day; full front extended one to two days. Every job starts with a decontamination wash and ends with our walk-and-pay inspection under high-intensity lighting before you pay." },
   warranty: { q: "What warranty comes with the film?", a: "STEK DYNOshield carries a 12-year manufacturer warranty against yellowing, cracking, and peeling, and it self-heals light scratches and swirl marks with heat." },
   ceramic: { q: "Should I add a ceramic coating on top?", a: "Yes. A coating over the film keeps it hydrophobic, protects it from UV and bird droppings, and makes the whole car easier to wash. Our monthly specials often bundle the two." },
 };
@@ -58,8 +58,8 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   {
     slug: "porsche", name: "Porsche", headline: "PPF",
     seoTitle: "Porsche PPF Northern Virginia | 911, Cayman, Taycan, Macan & Cayenne Paint Protection",
-    seoDescription: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front and full vehicle coverage. 12-year warranty. Free quotes.",
-    intro: "Porsche owners in Northern Virginia drive their cars, whether that means a Cayenne on the Beltway every day, a 911 to Skyline Drive on Sunday, or a GT car to Summit Point for a track day. Wide front bumpers, exposed radiator intakes, and painted rocker panels mean the film needs to cover more than a partial kit does, and most Porsche customers choose full front with rockers or full vehicle.",
+    seoDescription: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front and full front extended coverage. 12-year warranty. Free quotes.",
+    intro: "Porsche owners in Northern Virginia drive their cars, whether that means a Cayenne on the Beltway every day, a 911 to Skyline Drive on Sunday, or a GT car to Summit Point for a track day. Wide front bumpers, exposed radiator intakes, and painted rocker panels mean the film needs to cover more than a partial kit does, and most Porsche customers choose full front with rockers.",
     photoMatch: /porsche/i,
     videoIds: ["ZvVdjXH06ug"],
     models: [
@@ -85,8 +85,8 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   {
     slug: "corvette", name: "Corvette", headline: "PPF",
     seoTitle: "Corvette PPF Northern Virginia | C8 Stingray, Z06 & E-Ray Paint Protection Film",
-    seoDescription: "Corvette paint protection film in Chantilly, VA. Full-body and full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. Free quotes.",
-    intro: "The mid-engine C8 puts a low, wide nose and a front splitter inches off the pavement, right where every pebble on I-66 and Route 28 lands. We've done full-body film on a 2026 E-Ray and a C8 Z06 in the Chantilly bay, and Corvette owners are the group most likely to choose full-vehicle coverage from day one.",
+    seoDescription: "Corvette paint protection film in Chantilly, VA. Full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. Free quotes.",
+    intro: "The mid-engine C8 puts a low, wide nose and a front splitter inches off the pavement, right where every pebble on I-66 and Route 28 lands. We've filmed C8 Stingrays, Z06s, and E-Rays in the Chantilly bay, and Corvette owners are the group most likely to protect the front end from day one.",
     photoMatch: /corvette|c8/i,
     videoIds: ["euOKAH_QStE", "U0hjC5pdMZM"],
     models: [
@@ -96,13 +96,13 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
       { name: "C7 Stingray / Z06", cls: "sedan", note: "Long hood and front fascia chip quickly on highway miles." },
     ],
     reasons: [
-      { title: "Full-Body Specialists", desc: "We've wrapped every painted panel on C8s, including the removable roof, doors, and rear quarters." },
+      { title: "C8 Specialists", desc: "We know where a C8 chips: the splitter, the nose, the fender tops, and the rockers behind the front tires. Full front extended covers all of it." },
       { title: "Splitter & Intake Coverage", desc: "Film on the front splitter, rocker extensions, and side intakes where the paint gets sandblasted." },
       { title: "Gloss or Stealth", desc: "Keep the factory gloss or convert to a satin look with stealth film while protecting the paint underneath." },
     ],
     faqs: [
       { q: "Can you film the Corvette's front splitter and side intakes?", a: "Yes. Those are the first pieces to chip, and our C8 patterns include the splitter, rocker extensions, and the side intake surrounds." },
-      { q: "Full front or full body on a C8?", a: "Most C8 owners choose full body because the doors and rear quarters sit right behind the front tires and catch what they throw. Full front is the minimum we recommend." },
+      { q: "What should I cover on a C8?", a: "Full front at minimum: nose, splitter, hood, fenders, mirrors, and headlights. Most C8 owners add the extended package because the rockers and lower doors sit right behind the front tires and catch what they throw." },
       { q: "How much does Corvette PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour." },
       shared.install, shared.warranty, shared.ceramic,
     ],
@@ -110,7 +110,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   {
     slug: "rivian", name: "Rivian", headline: "PPF",
     seoTitle: "Rivian PPF Northern Virginia | R1T & R1S Paint Protection Film in Chantilly, VA",
-    seoDescription: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front and full vehicle coverage. 12-year warranty. Free quotes.",
+    seoDescription: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front and full front extended coverage. 12-year warranty. Free quotes.",
     intro: "Rivians get used the way they were designed to be: gravel roads out past Leesburg, trailheads in Shenandoah, and daily commutes on the Dulles Toll Road. The tall front end, wide fenders, and painted rocker area on the R1T and R1S take constant abuse, and because Rivian paint is only available in a handful of colors, keeping the original finish matters for resale.",
     photoMatch: /rivian/i,
     videoIds: [],
@@ -126,7 +126,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     ],
     faqs: [
       { q: "Does PPF interfere with Rivian's cameras or sensors?", a: "No. Our patterns are trimmed around every camera, ultrasonic sensor, and the charge port door, so nothing that needs a clear view is covered." },
-      { q: "What coverage makes sense for off-road use?", a: "Full front plus rockers and lower doors at minimum. Owners who run trails regularly usually choose full-vehicle coverage so branch scratches self-heal instead of scarring paint." },
+      { q: "What coverage makes sense for off-road use?", a: "Full front plus rockers and lower doors at minimum. Owners who run trails regularly choose full front extended so the rockers and door edges take the branch scratches and self-heal instead of scarring paint." },
       { q: "How much does Rivian PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour." },
       shared.install, shared.warranty, shared.ceramic,
     ],

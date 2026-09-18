@@ -361,7 +361,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     badges: ["5.0 ★ Google Rating", "Free Quotes", "Lifetime Warranty", "STEK DYNOshield Film"],
     seoTitle: (city) => `PPF ${city} VA | Paint Protection Film Near Me`,
     seoDescription: (city) =>
-      `Top-rated paint protection film installer serving ${city}, VA. Self-healing STEK PPF, rock chip protection, and full-front or full-body coverage. Free quotes. 5.0 stars on Google.`,
+      `Top-rated paint protection film installer serving ${city}, VA. Self-healing STEK PPF, rock chip protection, and full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.`,
     heroLabel: "Paint Protection Film",
     heroHeading: "PPF NEAR",
     heroText: (c) => `Northern Virginia's top-rated PPF installer, ${c.heroDrive}. Protect your paint from rock chips and road debris with self-healing film.`,
@@ -378,7 +378,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
       { q: `Do you serve ${c.name}, VA for PPF?`, a: serveAnswer(c, "paint protection film") },
       { q: `How much does PPF cost near ${c.name}?`, a: "PPF pricing depends on how much you cover: partial front (bumper plus partial hood), full front (bumper, hood, fenders, mirrors, headlights, and A-pillars), full front extended, or the whole vehicle. Every price is confirmed at an in-person inspection. Request a free, no-obligation quote and we reply with an exact number, usually within the hour." },
       { q: `Is PPF worth it driving on ${c.roads} near ${c.name}?`, a: `Absolutely. ${c.roadsDesc} PPF is one of the best investments to protect your paint from rock chips and road debris and to preserve resale value.` },
-      { q: "How long does PPF installation take?", a: "A partial front-end install typically takes one day. Full-vehicle coverage may take 2–3 days depending on vehicle complexity. We'll give you a firm timeline at your consultation." },
+      { q: "How long does PPF installation take?", a: "A partial or full front install typically takes one day. Full front extended may take up to two days depending on the vehicle. We'll give you a firm timeline at your consultation." },
       { q: `Do you offer PPF for Tesla, BMW, and luxury vehicles near ${c.name}?`, a: "Absolutely. We specialize in high-end and exotic vehicles. Our computer-cut patterns are precision-fit for every make and model, including Tesla, BMW, Mercedes, Porsche, and more." },
       { q: "Does PPF self-heal?", a: "Yes — our premium STEK DYNOshield film features thermoplastic polyurethane that self-heals light scratches and swirl marks when exposed to heat, keeping your paint looking pristine for years." },
     ],

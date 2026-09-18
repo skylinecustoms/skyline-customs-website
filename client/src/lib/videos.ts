@@ -40,7 +40,7 @@ export const VIDEO_CATEGORIES: Record<VideoCategory, { label: string; heading: s
 
 /** Channel upload order, newest first. Carousels sort by this so new videos lead. */
 export const CHANNEL_ORDER: string[] = [
-  "dI6_E2HSmmE", "C3k3BF33d7o", "ZvVdjXH06ug", "kfzGx2IROLg", "euOKAH_QStE", "DVYvaVEy2-4", "yFTB2S3bZbw", "JCxngvQnTP0", "U0hjC5pdMZM", "aap8dfKLi98", "rdVAc15KQAI", "E7F20ZOd2Hw", "pxpi-uF0eO0", "1IwJDOhB4qA", "4lEwQEgETJA", "DNzlj5V40UQ", "_PCNkjLfG7Y", "A6AptHNL5kc", "tdSO-c8EZS0", "SugVScEKEWM", "cZ7Ky48mnss", "lZ-OYZqM5PE", "GIRnLzO2tMU", "dChKOZmEEEw", "f3J7UyIaQmM", "PnUbqFepdKQ", "284uuWTiKAg", "FsQ8yZxh4Es", "Y3vHmqfYowo", "z6_IRT__rHo", "o_fR-fJssVE", "lIIlOv42sZc", "M-4dznrTTVY", "nrzZ-3V3Rak",
+  "dI6_E2HSmmE", "C3k3BF33d7o", "ZvVdjXH06ug", "kfzGx2IROLg", "DVYvaVEy2-4", "yFTB2S3bZbw", "JCxngvQnTP0", "U0hjC5pdMZM", "aap8dfKLi98", "rdVAc15KQAI", "E7F20ZOd2Hw", "pxpi-uF0eO0", "1IwJDOhB4qA", "4lEwQEgETJA", "DNzlj5V40UQ", "_PCNkjLfG7Y", "A6AptHNL5kc", "tdSO-c8EZS0", "SugVScEKEWM", "cZ7Ky48mnss", "lZ-OYZqM5PE", "GIRnLzO2tMU", "dChKOZmEEEw", "f3J7UyIaQmM", "PnUbqFepdKQ", "284uuWTiKAg", "FsQ8yZxh4Es", "Y3vHmqfYowo", "z6_IRT__rHo", "o_fR-fJssVE", "lIIlOv42sZc", "M-4dznrTTVY", "nrzZ-3V3Rak",
 ];
 
 export const VIDEOS: Video[] = [
@@ -63,7 +63,6 @@ export const VIDEOS: Video[] = [
   { id: "kfzGx2IROLg", category: "customers", service: "ppf", title: "John's Full Front PPF + Ceramic Coating", blurb: "John trusted us with his ride: full-front film plus a ceramic coating on top." },
 
   // ---- Recent work ----
-  { id: "euOKAH_QStE", category: "work", service: "ppf", title: "2026 Corvette E-Ray Full Body PPF", blurb: "Every painted panel wrapped in self-healing STEK film." },
   { id: "DVYvaVEy2-4", category: "work", service: "ppf", title: "Mercedes-AMG G63 PPF", blurb: "Big square panels, zero visible edges." },
   { id: "yFTB2S3bZbw", category: "work", service: "ppf", title: "2026 Honda Civic Type R Full Front", blurb: "Bumper, hood, fenders, mirrors, and headlights protected before the first road trip." },
   { id: "JCxngvQnTP0", category: "work", service: "tint", title: "Lexus: Window Tint + Ceramic Coating", blurb: "Fresh tint for a smooth private look plus a ceramic coat for the paint." },

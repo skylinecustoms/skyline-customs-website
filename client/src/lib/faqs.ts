@@ -31,11 +31,11 @@ export const FAQ_GROUPS: FaqGroup[] = [
     items: [
       { q: "How long does PPF last?", a: "High-quality PPF installed by certified professionals typically lasts 10–12+ years with proper care. Our STEK DYNOshield film comes with a 12-year manufacturer warranty." },
       { q: "Will PPF change how my car looks?", a: "No. Our optically clear PPF is virtually invisible. The only difference you'll notice is a deeper, protected gloss. We also offer stealth/matte PPF if you want a satin finish." },
-      { q: "How much does PPF cost?", a: "It depends on coverage: partial front (bumper plus partial hood), full front (bumper, hood, fenders, mirrors, headlights, and A-pillars), full front extended, or the whole vehicle, and on vehicle size for full-vehicle work. Request a free quote with your year, make, and model and we reply with an exact price, confirmed at inspection." },
+      { q: "How much does PPF cost?", a: "It depends on coverage: partial front (bumper plus partial hood), full front (bumper, hood, fenders, mirrors, headlights, and A-pillars), or full front extended, and on vehicle size for extended work. Request a free quote with your year, make, and model and we reply with an exact price, confirmed at inspection." },
       { q: "Can I wash my car normally after PPF?", a: "Yes — after a 7-day cure period you can wash normally. We recommend hand washing or touchless washes for the longest film life." },
       { q: "Does PPF damage my paint when removed?", a: "No. When removed by a professional, PPF leaves factory paint completely intact. We use computer-cut patterns wherever possible to avoid hand cutting on the vehicle." },
       { q: "Should I get PPF or ceramic coating — or both?", a: "Both, ideally. PPF provides physical protection from chips and impacts; ceramic coating adds chemical resistance, hydrophobic properties, and gloss. The best setup is PPF first, then ceramic coating on top." },
-      { q: "What areas do you cover with PPF?", a: "Partial coverage of high-impact zones (hood, bumper, mirrors), full front end, full front plus rocker panels, and full-vehicle coverage. We'll recommend the right package for how and where you drive." },
+      { q: "What areas do you cover with PPF?", a: "Partial coverage of high-impact zones (hood, bumper, mirrors), full front end, and full front extended (rocker panels and door edges). We'll recommend the right package for how and where you drive." },
       { q: "Does PPF self-heal?", a: "Yes. STEK DYNOshield uses a thermoplastic polyurethane top layer that self-heals light scratches and swirl marks when warmed by the sun or hot water." },
     ],
   },

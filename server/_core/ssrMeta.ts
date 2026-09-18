@@ -10,7 +10,7 @@
 import { getDb } from "../db";
 import { blogPosts, promos } from "../../drizzle/schema";
 import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -43,7 +43,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/services/ppf": {
     title: `Paint Protection Film (PPF) Chantilly, VA | STEK Certified PPF Installer, Northern Virginia | ${SITE_NAME}`,
-    description: "Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Partial front, full front, extended, and full-vehicle coverage in self-healing DYNOshield with a 12-year warranty. 141 five-star reviews. Free quotes, usually within the hour.",
+    description: "Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Partial front, full front, and full front extended coverage in self-healing DYNOshield with a 12-year warranty. 141 five-star reviews. Free quotes, usually within the hour.",
     canonical: `${BASE_URL}/services/ppf`,
   },
   "/ppf-cost": {
@@ -83,17 +83,17 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/porsche-ppf": {
     title: `Porsche PPF Northern Virginia | 911, Cayman, Taycan, Macan & Cayenne Paint Protection | ${SITE_NAME}`,
-    description: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front and full vehicle coverage. 12-year warranty. Free quotes.",
+    description: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front and full front extended coverage. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/porsche-ppf`,
   },
   "/corvette-ppf": {
     title: `Corvette PPF Northern Virginia | C8 Stingray, Z06 & E-Ray Paint Protection Film | ${SITE_NAME}`,
-    description: "Corvette paint protection film in Chantilly, VA. Full-body and full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. Free quotes.",
+    description: "Corvette paint protection film in Chantilly, VA. Full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/corvette-ppf`,
   },
   "/rivian-ppf": {
     title: `Rivian PPF Northern Virginia | R1T & R1S Paint Protection Film in Chantilly, VA | ${SITE_NAME}`,
-    description: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front and full vehicle coverage. 12-year warranty. Free quotes.",
+    description: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front and full front extended coverage. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/rivian-ppf`,
   },
   "/bronco-ppf": {
@@ -409,7 +409,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/ppf-sterling-va": {
     title: `PPF Sterling VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Top-rated paint protection film installer serving Sterling, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    description: "Top-rated paint protection film installer serving Sterling, VA. Self-healing STEK PPF, rock chip protection, full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.",
     canonical: `${BASE_URL}/ppf-sterling-va`,
   },
   "/ceramic-coating-sterling-va": {
@@ -424,7 +424,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/ppf-ashburn-va": {
     title: `PPF Ashburn VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Top-rated paint protection film installer serving Ashburn, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    description: "Top-rated paint protection film installer serving Ashburn, VA. Self-healing STEK PPF, rock chip protection, full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.",
     canonical: `${BASE_URL}/ppf-ashburn-va`,
   },
   "/ceramic-coating-ashburn-va": {
@@ -439,7 +439,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/ppf-oakton-va": {
     title: `PPF Oakton VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Top-rated paint protection film installer serving Oakton, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    description: "Top-rated paint protection film installer serving Oakton, VA. Self-healing STEK PPF, rock chip protection, full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.",
     canonical: `${BASE_URL}/ppf-oakton-va`,
   },
   "/ceramic-coating-oakton-va": {
@@ -454,7 +454,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/ppf-burke-va": {
     title: `PPF Burke VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Top-rated paint protection film installer serving Burke, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    description: "Top-rated paint protection film installer serving Burke, VA. Self-healing STEK PPF, rock chip protection, full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.",
     canonical: `${BASE_URL}/ppf-burke-va`,
   },
   "/ceramic-coating-burke-va": {
@@ -469,7 +469,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/ppf-gainesville-va": {
     title: `PPF Gainesville VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Top-rated paint protection film installer serving Gainesville, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    description: "Top-rated paint protection film installer serving Gainesville, VA. Self-healing STEK PPF, rock chip protection, full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.",
     canonical: `${BASE_URL}/ppf-gainesville-va`,
   },
   "/ceramic-coating-gainesville-va": {
@@ -484,7 +484,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/ppf-leesburg-va": {
     title: `PPF Leesburg VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Top-rated paint protection film installer serving Leesburg, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    description: "Top-rated paint protection film installer serving Leesburg, VA. Self-healing STEK PPF, rock chip protection, full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.",
     canonical: `${BASE_URL}/ppf-leesburg-va`,
   },
   "/ceramic-coating-leesburg-va": {
@@ -547,7 +547,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
           heroImage: blogPosts.heroImage,
         })
         .from(blogPosts)
-        .where(eq(blogPosts.slug, slug))
+        .where(and(eq(blogPosts.slug, slug), eq(blogPosts.status, "published")))
         .limit(1);
 
       if (posts.length > 0) {
@@ -606,7 +606,7 @@ export async function isKnownPath(urlPath: string): Promise<boolean> {
     try {
       const database = await getDb();
       if (!database) return true; // can't verify without a DB; don't risk a false 404
-      const rows = await database.select({ id: blogPosts.id }).from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
+      const rows = await database.select({ id: blogPosts.id }).from(blogPosts).where(and(eq(blogPosts.slug, slug), eq(blogPosts.status, "published"))).limit(1);
       return rows.length > 0;
     } catch {
       return true;

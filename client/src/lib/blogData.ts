@@ -496,12 +496,12 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: "h3",
-        content: "Full Vehicle Wrap",
+        content: "Full Front Extended",
       },
       {
         type: "p",
         content:
-          "For luxury and exotic vehicles, a full PPF wrap provides complete protection. The quote depends on vehicle size and film choice. For a six-figure vehicle, this is a no-brainer investment.",
+          "For trucks, SUVs, sports cars, and anything that sees gravel, full front extended adds the rocker panels, door edges, and door cups to the full front package. The quote depends on vehicle size. For a six-figure vehicle, this is a no-brainer investment.",
       },
       {
         type: "h2",
