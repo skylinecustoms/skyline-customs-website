@@ -26,7 +26,7 @@ export default function VideoSection() {
             </a>
           </div>
         </div>
-        <VideoCarousel videos={videosByCategory("learn")} />
+        <VideoCarousel videos={videosByCategory("learn")} preview />
       </div>
     </section>
   );

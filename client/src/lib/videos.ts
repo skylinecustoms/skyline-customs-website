@@ -38,6 +38,11 @@ export const VIDEO_CATEGORIES: Record<VideoCategory, { label: string; heading: s
   },
 };
 
+/** Channel upload order, newest first. Carousels sort by this so new videos lead. */
+export const CHANNEL_ORDER: string[] = [
+  "dI6_E2HSmmE", "C3k3BF33d7o", "ZvVdjXH06ug", "kfzGx2IROLg", "euOKAH_QStE", "DVYvaVEy2-4", "yFTB2S3bZbw", "JCxngvQnTP0", "U0hjC5pdMZM", "aap8dfKLi98", "rdVAc15KQAI", "E7F20ZOd2Hw", "pxpi-uF0eO0", "1IwJDOhB4qA", "4lEwQEgETJA", "DNzlj5V40UQ", "_PCNkjLfG7Y", "A6AptHNL5kc", "tdSO-c8EZS0", "SugVScEKEWM", "cZ7Ky48mnss", "lZ-OYZqM5PE", "GIRnLzO2tMU", "dChKOZmEEEw", "f3J7UyIaQmM", "PnUbqFepdKQ", "284uuWTiKAg", "FsQ8yZxh4Es", "Y3vHmqfYowo", "z6_IRT__rHo", "o_fR-fJssVE", "lIIlOv42sZc", "M-4dznrTTVY", "nrzZ-3V3Rak",
+];
+
 export const VIDEOS: Video[] = [
   // ---- Learn ----
   { id: "C3k3BF33d7o", category: "learn", service: "tint", title: "Dyed Factory Tint vs Ceramic Tint", blurb: "What actually separates cheap dyed film from ceramic film: heat rejection, fading, and how long each lasts." },
@@ -54,6 +59,7 @@ export const VIDEOS: Video[] = [
   // ---- Customer stories ----
   { id: "nrzZ-3V3Rak", category: "customers", title: "What Davinci Said About Us", blurb: "A customer's take on the experience from drop-off to pickup." },
   { id: "GIRnLzO2tMU", category: "customers", title: "Don't Take Our Word for It, Take Ken's", blurb: "Ken on why he chose Skyline and how the finished car turned out." },
+  { id: "cZ7Ky48mnss", category: "customers", title: "Christian Came In With a Vision", blurb: "Christian's build, from the idea he walked in with to the finish he drove out with." },
   { id: "kfzGx2IROLg", category: "customers", service: "ppf", title: "John's Full Front PPF + Ceramic Coating", blurb: "John trusted us with his ride: full-front film plus a ceramic coating on top." },
 
   // ---- Recent work ----
@@ -66,7 +72,11 @@ export const VIDEOS: Video[] = [
   { id: "tdSO-c8EZS0", category: "work", service: "tint", title: "Alfa Romeo: Factory Clear to Luxury Dark", blurb: "A clean, even shade across every window." },
 ];
 
-export const videosByCategory = (category: VideoCategory) => VIDEOS.filter((v) => v.category === category);
+const rank = (id: string) => { const i = CHANNEL_ORDER.indexOf(id); return i === -1 ? Number.MAX_SAFE_INTEGER : i; };
+
+/** Videos in a category, newest first. */
+export const videosByCategory = (category: VideoCategory) =>
+  VIDEOS.filter((v) => v.category === category).sort((a, b) => rank(a.id) - rank(b.id));
 export const videoThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 export const videoEmbedUrl = (id: string) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;
 export const videoWatchUrl = (id: string) => `https://www.youtube.com/shorts/${id}`;
