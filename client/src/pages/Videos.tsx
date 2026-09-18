@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import VideoCarousel from "@/components/VideoCarousel";
+import InstagramReels from "@/components/InstagramReels";
 import { VIDEOS, VIDEO_CATEGORIES, videosByCategory, videoThumb, videoWatchUrl, type VideoCategory } from "@/lib/videos";
 import { INSTAGRAM_URL, YOUTUBE_URL } from "@/lib/social";
 
@@ -87,6 +88,7 @@ export default function Videos() {
               <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-3">{cat.heading}</h2>
               <p className="text-zinc-400 max-w-2xl mb-10">{cat.intro}</p>
               <VideoCarousel videos={videosByCategory(key)} preview />
+              <InstagramReels category={key} heading={key === "customers" ? "Customer stories on Instagram" : key === "learn" ? "More explainers on Instagram" : "Recent work on Instagram"} />
             </div>
           </section>
         );

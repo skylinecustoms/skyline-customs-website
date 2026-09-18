@@ -86,8 +86,8 @@ export default function About() {
                   <div className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest">Years in Business</div>
                 </div>
                 <div>
-                  <div className="font-display text-4xl text-brand-orange">5yr</div>
-                  <div className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest">Warranty</div>
+                  <div className="font-display text-4xl text-brand-orange">10+</div>
+                  <div className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest">Year Warranties</div>
                 </div>
               </div>
             </div>

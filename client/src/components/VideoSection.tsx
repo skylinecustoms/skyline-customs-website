@@ -3,6 +3,7 @@
 import { Link } from "wouter";
 import { ArrowRight, Youtube } from "lucide-react";
 import VideoCarousel from "@/components/VideoCarousel";
+import InstagramReels from "@/components/InstagramReels";
 import { VIDEO_CATEGORIES, videosByCategory } from "@/lib/videos";
 import { YOUTUBE_URL } from "@/lib/social";
 
@@ -27,6 +28,7 @@ export default function VideoSection() {
           </div>
         </div>
         <VideoCarousel videos={videosByCategory("learn")} preview />
+        <InstagramReels category="learn" heading="More explainers on Instagram" />
       </div>
     </section>
   );

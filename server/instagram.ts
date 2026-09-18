@@ -115,7 +115,7 @@ async function refreshInstagramToken() {
 
 async function fetchViaInstagramLogin(): Promise<InstagramFeed> {
   const me = await graph<{ id: string; username: string }>(`${IG}/me?fields=id,username&access_token=${encodeURIComponent(token)}`);
-  const media = await graph<{ data: RawMedia[] }>(`${IG}/me/media?fields=${FIELDS}&limit=12&access_token=${encodeURIComponent(token)}`);
+  const media = await graph<{ data: RawMedia[] }>(`${IG}/me/media?fields=${FIELDS}&limit=60&access_token=${encodeURIComponent(token)}`);
   return { username: me.username, posts: toPosts(media.data ?? []), fetchedAt: Date.now() };
 }
 
@@ -150,7 +150,7 @@ async function fetchViaFacebook(): Promise<InstagramFeed> {
     if (withIg.access_token) token = withIg.access_token;
     console.log(`[instagram] resolved Instagram Business account ${igUserId} (${username}) via Page "${withIg.name}"`);
   }
-  const media = await graph<{ data: RawMedia[] }>(`${FB}/${igUserId}/media?fields=${FIELDS}&limit=12&access_token=${encodeURIComponent(token)}`);
+  const media = await graph<{ data: RawMedia[] }>(`${FB}/${igUserId}/media?fields=${FIELDS}&limit=60&access_token=${encodeURIComponent(token)}`);
   if (!username) {
     const acct = await graph<{ username?: string }>(`${FB}/${igUserId}?fields=username&access_token=${encodeURIComponent(token)}`).catch(() => ({ username: "" }));
     username = acct.username ?? "";
