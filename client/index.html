@@ -131,10 +131,9 @@
     </script>
     <!-- End Facebook Pixel (noscript fallback in body) -->
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Fonts are self-hosted (client/public/fonts, client/src/fonts.css). Preload the two that paint first. -->
+    <link rel="preload" href="/fonts/bebas-neue-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/dm-sans-normal-300-700.woff2" as="font" type="font/woff2" crossorigin />
   </head>
 
   <body>

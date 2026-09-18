@@ -16,6 +16,41 @@ import NearbyAreas from "@/components/NearbyAreas";
 import { Shield, MapPin, Phone, Star, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
+import { trpc } from "@/lib/trpc";
+
+const SERVICE_MATCH: Record<ServiceKey, RegExp> = { ppf: /ppf|paint protection/i, ceramic: /ceramic coat/i, tint: /tint/i };
+const FALLBACK_PHOTO = { photoUrl: "/images/ppf_1_c7c64665.webp", alt: "Full-body paint protection film installation on a Corvette C8" };
+
+function hash(s: string) { let h = 0; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return h; }
+
+/** One real customer-car photo per city page, rotated deterministically so each page is different. */
+function CityPhoto({ cityName, cityLabel, service }: { cityName: string; cityLabel: string; service: ServiceKey }) {
+  const { data: photos } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const pool = (photos ?? []).filter((p) => SERVICE_MATCH[service].test(p.alt));
+  const list = pool.length > 0 ? pool : (photos ?? []);
+  const photo = list.length > 0 ? list[hash(`${cityName}-${service}`) % list.length] : FALLBACK_PHOTO;
+  const svcLabel = SERVICES[service].label.toLowerCase();
+  return (
+    <section className="bg-[#0A0A0A]">
+      <div className="container py-10">
+        <figure className="relative overflow-hidden border border-zinc-800">
+          <img
+            src={photo.photoUrl}
+            alt={`${photo.alt} at Skyline Custom Shop in Chantilly, VA, serving ${cityLabel}`}
+            loading="lazy"
+            decoding="async"
+            className="w-full aspect-[21/9] object-cover"
+          />
+          <figcaption className="absolute left-0 right-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-5 py-4 text-sm text-zinc-200">
+            <span className="text-[#E85D04] font-bold uppercase tracking-widest text-xs mr-2">Recent work</span>
+            {photo.alt} — {svcLabel} done in our Chantilly bay, 
+            {" "}{cityLabel} drivers welcome.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  );
+}
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const CARD_ICONS = [Shield, Star, CheckCircle, ArrowRight];
@@ -155,6 +190,8 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
       </section>
 
       <div className="h-1 bg-[#E85D04]" />
+
+      <CityPhoto cityName={cityName} cityLabel={`${city.name}, VA`} service={serviceKey} />
 
       {/* Why this service here */}
       <section className="py-20 bg-[#0D0D0D]">

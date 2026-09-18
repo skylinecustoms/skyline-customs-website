@@ -7,7 +7,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 
-interface Review {
+export interface Review {
   name: string;
   initials: string;
   avatarColor: string;
@@ -18,7 +18,7 @@ interface Review {
 }
 
 // Real reviews from Skyline Customs Google Business Profile (5.0 ★ · 78 reviews)
-const ALL_REVIEWS: Review[] = [
+export const ALL_REVIEWS: Review[] = [
   {
     name: "Isra Ibrahim",
     initials: "II",
@@ -242,9 +242,7 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY" }: Testi
               <ChevronRight className="w-5 h-5" />
             </button>
             <a
-              href="https://www.google.com/maps/place/Skyline+Customs/@38.8875732,-77.433704,17z/data=!3m1!4b1!4m6!3m5!1s0x89b6457209ec6e35:0xd27075cd2a4f1b54!8m2!3d38.8875732!4d-77.433704!16s%2Fg%2F11yskymsnx"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/reviews"
               className="hidden sm:inline-flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-widest uppercase hover:text-white transition-colors ml-2"
             >
               ALL REVIEWS

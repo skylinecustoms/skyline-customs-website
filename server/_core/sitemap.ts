@@ -36,7 +36,8 @@ export async function buildSitemap(): Promise<string> {
     if (!urls.has(path)) urls.set(path, { ...(SITEMAP_META[path] ?? defaultsFor(path)), ...override });
   };
 
-  for (const path of STATIC_PATHS) add(path);
+  // Every static page's template changed on SITE_UPDATED (nav, footer, schema), so report that date.
+  for (const path of STATIC_PATHS) add(path, { lastmod: SITE_UPDATED });
   for (const post of staticBlogPosts) add(`/blog/${post.slug}`);
 
   try {

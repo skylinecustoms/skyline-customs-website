@@ -3,6 +3,9 @@ export const INSTAGRAM_HANDLE = "skylinecustomshop";
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
 export const YOUTUBE_URL = "https://www.youtube.com/@SkylineCustomsOfficial";
 export const FACEBOOK_URL = "https://www.facebook.com/skylinecustomshop";
+export const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Skyline+Customs/@38.8875732,-77.433704,17z/data=!3m1!4b1!4m6!3m5!1s0x89b6457209ec6e35:0xd27075cd2a4f1b54!8m2!3d38.8875732!4d-77.433704!16s%2Fg%2F11yskymsnx";
+/** Replace with the short "Ask for reviews" link from the Google Business Profile dashboard for a one-tap review form. */
+export const GOOGLE_REVIEW_URL = GOOGLE_MAPS_URL;
 
 /**
  * Instagram post URLs to embed on the home page using Instagram's official

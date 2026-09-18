@@ -50,6 +50,11 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting in Chantilly, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/services/window-tinting`,
   },
+  "/reviews": {
+    title: `Reviews | What Northern Virginia Drivers Say | ${SITE_NAME}`,
+    description: "Real Google reviews of Skyline Customs in Chantilly, VA: 5.0-star rated for paint protection film, ceramic coating, and ceramic window tint.",
+    canonical: `${BASE_URL}/reviews`,
+  },
   "/faq": {
     title: `FAQ | PPF, Ceramic Coating & Window Tint Questions Answered | ${SITE_NAME}`,
     description: "Straight answers on paint protection film, ceramic coating, and window tinting in Chantilly, VA: pricing, how long each lasts, Virginia tint law, care, and warranties.",

@@ -34,9 +34,9 @@ export const quoteAssistantStore = {
 const GREETING =
   "Hey there! 👋 I'm the Skyline Customs Quote Assistant. I'll help you get a custom quote in about 60 seconds. What's your first name?";
 
-export default function QuoteAssistant() {
+export default function QuoteAssistant({ autoOpen = false }: { autoOpen?: boolean } = {}) {
   const [, navigate] = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(autoOpen);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: GREETING },

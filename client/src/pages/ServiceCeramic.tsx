@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { useState, useEffect } from "react";
 import { ChevronDown, Droplets, Sparkles, Shield, Sun, Clock, Award, CheckCircle, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
@@ -253,6 +254,7 @@ export default function ServiceCeramic() {
           style={{ background: "radial-gradient(ellipse at top right, #E85D04, transparent 70%)" }}
         />
         <div className="container relative z-10 pt-32">
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Ceramic Coating" }]} />
           <div className="flex items-center gap-3 mb-4">
             <Link href="/services" className="text-[#E85D04] text-sm font-medium tracking-widest uppercase hover:text-white transition-colors">Services</Link>
             <span className="text-zinc-600">/</span>

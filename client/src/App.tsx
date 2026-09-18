@@ -47,6 +47,7 @@ const Services = lazy(() => import("./pages/Services"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const Videos = lazy(() => import("./pages/Videos"));
 const Faq = lazy(() => import("./pages/Faq"));
+const Reviews = lazy(() => import("./pages/Reviews"));
 const TeslaPPF = lazy(() => import("./pages/TeslaPPF"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -57,7 +58,7 @@ const GetAQuote = lazy(() => import("./pages/GetAQuote"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
-import QuoteAssistant from "./components/QuoteAssistant";
+import QuoteAssistantLauncher from "./components/QuoteAssistantLauncher";
 const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const ServiceAreas = lazy(() => import("./pages/ServiceAreas"));
@@ -143,6 +144,7 @@ function Router() {
       <Route path={"/gallery"} component={Gallery} />
       <Route path={"/videos"} component={Videos} />
       <Route path={"/faq"} component={Faq} />
+      <Route path={"/reviews"} component={Reviews} />
       <Route path={"/tesla-ppf"} component={TeslaPPF} />
       <Route path={"/about"} component={About} />
       <Route path={"/contact"} component={Contact} />
@@ -336,7 +338,7 @@ function AppContent() {
         <Router />
       </Suspense>
       <BookingModal isOpen={isOpen} service={service} onClose={closeBooking} />
-      <QuoteAssistant />
+      <QuoteAssistantLauncher />
     </>
   );
 }

@@ -3,12 +3,34 @@
    Design: High-Performance Editorial, dark/orange, Oswald headings
    ============================================================ */
 import { useParams, Link } from "wouter";
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO, { absoluteUrl } from "@/components/SEO";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { getBlogPost, blogPosts as staticPosts, type BlogSection } from "@/lib/blogData";
 import { trpc } from "@/lib/trpc";
+
+/** Render inline [text](/path) links and **bold** inside blog text. Everything else stays plain text. */
+function renderInline(text: string) {
+  const parts: React.ReactNode[] = [];
+  const re = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*/g;
+  let last = 0; let m: RegExpExecArray | null; let k = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) parts.push(text.slice(last, m.index));
+    if (m[1] !== undefined) {
+      const href = m[2];
+      parts.push(href.startsWith("/")
+        ? <Link key={k++} href={href} className="text-[#e85d04] underline underline-offset-2 hover:text-white">{m[1]}</Link>
+        : <a key={k++} href={href} target="_blank" rel="noopener noreferrer" className="text-[#e85d04] underline underline-offset-2 hover:text-white">{m[1]}</a>);
+    } else {
+      parts.push(<strong key={k++} className="text-white font-semibold">{m[3]}</strong>);
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  return parts;
+}
 
 function renderSection(section: BlogSection, idx: number) {
   switch (section.type) {
@@ -27,20 +49,20 @@ function renderSection(section: BlogSection, idx: number) {
     case "p":
       return (
         <p key={idx} className="blog-prose-p">
-          {section.content as string}
+          {renderInline(section.content as string)}
         </p>
       );
     case "blockquote":
       return (
         <blockquote key={idx} className="blog-prose-blockquote">
-          {section.content as string}
+          {renderInline(section.content as string)}
         </blockquote>
       );
     case "ul":
       return (
         <ul key={idx} className="blog-prose-ul">
           {(section.content as string[]).map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={i}>{renderInline(item)}</li>
           ))}
         </ul>
       );
@@ -48,7 +70,7 @@ function renderSection(section: BlogSection, idx: number) {
       return (
         <ol key={idx} className="blog-prose-ol">
           {(section.content as string[]).map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={i}>{renderInline(item)}</li>
           ))}
         </ol>
       );
@@ -180,6 +202,7 @@ export default function BlogPost() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/50 to-transparent" />
         <div className="relative container mx-auto px-4 lg:px-8 pb-12">
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title.length > 48 ? post.title.slice(0, 45) + "…" : post.title }]} className="text-white/60" />
           <Link href="/blog" className="inline-flex items-center gap-2 text-white/50 hover:text-[#e85d04] text-xs tracking-widest uppercase mb-4 transition-colors" style={{ fontFamily: "'Oswald', sans-serif" }}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M11 7H3M6 3L2 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

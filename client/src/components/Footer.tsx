@@ -63,6 +63,7 @@ export default function Footer() {
                 { label: "All Services", href: "/services" },
                 { label: "Videos", href: "/videos" },
                 { label: "FAQ", href: "/faq" },
+                { label: "Reviews", href: "/reviews" },
                 { label: "Pricing", href: "/pricing" },
                 { label: "Service Areas", href: "/service-areas" },
               ].map((s) => (
