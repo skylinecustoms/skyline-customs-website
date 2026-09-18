@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Clock, Instagram, Youtube, ArrowRight } from "luci
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { trackLead } from "@/lib/analytics";
 import { trpc } from "@/lib/trpc";
 
 // GHL field IDs (from the live form inspection)
@@ -39,6 +40,7 @@ export default function Contact() {
     onSuccess: () => {
       setSubmitted(true);
       setErrorMsg("");
+      trackLead("contact_form", form.service);
     },
     onError: (err) => {
       setErrorMsg("Something went wrong. Please call us at (703) 775-4383 or try again.");

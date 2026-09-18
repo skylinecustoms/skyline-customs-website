@@ -50,6 +50,16 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "Professional window tinting in Chantilly, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/services/window-tinting`,
   },
+  "/faq": {
+    title: `FAQ | PPF, Ceramic Coating & Window Tint Questions Answered | ${SITE_NAME}`,
+    description: "Straight answers on paint protection film, ceramic coating, and window tinting in Chantilly, VA: pricing, how long each lasts, Virginia tint law, care, and warranties.",
+    canonical: `${BASE_URL}/faq`,
+  },
+  "/tesla-ppf": {
+    title: `Tesla PPF Northern Virginia | Model 3, Y, S, X & Cybertruck Paint Protection | ${SITE_NAME}`,
+    description: "Tesla paint protection film in Chantilly, VA. Full front from $2,400 with self-healing STEK DYNOshield, computer-cut for Model 3, Y, S, X, and Cybertruck. 12-year warranty. Free quotes.",
+    canonical: `${BASE_URL}/tesla-ppf`,
+  },
   "/videos": {
     title: `Videos | Window Tint, PPF & Ceramic Coating Explained | ${SITE_NAME}`,
     description: "Short videos from Skyline Customs in Chantilly, VA: ceramic vs dyed tint, is PPF worth it, Virginia tint law, customer stories, and recent installs.",

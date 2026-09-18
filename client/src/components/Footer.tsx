@@ -59,8 +59,10 @@ export default function Footer() {
                 { label: "Window Tinting", href: "/services/window-tinting" },
                 { label: "Ceramic Coating", href: "/services/ceramic-coating" },
                 { label: "Paint Protection Film", href: "/services/ppf" },
+                { label: "Tesla PPF", href: "/tesla-ppf" },
                 { label: "All Services", href: "/services" },
                 { label: "Videos", href: "/videos" },
+                { label: "FAQ", href: "/faq" },
                 { label: "Pricing", href: "/pricing" },
                 { label: "Service Areas", href: "/service-areas" },
               ].map((s) => (

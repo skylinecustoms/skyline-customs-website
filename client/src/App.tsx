@@ -9,6 +9,7 @@ import BookingModal from "./components/BookingModal";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { X } from "lucide-react";
+import { installPhoneCallTracking } from "@/lib/analytics";
 
 // ─── Announcement Banner (controlled via Telegram bot /announce command) ─────
 function AnnouncementBanner() {
@@ -45,6 +46,8 @@ import Home from "./pages/Home";
 const Services = lazy(() => import("./pages/Services"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const Videos = lazy(() => import("./pages/Videos"));
+const Faq = lazy(() => import("./pages/Faq"));
+const TeslaPPF = lazy(() => import("./pages/TeslaPPF"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ServicePPF = lazy(() => import("./pages/ServicePPF"));
@@ -139,6 +142,8 @@ function Router() {
       <Route path={"/services"} component={Services} />
       <Route path={"/gallery"} component={Gallery} />
       <Route path={"/videos"} component={Videos} />
+      <Route path={"/faq"} component={Faq} />
+      <Route path={"/tesla-ppf"} component={TeslaPPF} />
       <Route path={"/about"} component={About} />
       <Route path={"/contact"} component={Contact} />
 
@@ -321,6 +326,7 @@ function Router() {
 
 function AppContent() {
   const { isOpen, service, closeBooking } = useBooking();
+  useEffect(() => installPhoneCallTracking(), []);
   return (
     <>
       <AnnouncementBanner />

@@ -11,6 +11,7 @@ import SEO from "@/components/SEO";
 import { Shield, Clock, Star, ArrowRight, Sparkles } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
+import { trackLead } from "@/lib/analytics";
 
 const SERVICE_OPTIONS = [
   { value: "Ceramic Coating", label: "Ceramic Coating" },
@@ -117,13 +118,8 @@ export default function GetAQuote() {
     onSuccess: () => {
       setSubmitted(true);
       setErrorMsg("");
-      // Facebook Pixel: track Lead event on successful quote submission
-      if (typeof window !== "undefined" && (window as any).fbq) {
-        (window as any).fbq("track", "Lead", {
-          content_name: form.service || "Quote Request",
-          content_category: "Auto Protection",
-        });
-      }
+      // GA4 generate_lead + Facebook Pixel Lead
+      trackLead("quote_form", form.service);
     },
     onError: (err) => {
       setErrorMsg("Something went wrong. Please call us at (703) 775-4383 or try again.");

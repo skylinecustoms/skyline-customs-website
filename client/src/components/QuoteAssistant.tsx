@@ -7,6 +7,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
+import { trackLead } from "@/lib/analytics";
 import { MessageSquare, X, Send, Loader2, Bot, ChevronDown } from "lucide-react";
 
 interface Message {
@@ -54,6 +55,7 @@ export default function QuoteAssistant() {
       ]);
       if (data.done && data.formData) {
         quoteAssistantStore.formData = data.formData;
+        trackLead("ai_assistant", (data.formData as { service?: string }).service);
         setIsDone(true);
         // After a short delay, navigate to the quote form
         setTimeout(() => {

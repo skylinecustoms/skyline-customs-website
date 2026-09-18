@@ -491,6 +491,20 @@ export default function ServicePPF() {
       </section>
 
       <LocalBanner localHref="/ppf-chantilly-va" serviceName="PPF" />
+      {/* Tesla owners */}
+      <section className="py-12 bg-[#0A0A0A] border-t border-zinc-800">
+        <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Tesla Owners</p>
+            <h2 className="font-['Bebas_Neue',sans-serif] text-3xl md:text-4xl text-white">MODEL 3, Y, S, X & CYBERTRUCK COVERAGE</h2>
+            <p className="text-zinc-400 mt-2 max-w-xl">Model-specific diagrams, pricing, and answers on Autopilot sensors and Tesla's own PPF kit.</p>
+          </div>
+          <Link href="/tesla-ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors self-start md:self-auto">
+            TESLA PPF PAGE <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
       <ServiceCityLinks service="ppf" />
       <Footer />
     </div>

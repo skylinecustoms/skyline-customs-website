@@ -47,13 +47,12 @@ try {
     if (exists) { blogSkipped++; continue; }
     blogAdded++;
     if (DRY) { console.log(`[seed] would insert blog post: ${p.slug}`); continue; }
-    await conn.execute(
-      `INSERT INTO blogPosts (id, slug, title, excerpt, date, readTime, category, heroImage, heroImageAlt, content, status, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [Number(p.id), p.slug, p.title, p.excerpt, p.date, p.readTime, p.category, p.heroImage, p.heroImageAlt,
-       typeof p.content === "string" ? p.content : JSON.stringify(p.content), p.status ?? "published",
-       new Date(p.createdAt ?? Date.now()), new Date(p.updatedAt ?? Date.now())]
-    );
+    const cols = ["slug", "title", "excerpt", "date", "readTime", "category", "heroImage", "heroImageAlt", "content", "status", "createdAt", "updatedAt"];
+    const vals = [p.slug, p.title, p.excerpt, p.date, p.readTime, p.category, p.heroImage, p.heroImageAlt,
+      typeof p.content === "string" ? p.content : JSON.stringify(p.content), p.status ?? "published",
+      new Date(p.createdAt ?? Date.now()), new Date(p.updatedAt ?? Date.now())];
+    if (p.id != null) { cols.unshift("id"); vals.unshift(Number(p.id)); } // omit id -> autoincrement
+    await conn.execute(`INSERT INTO blogPosts (${cols.join(", ")}) VALUES (${cols.map(() => "?").join(", ")})`, vals);
   }
   console.log(`[seed] blog posts: ${blogAdded} added, ${blogSkipped} already present`);
 

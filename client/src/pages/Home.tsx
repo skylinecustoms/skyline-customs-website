@@ -557,6 +557,17 @@ function ThisMonthsSpecialBanner() {
 }
 
 export default function Home() {
+  // Phones get the lightweight poster image; tablets and desktops load the 1.2 MB reel.
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
+  useEffect(() => {
+    const wide = window.matchMedia("(min-width: 768px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setShowHeroVideo(wide.matches && !reduce.matches);
+    update();
+    wide.addEventListener("change", update);
+    reduce.addEventListener("change", update);
+    return () => { wide.removeEventListener("change", update); reduce.removeEventListener("change", update); };
+  }, []);
   const { openBooking } = useBooking();
 
   return (
@@ -575,18 +586,28 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background video */}
         <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/images/hero-poster_702747e9.webp"
-            title="Skyline Custom Shop — PPF, Ceramic Coating & Window Tinting in Chantilly, VA"
-            aria-label="Skyline Custom Shop technicians applying paint protection film and window tinting in Chantilly, VA"
-            className="w-full h-full object-cover"
-          >
-            <source src="/images/hero-reel_ecfc1328.mp4" type="video/mp4" />
-          </video>
+          {showHeroVideo ? (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="/images/hero-poster_702747e9.webp"
+              title="Skyline Custom Shop — PPF, Ceramic Coating & Window Tinting in Chantilly, VA"
+              aria-label="Skyline Custom Shop technicians applying paint protection film and window tinting in Chantilly, VA"
+              className="w-full h-full object-cover"
+            >
+              <source src="/images/hero-reel_web.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src="/images/hero-poster_702747e9.webp"
+              alt="Skyline Custom Shop technicians applying paint protection film in Chantilly, VA"
+              className="w-full h-full object-cover"
+              fetchPriority="high"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.005_285)]/92 via-[oklch(0.08_0.005_285)]/65 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.005_285)] via-transparent to-transparent" />
         </div>

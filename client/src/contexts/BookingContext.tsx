@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import type { BookingService } from "@/components/BookingModal";
+import { track } from "@/lib/analytics";
 
 interface BookingContextValue {
   isOpen: boolean;
@@ -17,6 +18,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const openBooking = (svc: BookingService = "general") => {
     setService(svc);
     setIsOpen(true);
+    track("booking_open", { service: svc });
     // Facebook Pixel: InitiateCheckout fires on every booking modal open
     if (typeof window !== "undefined" && (window as any).fbq) {
       const serviceLabels: Record<BookingService, string> = {
