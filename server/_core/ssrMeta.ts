@@ -518,12 +518,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/thank-you`,
     robots: "noindex, follow",
   },
-  "/price-sheet": {
-    title: `Price Sheet | ${SITE_NAME}`,
-    description: "Internal price reference for Skyline Customs services.",
-    canonical: `${BASE_URL}/price-sheet`,
-    robots: "noindex, nofollow",
-  },
 };
 
 /**
