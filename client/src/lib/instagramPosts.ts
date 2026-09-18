@@ -14,9 +14,18 @@ import type { VideoCategory } from "@/lib/videos";
 export interface InstagramReel { code: string; category: VideoCategory; title: string; type?: "reel" | "p" }
 
 export const INSTAGRAM_REELS: InstagramReel[] = [
-  // Customer stories
+  // Customer stories (list supplied by the shop)
   { code: "DYGCGHNAncQ", category: "customers", title: "John's Full Front PPF + Ceramic Coating" },
+  { code: "DUjT9uckjy4", category: "customers", title: "Stingray Owner: Ceramic Tint" },
+  { code: "DUbXd7zkakv", category: "customers", title: "Silverado Owner: Stock to Statement" },
+  { code: "DUY54ygEfbl", category: "customers", title: "Clean Tint Always Wins" },
+  { code: "DUTx1C3Ejm2", category: "customers", title: "Light, Medium, or Dark: A Customer's Pick" },
+  { code: "DULs16kAJMr", category: "customers", title: "Ceramic Tint for Comfort and Clarity" },
+  { code: "DUJF556gF3R", category: "customers", title: "Clean Installs, Consistent Results" },
+  { code: "DTvWxRwABwc", category: "customers", title: "Alfa Romeo Owner: Factory Clear to Luxury Dark" },
+  { code: "DTss57hgLDU", category: "customers", title: "Tesla Owner: More Shade, Less Heat" },
   { code: "DTnicqFAJ02", category: "customers", title: "Christian Came In With a Vision" },
+  { code: "DTk1JObgJx4", category: "customers", title: "One Detail, Whole New Attitude" },
   { code: "DTgiluzAGfi", category: "customers", title: "Don't Take Our Word for It, Take Ken's" },
 
   // Learn before you buy
@@ -26,8 +35,6 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
   { code: "DZIZnpZN8vW", category: "learn", title: "Your Tint Is Lying to You" },
   { code: "DY7LdQYBugZ", category: "learn", title: "What's Protecting the Paint Under Your Ceramic?" },
   { code: "DY2okS-Qzlv", category: "learn", title: "Even BMW Doesn't Trust BMW Paint" },
-  { code: "DUTx1C3Ejm2", category: "learn", title: "Light, Medium, or Dark Tint?" },
-  { code: "DTss57hgLDU", category: "learn", title: "Tesla Ceramic Tint: More Shade, Less Heat" },
   { code: "DTddowJAP_0", category: "learn", title: "Tint Isn't Just for Summer" },
   { code: "DTDwZnEADDt", category: "learn", title: "Think Tint Is Only for Style?" },
   { code: "DRPrdVTAPOP", category: "learn", title: "Our Full Ceramic Coating Process" },
@@ -47,17 +54,11 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
   { code: "DXtufBOAFT8", category: "work", title: "2026 E-Ray: Full Body PPF + Ceramic Tint" },
   { code: "DVjMobOgOpG", category: "work", title: "Dealer Fresh to Fully Protected" },
   { code: "DU_EjoKgG0K", category: "work", title: "Lexus: Tint + Ceramic Coating" },
-  { code: "DUjT9uckjy4", category: "work", title: "Stingray Ceramic Tint" },
-  { code: "DUbXd7zkakv", category: "work", title: "Silverado: Stock to Statement" },
-  { code: "DUY54ygEfbl", category: "work", title: "Clean Tint Always Wins" },
   { code: "DUWQ5alkado", category: "work", title: "Privacy With Purpose" },
   { code: "DURYnlOgEhQ", category: "work", title: "Mercedes: Luxury Done Right" },
-  { code: "DULs16kAJMr", category: "work", title: "Ceramic Tint for Comfort and Clarity" },
-  { code: "DUJF556gF3R", category: "work", title: "Clean Installs, Consistent Results" },
   { code: "DUG8WOCEqkA", category: "work", title: "Audi: Quiet Luxury, Darker Intentions" },
   { code: "DT3K5ThAMBa", category: "work", title: "When the Tint Matches the Badge" },
   { code: "DTyIOrKERTP", category: "work", title: "Genesis G70 Privacy Tint" },
-  { code: "DTvWxRwABwc", category: "work", title: "Alfa Romeo: Factory Clear to Luxury Dark" },
   { code: "DTN2gFeACXR", category: "work", title: "Fresh Film, Clean Finish" },
   { code: "DS8WiTYEX1s", category: "work", title: "Built for Trails, Protected From the Sun" },
   { code: "DS6GtkvAGCi", category: "work", title: "GT-R at Skyline Customs" },
