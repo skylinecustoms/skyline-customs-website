@@ -7,7 +7,10 @@
  *    /me/accounts -> instagram_business_account -> /media).
  *
  * Token upkeep, all optional:
- *  - INSTAGRAM_USER_ID skips the /me/accounts lookup.
+ *  - INSTAGRAM_USER_ID (defaults to @skylinecustomshop's id) skips the Page lookup.
+ *    When a lookup is needed, /me/accounts is tried first and then the Pages the
+ *    token was explicitly granted (granular_scopes from /debug_token), because
+ *    Pages managed through a business portfolio do not show up in /me/accounts.
  *  - INSTAGRAM_APP_ID + INSTAGRAM_APP_SECRET let the server exchange a short-lived
  *    Facebook token for a 60-day one at startup (fb_exchange_token) and refresh
  *    Instagram-login tokens (ig_refresh_token) once a day.
@@ -123,8 +126,23 @@ async function fetchViaFacebook(): Promise<InstagramFeed> {
     const pages = await graph<{ data: { name: string; access_token?: string; instagram_business_account?: { id: string; username?: string } }[] }>(
       `${FB}/me/accounts?fields=name,access_token,instagram_business_account{id,username}&limit=50&access_token=${encodeURIComponent(token)}`
     );
-    const names = (pages.data ?? []).map((p) => p.name).join(", ") || "none";
-    const withIg = (pages.data ?? []).find((p) => p.instagram_business_account?.id);
+    const candidates = [...(pages.data ?? [])];
+    // Pages granted in the token dialog but managed via a business portfolio are
+    // missing from /me/accounts; find them through the token's granular scopes.
+    if (!candidates.some((p) => p.instagram_business_account?.id)) {
+      const dbg = await graph<{ data?: { granular_scopes?: { scope: string; target_ids?: string[] }[] } }>(
+        `${FB}/debug_token?input_token=${encodeURIComponent(token)}&access_token=${encodeURIComponent(token)}`
+      ).catch(() => ({ data: undefined }));
+      const ids = new Set((dbg.data?.granular_scopes ?? []).filter((g) => g.scope === "pages_show_list").flatMap((g) => g.target_ids ?? []));
+      for (const id of Array.from(ids)) {
+        const page = await graph<{ id: string; name: string; access_token?: string; instagram_business_account?: { id: string; username?: string } }>(
+          `${FB}/${id}?fields=id,name,access_token,instagram_business_account%7Bid,username%7D&access_token=${encodeURIComponent(token)}`
+        ).catch(() => null);
+        if (page) candidates.push(page);
+      }
+    }
+    const names = candidates.map((p) => p.name).join(", ") || "none";
+    const withIg = candidates.find((p) => p.instagram_business_account?.id);
     if (!withIg) throw new Error(`None of the Facebook Pages this token can see (${names}) has a linked Instagram Business account. Link @skylinecustomshop to the Skyline Customs Page and regenerate the token with that Page selected.`);
     igUserId = withIg.instagram_business_account!.id;
     username = withIg.instagram_business_account!.username ?? "";
