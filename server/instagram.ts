@@ -31,6 +31,8 @@ export interface InstagramFeed {
   fetchedAt: number;
   /** Last error message, when the feed is stale or empty because of one. */
   error?: string;
+  /** Non-secret shape of the configured token, to spot paste mistakes (only set with an error). */
+  tokenHint?: { length: number; prefix: string; hasWhitespace: boolean };
 }
 
 const FB = "https://graph.facebook.com/v21.0";
@@ -168,7 +170,9 @@ export async function getInstagramFeed(): Promise<InstagramFeed | null> {
       console.warn("[instagram] fetch failed:", message);
       const stale = cache?.data;
       // Retry sooner after a failure (10 min) so a fixed token is picked up quickly.
-      cache = { at: Date.now() - TTL_MS + 10 * 60 * 1000, data: stale ? { ...stale, error: message } : { username: "", posts: [], fetchedAt: Date.now(), error: message } };
+      const raw = ENV.instagramAccessToken;
+      const tokenHint = { length: raw.length, prefix: raw.slice(0, 4), hasWhitespace: /\s/.test(process.env.INSTAGRAM_ACCESS_TOKEN ?? "") };
+      cache = { at: Date.now() - TTL_MS + 10 * 60 * 1000, data: stale ? { ...stale, error: message, tokenHint } : { username: "", posts: [], fetchedAt: Date.now(), error: message, tokenHint } };
       return cache.data;
     } finally {
       inflight = null;
