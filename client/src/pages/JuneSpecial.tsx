@@ -43,32 +43,21 @@ function promoMath(price: string, included: IncludedService[]) {
 
 // ---- Progress Bar ------------------------------------------------------------
 function ProgressBar({ filled, total, endDate }: { filled: number; total: number; endDate?: string }) {
-  const pct = Math.min((filled / total) * 100, 100);
-  const remaining = total - filled;
-  const urgency = remaining <= 5 ? "text-red-400" : remaining <= 10 ? "text-yellow-400" : "text-emerald-400";
+  const soldOut = filled >= total;
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-zinc-400 text-sm font-medium tracking-wide uppercase">Slots Claimed</span>
-        <span className={`font-bold text-sm tracking-wide ${urgency}`}>
-          {remaining === 0 ? "SOLD OUT" : `${remaining} remaining`}
+        <span className="text-zinc-400 text-sm font-medium tracking-wide uppercase">Availability</span>
+        <span className={`font-bold text-sm tracking-wide ${soldOut ? "text-red-400" : "text-emerald-400"}`}>
+          {soldOut ? "SOLD OUT" : "LIMITED SPOTS"}
         </span>
       </div>
-      <div className="relative h-5 bg-zinc-800 overflow-hidden">
-        <div
-          className="h-full bg-[#E85D04] transition-all duration-700 ease-out"
-          style={{ width: `${pct}%` }}
-        />
-        <div className="absolute inset-0 flex">
-          {Array.from({ length: total }).map((_, i) => (
-            <div key={i} className="flex-1 border-r border-black/30 last:border-r-0" />
-          ))}
-        </div>
-      </div>
-      <div className="flex items-center justify-between mt-2">
-        <span className="text-zinc-600 text-xs">{filled} of {total} slots filled</span>
-        {endDate && <span className="text-zinc-600 text-xs">Ends {endDate}</span>}
-      </div>
+      <p className="text-zinc-300 text-sm leading-relaxed">
+        {soldOut
+          ? "This month's spots are gone. Join the waitlist and you're first in line for next month."
+          : "We only take a set number of cars each month so every one gets our full attention. First come, first served."}
+      </p>
+      {endDate && <p className="text-zinc-600 text-xs mt-2">Ends {endDate}</p>}
     </div>
   );
 }
@@ -301,8 +290,8 @@ function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: bo
       a: "If a rock chips the paint under our film — through intact, untampered film, from normal road driving — we don't just replace the film. We repaint the panel, free. Film and paint, for as long as you own the car, up to 12 years.",
     },
     {
-      q: "Why only 21 cars a month?",
-      a: `Because doing the job right takes time. A proper PPF install${hasCorrection ? " with paint correction" : ""}${freeItems.some((f) => /ceramic/i.test(f.name)) ? " and a full ceramic coating" : ""} takes 2–3 days per car. We cap at 21 so every vehicle gets the same level of attention. This isn't a marketing number — it's our real capacity.`,
+      q: "Why are spots limited?",
+      a: `Because doing the job right takes time. A proper PPF install${hasCorrection ? " with paint correction" : ""}${freeItems.some((f) => /ceramic/i.test(f.name)) ? " and a full ceramic coating" : ""} takes 2–3 days per car. We only take a set number of cars each month so every vehicle gets the same level of attention. This isn't a marketing gimmick — it's our real capacity.`,
     },
     {
       q: "How long does the install take?",
@@ -612,7 +601,7 @@ function LastMonthStrip() {
             <p className="text-zinc-500 text-xs font-bold tracking-[0.3em] uppercase mb-2">Last Month</p>
             <h3 className="font-display text-3xl text-white tracking-wide">{lastPromo.title?.toUpperCase()}</h3>
             <p className="text-zinc-500 text-sm mt-1">
-              All {filledCount} of {totalSlots} slots filled &mdash; sold out.
+              Sold out &mdash; {filledCount} cars protected.
             </p>
           </div>
           <div className="flex flex-col sm:items-end gap-4">
@@ -700,12 +689,12 @@ function WeDidItAgainBanner() {
             </div>
             <div>
               <p className="text-white font-['Bebas_Neue',sans-serif] text-xl tracking-widest leading-tight">
-                {lastTitle.toUpperCase()} &mdash; ALL {totalSlots} SPOTS FILLED
+                {lastTitle.toUpperCase()} &mdash; SOLD OUT
               </p>
               <p className="text-zinc-400 text-xs mt-0.5">
                 {isSoldOut
-                  ? `Every slot was claimed. See the cars we protected last month.`
-                  : `${filledCount} of ${totalSlots} spots were claimed last month.`}
+                  ? `Every spot was claimed. See the cars we protected last month.`
+                  : `${filledCount} cars protected last month. See them here.`}
               </p>
             </div>
           </div>
@@ -792,7 +781,7 @@ export default function JuneSpecial() {
     ? `${title} — ${dealDescription.slice(0, 80)} | Skyline Customs Chantilly VA`
     : "Monthly Special | Skyline Customs Chantilly VA";
   const seoDesc = promo
-    ? `Only ${totalSlots} cars. ${tagline} Starting at $${price}. Skyline Customs, Chantilly VA.`
+    ? `Spots are limited. ${tagline} Starting at $${price}. Skyline Customs, Chantilly VA.`
     : "Exclusive monthly automotive protection deal at Skyline Customs, Chantilly VA.";
 
   // ---- JSON-LD structured data ------------------------------------------------
@@ -892,7 +881,7 @@ export default function JuneSpecial() {
             <div>
               {/* Eyebrow */}
               <p className="font-display text-[#E85D04] text-sm tracking-[0.35em] mb-4">
-                CHANTILLY, VA &middot; LIMITED TO {totalSlots} CARS / MONTH
+                CHANTILLY, VA &middot; LIMITED SPOTS EACH MONTH
               </p>
 
               {/* Dates badge + countdown */}
@@ -966,12 +955,12 @@ export default function JuneSpecial() {
                   <div className="flex items-center gap-2 mt-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04] animate-pulse" />
                     <span className="text-zinc-500 text-xs">
-                      Last slot claimed recently &mdash; {remaining} of {totalSlots} still open
+                      Last spot claimed recently &mdash; limited availability
                     </span>
                   </div>
                 )}
                 <p className="text-zinc-600 text-xs mt-3 leading-relaxed">
-                  Each slot represents one completed vehicle. Once all {totalSlots} are filled, this deal is gone until next month&apos;s special.
+                  Spots are limited each month. Once they&apos;re gone, this deal is gone until next month&apos;s special.
                 </p>
               </div>
 
@@ -1006,7 +995,7 @@ export default function JuneSpecial() {
                 <p className="text-zinc-400 text-sm mb-3">Full package price &mdash; everything included. No add-ons.</p>
                 <div className="flex items-center gap-2 text-xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-emerald-400 font-bold">{remaining > 0 ? `${remaining} spots left at this price` : "Sold out — join the waitlist"}</span>
+                  <span className="text-emerald-400 font-bold">{remaining > 0 ? "Spots are limited at this price" : "Sold out — join the waitlist"}</span>
                 </div>
               </div>
             </div>
@@ -1244,8 +1233,8 @@ export default function JuneSpecial() {
               },
               {
                 number: "03",
-                title: "21 Cars / Month Cap",
-                body: "We only take 21 cars a month so every one is done right. This isn't a marketing gimmick — it's how we maintain the standard that earned us 500+ five-star reviews.",
+                title: "Limited Monthly Spots",
+                body: "We only take a set number of cars each month so every one is done right. This isn't a marketing gimmick — it's how we maintain the standard that earned us 500+ five-star reviews.",
               },
             ].map(({ number, title: t, body }, i) => (
               <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-8 relative overflow-hidden">
@@ -1373,24 +1362,21 @@ export default function JuneSpecial() {
               WHO&apos;S ALREADY IN
             </h2>
             <p className="text-zinc-500 mt-3 text-sm">
-              Every completed car is verified by our team. Remaining slots are open &mdash; claim yours before {endDate || "slots run out"}.
+              Every completed car is verified by our team. Spots are limited &mdash; claim yours before {endDate || "they run out"}.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {allSlots.map((slot, i) =>
-              slot ? (
-                <SlotCard
-                  key={i}
-                  slotNumber={slot.slotNumber}
-                  customerName={slot.customerName}
-                  carDescription={slot.carDescription}
-                  photoUrl={slot.photoUrl}
-                  promoTitle={title}
-                />
-              ) : (
-                <EmptySlotCard key={i} slotNumber={i + 1} quoteUrl={quoteUrl} />
-              )
-            )}
+            {filledSlots.map((slot) => (
+              <SlotCard
+                key={slot.slotNumber}
+                slotNumber={slot.slotNumber}
+                customerName={slot.customerName}
+                carDescription={slot.carDescription}
+                photoUrl={slot.photoUrl}
+                promoTitle={title}
+              />
+            ))}
+            {!soldOut && <EmptySlotCard slotNumber={filledSlots.length + 1} quoteUrl={quoteUrl} />}
           </div>
         </div>
       </section>
@@ -1439,7 +1425,7 @@ export default function JuneSpecial() {
         <div className="container max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 bg-black/20 text-white text-xs font-bold tracking-[0.3em] uppercase px-4 py-2 mb-6">
             <Clock className="w-3 h-3" />
-            {soldOut ? "Sold Out -- Join the Waitlist" : `Only ${remaining} of ${totalSlots} Slots Left`}
+            {soldOut ? "Sold Out -- Join the Waitlist" : "Spots Are Limited"}
           </div>
           <h2 className="font-display text-5xl md:text-7xl text-white mb-4 leading-none">
             DON&apos;T MISS THIS
@@ -1488,7 +1474,7 @@ export default function JuneSpecial() {
           ) : (
             <>
               <p className="text-[#E85D04] text-xs font-bold tracking-wide uppercase">
-                {remaining === 1 ? "Only 1 spot left!" : `${remaining} spots left at $${price}`}
+                {`Spots are limited at $${price}`}
               </p>
               {endDate && <CountdownTimer endDate={endDate} />}
             </>

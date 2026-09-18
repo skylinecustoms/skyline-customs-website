@@ -2,8 +2,8 @@
   {
     "slug": "september-2026",
     "title": "September Special",
-    "tagline": "Full Front PPF + a Free Ceramic Coating on Your Whole Car \u2014 Only 21 Cars",
-    "dealDescription": "Book STEK DYNOshield full-front paint protection film this month for $2,800 and we'll ceramic coat your entire vehicle at no charge. Hood, bumper, fenders, mirrors, and headlights are shielded from rock chips by self-healing film with a 12-year warranty, and every panel gets a hydrophobic ceramic layer that keeps the whole car glossy and easy to wash. Limited to 21 vehicles for September 2026.",
+    "tagline": "Full Front PPF + a Free Ceramic Coating on Your Whole Car \u2014 Spots Are Limited",
+    "dealDescription": "Book STEK DYNOshield full-front paint protection film this month for $2,800 and we'll ceramic coat your entire vehicle at no charge. Hood, bumper, fenders, mirrors, and headlights are shielded from rock chips by self-healing film with a 12-year warranty, and every panel gets a hydrophobic ceramic layer that keeps the whole car glossy and easy to wash. Spots are limited for September 2026.",
     "totalSlots": 21,
     "startDate": "September 1, 2026",
     "endDate": "September 30, 2026",
@@ -22,6 +22,7 @@
         "badge": "Every painted panel, not just the front"
       }
     ],
-    "active": 1
+    "active": 1,
+    "sync": true
   }
 ]

@@ -87,7 +87,18 @@ try {
       const [rows] = await conn.execute("SELECT id FROM promos WHERE slug = ? LIMIT 1", [pr.slug]);
       exists = rows.length > 0;
     }
-    if (exists) { promoSkipped++; continue; }
+    if (exists) {
+      // sync: true keeps the copy (title, tagline, description, price, included services)
+      // in step with this file; slots, dates, and active state stay owned by the bot.
+      if (pr.sync) {
+        if (DRY) { console.log(`[seed] would sync promo copy: ${pr.slug}`); }
+        else await conn.execute(
+          "UPDATE promos SET title = ?, tagline = ?, dealDescription = ?, price = ?, includedServices = ? WHERE slug = ?",
+          [pr.title, pr.tagline, pr.dealDescription, String(pr.price), pr.includedServices ? JSON.stringify(pr.includedServices) : null, pr.slug]
+        );
+      }
+      promoSkipped++; continue;
+    }
     promoAdded++;
     if (DRY) { console.log(`[seed] would insert promo: ${pr.slug} (${pr.title}, $${pr.price})`); continue; }
     if (pr.active) await conn.execute("UPDATE promos SET active = 0 WHERE active = 1");

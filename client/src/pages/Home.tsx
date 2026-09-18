@@ -227,7 +227,7 @@ function ActivePromoBanner() {
               <div className="inline-flex items-center gap-2 bg-[#E85D04]/10 border border-[#E85D04]/40 px-4 py-2">
                 <Zap className="w-3.5 h-3.5 text-[#E85D04]" />
                 <span className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase">
-                  ENDS {endDate || "THIS MONTH"} &mdash; ONLY {total} CARS
+                  ENDS {endDate || "THIS MONTH"} &mdash; LIMITED SPOTS
                 </span>
               </div>
               {endDate && !soldOut && <HomepageCountdown endDate={endDate} />}
@@ -275,9 +275,7 @@ function ActivePromoBanner() {
             <div className="flex items-center gap-3 mt-3">
               {remaining > 0 ? (
                 <p className="text-xs tracking-wide">
-                  <span className={remaining <= 5 ? "text-red-400 font-bold" : remaining <= 10 ? "text-yellow-400 font-bold" : "text-emerald-400 font-bold"}>
-                    {remaining === 1 ? "Only 1 spot left" : `${remaining} spots left`}
-                  </span>
+                  <span className="text-emerald-400 font-bold">Spots are limited</span>
                   <span className="text-zinc-600"> &mdash; No catch. Just flawless paint, guaranteed 12 years.</span>
                 </p>
               ) : (
@@ -300,29 +298,20 @@ function ActivePromoBanner() {
               </p>
             </div>
 
-            {/* Progress bar */}
+            {/* Availability */}
             <div className="border border-zinc-800 bg-[#0D0D0D] p-6">
               <div className="flex justify-between text-xs mb-3">
-                <span className="text-zinc-500 font-medium tracking-wide uppercase">Slots Claimed</span>
+                <span className="text-zinc-500 font-medium tracking-wide uppercase">Availability</span>
                 {soldOut
                   ? <span className="text-red-400 font-bold">SOLD OUT</span>
-                  : <span className="text-yellow-400 font-bold">{remaining} remaining</span>}
+                  : <span className="text-yellow-400 font-bold">Limited spots</span>}
               </div>
-              <div className="relative h-4 bg-zinc-800 overflow-hidden mb-2">
-                <div
-                  className="h-full bg-[#E85D04] transition-all duration-700"
-                  style={{ width: `${pct}%` }}
-                />
-                <div className="absolute inset-0 flex">
-                  {Array.from({ length: total }).map((_, i) => (
-                    <div key={i} className="flex-1 border-r border-black/30 last:border-r-0" />
-                  ))}
-                </div>
-              </div>
-              <div className="flex justify-between text-xs text-zinc-600">
-                <span>{filled} of {total} slots filled</span>
-                {endDate && <span>Ends {endDate}</span>}
-              </div>
+              <p className="text-zinc-300 text-sm leading-relaxed">
+                {soldOut
+                  ? "This month's spots are gone. Join the waitlist and you're first in line for next month."
+                  : "We only take a set number of cars each month so every one gets our full attention. First come, first served."}
+              </p>
+              {endDate && <p className="text-zinc-600 text-xs mt-3">Ends {endDate}</p>}
             </div>
 
             {/* Trust row */}
@@ -405,12 +394,12 @@ function WeDidItAgainBannerHome() {
             </div>
             <div>
               <p className="text-white font-['Bebas_Neue',sans-serif] text-xl tracking-widest leading-tight">
-                {lastTitle.toUpperCase()} &mdash; ALL {totalSlots} SPOTS FILLED
+                {lastTitle.toUpperCase()} &mdash; SOLD OUT
               </p>
               <p className="text-zinc-400 text-xs mt-0.5">
                 {isSoldOut
-                  ? `Every slot was claimed. See the cars we protected last month.`
-                  : `${filledCount} of ${totalSlots} spots were claimed last month.`}
+                  ? `Every spot was claimed. See the cars we protected last month.`
+                  : `${filledCount} cars protected last month. See them here.`}
               </p>
             </div>
           </div>
@@ -526,7 +515,7 @@ function ThisMonthsSpecialBanner() {
               <span className="text-[#E85D04]">STARTING AT ${price}</span>
             </h2>
             <p className="text-zinc-400 text-base leading-relaxed mb-6 max-w-lg">
-              {promo.tagline || "Full Front PPF + Free Paint Correction + Ceramic Coating. Limited to 21 cars this month."}
+              {promo.tagline || "Full Front PPF + Free Ceramic Coating. Spots are limited this month."}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               {!soldOut ? (
@@ -543,27 +532,21 @@ function ThisMonthsSpecialBanner() {
               </Link>
             </div>
           </div>
-          {/* Right: slot counter */}
+          {/* Right: availability */}
           <div className="border border-zinc-800 bg-[#0D0D0D] p-8">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-zinc-400 text-xs font-bold tracking-[0.2em] uppercase">Slots This Month</p>
-              <span className={`text-sm font-bold tracking-wide ${remaining <= 5 ? 'text-red-400' : remaining <= 10 ? 'text-yellow-400' : 'text-emerald-400'}`}>
-                {soldOut ? 'SOLD OUT' : `${remaining} remaining`}
+              <p className="text-zinc-400 text-xs font-bold tracking-[0.2em] uppercase">Availability</p>
+              <span className={`text-sm font-bold tracking-wide ${soldOut ? 'text-red-400' : 'text-emerald-400'}`}>
+                {soldOut ? 'SOLD OUT' : 'Limited spots'}
               </span>
             </div>
-            <div className="relative h-4 bg-zinc-800 overflow-hidden mb-3">
-              <div className="h-full bg-[#E85D04] transition-all duration-700" style={{ width: `${Math.min((filled / total) * 100, 100)}%` }} />
-              <div className="absolute inset-0 flex">
-                {Array.from({ length: total }).map((_, i) => <div key={i} className="flex-1 border-r border-black/30 last:border-r-0" />)}
-              </div>
-            </div>
             <div className="flex justify-between text-zinc-600 text-xs mb-6">
-              <span>{filled} of {total} filled</span>
+              <span>{soldOut ? "Join the waitlist for next month" : "First come, first served"}</span>
               {promo.endDate && <span>Ends {promo.endDate}</span>}
             </div>
             <div className="border-t border-zinc-800 pt-5">
               <p className="text-zinc-500 text-xs leading-relaxed">
-                We cap at {total} cars per month so every vehicle gets the same level of attention. Once slots are gone, the deal is over until next month.
+                We only take a set number of cars each month so every vehicle gets the same level of attention. Once the spots are gone, the deal is over until next month.
               </p>
             </div>
           </div>
