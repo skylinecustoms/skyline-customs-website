@@ -1,11 +1,12 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin, Instagram, Youtube } from "lucide-react";
+import { CITY_ORDER, cityPath } from "@/lib/localSeo";
 
 export default function Footer() {
   return (
     <footer className="bg-[oklch(0.08_0.005_285)] border-t border-[oklch(0.20_0.006_285)]">
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-5">
@@ -73,6 +74,29 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
+
+
+          {/* Areas we serve */}
+          <div>
+            <h4 className="font-display text-lg text-[oklch(0.96_0.008_85)] tracking-wider mb-5">
+              AREAS WE SERVE
+            </h4>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+              {CITY_ORDER.map((city) => (
+                <li key={city}>
+                  <Link
+                    href={cityPath("ppf", city)}
+                    className="text-[oklch(0.55_0.01_285)] text-sm hover:text-brand-orange transition-colors"
+                  >
+                    {city}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href="/service-areas" className="inline-block mt-4 text-brand-orange text-xs font-mono-brand uppercase tracking-widest hover:underline">
+              All service areas
+            </Link>
           </div>
 
           {/* Contact */}

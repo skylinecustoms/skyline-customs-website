@@ -421,7 +421,7 @@ function WeDidItAgainBannerHome() {
               <div className="flex -space-x-2">
                 {thumbSlots.map((slot) => (
                   <div key={slot.id} className="w-9 h-9 rounded-full border-2 border-[#0D0D0D] overflow-hidden bg-zinc-800">
-                    <img src={slot.photoUrl!} alt={slot.carDescription ?? 'car'} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={slot.photoUrl!} alt={slot.carDescription ?? 'car'} className="w-full h-full object-cover" />
                   </div>
                 ))}
                 {filledCount > 5 && (
@@ -472,7 +472,7 @@ function RecentCarsSection() {
               className="border border-zinc-800 bg-[#0D0D0D] overflow-hidden group hover:border-[#E85D04]/50 transition-colors"
             >
               <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden">
-                <img
+                <img loading="lazy" decoding="async"
                   src={slot.photoUrl!}
                   alt={`${slot.carDescription} — Skyline Customs ${title}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -674,7 +674,7 @@ export default function Home() {
             {services.map((service) => (
               <Link key={service.number} href={service.href}>
                 <div className="group relative bg-[oklch(0.10_0.005_285)] overflow-hidden cursor-pointer h-[400px]">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={service.image}
                     alt={service.imageAlt}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"

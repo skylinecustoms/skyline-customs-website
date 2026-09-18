@@ -141,10 +141,10 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, label }: { beforeSrc: string; 
         <div className="absolute top-3 left-3 z-20 bg-black/70 text-white text-xs font-bold tracking-widest uppercase px-2 py-1">{label}</div>
       )}
       {/* After (base layer) */}
-      <img src={afterSrc} alt="After PPF" className="w-full h-full object-cover block" />
+      <img loading="lazy" decoding="async" src={afterSrc} alt="After PPF" className="w-full h-full object-cover block" />
       {/* Before (clipped) */}
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
-        <img src={beforeSrc} alt="Before PPF" className="absolute inset-0 w-full h-full object-cover" style={{ width: '100%', minWidth: '100%' }} />
+        <img loading="lazy" decoding="async" src={beforeSrc} alt="Before PPF" className="absolute inset-0 w-full h-full object-cover" style={{ width: '100%', minWidth: '100%' }} />
         <div className="absolute top-3 left-3 bg-zinc-900/80 text-zinc-300 text-xs font-bold tracking-widest uppercase px-2 py-1">Before</div>
       </div>
       <div className="absolute top-3 right-3 z-20 bg-[#E85D04]/90 text-white text-xs font-bold tracking-widest uppercase px-2 py-1">After</div>
@@ -244,7 +244,7 @@ function ReviewSnippet() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {review.photo ? (
-            <img src={review.photo} alt={review.name} className="w-10 h-10 rounded-full object-cover border border-zinc-700" />
+            <img loading="lazy" decoding="async" src={review.photo} alt={review.name} className="w-10 h-10 rounded-full object-cover border border-zinc-700" />
           ) : (
             <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold text-sm">
               {review.name.charAt(0)}
@@ -593,7 +593,7 @@ function LastMonthStrip() {
                 {lastPromo.slots.slice(0, 6).map((slot) => (
                   <div key={slot.id} className="w-12 h-12 bg-zinc-800 overflow-hidden border border-zinc-700">
                     {slot.photoUrl ? (
-                      <img src={slot.photoUrl} alt={slot.carDescription} className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" src={slot.photoUrl} alt={slot.carDescription} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <Shield className="w-4 h-4 text-zinc-600" />
@@ -690,7 +690,7 @@ function WeDidItAgainBanner() {
                     key={slot.id}
                     className="w-9 h-9 rounded-full border-2 border-[#0A0A0A] overflow-hidden bg-zinc-800"
                   >
-                    <img src={slot.photoUrl!} alt={slot.carDescription ?? "car"} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={slot.photoUrl!} alt={slot.carDescription ?? "car"} className="w-full h-full object-cover" />
                   </div>
                 ))}
                 {filledCount > 5 && (

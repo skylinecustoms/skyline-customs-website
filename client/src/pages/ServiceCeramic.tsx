@@ -8,6 +8,7 @@
 import { useBooking } from "@/contexts/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ServiceCityLinks from "@/components/ServiceCityLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import { useState, useEffect } from "react";
@@ -329,7 +330,7 @@ export default function ServiceCeramic() {
                     MOST POPULAR
                   </div>
                 )}
-                <img
+                <img loading="lazy" decoding="async"
                   src={pkg.image}
                   alt={pkg.imageAlt}
                   className="w-full h-48 object-cover"
@@ -435,6 +436,7 @@ export default function ServiceCeramic() {
       </section>
 
       <LocalBanner localHref="/ceramic-coating-chantilly-va" serviceName="Ceramic Coating" />
+      <ServiceCityLinks service="ceramic" />
       <Footer />
     </div>
   );

@@ -43,7 +43,7 @@ function SlotCard({
     <div className="border border-zinc-800 bg-[#0D0D0D] overflow-hidden group hover:border-[#E85D04]/40 transition-colors">
       <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden">
         {photoUrl ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={photoUrl}
             alt={`${carDescription} -- Skyline Customs ${promoTitle}`}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

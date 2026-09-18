@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import compression from "compression";
 import { createServer } from "http";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
@@ -7,6 +8,7 @@ import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { buildSitemap } from "./sitemap";
 import { handleTelegramWebhook } from "../telegramWebhook";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -31,6 +33,9 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  app.disable("x-powered-by");
+  // gzip/brotli responses (the client bundle is ~1.8 MB raw, ~300 KB compressed)
+  app.use(compression());
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -101,6 +106,17 @@ async function startServer() {
       createContext,
     })
   );
+  // Sitemap generated from routes + database (registered before static files so it wins)
+  app.get("/sitemap.xml", async (_req, res) => {
+    try {
+      const xml = await buildSitemap();
+      res.set({ "Content-Type": "application/xml", "Cache-Control": "public, max-age=3600" }).send(xml);
+    } catch (err) {
+      console.error("[sitemap] failed to build:", err);
+      res.status(500).send("sitemap unavailable");
+    }
+  });
+
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);

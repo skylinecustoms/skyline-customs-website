@@ -148,7 +148,7 @@ export default function Services() {
               {/* Image */}
               <div className={`relative ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
                 <div className="absolute -top-3 -left-3 w-full h-full border border-brand-orange opacity-20" />
-                <img
+                <img loading="lazy" decoding="async"
                   src={service.image}
                   alt={service.title}
                   className="w-full h-72 lg:h-[420px] object-cover"

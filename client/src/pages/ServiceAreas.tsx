@@ -1,7 +1,7 @@
 /*
  * SKYLINE CUSTOMS — Service Areas Hub Page
  * URL: /service-areas
- * Lists all 15 cities with links to each of the 4 service landing pages
+ * Lists all 22 cities with links to each of the 4 service landing pages
  */
 
 import { Link } from "wouter";
@@ -9,185 +9,22 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { MapPin, Shield, Droplets, Sun, Palette, ArrowRight, Phone } from "lucide-react";
+import { CITIES, CITY_ORDER, cityPath } from "@/lib/localSeo";
 
-const cities = [
-  {
-    name: "Chantilly",
+const cities = CITY_ORDER.map((name) => {
+  const c = CITIES[name];
+  return {
+    name: c.name,
     state: "VA",
-    description: "Our home base — serving the Chantilly and Dulles corridor.",
+    description: c.hubDescription,
     services: [
-      { label: "Paint Protection Film", href: "/ppf-chantilly-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-chantilly-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-chantilly-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-chantilly-va", icon: Palette },
+      { label: "Paint Protection Film", href: cityPath("ppf", name), icon: Shield },
+      { label: "Ceramic Coating", href: cityPath("ceramic", name), icon: Droplets },
+      { label: "Window Tinting", href: cityPath("tint", name), icon: Sun },
+      { label: "Vinyl Wraps", href: cityPath("wrap", name), icon: Palette },
     ],
-  },
-  {
-    name: "Centreville",
-    state: "VA",
-    description: "Serving Centreville and the Route 28 / I-66 corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-centreville-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-centreville-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-centreville-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-centreville-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Herndon",
-    state: "VA",
-    description: "Serving Herndon and the Dulles Tech Corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-herndon-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-herndon-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-herndon-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-herndon-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Fairfax",
-    state: "VA",
-    description: "Serving Fairfax City, Fair Oaks, and Fair Lakes.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-fairfax-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-fairfax-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-fairfax-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-fairfax-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Vienna",
-    state: "VA",
-    description: "Serving Vienna and the Maple Avenue corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-vienna-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-vienna-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-vienna-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-vienna-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Reston",
-    state: "VA",
-    description: "Serving Reston and the Reston Town Center area.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-reston-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-reston-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-reston-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-reston-va", icon: Palette },
-    ],
-  },
-  {
-    name: "McLean",
-    state: "VA",
-    description: "Serving McLean and the Great Falls corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-mclean-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-mclean-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-mclean-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-mclean-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Tysons",
-    state: "VA",
-    description: "Serving Tysons Corner and the Beltway corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-tysons-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-tysons-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-tysons-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-tysons-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Alexandria",
-    state: "VA",
-    description: "Serving Alexandria and the Old Town / Kingstowne area.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-alexandria-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-alexandria-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-alexandria-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-alexandria-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Arlington",
-    state: "VA",
-    description: "Serving Arlington and the Rosslyn–Ballston corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-arlington-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-arlington-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-arlington-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-arlington-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Falls Church",
-    state: "VA",
-    description: "Serving Falls Church and the Route 7 / I-66 corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-falls-church-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-falls-church-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-falls-church-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-falls-church-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Springfield",
-    state: "VA",
-    description: "Serving Springfield and the I-95 / I-395 / I-495 interchange.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-springfield-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-springfield-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-springfield-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-springfield-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Manassas",
-    state: "VA",
-    description: "Serving Manassas and Prince William County via I-66 and Route 28.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-manassas-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-manassas-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-manassas-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-manassas-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Woodbridge",
-    state: "VA",
-    description: "Serving Woodbridge, Dale City, and the I-95 South corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-woodbridge-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-woodbridge-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-woodbridge-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-woodbridge-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Stafford",
-    state: "VA",
-    description: "Serving Stafford and the Quantico military corridor.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-stafford-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-stafford-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-stafford-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-stafford-va", icon: Palette },
-    ],
-  },
-  {
-    name: "Fredericksburg",
-    state: "VA",
-    description: "Serving Fredericksburg and the Rappahannock region.",
-    services: [
-      { label: "Paint Protection Film", href: "/ppf-fredericksburg-va", icon: Shield },
-      { label: "Ceramic Coating", href: "/ceramic-coating-fredericksburg-va", icon: Droplets },
-      { label: "Window Tinting", href: "/window-tinting-fredericksburg-va", icon: Sun },
-      { label: "Vinyl Wraps", href: "/vinyl-wraps-fredericksburg-va", icon: Palette },
-    ],
-  },
-];
+  };
+});
 
 const serviceIcons: Record<string, typeof Shield> = { Shield, Droplets, Sun, Palette };
 
@@ -196,7 +33,7 @@ export default function ServiceAreas() {
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
         title="Service Areas | Skyline Custom Shop — Northern Virginia PPF, Ceramic, Tint & Wraps"
-        description="Skyline Custom Shop serves 16 cities across Northern Virginia including Chantilly, Fairfax, Arlington, Alexandria, Woodbridge, Stafford, Fredericksburg, and more. Find your city and book a free quote."
+        description="Skyline Custom Shop serves 22 cities across Northern Virginia including Chantilly, Fairfax, Arlington, Alexandria, Woodbridge, Stafford, Fredericksburg, and more. Find your city and book a free quote."
         canonical="https://www.skylinecustomshop.com/service-areas"
         jsonLd={[
           {
@@ -254,7 +91,7 @@ export default function ServiceAreas() {
               <span className="text-[#E85D04]">AREAS</span>
             </h1>
             <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
-              Skyline Custom Shop serves 16 cities across Northern Virginia and the I-95 corridor — from Chantilly and Tysons to Woodbridge, Stafford, and Fredericksburg. Find your city below and book a free quote.
+              Skyline Custom Shop serves 22 cities across Northern Virginia and the I-95 corridor — from Chantilly, Sterling, and Ashburn to Tysons, Woodbridge, Stafford, and Fredericksburg. Find your city below and book a free quote.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/get-a-quote"
@@ -279,7 +116,7 @@ export default function ServiceAreas() {
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "16", label: "Cities Served" },
+              { value: "22", label: "Cities Served" },
               { value: "500+", label: "Happy Customers" },
               { value: "5.0 ★", label: "Google Rating" },
               { value: "4", label: "Services Offered" },

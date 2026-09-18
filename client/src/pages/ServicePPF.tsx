@@ -8,6 +8,7 @@
 import { useBooking } from "@/contexts/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ServiceCityLinks from "@/components/ServiceCityLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import { useState, useEffect } from "react";
@@ -331,7 +332,7 @@ export default function ServicePPF() {
                 )}
                 {/* Tesla PPF image */}
                 <div className="w-full overflow-hidden">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={ppfImages[pkg.diagram]}
                     alt={`Tesla Model Y with ${pkg.name} PPF coverage`}
                     className="w-full h-48 object-cover object-center"
@@ -490,6 +491,7 @@ export default function ServicePPF() {
       </section>
 
       <LocalBanner localHref="/ppf-chantilly-va" serviceName="PPF" />
+      <ServiceCityLinks service="ppf" />
       <Footer />
     </div>
   );

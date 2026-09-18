@@ -92,7 +92,7 @@ export default function About() {
             </div>
             <div className="relative">
               <div className="absolute -top-4 -right-4 w-full h-full border border-brand-orange opacity-20" />
-              <img
+              <img loading="lazy" decoding="async"
                 src={SHOP_FRONT}
                 alt="Skyline Custom Shop — Ford Raptor in front of the shop in Chantilly, VA"
                 className="w-full h-80 lg:h-[460px] object-cover"

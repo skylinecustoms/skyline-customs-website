@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
-import { resolveMetaForPath, injectMetaIntoHtml } from "./ssrMeta";
+import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
@@ -70,17 +70,37 @@ export function serveStatic(app: Express) {
     ? fs.readFileSync(indexHtmlPath, "utf-8")
     : null;
 
-  app.use(express.static(distPath));
+  // Hashed build assets never change: cache for a year.
+  app.use(
+    "/assets",
+    express.static(path.join(distPath, "assets"), { immutable: true, maxAge: "1y", index: false })
+  );
+  // Other static files (images, favicons, robots.txt): cache for a week.
+  // index: false so "/" goes through the meta-injecting handler below.
+  app.use(express.static(distPath, { maxAge: "7d", index: false }));
 
   // fall through to index.html — inject SSR meta tags before sending
   app.use("*", async (req, res) => {
     if (!indexHtml) {
       return res.status(500).send("Build not found");
     }
+
+    // Canonicalize trailing slashes: /ppf-chantilly-va/ -> /ppf-chantilly-va
+    const [pathOnly, query] = req.originalUrl.split("?");
+    if (pathOnly.length > 1 && pathOnly.endsWith("/")) {
+      const target = pathOnly.replace(/\/+$/, "") + (query ? `?${query}` : "");
+      return res.redirect(301, target);
+    }
+
     try {
-      const meta = await resolveMetaForPath(req.originalUrl);
+      const [meta, known] = await Promise.all([resolveMetaForPath(req.originalUrl), isKnownPath(pathOnly)]);
       const page = injectMetaIntoHtml(indexHtml, meta);
-      res.set("Content-Type", "text/html").send(page);
+      // Unknown URLs render the app's Not Found page with a real 404 status,
+      // so search engines don't index "soft 404" pages.
+      res
+        .status(known ? 200 : 404)
+        .set({ "Content-Type": "text/html", "Cache-Control": "no-cache" })
+        .send(page);
     } catch {
       res.sendFile(indexHtmlPath);
     }

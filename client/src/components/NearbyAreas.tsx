@@ -6,81 +6,22 @@
  * Usage:
  *   <NearbyAreas city="Stafford" service="ppf" />
  *
- * service values: "ppf" | "ceramic" | "tint" | "wrap"
+ * City names, slugs, and neighbor lists live in @/lib/localSeo.
  */
 
 import { Link } from "wouter";
 import { MapPin, ArrowRight } from "lucide-react";
-
-type Service = "ppf" | "ceramic" | "tint" | "wrap";
+import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
 
 interface NearbyAreasProps {
   city: string;
-  service: Service;
+  service: ServiceKey;
 }
 
-// URL slug prefixes for each service
-const serviceSlug: Record<Service, string> = {
-  ppf: "ppf",
-  ceramic: "ceramic-coating",
-  tint: "window-tinting",
-  wrap: "vinyl-wraps",
-};
-
-// Human-readable service labels
-const serviceLabel: Record<Service, string> = {
-  ppf: "Paint Protection Film",
-  ceramic: "Ceramic Coating",
-  tint: "Window Tinting",
-  wrap: "Vinyl Wraps",
-};
-
-// URL city slug for each city name
-const citySlug: Record<string, string> = {
-  Chantilly: "chantilly-va",
-  Centreville: "centreville-va",
-  Herndon: "herndon-va",
-  Fairfax: "fairfax-va",
-  Vienna: "vienna-va",
-  Reston: "reston-va",
-  McLean: "mclean-va",
-  Tysons: "tysons-va",
-  Alexandria: "alexandria-va",
-  Arlington: "arlington-va",
-  "Falls Church": "falls-church-va",
-  Springfield: "springfield-va",
-  Manassas: "manassas-va",
-  Woodbridge: "woodbridge-va",
-  Stafford: "stafford-va",
-  Fredericksburg: "fredericksburg-va",
-};
-
-// Geographic neighbor clusters — each city lists its 4 closest neighbors
-const neighbors: Record<string, string[]> = {
-  Chantilly: ["Centreville", "Herndon", "Reston", "Fairfax"],
-  Centreville: ["Chantilly", "Fairfax", "Manassas", "Vienna"],
-  Herndon: ["Chantilly", "Reston", "Vienna", "McLean"],
-  Fairfax: ["Centreville", "Vienna", "Springfield", "Chantilly"],
-  Vienna: ["Fairfax", "Tysons", "McLean", "Herndon"],
-  Reston: ["Herndon", "McLean", "Tysons", "Chantilly"],
-  McLean: ["Tysons", "Vienna", "Reston", "Arlington"],
-  Tysons: ["McLean", "Vienna", "Reston", "Falls Church"],
-  Alexandria: ["Arlington", "Springfield", "Falls Church", "McLean"],
-  Arlington: ["Alexandria", "McLean", "Falls Church", "Tysons"],
-  "Falls Church": ["Arlington", "Alexandria", "Tysons", "Vienna"],
-  Springfield: ["Alexandria", "Fairfax", "Woodbridge", "Manassas"],
-  Manassas: ["Centreville", "Springfield", "Woodbridge", "Fairfax"],
-  Woodbridge: ["Springfield", "Manassas", "Stafford", "Alexandria"],
-  Stafford: ["Woodbridge", "Fredericksburg", "Manassas", "Springfield"],
-  Fredericksburg: ["Stafford", "Woodbridge", "Manassas", "Springfield"],
-};
-
 export default function NearbyAreas({ city, service }: NearbyAreasProps) {
-  const nearbyList = neighbors[city] ?? [];
+  const nearbyList = CITIES[city]?.neighbors ?? [];
   if (nearbyList.length === 0) return null;
-
-  const svcSlug = serviceSlug[service];
-  const svcLabel = serviceLabel[service];
+  const svcLabel = SERVICES[service].label;
 
   return (
     <section className="py-12 bg-[#0D0D0D] border-t border-zinc-800">
@@ -93,12 +34,11 @@ export default function NearbyAreas({ city, service }: NearbyAreasProps) {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {nearbyList.map((neighbor) => {
-            const slug = citySlug[neighbor];
-            if (!slug) return null;
+            if (!CITIES[neighbor]) return null;
             return (
               <Link
                 key={neighbor}
-                href={`/${svcSlug}-${slug}`}
+                href={cityPath(service, neighbor)}
                 className="group flex items-center justify-between gap-2 bg-[#111] hover:bg-[#1a1a1a] border border-zinc-800 hover:border-[#E85D04]/40 px-4 py-3 transition-all"
               >
                 <div>

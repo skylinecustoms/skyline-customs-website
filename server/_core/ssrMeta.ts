@@ -8,20 +8,23 @@
  */
 
 import { getDb } from "../db";
-import { blogPosts } from "../../drizzle/schema";
+import { blogPosts, promos } from "../../drizzle/schema";
+import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
 import { eq } from "drizzle-orm";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
 
-interface PageMeta {
+export interface PageMeta {
   title: string;
   description: string;
   canonical: string;
+  /** Optional robots directive, e.g. "noindex, follow" for pages that should not be indexed. */
+  robots?: string;
 }
 
 // Static meta map for all local landing pages and core pages
-const STATIC_META: Record<string, PageMeta> = {
+export const STATIC_META: Record<string, PageMeta> = {
   "/": {
     title: `${SITE_NAME} | PPF, Ceramic Coating & Window Tinting — Chantilly, VA`,
     description: "Northern Virginia's premier PPF, ceramic coating, window tinting & vinyl wrap shop. 500+ five-star reviews in Chantilly, VA. Free quotes.",
@@ -423,6 +426,153 @@ const STATIC_META: Record<string, PageMeta> = {
     description: "Professional vinyl wraps near Fredericksburg, VA. Color-change wraps and partial wraps. Free quotes.",
     canonical: `${BASE_URL}/vinyl-wraps-fredericksburg-va`,
   },
+  "/ppf-sterling-va": {
+    title: `PPF Sterling VA | Paint Protection Film Near Me | ${SITE_NAME}`,
+    description: "Top-rated paint protection film installer serving Sterling, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    canonical: `${BASE_URL}/ppf-sterling-va`,
+  },
+  "/ceramic-coating-sterling-va": {
+    title: `Ceramic Coating Sterling VA | Car Ceramic Coating Near Me | ${SITE_NAME}`,
+    description: "Professional ceramic coating for Sterling, VA drivers. Gtechniq graphene and SiO2 coatings with paint correction and 5–7 year protection. Free quotes.",
+    canonical: `${BASE_URL}/ceramic-coating-sterling-va`,
+  },
+  "/window-tinting-sterling-va": {
+    title: `Window Tinting Sterling VA | Car Tint Near Me | ${SITE_NAME}`,
+    description: "Ceramic window tinting near Sterling, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
+    canonical: `${BASE_URL}/window-tinting-sterling-va`,
+  },
+  "/vinyl-wraps-sterling-va": {
+    title: `Vinyl Wraps Sterling VA | Car Wrap Near Me | ${SITE_NAME}`,
+    description: "Vinyl wraps near Sterling, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
+    canonical: `${BASE_URL}/vinyl-wraps-sterling-va`,
+  },
+  "/ppf-ashburn-va": {
+    title: `PPF Ashburn VA | Paint Protection Film Near Me | ${SITE_NAME}`,
+    description: "Top-rated paint protection film installer serving Ashburn, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    canonical: `${BASE_URL}/ppf-ashburn-va`,
+  },
+  "/ceramic-coating-ashburn-va": {
+    title: `Ceramic Coating Ashburn VA | Car Ceramic Coating Near Me | ${SITE_NAME}`,
+    description: "Professional ceramic coating for Ashburn, VA drivers. Gtechniq graphene and SiO2 coatings with paint correction and 5–7 year protection. Free quotes.",
+    canonical: `${BASE_URL}/ceramic-coating-ashburn-va`,
+  },
+  "/window-tinting-ashburn-va": {
+    title: `Window Tinting Ashburn VA | Car Tint Near Me | ${SITE_NAME}`,
+    description: "Ceramic window tinting near Ashburn, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
+    canonical: `${BASE_URL}/window-tinting-ashburn-va`,
+  },
+  "/vinyl-wraps-ashburn-va": {
+    title: `Vinyl Wraps Ashburn VA | Car Wrap Near Me | ${SITE_NAME}`,
+    description: "Vinyl wraps near Ashburn, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
+    canonical: `${BASE_URL}/vinyl-wraps-ashburn-va`,
+  },
+  "/ppf-oakton-va": {
+    title: `PPF Oakton VA | Paint Protection Film Near Me | ${SITE_NAME}`,
+    description: "Top-rated paint protection film installer serving Oakton, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    canonical: `${BASE_URL}/ppf-oakton-va`,
+  },
+  "/ceramic-coating-oakton-va": {
+    title: `Ceramic Coating Oakton VA | Car Ceramic Coating Near Me | ${SITE_NAME}`,
+    description: "Professional ceramic coating for Oakton, VA drivers. Gtechniq graphene and SiO2 coatings with paint correction and 5–7 year protection. Free quotes.",
+    canonical: `${BASE_URL}/ceramic-coating-oakton-va`,
+  },
+  "/window-tinting-oakton-va": {
+    title: `Window Tinting Oakton VA | Car Tint Near Me | ${SITE_NAME}`,
+    description: "Ceramic window tinting near Oakton, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
+    canonical: `${BASE_URL}/window-tinting-oakton-va`,
+  },
+  "/vinyl-wraps-oakton-va": {
+    title: `Vinyl Wraps Oakton VA | Car Wrap Near Me | ${SITE_NAME}`,
+    description: "Vinyl wraps near Oakton, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
+    canonical: `${BASE_URL}/vinyl-wraps-oakton-va`,
+  },
+  "/ppf-burke-va": {
+    title: `PPF Burke VA | Paint Protection Film Near Me | ${SITE_NAME}`,
+    description: "Top-rated paint protection film installer serving Burke, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    canonical: `${BASE_URL}/ppf-burke-va`,
+  },
+  "/ceramic-coating-burke-va": {
+    title: `Ceramic Coating Burke VA | Car Ceramic Coating Near Me | ${SITE_NAME}`,
+    description: "Professional ceramic coating for Burke, VA drivers. Gtechniq graphene and SiO2 coatings with paint correction and 5–7 year protection. Free quotes.",
+    canonical: `${BASE_URL}/ceramic-coating-burke-va`,
+  },
+  "/window-tinting-burke-va": {
+    title: `Window Tinting Burke VA | Car Tint Near Me | ${SITE_NAME}`,
+    description: "Ceramic window tinting near Burke, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
+    canonical: `${BASE_URL}/window-tinting-burke-va`,
+  },
+  "/vinyl-wraps-burke-va": {
+    title: `Vinyl Wraps Burke VA | Car Wrap Near Me | ${SITE_NAME}`,
+    description: "Vinyl wraps near Burke, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
+    canonical: `${BASE_URL}/vinyl-wraps-burke-va`,
+  },
+  "/ppf-gainesville-va": {
+    title: `PPF Gainesville VA | Paint Protection Film Near Me | ${SITE_NAME}`,
+    description: "Top-rated paint protection film installer serving Gainesville, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    canonical: `${BASE_URL}/ppf-gainesville-va`,
+  },
+  "/ceramic-coating-gainesville-va": {
+    title: `Ceramic Coating Gainesville VA | Car Ceramic Coating Near Me | ${SITE_NAME}`,
+    description: "Professional ceramic coating for Gainesville, VA drivers. Gtechniq graphene and SiO2 coatings with paint correction and 5–7 year protection. Free quotes.",
+    canonical: `${BASE_URL}/ceramic-coating-gainesville-va`,
+  },
+  "/window-tinting-gainesville-va": {
+    title: `Window Tinting Gainesville VA | Car Tint Near Me | ${SITE_NAME}`,
+    description: "Ceramic window tinting near Gainesville, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
+    canonical: `${BASE_URL}/window-tinting-gainesville-va`,
+  },
+  "/vinyl-wraps-gainesville-va": {
+    title: `Vinyl Wraps Gainesville VA | Car Wrap Near Me | ${SITE_NAME}`,
+    description: "Vinyl wraps near Gainesville, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
+    canonical: `${BASE_URL}/vinyl-wraps-gainesville-va`,
+  },
+  "/ppf-leesburg-va": {
+    title: `PPF Leesburg VA | Paint Protection Film Near Me | ${SITE_NAME}`,
+    description: "Top-rated paint protection film installer serving Leesburg, VA. Self-healing STEK PPF, rock chip protection, full-front or full-body coverage. Free quotes. 5.0 stars on Google.",
+    canonical: `${BASE_URL}/ppf-leesburg-va`,
+  },
+  "/ceramic-coating-leesburg-va": {
+    title: `Ceramic Coating Leesburg VA | Car Ceramic Coating Near Me | ${SITE_NAME}`,
+    description: "Professional ceramic coating for Leesburg, VA drivers. Gtechniq graphene and SiO2 coatings with paint correction and 5–7 year protection. Free quotes.",
+    canonical: `${BASE_URL}/ceramic-coating-leesburg-va`,
+  },
+  "/window-tinting-leesburg-va": {
+    title: `Window Tinting Leesburg VA | Car Tint Near Me | ${SITE_NAME}`,
+    description: "Ceramic window tinting near Leesburg, VA. GeoShield Pro Nano Ceramic film, 99% UV and up to 83% heat rejection, Virginia-legal shades, lifetime warranty. Free quotes.",
+    canonical: `${BASE_URL}/window-tinting-leesburg-va`,
+  },
+  "/vinyl-wraps-leesburg-va": {
+    title: `Vinyl Wraps Leesburg VA | Car Wrap Near Me | ${SITE_NAME}`,
+    description: "Vinyl wraps near Leesburg, VA. Full color change, partial wraps, and chrome delete in 3M and Avery Dennison films. Reversible and paint-safe. Free quotes.",
+    canonical: `${BASE_URL}/vinyl-wraps-leesburg-va`,
+  },
+  "/privacy-policy": {
+    title: `Privacy Policy | ${SITE_NAME}`,
+    description: "How Skyline Customs collects, uses, and protects your information when you use our website or request a quote.",
+    canonical: `${BASE_URL}/privacy-policy`,
+  },
+  "/terms-of-service": {
+    title: `Terms of Service | ${SITE_NAME}`,
+    description: "Terms and conditions for using the Skyline Customs website and services in Chantilly, VA.",
+    canonical: `${BASE_URL}/terms-of-service`,
+  },
+  "/promo": {
+    title: `This Month's Special | PPF & Ceramic Deals | ${SITE_NAME}`,
+    description: "See this month's limited-slot special on paint protection film and ceramic coating at Skyline Customs in Chantilly, VA.",
+    canonical: `${BASE_URL}/promo`,
+  },
+  "/thank-you": {
+    title: `Thank You | ${SITE_NAME}`,
+    description: "Thanks for contacting Skyline Customs. We'll be in touch shortly.",
+    canonical: `${BASE_URL}/thank-you`,
+    robots: "noindex, follow",
+  },
+  "/price-sheet": {
+    title: `Price Sheet | ${SITE_NAME}`,
+    description: "Internal price reference for Skyline Customs services.",
+    canonical: `${BASE_URL}/price-sheet`,
+    robots: "noindex, nofollow",
+  },
 };
 
 /**
@@ -476,6 +626,54 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
   };
 }
 
+/** Static routes that should appear in the sitemap (indexable, non-redirect). */
+export const STATIC_PATHS: string[] = Object.keys(STATIC_META).filter(
+  (p) => p !== "/pricing" && !STATIC_META[p].robots?.includes("noindex")
+);
+
+// Paths handled by client-side redirects or utility routes in App.tsx
+const OTHER_KNOWN_PATHS = new Set([
+  "/pricing", "/configure", "/contact-us", "/booking-page", "/home", "/404", "/privacy-policy-112467",
+]);
+
+/**
+ * Whether a path maps to a real page. Used to send a true 404 status for
+ * unknown URLs instead of a "soft 404" (200 + not-found content).
+ */
+export async function isKnownPath(urlPath: string): Promise<boolean> {
+  const cleanPath = urlPath.split("?")[0].split("#")[0];
+  if (STATIC_META[cleanPath] || OTHER_KNOWN_PATHS.has(cleanPath)) return true;
+
+  const blogMatch = cleanPath.match(/^\/blog\/([a-z0-9-]+)$/);
+  if (blogMatch) {
+    const slug = blogMatch[1];
+    if (staticBlogPosts.some((b) => b.slug === slug)) return true;
+    try {
+      const database = await getDb();
+      if (!database) return true; // can't verify without a DB; don't risk a false 404
+      const rows = await database.select({ id: blogPosts.id }).from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
+      return rows.length > 0;
+    } catch {
+      return true;
+    }
+  }
+
+  // Archived promo pages: /june-special, /july-2026 ...
+  const archived = cleanPath.match(/^\/([a-z]+-special|[a-z]+-\d{4})$/);
+  if (archived) {
+    try {
+      const database = await getDb();
+      if (!database) return true;
+      const rows = await database.select({ id: promos.id }).from(promos).where(eq(promos.archivedSlug, archived[1])).limit(1);
+      return rows.length > 0;
+    } catch {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 /**
  * Injects SSR meta tags into the HTML string.
  * Replaces the static title, canonical, and description in index.html
@@ -501,6 +699,14 @@ export function injectMetaIntoHtml(html: string, meta: PageMeta): string {
     /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/,
     `<link rel="canonical" href="${escapeHtml(meta.canonical)}" />`
   );
+
+  // Replace robots directive when a page asks for one (e.g. noindex)
+  if (meta.robots) {
+    result = result.replace(
+      /<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/,
+      `<meta name="robots" content="${escapeHtml(meta.robots)}" />`
+    );
+  }
 
   // Replace og:title
   result = result.replace(

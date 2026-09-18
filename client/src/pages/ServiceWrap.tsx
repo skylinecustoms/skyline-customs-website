@@ -8,6 +8,7 @@
 import { useBooking } from "@/contexts/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ServiceCityLinks from "@/components/ServiceCityLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import { useState, useEffect } from "react";
@@ -328,7 +329,7 @@ export default function ServiceWrap() {
                     MOST POPULAR
                   </div>
                 )}
-                <img src={pkg.image} alt={pkg.imageAlt} className="w-full h-44 object-cover" />
+                <img loading="lazy" decoding="async" src={pkg.image} alt={pkg.imageAlt} className="w-full h-44 object-cover" />
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-1">{pkg.name}</h3>
                   <p className="text-zinc-500 text-xs uppercase tracking-widest mb-4">{pkg.desc}</p>
@@ -452,6 +453,7 @@ export default function ServiceWrap() {
       </section>
 
       <LocalBanner localHref="/vinyl-wraps-chantilly-va" serviceName="Vinyl Wraps" />
+      <ServiceCityLinks service="wrap" />
       <Footer />
     </div>
   );

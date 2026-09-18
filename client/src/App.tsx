@@ -6,7 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { BookingProvider, useBooking } from "./contexts/BookingContext";
 import BookingModal from "./components/BookingModal";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { X } from "lucide-react";
 
@@ -42,94 +42,116 @@ function ScrollToTop() {
   return null;
 }
 import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Gallery from "./pages/Gallery";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import ServicePPF from "./pages/ServicePPF";
-import ServiceCeramic from "./pages/ServiceCeramic";
-import ServiceTint from "./pages/ServiceTint";
-import ServiceWrap from "./pages/ServiceWrap";
-import GetAQuote from "./pages/GetAQuote";
-import ThankYou from "./pages/ThankYou";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
+const Services = lazy(() => import("./pages/Services"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const ServicePPF = lazy(() => import("./pages/ServicePPF"));
+const ServiceCeramic = lazy(() => import("./pages/ServiceCeramic"));
+const ServiceTint = lazy(() => import("./pages/ServiceTint"));
+const ServiceWrap = lazy(() => import("./pages/ServiceWrap"));
+const GetAQuote = lazy(() => import("./pages/GetAQuote"));
+const ThankYou = lazy(() => import("./pages/ThankYou"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 import QuoteAssistant from "./components/QuoteAssistant";
-import LocalPPF from "./pages/LocalPPF";
-import LocalCeramic from "./pages/LocalCeramic";
-import LocalTint from "./pages/LocalTint";
-import LocalWrap from "./pages/LocalWrap";
-import CentrevillePPF from "./pages/CentrevillePPF";
-import CentrevilleCeramic from "./pages/CentrevilleCeramic";
-import CentrevilleTint from "./pages/CentrevilleTint";
-import CentrevilleWrap from "./pages/CentrevilleWrap";
-import HerndonPPF from "./pages/HerndonPPF";
-import HerndonCeramic from "./pages/HerndonCeramic";
-import HerndonTint from "./pages/HerndonTint";
-import HerndonWrap from "./pages/HerndonWrap";
-import FairfaxPPF from "./pages/FairfaxPPF";
-import FairfaxCeramic from "./pages/FairfaxCeramic";
-import FairfaxTint from "./pages/FairfaxTint";
-import FairfaxWrap from "./pages/FairfaxWrap";
-import BlogIndex from "./pages/BlogIndex";
-import BlogPost from "./pages/BlogPost";
-import ViennaPPF from "./pages/ViennaPPF";
-import ViennaCeramic from "./pages/ViennaCeramic";
-import ViennaTint from "./pages/ViennaTint";
-import ViennaWrap from "./pages/ViennaWrap";
-import RestonPPF from "./pages/RestonPPF";
-import RestonCeramic from "./pages/RestonCeramic";
-import RestonTint from "./pages/RestonTint";
-import RestonWrap from "./pages/RestonWrap";
-import McLeanPPF from "./pages/McLeanPPF";
-import McLeanCeramic from "./pages/McLeanCeramic";
-import McLeanTint from "./pages/McLeanTint";
-import McLeanWrap from "./pages/McLeanWrap";
-import TysonsPPF from "./pages/TysonsPPF";
-import TysonsCeramic from "./pages/TysonsCeramic";
-import TysonsTint from "./pages/TysonsTint";
-import TysonsWrap from "./pages/TysonsWrap";
-import AlexandriaPPF from "./pages/AlexandriaPPF";
-import AlexandriaCeramic from "./pages/AlexandriaCeramic";
-import AlexandriaTint from "./pages/AlexandriaTint";
-import AlexandriaWrap from "./pages/AlexandriaWrap";
-import ArlingtonPPF from "./pages/ArlingtonPPF";
-import ArlingtonCeramic from "./pages/ArlingtonCeramic";
-import ArlingtonTint from "./pages/ArlingtonTint";
-import ArlingtonWrap from "./pages/ArlingtonWrap";
-import FallsChurchPPF from "./pages/FallsChurchPPF";
-import FallsChurchCeramic from "./pages/FallsChurchCeramic";
-import FallsChurchTint from "./pages/FallsChurchTint";
-import FallsChurchWrap from "./pages/FallsChurchWrap";
-import SpringfieldPPF from "./pages/SpringfieldPPF";
-import SpringfieldCeramic from "./pages/SpringfieldCeramic";
-import SpringfieldTint from "./pages/SpringfieldTint";
-import SpringfieldWrap from "./pages/SpringfieldWrap";
-import ManassasPPF from "./pages/ManassasPPF";
-import ManassasCeramic from "./pages/ManassasCeramic";
-import ManassasTint from "./pages/ManassasTint";
-import ManassasWrap from "./pages/ManassasWrap";
-import WoodbridgePPF from "./pages/WoodbridgePPF";
-import WoodbridgeCeramic from "./pages/WoodbridgeCeramic";
-import WoodbridgeTint from "./pages/WoodbridgeTint";
-import WoodbridgeWrap from "./pages/WoodbridgeWrap";
-import StaffordPPF from "./pages/StaffordPPF";
-import StaffordCeramic from "./pages/StaffordCeramic";
-import StaffordTint from "./pages/StaffordTint";
-import StaffordWrap from "./pages/StaffordWrap";
-import FredericksburgPPF from "./pages/FredericksburgPPF";
-import FredericksburgCeramic from "./pages/FredericksburgCeramic";
-import FredericksburgTint from "./pages/FredericksburgTint";
-import FredericksburgWrap from "./pages/FredericksburgWrap";
-import ChantillyPPF from "./pages/ChantillyPPF";
-import ChantillyCeramic from "./pages/ChantillyCeramic";
-import ChantillyTint from "./pages/ChantillyTint";
-import ChantillyWrap from "./pages/ChantillyWrap";
-import ServiceAreas from "./pages/ServiceAreas";
-import JuneSpecial from "./pages/JuneSpecial";
-import PromoArchive from "./pages/PromoArchive";
+const BlogIndex = lazy(() => import("./pages/BlogIndex"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const ServiceAreas = lazy(() => import("./pages/ServiceAreas"));
+const JuneSpecial = lazy(() => import("./pages/JuneSpecial"));
+const PromoArchive = lazy(() => import("./pages/PromoArchive"));
 // import Pricing from "./pages/Pricing"; // temporarily hidden from nav
-import Pricing from "./pages/Pricing"; // accessible via /price-sheet for internal reference
+const Pricing = lazy(() => import("./pages/Pricing"));
+// City × service landing pages (lazy-loaded; content in lib/localSeo.ts)
+const ChantillyPPF = lazy(() => import("./pages/ChantillyPPF"));
+const ChantillyCeramic = lazy(() => import("./pages/ChantillyCeramic"));
+const ChantillyTint = lazy(() => import("./pages/ChantillyTint"));
+const ChantillyWrap = lazy(() => import("./pages/ChantillyWrap"));
+const CentrevillePPF = lazy(() => import("./pages/CentrevillePPF"));
+const CentrevilleCeramic = lazy(() => import("./pages/CentrevilleCeramic"));
+const CentrevilleTint = lazy(() => import("./pages/CentrevilleTint"));
+const CentrevilleWrap = lazy(() => import("./pages/CentrevilleWrap"));
+const HerndonPPF = lazy(() => import("./pages/HerndonPPF"));
+const HerndonCeramic = lazy(() => import("./pages/HerndonCeramic"));
+const HerndonTint = lazy(() => import("./pages/HerndonTint"));
+const HerndonWrap = lazy(() => import("./pages/HerndonWrap"));
+const SterlingPPF = lazy(() => import("./pages/SterlingPPF"));
+const SterlingCeramic = lazy(() => import("./pages/SterlingCeramic"));
+const SterlingTint = lazy(() => import("./pages/SterlingTint"));
+const SterlingWrap = lazy(() => import("./pages/SterlingWrap"));
+const AshburnPPF = lazy(() => import("./pages/AshburnPPF"));
+const AshburnCeramic = lazy(() => import("./pages/AshburnCeramic"));
+const AshburnTint = lazy(() => import("./pages/AshburnTint"));
+const AshburnWrap = lazy(() => import("./pages/AshburnWrap"));
+const RestonPPF = lazy(() => import("./pages/RestonPPF"));
+const RestonCeramic = lazy(() => import("./pages/RestonCeramic"));
+const RestonTint = lazy(() => import("./pages/RestonTint"));
+const RestonWrap = lazy(() => import("./pages/RestonWrap"));
+const FairfaxPPF = lazy(() => import("./pages/FairfaxPPF"));
+const FairfaxCeramic = lazy(() => import("./pages/FairfaxCeramic"));
+const FairfaxTint = lazy(() => import("./pages/FairfaxTint"));
+const FairfaxWrap = lazy(() => import("./pages/FairfaxWrap"));
+const OaktonPPF = lazy(() => import("./pages/OaktonPPF"));
+const OaktonCeramic = lazy(() => import("./pages/OaktonCeramic"));
+const OaktonTint = lazy(() => import("./pages/OaktonTint"));
+const OaktonWrap = lazy(() => import("./pages/OaktonWrap"));
+const ViennaPPF = lazy(() => import("./pages/ViennaPPF"));
+const ViennaCeramic = lazy(() => import("./pages/ViennaCeramic"));
+const ViennaTint = lazy(() => import("./pages/ViennaTint"));
+const ViennaWrap = lazy(() => import("./pages/ViennaWrap"));
+const McLeanPPF = lazy(() => import("./pages/McLeanPPF"));
+const McLeanCeramic = lazy(() => import("./pages/McLeanCeramic"));
+const McLeanTint = lazy(() => import("./pages/McLeanTint"));
+const McLeanWrap = lazy(() => import("./pages/McLeanWrap"));
+const TysonsPPF = lazy(() => import("./pages/TysonsPPF"));
+const TysonsCeramic = lazy(() => import("./pages/TysonsCeramic"));
+const TysonsTint = lazy(() => import("./pages/TysonsTint"));
+const TysonsWrap = lazy(() => import("./pages/TysonsWrap"));
+const FallsChurchPPF = lazy(() => import("./pages/FallsChurchPPF"));
+const FallsChurchCeramic = lazy(() => import("./pages/FallsChurchCeramic"));
+const FallsChurchTint = lazy(() => import("./pages/FallsChurchTint"));
+const FallsChurchWrap = lazy(() => import("./pages/FallsChurchWrap"));
+const ArlingtonPPF = lazy(() => import("./pages/ArlingtonPPF"));
+const ArlingtonCeramic = lazy(() => import("./pages/ArlingtonCeramic"));
+const ArlingtonTint = lazy(() => import("./pages/ArlingtonTint"));
+const ArlingtonWrap = lazy(() => import("./pages/ArlingtonWrap"));
+const AlexandriaPPF = lazy(() => import("./pages/AlexandriaPPF"));
+const AlexandriaCeramic = lazy(() => import("./pages/AlexandriaCeramic"));
+const AlexandriaTint = lazy(() => import("./pages/AlexandriaTint"));
+const AlexandriaWrap = lazy(() => import("./pages/AlexandriaWrap"));
+const BurkePPF = lazy(() => import("./pages/BurkePPF"));
+const BurkeCeramic = lazy(() => import("./pages/BurkeCeramic"));
+const BurkeTint = lazy(() => import("./pages/BurkeTint"));
+const BurkeWrap = lazy(() => import("./pages/BurkeWrap"));
+const SpringfieldPPF = lazy(() => import("./pages/SpringfieldPPF"));
+const SpringfieldCeramic = lazy(() => import("./pages/SpringfieldCeramic"));
+const SpringfieldTint = lazy(() => import("./pages/SpringfieldTint"));
+const SpringfieldWrap = lazy(() => import("./pages/SpringfieldWrap"));
+const ManassasPPF = lazy(() => import("./pages/ManassasPPF"));
+const ManassasCeramic = lazy(() => import("./pages/ManassasCeramic"));
+const ManassasTint = lazy(() => import("./pages/ManassasTint"));
+const ManassasWrap = lazy(() => import("./pages/ManassasWrap"));
+const GainesvillePPF = lazy(() => import("./pages/GainesvillePPF"));
+const GainesvilleCeramic = lazy(() => import("./pages/GainesvilleCeramic"));
+const GainesvilleTint = lazy(() => import("./pages/GainesvilleTint"));
+const GainesvilleWrap = lazy(() => import("./pages/GainesvilleWrap"));
+const LeesburgPPF = lazy(() => import("./pages/LeesburgPPF"));
+const LeesburgCeramic = lazy(() => import("./pages/LeesburgCeramic"));
+const LeesburgTint = lazy(() => import("./pages/LeesburgTint"));
+const LeesburgWrap = lazy(() => import("./pages/LeesburgWrap"));
+const WoodbridgePPF = lazy(() => import("./pages/WoodbridgePPF"));
+const WoodbridgeCeramic = lazy(() => import("./pages/WoodbridgeCeramic"));
+const WoodbridgeTint = lazy(() => import("./pages/WoodbridgeTint"));
+const WoodbridgeWrap = lazy(() => import("./pages/WoodbridgeWrap"));
+const StaffordPPF = lazy(() => import("./pages/StaffordPPF"));
+const StaffordCeramic = lazy(() => import("./pages/StaffordCeramic"));
+const StaffordTint = lazy(() => import("./pages/StaffordTint"));
+const StaffordWrap = lazy(() => import("./pages/StaffordWrap"));
+const FredericksburgPPF = lazy(() => import("./pages/FredericksburgPPF"));
+const FredericksburgCeramic = lazy(() => import("./pages/FredericksburgCeramic"));
+const FredericksburgTint = lazy(() => import("./pages/FredericksburgTint"));
+const FredericksburgWrap = lazy(() => import("./pages/FredericksburgWrap"));
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -162,101 +184,137 @@ function Router() {
         <Redirect to="/" />
       </Route>
 
-      {/* Chantilly local SEO landing pages — home city */}
-      <Route path={'/ppf-chantilly-va'} component={ChantillyPPF} />
-      <Route path={'/ceramic-coating-chantilly-va'} component={ChantillyCeramic} />
-      <Route path={'/window-tinting-chantilly-va'} component={ChantillyTint} />
-      <Route path={'/vinyl-wraps-chantilly-va'} component={ChantillyWrap} />
+      {/* Chantilly local SEO landing pages */}
+      <Route path={"/ppf-chantilly-va"} component={ChantillyPPF} />
+      <Route path={"/ceramic-coating-chantilly-va"} component={ChantillyCeramic} />
+      <Route path={"/window-tinting-chantilly-va"} component={ChantillyTint} />
+      <Route path={"/vinyl-wraps-chantilly-va"} component={ChantillyWrap} />
 
       {/* Centreville local SEO landing pages */}
-      <Route path={'/ppf-centreville-va'} component={CentrevillePPF} />
-      <Route path={'/ceramic-coating-centreville-va'} component={CentrevilleCeramic} />
-      <Route path={'/window-tinting-centreville-va'} component={CentrevilleTint} />
-      <Route path={'/vinyl-wraps-centreville-va'} component={CentrevilleWrap} />
+      <Route path={"/ppf-centreville-va"} component={CentrevillePPF} />
+      <Route path={"/ceramic-coating-centreville-va"} component={CentrevilleCeramic} />
+      <Route path={"/window-tinting-centreville-va"} component={CentrevilleTint} />
+      <Route path={"/vinyl-wraps-centreville-va"} component={CentrevilleWrap} />
 
       {/* Herndon local SEO landing pages */}
-      <Route path={'/ppf-herndon-va'} component={HerndonPPF} />
-      <Route path={'/ceramic-coating-herndon-va'} component={HerndonCeramic} />
-      <Route path={'/window-tinting-herndon-va'} component={HerndonTint} />
-      <Route path={'/vinyl-wraps-herndon-va'} component={HerndonWrap} />
+      <Route path={"/ppf-herndon-va"} component={HerndonPPF} />
+      <Route path={"/ceramic-coating-herndon-va"} component={HerndonCeramic} />
+      <Route path={"/window-tinting-herndon-va"} component={HerndonTint} />
+      <Route path={"/vinyl-wraps-herndon-va"} component={HerndonWrap} />
 
-      {/* Fairfax local SEO landing pages */}
-      <Route path={'/ppf-fairfax-va'} component={FairfaxPPF} />
-      <Route path={'/ceramic-coating-fairfax-va'} component={FairfaxCeramic} />
-      <Route path={'/window-tinting-fairfax-va'} component={FairfaxTint} />
-      <Route path={'/vinyl-wraps-fairfax-va'} component={FairfaxWrap} />
+      {/* Sterling local SEO landing pages */}
+      <Route path={"/ppf-sterling-va"} component={SterlingPPF} />
+      <Route path={"/ceramic-coating-sterling-va"} component={SterlingCeramic} />
+      <Route path={"/window-tinting-sterling-va"} component={SterlingTint} />
+      <Route path={"/vinyl-wraps-sterling-va"} component={SterlingWrap} />
 
-      {/* Vienna local SEO landing pages */}
-      <Route path={'/ppf-vienna-va'} component={ViennaPPF} />
-      <Route path={'/ceramic-coating-vienna-va'} component={ViennaCeramic} />
-      <Route path={'/window-tinting-vienna-va'} component={ViennaTint} />
-      <Route path={'/vinyl-wraps-vienna-va'} component={ViennaWrap} />
+      {/* Ashburn local SEO landing pages */}
+      <Route path={"/ppf-ashburn-va"} component={AshburnPPF} />
+      <Route path={"/ceramic-coating-ashburn-va"} component={AshburnCeramic} />
+      <Route path={"/window-tinting-ashburn-va"} component={AshburnTint} />
+      <Route path={"/vinyl-wraps-ashburn-va"} component={AshburnWrap} />
 
       {/* Reston local SEO landing pages */}
-      <Route path={'/ppf-reston-va'} component={RestonPPF} />
-      <Route path={'/ceramic-coating-reston-va'} component={RestonCeramic} />
-      <Route path={'/window-tinting-reston-va'} component={RestonTint} />
-      <Route path={'/vinyl-wraps-reston-va'} component={RestonWrap} />
+      <Route path={"/ppf-reston-va"} component={RestonPPF} />
+      <Route path={"/ceramic-coating-reston-va"} component={RestonCeramic} />
+      <Route path={"/window-tinting-reston-va"} component={RestonTint} />
+      <Route path={"/vinyl-wraps-reston-va"} component={RestonWrap} />
+
+      {/* Fairfax local SEO landing pages */}
+      <Route path={"/ppf-fairfax-va"} component={FairfaxPPF} />
+      <Route path={"/ceramic-coating-fairfax-va"} component={FairfaxCeramic} />
+      <Route path={"/window-tinting-fairfax-va"} component={FairfaxTint} />
+      <Route path={"/vinyl-wraps-fairfax-va"} component={FairfaxWrap} />
+
+      {/* Oakton local SEO landing pages */}
+      <Route path={"/ppf-oakton-va"} component={OaktonPPF} />
+      <Route path={"/ceramic-coating-oakton-va"} component={OaktonCeramic} />
+      <Route path={"/window-tinting-oakton-va"} component={OaktonTint} />
+      <Route path={"/vinyl-wraps-oakton-va"} component={OaktonWrap} />
+
+      {/* Vienna local SEO landing pages */}
+      <Route path={"/ppf-vienna-va"} component={ViennaPPF} />
+      <Route path={"/ceramic-coating-vienna-va"} component={ViennaCeramic} />
+      <Route path={"/window-tinting-vienna-va"} component={ViennaTint} />
+      <Route path={"/vinyl-wraps-vienna-va"} component={ViennaWrap} />
 
       {/* McLean local SEO landing pages */}
-      <Route path={'/ppf-mclean-va'} component={McLeanPPF} />
-      <Route path={'/ceramic-coating-mclean-va'} component={McLeanCeramic} />
-      <Route path={'/window-tinting-mclean-va'} component={McLeanTint} />
-      <Route path={'/vinyl-wraps-mclean-va'} component={McLeanWrap} />
+      <Route path={"/ppf-mclean-va"} component={McLeanPPF} />
+      <Route path={"/ceramic-coating-mclean-va"} component={McLeanCeramic} />
+      <Route path={"/window-tinting-mclean-va"} component={McLeanTint} />
+      <Route path={"/vinyl-wraps-mclean-va"} component={McLeanWrap} />
 
       {/* Tysons local SEO landing pages */}
-      <Route path={'/ppf-tysons-va'} component={TysonsPPF} />
-      <Route path={'/ceramic-coating-tysons-va'} component={TysonsCeramic} />
-      <Route path={'/window-tinting-tysons-va'} component={TysonsTint} />
-      <Route path={'/vinyl-wraps-tysons-va'} component={TysonsWrap} />
-
-      {/* Alexandria local SEO landing pages */}
-      <Route path={'/ppf-alexandria-va'} component={AlexandriaPPF} />
-      <Route path={'/ceramic-coating-alexandria-va'} component={AlexandriaCeramic} />
-      <Route path={'/window-tinting-alexandria-va'} component={AlexandriaTint} />
-      <Route path={'/vinyl-wraps-alexandria-va'} component={AlexandriaWrap} />
-
-      {/* Arlington local SEO landing pages */}
-      <Route path={'/ppf-arlington-va'} component={ArlingtonPPF} />
-      <Route path={'/ceramic-coating-arlington-va'} component={ArlingtonCeramic} />
-      <Route path={'/window-tinting-arlington-va'} component={ArlingtonTint} />
-      <Route path={'/vinyl-wraps-arlington-va'} component={ArlingtonWrap} />
+      <Route path={"/ppf-tysons-va"} component={TysonsPPF} />
+      <Route path={"/ceramic-coating-tysons-va"} component={TysonsCeramic} />
+      <Route path={"/window-tinting-tysons-va"} component={TysonsTint} />
+      <Route path={"/vinyl-wraps-tysons-va"} component={TysonsWrap} />
 
       {/* Falls Church local SEO landing pages */}
-      <Route path={'/ppf-falls-church-va'} component={FallsChurchPPF} />
-      <Route path={'/ceramic-coating-falls-church-va'} component={FallsChurchCeramic} />
-      <Route path={'/window-tinting-falls-church-va'} component={FallsChurchTint} />
-      <Route path={'/vinyl-wraps-falls-church-va'} component={FallsChurchWrap} />
+      <Route path={"/ppf-falls-church-va"} component={FallsChurchPPF} />
+      <Route path={"/ceramic-coating-falls-church-va"} component={FallsChurchCeramic} />
+      <Route path={"/window-tinting-falls-church-va"} component={FallsChurchTint} />
+      <Route path={"/vinyl-wraps-falls-church-va"} component={FallsChurchWrap} />
+
+      {/* Arlington local SEO landing pages */}
+      <Route path={"/ppf-arlington-va"} component={ArlingtonPPF} />
+      <Route path={"/ceramic-coating-arlington-va"} component={ArlingtonCeramic} />
+      <Route path={"/window-tinting-arlington-va"} component={ArlingtonTint} />
+      <Route path={"/vinyl-wraps-arlington-va"} component={ArlingtonWrap} />
+
+      {/* Alexandria local SEO landing pages */}
+      <Route path={"/ppf-alexandria-va"} component={AlexandriaPPF} />
+      <Route path={"/ceramic-coating-alexandria-va"} component={AlexandriaCeramic} />
+      <Route path={"/window-tinting-alexandria-va"} component={AlexandriaTint} />
+      <Route path={"/vinyl-wraps-alexandria-va"} component={AlexandriaWrap} />
+
+      {/* Burke local SEO landing pages */}
+      <Route path={"/ppf-burke-va"} component={BurkePPF} />
+      <Route path={"/ceramic-coating-burke-va"} component={BurkeCeramic} />
+      <Route path={"/window-tinting-burke-va"} component={BurkeTint} />
+      <Route path={"/vinyl-wraps-burke-va"} component={BurkeWrap} />
 
       {/* Springfield local SEO landing pages */}
-      <Route path={'/ppf-springfield-va'} component={SpringfieldPPF} />
-      <Route path={'/ceramic-coating-springfield-va'} component={SpringfieldCeramic} />
-      <Route path={'/window-tinting-springfield-va'} component={SpringfieldTint} />
-      <Route path={'/vinyl-wraps-springfield-va'} component={SpringfieldWrap} />
+      <Route path={"/ppf-springfield-va"} component={SpringfieldPPF} />
+      <Route path={"/ceramic-coating-springfield-va"} component={SpringfieldCeramic} />
+      <Route path={"/window-tinting-springfield-va"} component={SpringfieldTint} />
+      <Route path={"/vinyl-wraps-springfield-va"} component={SpringfieldWrap} />
 
       {/* Manassas local SEO landing pages */}
-      <Route path={'/ppf-manassas-va'} component={ManassasPPF} />
-      <Route path={'/ceramic-coating-manassas-va'} component={ManassasCeramic} />
-      <Route path={'/window-tinting-manassas-va'} component={ManassasTint} />
-      <Route path={'/vinyl-wraps-manassas-va'} component={ManassasWrap} />
+      <Route path={"/ppf-manassas-va"} component={ManassasPPF} />
+      <Route path={"/ceramic-coating-manassas-va"} component={ManassasCeramic} />
+      <Route path={"/window-tinting-manassas-va"} component={ManassasTint} />
+      <Route path={"/vinyl-wraps-manassas-va"} component={ManassasWrap} />
+
+      {/* Gainesville local SEO landing pages */}
+      <Route path={"/ppf-gainesville-va"} component={GainesvillePPF} />
+      <Route path={"/ceramic-coating-gainesville-va"} component={GainesvilleCeramic} />
+      <Route path={"/window-tinting-gainesville-va"} component={GainesvilleTint} />
+      <Route path={"/vinyl-wraps-gainesville-va"} component={GainesvilleWrap} />
+
+      {/* Leesburg local SEO landing pages */}
+      <Route path={"/ppf-leesburg-va"} component={LeesburgPPF} />
+      <Route path={"/ceramic-coating-leesburg-va"} component={LeesburgCeramic} />
+      <Route path={"/window-tinting-leesburg-va"} component={LeesburgTint} />
+      <Route path={"/vinyl-wraps-leesburg-va"} component={LeesburgWrap} />
 
       {/* Woodbridge local SEO landing pages */}
-      <Route path={'/ppf-woodbridge-va'} component={WoodbridgePPF} />
-      <Route path={'/ceramic-coating-woodbridge-va'} component={WoodbridgeCeramic} />
-      <Route path={'/window-tinting-woodbridge-va'} component={WoodbridgeTint} />
-      <Route path={'/vinyl-wraps-woodbridge-va'} component={WoodbridgeWrap} />
+      <Route path={"/ppf-woodbridge-va"} component={WoodbridgePPF} />
+      <Route path={"/ceramic-coating-woodbridge-va"} component={WoodbridgeCeramic} />
+      <Route path={"/window-tinting-woodbridge-va"} component={WoodbridgeTint} />
+      <Route path={"/vinyl-wraps-woodbridge-va"} component={WoodbridgeWrap} />
 
       {/* Stafford local SEO landing pages */}
-      <Route path={'/ppf-stafford-va'} component={StaffordPPF} />
-      <Route path={'/ceramic-coating-stafford-va'} component={StaffordCeramic} />
-      <Route path={'/window-tinting-stafford-va'} component={StaffordTint} />
-      <Route path={'/vinyl-wraps-stafford-va'} component={StaffordWrap} />
+      <Route path={"/ppf-stafford-va"} component={StaffordPPF} />
+      <Route path={"/ceramic-coating-stafford-va"} component={StaffordCeramic} />
+      <Route path={"/window-tinting-stafford-va"} component={StaffordTint} />
+      <Route path={"/vinyl-wraps-stafford-va"} component={StaffordWrap} />
 
       {/* Fredericksburg local SEO landing pages */}
-      <Route path={'/ppf-fredericksburg-va'} component={FredericksburgPPF} />
-      <Route path={'/ceramic-coating-fredericksburg-va'} component={FredericksburgCeramic} />
-      <Route path={'/window-tinting-fredericksburg-va'} component={FredericksburgTint} />
-      <Route path={'/vinyl-wraps-fredericksburg-va'} component={FredericksburgWrap} />
+      <Route path={"/ppf-fredericksburg-va"} component={FredericksburgPPF} />
+      <Route path={"/ceramic-coating-fredericksburg-va"} component={FredericksburgCeramic} />
+      <Route path={"/window-tinting-fredericksburg-va"} component={FredericksburgTint} />
+      <Route path={"/vinyl-wraps-fredericksburg-va"} component={FredericksburgWrap} />
 
       {/* Service Areas hub */}
       <Route path={'/service-areas'} component={ServiceAreas} />
@@ -312,7 +370,9 @@ function AppContent() {
       <AnnouncementBanner />
       <ScrollToTop />
       <Toaster />
-      <Router />
+      <Suspense fallback={<div className="min-h-screen bg-[#0A0A0A]" />}>
+        <Router />
+      </Suspense>
       <BookingModal isOpen={isOpen} service={service} onClose={closeBooking} />
       <QuoteAssistant />
     </>
