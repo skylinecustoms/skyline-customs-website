@@ -32,8 +32,14 @@ function escapeXml(s: string): string {
 
 export async function buildSitemap(): Promise<string> {
   const urls = new Map<string, Entry>();
+  // PPF is the primary service: its hub and sub-pages outrank the legacy sitemap metadata.
+  const ppfBoost = (path: string): Partial<Entry> | undefined => {
+    if (path === "/services/ppf") return { changefreq: "weekly", priority: "1.0" };
+    if (/^\/(ppf-cost|tesla-ppf|bmw-ppf|porsche-ppf|corvette-ppf|rivian-ppf|bronco-ppf|ppf-vs-ceramic-coating)$/.test(path)) return { changefreq: "weekly", priority: "0.9" };
+    return undefined;
+  };
   const add = (path: string, override?: Partial<Entry>) => {
-    if (!urls.has(path)) urls.set(path, { ...(SITEMAP_META[path] ?? defaultsFor(path)), ...override });
+    if (!urls.has(path)) urls.set(path, { ...(SITEMAP_META[path] ?? defaultsFor(path)), ...ppfBoost(path), ...override });
   };
 
   // Every static page's template changed on SITE_UPDATED (nav, footer, schema), so report that date.

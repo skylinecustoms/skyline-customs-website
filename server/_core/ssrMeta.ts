@@ -42,9 +42,14 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/services`,
   },
   "/services/ppf": {
-    title: `Paint Protection Film (PPF) | ${SITE_NAME}`,
-    description: "Professional PPF installation in Chantilly, VA. STEK and XPEL films. Protect your car from rock chips, scratches, and road debris. Free quotes.",
+    title: `Paint Protection Film (PPF) Chantilly, VA | STEK Certified PPF Installer, Northern Virginia | ${SITE_NAME}`,
+    description: "Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Full front $2,400, partial from $1,800, full vehicle from $4,500. Self-healing DYNOshield, 12-year warranty, 141 five-star reviews. Free quotes.",
     canonical: `${BASE_URL}/services/ppf`,
+  },
+  "/ppf-cost": {
+    title: `How Much Does PPF Cost in Northern Virginia? 2026 Paint Protection Film Prices | ${SITE_NAME}`,
+    description: "PPF cost in Chantilly, VA and Northern Virginia: partial front $1,800, full front $2,400, full front extended $3,200, full vehicle $4,500 to $6,000. What's included, what changes the price, and bundle savings with ceramic coating and tint.",
+    canonical: `${BASE_URL}/ppf-cost`,
   },
   "/services/ceramic-coating": {
     title: `Ceramic Coating Services | ${SITE_NAME}`,

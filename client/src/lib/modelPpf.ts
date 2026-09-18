@@ -6,9 +6,9 @@
 export type VehicleClass = "sedan" | "suv" | "truck";
 
 export const PPF_PRICES: Record<VehicleClass, { partial: string; fullFront: string; fullFrontPlus: string; fullVehicle: string }> = {
-  sedan: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$2,800", fullVehicle: "$4,500" },
-  suv: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$2,850", fullVehicle: "$5,500" },
-  truck: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$2,900", fullVehicle: "$6,000" },
+  sedan: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$3,200", fullVehicle: "$4,500" },
+  suv: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$3,200", fullVehicle: "$5,500" },
+  truck: { partial: "$1,800", fullFront: "$2,400", fullFrontPlus: "$3,200", fullVehicle: "$6,000" },
 };
 
 export interface VehicleBrand {
@@ -57,7 +57,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Does PPF affect BMW's warranty?", a: "No. Paint protection film is a removable product that does not alter the vehicle or its paint. It has no effect on BMW's new-vehicle or paint warranty." },
       { q: "Can you protect frozen or matte BMW paint?", a: "Yes. We use stealth (matte) STEK film that preserves the satin look of BMW Individual frozen colors while adding the same self-healing protection." },
-      { q: "How much does BMW PPF cost?", a: "Full front is $2,400 for any BMW. Partial front starts at $1,800, full front plus rockers from $2,800, and full-vehicle coverage from $4,500 for sedans and coupes or $5,500 for X models. Prices are confirmed at inspection." },
+      { q: "How much does BMW PPF cost?", a: "Full front is $2,400 for any BMW. Partial front starts at $1,800, full front plus rockers $3,200, and full-vehicle coverage from $4,500 for sedans and coupes or $5,500 for X models. Prices are confirmed at inspection." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
@@ -84,7 +84,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Can you wrap the front intakes and lower lip on a 911?", a: "Yes. Our computer-cut patterns wrap the intake edges and lower lip, and we hand-finish the tight radii so the edges are tucked, not trimmed short." },
       { q: "Is PPF worth it on a Porsche that only sees weekends?", a: "Weekend cars often see the worst roads: Skyline Drive gravel, Route 211 construction, and track paddocks. Film on the front and rockers is the difference between a clean car and a respray at resale." },
-      { q: "How much does Porsche PPF cost?", a: "Full front is $2,400 on any Porsche. Full front with rockers is from $2,800, and full-vehicle coverage is from $4,500 for 911, 718, Taycan, and Panamera or $5,500 for Macan and Cayenne. Prices are confirmed at inspection." },
+      { q: "How much does Porsche PPF cost?", a: "Full front is $2,400 on any Porsche. Full front with rockers is $3,200, and full-vehicle coverage is from $4,500 for 911, 718, Taycan, and Panamera or $5,500 for Macan and Cayenne. Prices are confirmed at inspection." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
@@ -109,7 +109,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Can you film the Corvette's front splitter and side intakes?", a: "Yes. Those are the first pieces to chip, and our C8 patterns include the splitter, rocker extensions, and the side intake surrounds." },
       { q: "Full front or full body on a C8?", a: "Most C8 owners choose full body because the doors and rear quarters sit right behind the front tires and catch what they throw. Full front is the minimum we recommend." },
-      { q: "How much does Corvette PPF cost?", a: "Full front is $2,400. Full front with rockers is from $2,800. Full-vehicle coverage on a Corvette is from $4,500. Prices are confirmed at inspection." },
+      { q: "How much does Corvette PPF cost?", a: "Full front is $2,400. Full front with rockers is $3,200. Full-vehicle coverage on a Corvette is from $4,500. Prices are confirmed at inspection." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
@@ -133,7 +133,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Does PPF interfere with Rivian's cameras or sensors?", a: "No. Our patterns are trimmed around every camera, ultrasonic sensor, and the charge port door, so nothing that needs a clear view is covered." },
       { q: "What coverage makes sense for off-road use?", a: "Full front plus rockers and lower doors at minimum. Owners who run trails regularly usually choose full-vehicle coverage so branch scratches self-heal instead of scarring paint." },
-      { q: "How much does Rivian PPF cost?", a: "Full front is $2,400 on the R1T and R1S. Full front with rockers is from $2,850 on the R1S and $2,900 on the R1T. Full-vehicle coverage is from $5,500 for the R1S and $6,000 for the R1T. Prices are confirmed at inspection." },
+      { q: "How much does Rivian PPF cost?", a: "Full front is $2,400 on the R1T and R1S. Full front extended (rockers and door edges) is $3,200. Full-vehicle coverage is from $5,500 for the R1S and $6,000 for the R1T. Prices are confirmed at inspection." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },
@@ -157,7 +157,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     faqs: [
       { q: "Can you protect the fender flares and rocker panels?", a: "Yes, and on a Bronco we recommend it. Trail scratches on the flares and rockers self-heal on film instead of gouging paint." },
       { q: "Does the film hold up if I take the doors and roof off?", a: "Yes. The film is bonded to the paint, not the seams. We film door edges and jambs so repeated removal doesn't chip them." },
-      { q: "How much does Bronco PPF cost?", a: "Full front is $2,400. Full front with rockers is from $2,850. Full-vehicle coverage is from $5,500. Prices are confirmed at inspection, and Raptor flares are quoted separately." },
+      { q: "How much does Bronco PPF cost?", a: "Full front is $2,400. Full front extended (rockers and door edges) is $3,200. Full-vehicle coverage is from $5,500. Prices are confirmed at inspection, and Raptor flares are quoted separately." },
       shared.install, shared.warranty, shared.ceramic,
     ],
   },

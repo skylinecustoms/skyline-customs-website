@@ -55,6 +55,7 @@ const CorvettePPF = lazy(() => import("./pages/CorvettePPF"));
 const RivianPPF = lazy(() => import("./pages/RivianPPF"));
 const BroncoPPF = lazy(() => import("./pages/BroncoPPF"));
 const PpfVsCeramic = lazy(() => import("./pages/PpfVsCeramic"));
+const PpfCost = lazy(() => import("./pages/PpfCost"));
 const TintComparison = lazy(() => import("./pages/TintComparison"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -158,6 +159,7 @@ function Router() {
       <Route path={"/corvette-ppf"} component={CorvettePPF} />
       <Route path={"/rivian-ppf"} component={RivianPPF} />
       <Route path={"/bronco-ppf"} component={BroncoPPF} />
+      <Route path={"/ppf-cost"} component={PpfCost} />
       <Route path={"/ppf-vs-ceramic-coating"} component={PpfVsCeramic} />
       <Route path={"/ceramic-vs-carbon-vs-dyed-tint"} component={TintComparison} />
       <Route path={"/about"} component={About} />
