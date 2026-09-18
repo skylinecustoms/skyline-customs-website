@@ -12,12 +12,14 @@
  * is open or the tab is hidden.
  */
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Play, Volume2 } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { videoEmbedUrl, videoThumb, type Video } from "@/lib/videos";
-import { ReelCard, ReelEmbed, useReelThumbs } from "@/components/InstagramReels";
+import { ReelCard, ReelPlayer, useReelMedia } from "@/components/InstagramReels";
+import { Instagram, Youtube, X } from "lucide-react";
+import { reelUrl } from "@/lib/instagramPosts";
 import type { InstagramReel } from "@/lib/instagramPosts";
 
 const previewUrl = (id: string) =>
@@ -96,6 +98,34 @@ function VideoCard({ video, preview, onOpen }: { video: Video; preview: boolean;
   );
 }
 
+/** Branded frame around the popup player: orange border and glow, title bar with source badge, close button. */
+function PlayerFrame({ source, title, href, onClose, children }: { source: "youtube" | "instagram"; title: string; href?: string; onClose: () => void; children: React.ReactNode }) {
+  return (
+    <div className="border-2 border-[#E85D04] bg-[#0A0A0A] shadow-[0_0_0_1px_rgba(0,0,0,0.6),0_0_60px_rgba(232,93,4,0.35)] overflow-hidden">
+      <div className="flex items-center justify-between gap-3 px-4 py-3 bg-[#E85D04]">
+        <span className="inline-flex items-center gap-2 text-white text-xs font-bold tracking-[0.2em] uppercase">
+          {source === "youtube" ? <Youtube className="w-4 h-4" /> : <Instagram className="w-4 h-4" />}
+          {source === "youtube" ? "YouTube Short" : "Instagram Reel"}
+        </span>
+        <button type="button" onClick={onClose} aria-label="Close video" className="w-8 h-8 inline-flex items-center justify-center text-white hover:bg-black/20 transition-colors">
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+      <div className="p-2 bg-[#0A0A0A]">
+        <div className="border border-zinc-800 overflow-hidden">{children}</div>
+      </div>
+      <div className="px-4 pb-4 pt-1">
+        <h3 className="text-white font-semibold leading-snug">{title}</h3>
+        {href && (
+          <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white mt-2 inline-block">
+            {source === "youtube" ? "Open on YouTube" : "Open on Instagram"} →
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function VideoCarousel({
   videos,
   reels = [],
@@ -111,7 +141,7 @@ export default function VideoCarousel({
   const [api, setApi] = useState<CarouselApi>();
   const [open, setOpen] = useState<InstagramReel | null>(null);
   const [openVideo, setOpenVideo] = useState<Video | null>(null);
-  const thumbs = useReelThumbs(reels.length > 0);
+  const media = useReelMedia(reels.length > 0);
 
   useEffect(() => {
     if (!api || !autoAdvanceMs || open || openVideo) return;
@@ -135,43 +165,37 @@ export default function VideoCarousel({
           ))}
           {reels.map((r) => (
             <CarouselItem key={`ig-${r.code}`} className={itemClass}>
-              <ReelCard reel={r} thumb={thumbs.get(r.code)} onOpen={() => setOpen(r)} />
+              <ReelCard reel={r} media={media.get(r.code)} onOpen={() => setOpen(r)} />
             </CarouselItem>
           ))}
         </CarouselContent>
         <CarouselPrevious className="hidden md:flex -left-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
         <CarouselNext className="hidden md:flex -right-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
       </Carousel>
-      <Dialog open={!!openVideo} onOpenChange={(o) => { if (!o) setOpenVideo(null); }}>
-        <DialogContent className="max-w-[420px] p-0 bg-black border-zinc-800 overflow-hidden">
-          <DialogTitle className="sr-only">{openVideo?.title ?? "Video"}</DialogTitle>
-          {openVideo && (
-            <div className="aspect-[9/16] w-full bg-black">
-              <iframe
-                src={videoEmbedUrl(openVideo.id)}
-                title={openVideo.title}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-          )}
-          {openVideo && (
-            <div className="p-4 bg-[#111]">
-              <h3 className="text-white font-semibold leading-snug">{openVideo.title}</h3>
-              <p className="text-zinc-400 text-sm mt-1">{openVideo.blurb}</p>
-            </div>
-          )}
+      <Dialog open={!!openVideo || !!open} onOpenChange={(o) => { if (!o) { setOpenVideo(null); setOpen(null); } }}>
+        <DialogContent showCloseButton={false} className="w-[min(440px,calc(100vw-2rem),calc((100vh-190px)*0.5625))] max-w-none p-0 bg-transparent border-0 shadow-none overflow-visible">
+          <DialogTitle className="sr-only">{openVideo?.title ?? open?.title ?? "Video"}</DialogTitle>
+          <PlayerFrame
+            source={openVideo ? "youtube" : "instagram"}
+            title={openVideo?.title ?? open?.title ?? ""}
+            href={openVideo ? `https://www.youtube.com/shorts/${openVideo.id}` : open ? reelUrl(open) : undefined}
+            onClose={() => { setOpenVideo(null); setOpen(null); }}
+          >
+            {openVideo && (
+              <div className="aspect-[9/16] w-full bg-black">
+                <iframe
+                  src={videoEmbedUrl(openVideo.id)}
+                  title={openVideo.title}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            )}
+            {open && !openVideo && <ReelPlayer reel={open} media={media.get(open.code)} />}
+          </PlayerFrame>
         </DialogContent>
       </Dialog>
-      {reels.length > 0 && (
-        <Dialog open={!!open} onOpenChange={(o) => { if (!o) setOpen(null); }}>
-          <DialogContent className="max-w-[420px] p-0 bg-[#111] border-zinc-800 max-h-[90vh] overflow-y-auto">
-            <DialogTitle className="sr-only">{open?.title ?? "Instagram reel"}</DialogTitle>
-            {open && <ReelEmbed reel={open} />}
-          </DialogContent>
-        </Dialog>
-      )}
     </>
   );
 }

@@ -26,6 +26,8 @@ export interface InstagramPost {
   caption: string;
   mediaType: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
   mediaUrl: string;
+  /** Direct MP4 from Instagram's CDN for VIDEO posts (playable in a <video> tag). */
+  videoUrl?: string;
   timestamp: string;
 }
 export interface InstagramFeed {
@@ -74,6 +76,7 @@ function toPosts(items: RawMedia[]): InstagramPost[] {
       caption: (m.caption ?? "").replace(/\s+/g, " ").trim().slice(0, 220),
       mediaType: m.media_type,
       mediaUrl: (m.media_type === "VIDEO" ? m.thumbnail_url : m.media_url) ?? m.media_url ?? m.thumbnail_url ?? "",
+      videoUrl: m.media_type === "VIDEO" ? m.media_url : undefined,
       timestamp: m.timestamp,
     }));
 }
