@@ -27,7 +27,7 @@ export interface PageMeta {
 export const STATIC_META: Record<string, PageMeta> = {
   "/": {
     title: `${SITE_NAME} | PPF, Ceramic Coating & Window Tinting — Chantilly, VA`,
-    description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 500+ five-star reviews in Chantilly, VA. Free quotes.",
+    description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 140+ five-star reviews in Chantilly, VA. Free quotes.",
     canonical: `${BASE_URL}/`,
   },
   "/services": {
@@ -77,7 +77,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/about": {
     title: `About Us | ${SITE_NAME}`,
-    description: "Learn about Skyline Customs — Northern Virginia's top-rated automotive protection shop in Chantilly, VA. 500+ five-star reviews.",
+    description: "Learn about Skyline Customs — Northern Virginia's top-rated automotive protection shop in Chantilly, VA. 140+ five-star reviews.",
     canonical: `${BASE_URL}/about`,
   },
   "/contact": {
@@ -526,7 +526,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
   // Default fallback
   return {
     title: `${SITE_NAME} | PPF, Ceramic Coating & Window Tinting — Chantilly, VA`,
-    description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 500+ five-star reviews in Chantilly, VA.",
+    description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 140+ five-star reviews in Chantilly, VA.",
     canonical: `${BASE_URL}${cleanPath}`,
   };
 }

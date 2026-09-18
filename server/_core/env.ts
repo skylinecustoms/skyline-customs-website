@@ -11,4 +11,6 @@ export const ENV = {
   telegramOwnerId: process.env.TELEGRAM_OWNER_ID ?? "",
   ghlApiKey: process.env.GHL_API_KEY ?? "",
   ghlLocationId: process.env.GHL_LOCATION_ID ?? "",
+  googlePlacesApiKey: process.env.GOOGLE_PLACES_API_KEY ?? "",
+  googlePlaceId: process.env.GOOGLE_PLACE_ID ?? "ChIJNW7sCXJFtokRVBtPKs11cNI",
 };

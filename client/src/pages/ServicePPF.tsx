@@ -214,7 +214,7 @@ export default function ServicePPF() {
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "87",
+            "reviewCount": "141",
             "bestRating": "5",
             "worstRating": "1"
           }

@@ -53,7 +53,7 @@ export default function ServiceAreas() {
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "5",
-              "reviewCount": "78",
+              "reviewCount": "141",
               "bestRating": "5"
             }
           },
@@ -116,7 +116,7 @@ export default function ServiceAreas() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "22", label: "Cities Served" },
-              { value: "500+", label: "Happy Customers" },
+              { value: "140+", label: "Happy Customers" },
               { value: "5.0 ★", label: "Google Rating" },
               { value: "3", label: "Services Offered" },
             ].map((stat) => (

@@ -922,7 +922,7 @@ export default function JuneSpecial() {
                 </div>
                 <span className="text-zinc-300 text-sm font-semibold">5.0</span>
                 <span className="text-zinc-600 text-sm">&middot;</span>
-                <span className="text-zinc-400 text-sm">500+ Google Reviews</span>
+                <span className="text-zinc-400 text-sm">140+ Google Reviews</span>
               </div>
 
               {/* Primary CTA */}
@@ -968,7 +968,7 @@ export default function JuneSpecial() {
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { icon: Lock, label: "Price Locked", sub: "No hidden fees" },
-                  { icon: Star, label: "5-Star Rated", sub: "500+ reviews" },
+                  { icon: Star, label: "5-Star Rated", sub: "140+ reviews" },
                   { icon: CheckCircle, label: "STEK Certified", sub: "12-yr warranty" },
                 ].map(({ icon: Icon, label, sub }, i) => (
                   <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-4 text-center">
@@ -1234,7 +1234,7 @@ export default function JuneSpecial() {
               {
                 number: "03",
                 title: "Limited Monthly Spots",
-                body: "We only take a set number of cars each month so every one is done right. This isn't a marketing gimmick — it's how we maintain the standard that earned us 500+ five-star reviews.",
+                body: "We only take a set number of cars each month so every one is done right. This isn't a marketing gimmick — it's how we maintain the standard that earned us 140+ five-star reviews.",
               },
             ].map(({ number, title: t, body }, i) => (
               <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-8 relative overflow-hidden">

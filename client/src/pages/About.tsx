@@ -36,7 +36,7 @@ export default function About() {
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
         title="About Us | Auto Protection Chantilly VA"
-        description="Skyline Customs is Northern Virginia's trusted PPF, ceramic coating & window tinting shop. 500+ five-star reviews. Division of Skyline Auto Body."
+        description="Skyline Customs is Northern Virginia's trusted PPF, ceramic coating & window tinting shop. 140+ five-star reviews. Division of Skyline Auto Body."
         canonical="https://www.skylinecustomshop.com/about"
       />
       <Navbar />
@@ -77,7 +77,7 @@ export default function About() {
               </p>
               <div className="flex gap-8">
                 <div>
-                  <div className="font-display text-4xl text-brand-orange">500+</div>
+                  <div className="font-display text-4xl text-brand-orange">140+</div>
                   <div className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest">5-Star Reviews</div>
                 </div>
                 <div>

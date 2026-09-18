@@ -100,7 +100,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "5",
-              "reviewCount": "78",
+              "reviewCount": "141",
               "bestRating": "5",
             },
           },

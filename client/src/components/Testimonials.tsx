@@ -1,6 +1,6 @@
 /**
  * SKYLINE CUSTOMS — Testimonials Carousel
- * Real Google Business reviews (5.0 ★ · 78 reviews)
+ * Real Google Business reviews (5.0 ★ · 141 reviews)
  * Design: Industrial Brutalism | Dark matte black + burnt orange (#E85D04)
  */
 
@@ -17,8 +17,71 @@ export interface Review {
   text: string;
 }
 
-// Real reviews from Skyline Customs Google Business Profile (5.0 ★ · 78 reviews)
+// Real reviews from Skyline Customs Google Business Profile (5.0 ★ · 141 reviews)
 export const ALL_REVIEWS: Review[] = [
+  {
+    name: "Henry Gates",
+    initials: "HG",
+    avatarColor: "#7C3AED",
+    rating: 5,
+    date: "in the last week",
+    service: "Auto Protection",
+    text: "The guys done a outstanding job they were very professional and didn’t hesitated to help and making the customer happy job well done",
+  },
+  {
+    name: "von rob",
+    initials: "VR",
+    avatarColor: "#D97706",
+    rating: 5,
+    date: "in the last week",
+    service: "PPF + Ceramic Coating",
+    text: "Communicated very well in informing me about their PPF and ceramic coating offers. My truck was ready at our scheduled pickup time and they did a great job.",
+  },
+  {
+    name: "Mark Baker",
+    initials: "MB",
+    avatarColor: "#DB2777",
+    rating: 5,
+    date: "a week ago",
+    service: "Window Tinting",
+    text: "This crew knows how to provide excellent customer service and are very professional. I walked in on a Thursday asking if I could get my car tinted next week and by Sunday afternoon the excellent job was completed. Trust me, if you need tinting (or any of the other services they provide) this is the place to go. Excellent communication throughout the process and just very pleasant to deal with. Plus, the car looks great!",
+  },
+  {
+    name: "Chris Hons",
+    initials: "CH",
+    avatarColor: "#16A34A",
+    rating: 5,
+    date: "2 weeks ago",
+    service: "Ceramic Coating",
+    text: "I can’t say enough good things about my ceramic coat. I took a picture of it to show my friend and it literally looked like it was a mirror. Scheduling was easy. Payment was easy. Everything about the process was easy with top quality results. You won’t be disappointed! Thanks Mo!",
+  },
+  {
+    name: "Youngsu Kim",
+    initials: "YK",
+    avatarColor: "#2563EB",
+    rating: 5,
+    date: "2 months ago",
+    service: "PPF + Window Tinting",
+    text: "I highly recommend these guys! They did an excellent job on both the front end PPF installation and the two front window tints. The attention to detail they put into their work is awesome, and everything looks flawless. On top of the great quality, the staff is incredibly friendly and very flexible with scheduling. If you're looking for professional work and great customer service, this is the place to go. Highly recommended!",
+  },
+  {
+    name: "Paolo Miclat",
+    initials: "PM",
+    avatarColor: "#EA580C",
+    rating: 5,
+    date: "2 months ago",
+    service: "PPF + Ceramic Coating",
+    text: "Great people to deal with. Owner was very transparent with all their services and they offer payment plans. I got the front half of my car PPF'd and back half ceramic coated (one of the packages they offered) and has been raining for a few days on an off. You cant even tell it rained. The PPF and ceramic coat works as intended.",
+  },
+  {
+    name: "Clara Kim",
+    initials: "CK",
+    avatarColor: "#9333EA",
+    rating: 5,
+    date: "4 months ago",
+    service: "Window Tinting",
+    text: "Good friend of mine recommended me to get the tints done from skyline and i can confidently say that my car looks awesome. I work from 8:30-6 so they were super flexible with my schedule, letting me drop my car off in the morning and pick it up later. I appreciate the work and happy with it!!",
+  },
   {
     name: "Isra Ibrahim",
     initials: "II",

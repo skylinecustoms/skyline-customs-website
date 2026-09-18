@@ -197,7 +197,7 @@ export default function GetAQuote() {
           <div className="flex flex-wrap gap-8 mt-8">
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-[#E85D04]" />
-              <span className="text-zinc-400 text-sm">500+ Five-Star Reviews</span>
+              <span className="text-zinc-400 text-sm">140+ Five-Star Reviews</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#E85D04]" />

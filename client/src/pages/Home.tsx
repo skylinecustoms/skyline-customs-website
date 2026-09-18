@@ -318,7 +318,7 @@ function ActivePromoBanner() {
             <div className="grid grid-cols-3 gap-3">
               {[
                 { icon: Shield, label: "STEK Certified", sub: "12-yr warranty" },
-                { icon: Star, label: "5-Star Rated", sub: "500+ reviews" },
+                { icon: Star, label: "5-Star Rated", sub: "140+ reviews" },
                 { icon: CheckCircle, label: "Walk & Pay", sub: "Guaranteed" },
               ].map(({ icon: Icon, label, sub }, i) => (
                 <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-3 text-center">
@@ -719,7 +719,7 @@ export default function Home() {
         <div className="container max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[oklch(0.18_0.006_285)]">
             {[
-              { icon: Star, label: "500+", sub: "5-Star Reviews" },
+              { icon: Star, label: "140+", sub: "5-Star Reviews" },
               { icon: Shield, label: "12-Year", sub: "PPF Warranty" },
               { icon: Wrench, label: "1,000+", sub: "Vehicles Protected" },
               { icon: CheckCircle, label: "STEK", sub: "Certified Installer" },

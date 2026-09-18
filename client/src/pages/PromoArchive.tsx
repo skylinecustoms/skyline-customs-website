@@ -254,7 +254,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                       <Star key={i} className="w-4 h-4 text-[#E85D04] fill-[#E85D04]" />
                     ))}
                   </div>
-                  <span className="text-zinc-400 text-sm">5.0 &middot; 500+ Google Reviews</span>
+                  <span className="text-zinc-400 text-sm">5.0 &middot; 140+ Google Reviews</span>
                 </div>
 
                 {/* Dates */}

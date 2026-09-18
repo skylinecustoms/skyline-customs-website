@@ -6,6 +6,7 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { getAllBlogPosts, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo } from "./db";
 import { getDb } from "./db";
+import { getGoogleReviews } from "./googleReviews";
 import { siteSettings, galleryPhotos } from "../drizzle/schema";
 import { eq, asc } from "drizzle-orm";
 
@@ -357,6 +358,9 @@ Guidelines:
   }),
 
   site: router({
+    // Public: live Google rating/count/newest reviews (null when no API key is configured)
+    googleReviews: publicProcedure.query(async () => getGoogleReviews()),
+
     // Public: get all active site settings (hours, announcement, etc.)
     settings: publicProcedure.query(async () => {
       const db = await getDb();
