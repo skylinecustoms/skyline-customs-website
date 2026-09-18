@@ -5,7 +5,7 @@ export interface Crumb { label: string; href?: string }
 /** Visible breadcrumb trail. Pair with BreadcrumbList JSON-LD in the page's SEO props. */
 export default function Breadcrumbs({ items, className = "" }: { items: Crumb[]; className?: string }) {
   return (
-    <nav aria-label="Breadcrumb" className={`flex flex-wrap items-center gap-2 text-xs text-zinc-500 mb-4 ${className}`}>
+    <nav aria-label="Breadcrumb" className={`flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-4 ${className}`}>
       {items.map((c, i) => (
         <span key={`${c.label}-${i}`} className="flex items-center gap-2">
           {i > 0 && <span aria-hidden="true">/</span>}

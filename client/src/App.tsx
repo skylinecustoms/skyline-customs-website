@@ -49,6 +49,13 @@ const Videos = lazy(() => import("./pages/Videos"));
 const Faq = lazy(() => import("./pages/Faq"));
 const Reviews = lazy(() => import("./pages/Reviews"));
 const TeslaPPF = lazy(() => import("./pages/TeslaPPF"));
+const BmwPPF = lazy(() => import("./pages/BmwPPF"));
+const PorschePPF = lazy(() => import("./pages/PorschePPF"));
+const CorvettePPF = lazy(() => import("./pages/CorvettePPF"));
+const RivianPPF = lazy(() => import("./pages/RivianPPF"));
+const BroncoPPF = lazy(() => import("./pages/BroncoPPF"));
+const PpfVsCeramic = lazy(() => import("./pages/PpfVsCeramic"));
+const TintComparison = lazy(() => import("./pages/TintComparison"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ServicePPF = lazy(() => import("./pages/ServicePPF"));
@@ -146,6 +153,13 @@ function Router() {
       <Route path={"/faq"} component={Faq} />
       <Route path={"/reviews"} component={Reviews} />
       <Route path={"/tesla-ppf"} component={TeslaPPF} />
+      <Route path={"/bmw-ppf"} component={BmwPPF} />
+      <Route path={"/porsche-ppf"} component={PorschePPF} />
+      <Route path={"/corvette-ppf"} component={CorvettePPF} />
+      <Route path={"/rivian-ppf"} component={RivianPPF} />
+      <Route path={"/bronco-ppf"} component={BroncoPPF} />
+      <Route path={"/ppf-vs-ceramic-coating"} component={PpfVsCeramic} />
+      <Route path={"/ceramic-vs-carbon-vs-dyed-tint"} component={TintComparison} />
       <Route path={"/about"} component={About} />
       <Route path={"/contact"} component={Contact} />
 

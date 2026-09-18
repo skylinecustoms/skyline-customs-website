@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
 import TeslaPPFDiagram from "@/components/TeslaPPFDiagram";
+import VehicleLinks from "@/components/VehicleLinks";
 import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS } from "@/lib/videos";
 import { trpc } from "@/lib/trpc";
@@ -239,7 +240,7 @@ export default function TeslaPPF() {
       <section className="py-20 bg-[#E85D04]">
         <div className="container max-w-3xl text-center">
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">PROTECT IT BEFORE THE FIRST CHIP</h2>
-          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">Tell us your model and we'll send exact pricing, usually within the hour.</p>
+          <p className="text-white text-lg mb-8 max-w-xl mx-auto">Tell us your model and we'll send exact pricing, usually within the hour.</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/get-a-quote?service=ppf&make=Tesla" className="bg-white hover:bg-zinc-100 text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
               GET MY TESLA QUOTE <ArrowRight className="w-4 h-4" />
@@ -251,6 +252,7 @@ export default function TeslaPPF() {
         </div>
       </section>
 
+      <VehicleLinks current="tesla" />
       <Footer />
     </div>
   );

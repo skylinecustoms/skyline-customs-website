@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO, { absoluteUrl } from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AuthorBox from "@/components/AuthorBox";
 import { getBlogPost, blogPosts as staticPosts, type BlogSection } from "@/lib/blogData";
 import { trpc } from "@/lib/trpc";
 
@@ -173,7 +174,9 @@ export default function BlogPost() {
           "author": {
             "@type": "Organization",
             "name": "Skyline Customs",
-            "url": "https://www.skylinecustomshop.com"
+            "alternateName": "The Skyline Customs Install Team",
+            "url": "https://www.skylinecustomshop.com/about",
+            "sameAs": ["https://www.instagram.com/skylinecustomshop", "https://www.youtube.com/@SkylineCustomsOfficial"]
           },
           "publisher": {
             "@type": "Organization",
@@ -191,6 +194,7 @@ export default function BlogPost() {
         }}
       />
       <Navbar />
+      <main>
 
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
@@ -313,6 +317,11 @@ export default function BlogPost() {
         </div>
       </div>
 
+      {/* Author / E-E-A-T */}
+      <div className="container mx-auto px-4 lg:px-8 pb-6">
+        <AuthorBox dateModified={post.date} />
+      </div>
+
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
         <section className="border-t border-white/10 py-14">
@@ -374,6 +383,7 @@ export default function BlogPost() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );

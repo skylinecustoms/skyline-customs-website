@@ -9,6 +9,8 @@ import { useBooking } from "@/contexts/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
+import CompareLinks from "@/components/CompareLinks";
+import VehicleLinks from "@/components/VehicleLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -507,6 +509,8 @@ export default function ServicePPF() {
         </div>
       </section>
 
+      <VehicleLinks />
+      <CompareLinks />
       <ServiceCityLinks service="ppf" />
       <Footer />
     </div>

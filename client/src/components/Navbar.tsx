@@ -75,6 +75,8 @@ export default function Navbar() {
             <img
               src="/images/NaRyJghitOfUAxex.jpg"
               alt="Skyline Customs"
+              width={723}
+              height={800}
               className="h-10 w-auto object-contain"
             />
             <div className="flex flex-col leading-none">

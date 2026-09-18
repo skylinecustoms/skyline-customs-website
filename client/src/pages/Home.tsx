@@ -655,7 +655,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[oklch(0.18_0.006_285)]">
             {brandStatements.map((s, i) => (
               <div key={i} className="px-8 py-10">
-                <h3 className="font-display text-2xl text-brand-orange tracking-wider mb-3">{s.heading}</h3>
+                <h2 className="font-display text-2xl text-brand-orange tracking-wider mb-3">{s.heading}</h2>
                 <p className="text-[oklch(0.65_0.008_285)] text-sm leading-relaxed">{s.body}</p>
               </div>
             ))}

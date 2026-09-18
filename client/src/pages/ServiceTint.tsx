@@ -9,6 +9,7 @@ import { useBooking } from "@/contexts/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
+import CompareLinks from "@/components/CompareLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -480,6 +481,7 @@ export default function ServiceTint() {
       </section>
 
       <LocalBanner localHref="/window-tinting-chantilly-va" serviceName="Window Tinting" />
+      <CompareLinks />
       <ServiceCityLinks service="tint" />
       <Footer />
     </div>

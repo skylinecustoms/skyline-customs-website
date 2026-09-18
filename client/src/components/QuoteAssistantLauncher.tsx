@@ -33,7 +33,7 @@ export default function QuoteAssistantLauncher() {
       <button
         onClick={() => setLoaded(true)}
         onMouseEnter={() => { preload(); }}
-        aria-label="Open AI Quote Assistant"
+        aria-label="Get a Quick Quote with the AI assistant"
         className="group flex items-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 rounded-full px-5 py-4"
       >
         <MessageSquare className="w-5 h-5 flex-shrink-0" />

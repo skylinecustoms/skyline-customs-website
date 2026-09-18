@@ -3,6 +3,7 @@ import { ArrowRight, Shield, Award, Users, Zap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { CERTIFICATIONS } from "@/lib/certifications";
 
 const SHOP_FRONT = "/images/shop-front-raptor_e24391f2.jpeg";
 const HERO_IMAGE_UNUSED = "/images/hero-bg.webp";
@@ -118,6 +119,36 @@ export default function About() {
                 </div>
                 <h3 className="font-display text-2xl text-[oklch(0.96_0.008_85)] tracking-wider mb-3">{title}</h3>
                 <p className="text-[oklch(0.55_0.01_285)] leading-relaxed text-sm">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications & Partners */}
+      <section className="py-20 bg-[oklch(0.10_0.005_285)]" id="certifications">
+        <div className="container">
+          <p className="section-number mb-3">Certified Installers</p>
+          <h2 className="font-display text-5xl md:text-6xl text-[oklch(0.96_0.008_85)] leading-none mb-6">
+            THE BRANDS<br />
+            <span className="text-brand-orange">WE'RE CERTIFIED ON</span>
+          </h2>
+          <p className="text-[oklch(0.65_0.008_85)] leading-relaxed max-w-2xl mb-12">
+            We install three product lines and we're trained and certified on all three. That matters because the manufacturer
+            warranty only applies when the film or coating is installed by a certified shop, and because pattern software,
+            training, and support come with the certification, not the roll of film.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[oklch(0.20_0.006_285)]">
+            {CERTIFICATIONS.map((c) => (
+              <div key={c.name} className="bg-[oklch(0.10_0.005_285)] p-8 flex flex-col">
+                <p className="font-mono-brand text-xs text-brand-orange uppercase tracking-widest mb-2">Certified installer</p>
+                <h3 className="font-display text-3xl text-[oklch(0.96_0.008_85)] tracking-wider mb-1">{c.name}</h3>
+                <p className="text-[oklch(0.75_0.008_85)] text-sm mb-4">{c.product}</p>
+                <p className="text-[oklch(0.55_0.01_285)] leading-relaxed text-sm flex-1">{c.what}</p>
+                <p className="text-[oklch(0.65_0.008_85)] text-sm mt-4">{c.warranty}</p>
+                <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-brand-orange text-xs font-bold tracking-widest uppercase mt-6 hover:text-white transition-colors">
+                  {c.short} website <ArrowRight size={14} />
+                </a>
               </div>
             ))}
           </div>

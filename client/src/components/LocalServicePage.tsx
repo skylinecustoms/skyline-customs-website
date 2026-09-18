@@ -221,6 +221,16 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         </div>
       </section>
 
+      {/* Local context: unique to this city */}
+      <section className="py-16 bg-[#0A0A0A] border-t border-zinc-800">
+        <div className="container max-w-4xl">
+          <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Driving in {city.name}</p>
+          <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-5">WHAT {city.name.toUpperCase()} DOES TO YOUR PAINT</h2>
+          <p className="text-zinc-300 leading-relaxed text-lg">{city.localIntro}</p>
+          <p className="text-zinc-500 text-sm mt-4">{svc.roadsBenefit}</p>
+        </div>
+      </section>
+
       {/* Service area */}
       <section className="py-20 bg-[#0A0A0A]">
         <div className="container text-center">
@@ -274,7 +284,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">
             {svc.ctaHeading}
           </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">{svc.ctaText(city)}</p>
+          <p className="text-white text-lg mb-8 max-w-xl mx-auto">{svc.ctaText(city)}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href={`/get-a-quote?service=${svc.quoteParam}`}
               className="bg-white hover:bg-zinc-100 text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"

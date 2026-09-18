@@ -150,7 +150,13 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+// The Manus runtime, debug collector and jsx-loc tagging are dev-preview tooling.
+// In production they added ~120 KB of inline script to every HTML page (and an
+// unload handler that disables back/forward cache), so they only load in dev.
+const isDev = process.env.NODE_ENV !== "production" && !process.argv.includes("build");
+const plugins = isDev
+  ? [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()]
+  : [react(), tailwindcss()];
 
 export default defineConfig({
   plugins,

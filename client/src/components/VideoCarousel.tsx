@@ -94,7 +94,7 @@ function PreviewCard({ video }: { video: Video }) {
         type="button"
         onClick={toggleSound}
         className="absolute inset-0 w-full h-full text-left group"
-        aria-label={sound ? `Mute ${video.title}` : `Turn on sound for ${video.title}`}
+        aria-label={sound ? `Sound on: ${video.title}` : `Tap for sound: ${video.title}`}
       >
         <span className={`absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent transition-opacity ${sound ? "opacity-60" : "opacity-100"}`} />
         <span className="absolute left-3 bottom-3 inline-flex items-center gap-1.5 bg-black/70 text-white text-xs font-semibold px-2.5 py-1.5 border border-white/20 group-hover:border-[#E85D04] transition-colors">

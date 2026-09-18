@@ -21,6 +21,10 @@ export interface PageMeta {
   canonical: string;
   /** Optional robots directive, e.g. "noindex, follow" for pages that should not be indexed. */
   robots?: string;
+  /** Optional LCP image to preload from the HTML (path or absolute URL). */
+  preloadImage?: string;
+  /** Media query for the preload, e.g. only phones. */
+  preloadMedia?: string;
 }
 
 // Static meta map for all local landing pages and core pages
@@ -29,6 +33,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `${SITE_NAME} | PPF, Ceramic Coating & Window Tinting — Chantilly, VA`,
     description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 140+ five-star reviews in Chantilly, VA. Free quotes.",
     canonical: `${BASE_URL}/`,
+    preloadImage: "/images/hero-poster_702747e9.webp",
+    preloadMedia: "(max-width: 767px)",
   },
   "/services": {
     title: `Services | PPF, Ceramic Coating, Window Tinting | ${SITE_NAME}`,
@@ -64,6 +70,41 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Tesla PPF Northern Virginia | Model 3, Y, S, X & Cybertruck Paint Protection | ${SITE_NAME}`,
     description: "Tesla paint protection film in Chantilly, VA. Full front from $2,400 with self-healing STEK DYNOshield, computer-cut for Model 3, Y, S, X, and Cybertruck. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/tesla-ppf`,
+  },
+  "/bmw-ppf": {
+    title: `BMW PPF Northern Virginia | 3 Series, 5 Series, X3, X5, iX & M Paint Protection | ${SITE_NAME}`,
+    description: "BMW paint protection film in Chantilly, VA. Full front from $2,400 in self-healing STEK DYNOshield, computer-cut for 3 Series, M3, 5 Series, X3, X5, iX, and M models. 12-year warranty.",
+    canonical: `${BASE_URL}/bmw-ppf`,
+  },
+  "/porsche-ppf": {
+    title: `Porsche PPF Northern Virginia | 911, Cayman, Taycan, Macan & Cayenne Paint Protection | ${SITE_NAME}`,
+    description: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front from $2,400, full vehicle from $4,500. 12-year warranty.",
+    canonical: `${BASE_URL}/porsche-ppf`,
+  },
+  "/corvette-ppf": {
+    title: `Corvette PPF Northern Virginia | C8 Stingray, Z06 & E-Ray Paint Protection Film | ${SITE_NAME}`,
+    description: "Corvette paint protection film in Chantilly, VA. Full-body and full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. From $2,400.",
+    canonical: `${BASE_URL}/corvette-ppf`,
+  },
+  "/rivian-ppf": {
+    title: `Rivian PPF Northern Virginia | R1T & R1S Paint Protection Film in Chantilly, VA | ${SITE_NAME}`,
+    description: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front from $2,400, full vehicle from $5,500. 12-year warranty.",
+    canonical: `${BASE_URL}/rivian-ppf`,
+  },
+  "/bronco-ppf": {
+    title: `Ford Bronco PPF Northern Virginia | Rocker, Fender & Full Front Paint Protection | ${SITE_NAME}`,
+    description: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Bronco Raptor, and Bronco Sport: full front from $2,400 with rocker and fender-flare coverage for trail use. 12-year warranty.",
+    canonical: `${BASE_URL}/bronco-ppf`,
+  },
+  "/ppf-vs-ceramic-coating": {
+    title: `PPF vs Ceramic Coating: Which Do You Need? (Northern Virginia Guide) | ${SITE_NAME}`,
+    description: "Paint protection film vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers actually need, and when to do both.",
+    canonical: `${BASE_URL}/ppf-vs-ceramic-coating`,
+  },
+  "/ceramic-vs-carbon-vs-dyed-tint": {
+    title: `Ceramic vs Carbon vs Dyed Window Tint: Heat Rejection, Price & Legality | ${SITE_NAME}`,
+    description: "Ceramic, carbon, and dyed window tint compared: heat rejection, UV and glare, fading, signal interference, Virginia tint law, and what each costs in Chantilly, VA. Which film is worth it.",
+    canonical: `${BASE_URL}/ceramic-vs-carbon-vs-dyed-tint`,
   },
   "/videos": {
     title: `Videos | Window Tint, PPF & Ceramic Coating Explained | ${SITE_NAME}`,
@@ -516,10 +557,20 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
           title: `${post.title} | ${SITE_NAME}`,
           description: post.excerpt ?? `Read this article from Skyline Customs in Chantilly, VA.`,
           canonical: `${BASE_URL}/blog/${slug}`,
+          preloadImage: post.heroImage ?? undefined,
         };
       }
     } catch (e) {
-      // Fall through to default
+      // Fall through to the built-in posts
+    }
+    const staticPost = staticBlogPosts.find((p) => p.slug === slug);
+    if (staticPost) {
+      return {
+        title: `${staticPost.title} | ${SITE_NAME}`,
+        description: staticPost.excerpt,
+        canonical: `${BASE_URL}/blog/${slug}`,
+        preloadImage: staticPost.heroImage,
+      };
     }
   }
 
@@ -586,6 +637,16 @@ export async function isKnownPath(urlPath: string): Promise<boolean> {
  */
 export function injectMetaIntoHtml(html: string, meta: PageMeta): string {
   let result = html;
+
+  // LCP image preload (homepage hero poster, blog hero) so the browser starts the
+  // fetch before the JS bundle has parsed and rendered.
+  if (meta.preloadImage) {
+    const media = meta.preloadMedia ? ` media="${escapeHtml(meta.preloadMedia)}"` : "";
+    result = result.replace(
+      "</head>",
+      `<link rel="preload" as="image" href="${escapeHtml(meta.preloadImage)}" fetchpriority="high"${media} />\n</head>`
+    );
+  }
 
   // Replace <title>
   result = result.replace(

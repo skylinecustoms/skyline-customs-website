@@ -221,6 +221,7 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
       {/* Reviewer row */}
       <div className="flex items-center gap-3 pt-3 border-t border-zinc-800">
         <div
+          aria-hidden="true"
           className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0"
           style={{ backgroundColor: review.avatarColor }}
         >
@@ -230,7 +231,7 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
           <p className="text-white text-sm font-semibold truncate">{review.name}</p>
           <div className="flex items-center gap-1.5 mt-0.5">
             <GoogleLogo size={12} />
-            <span className="text-zinc-500 text-xs">Google · {review.date}</span>
+            <span className="text-zinc-400 text-xs">Google · {review.date}</span>
           </div>
         </div>
       </div>
@@ -332,17 +333,19 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY" }: Testi
               key={i}
               onClick={() => { if (!animating) setCurrent(i); }}
               aria-label={`Go to review ${i + 1}`}
-              className={`transition-all duration-300 rounded-none ${
+              className="p-2 -m-1"
+            >
+              <span className={`block transition-all duration-300 ${
                 i === current ? "w-8 h-2 bg-[#E85D04]" : "w-2 h-2 bg-zinc-700 hover:bg-zinc-500"
-              }`}
-            />
+              }`} />
+            </button>
           ))}
         </div>
 
         {/* Google attribution */}
         <div className="flex items-center justify-center gap-2 mt-6">
           <GoogleLogo size={14} />
-          <span className="text-zinc-600 text-xs">Reviews from Google Business Profile</span>
+          <span className="text-zinc-400 text-xs">Reviews from Google Business Profile</span>
         </div>
       </div>
     </section>

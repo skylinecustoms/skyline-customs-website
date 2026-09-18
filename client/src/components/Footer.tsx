@@ -13,6 +13,8 @@ export default function Footer() {
               <img
                 src="/images/NaRyJghitOfUAxex.jpg"
                 alt="Skyline Customs"
+                width={723}
+                height={800}
                 className="h-10 w-auto object-contain"
               />
               <div className="flex flex-col leading-none">
@@ -51,15 +53,17 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-display text-lg text-[oklch(0.96_0.008_85)] tracking-wider mb-5">
+            <h3 className="font-display text-lg text-[oklch(0.96_0.008_85)] tracking-wider mb-5">
               SERVICES
-            </h4>
+            </h3>
             <ul className="space-y-3">
               {[
                 { label: "Window Tinting", href: "/services/window-tinting" },
                 { label: "Ceramic Coating", href: "/services/ceramic-coating" },
                 { label: "Paint Protection Film", href: "/services/ppf" },
                 { label: "Tesla PPF", href: "/tesla-ppf" },
+                { label: "PPF vs Ceramic Coating", href: "/ppf-vs-ceramic-coating" },
+                { label: "Tint Types Compared", href: "/ceramic-vs-carbon-vs-dyed-tint" },
                 { label: "All Services", href: "/services" },
                 { label: "Videos", href: "/videos" },
                 { label: "FAQ", href: "/faq" },
@@ -82,9 +86,9 @@ export default function Footer() {
 
           {/* Areas we serve */}
           <div>
-            <h4 className="font-display text-lg text-[oklch(0.96_0.008_85)] tracking-wider mb-5">
+            <h3 className="font-display text-lg text-[oklch(0.96_0.008_85)] tracking-wider mb-5">
               AREAS WE SERVE
-            </h4>
+            </h3>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
               {CITY_ORDER.map((city) => (
                 <li key={city}>
@@ -104,9 +108,9 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display text-lg text-[oklch(0.96_0.008_85)] tracking-wider mb-5">
+            <h3 className="font-display text-lg text-[oklch(0.96_0.008_85)] tracking-wider mb-5">
               CONTACT
-            </h4>
+            </h3>
             <ul className="space-y-4">
               <li>
                 <a

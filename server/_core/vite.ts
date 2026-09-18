@@ -75,9 +75,11 @@ export function serveStatic(app: Express) {
     "/assets",
     express.static(path.join(distPath, "assets"), { immutable: true, maxAge: "1y", index: false })
   );
-  // Other static files (images, favicons, robots.txt): cache for a week.
+  // Self-hosted fonts never change without a filename change.
+  app.use("/fonts", express.static(path.join(distPath, "fonts"), { immutable: true, maxAge: "1y", index: false }));
+  // Other static files (images, favicons, robots.txt): cache for 30 days.
   // index: false so "/" goes through the meta-injecting handler below.
-  app.use(express.static(distPath, { maxAge: "7d", index: false }));
+  app.use(express.static(distPath, { maxAge: "30d", index: false }));
 
   // fall through to index.html — inject SSR meta tags before sending
   app.use("*", async (req, res) => {

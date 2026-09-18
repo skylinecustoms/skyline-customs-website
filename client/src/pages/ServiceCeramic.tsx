@@ -9,6 +9,7 @@ import { useBooking } from "@/contexts/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
+import CompareLinks from "@/components/CompareLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -438,6 +439,7 @@ export default function ServiceCeramic() {
       </section>
 
       <LocalBanner localHref="/ceramic-coating-chantilly-va" serviceName="Ceramic Coating" />
+      <CompareLinks />
       <ServiceCityLinks service="ceramic" />
       <Footer />
     </div>
