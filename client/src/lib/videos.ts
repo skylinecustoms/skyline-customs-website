@@ -68,7 +68,7 @@ export const VIDEOS: Video[] = [
   { id: "yFTB2S3bZbw", category: "work", service: "ppf", title: "2026 Honda Civic Type R Full Front", blurb: "Bumper, hood, fenders, mirrors, and headlights protected before the first road trip." },
   { id: "JCxngvQnTP0", category: "work", service: "tint", title: "Lexus: Window Tint + Ceramic Coating", blurb: "Fresh tint for a smooth private look plus a ceramic coat for the paint." },
   { id: "U0hjC5pdMZM", category: "customers", service: "tint", title: "Corvette Stingray Ceramic Tint", blurb: "From showroom clean to street lethal." },
-  { id: "A6AptHNL5kc", category: "work", service: "tint", title: "Genesis G70 Privacy Tint", blurb: "Privacy on max, comfort on lock." },
+  { id: "A6AptHNL5kc", category: "customers", service: "tint", title: "Genesis G70 Privacy Tint", blurb: "Privacy on max, comfort on lock." },
   { id: "tdSO-c8EZS0", category: "customers", service: "tint", title: "Alfa Romeo: Factory Clear to Luxury Dark", blurb: "A clean, even shade across every window." },
 ];
 
