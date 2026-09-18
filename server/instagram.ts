@@ -49,6 +49,7 @@ const REFRESH_EVERY_MS = 24 * 60 * 60 * 1000;
 let token = ENV.instagramAccessToken;
 let tokenKind: "instagram" | "facebook" | null = null;
 let igUserId = ENV.instagramUserId;
+let pageId = ENV.instagramPageId;
 let lastRefreshAt = 0;
 let exchanged = false;
 let cache: { at: number; data: InstagramFeed | null } | null = null;
@@ -65,6 +66,44 @@ async function graph<T>(url: string): Promise<T> {
     throw new Error(`${e.type ?? "GraphError"} ${e.code ?? res.status}: ${e.message ?? res.statusText}`);
   }
   return body;
+}
+
+/** Loose caption key for matching an Instagram reel to its Facebook cross-post. */
+const captionKey = (s: string | undefined) => (s ?? "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+/**
+ * Instagram omits media_url for reels that use licensed music. The same reels
+ * cross-posted to the Facebook Page do expose a playable file ("source"), so
+ * fetch the Page's reels/videos and match them by caption.
+ */
+async function pageVideoFiles(): Promise<{ key: string; source: string }[]> {
+  if (!pageId) return [];
+  const out: { key: string; source: string }[] = [];
+  for (const edge of ["video_reels", "videos"]) {
+    try {
+      const r = await graph<{ data?: { description?: string; source?: string }[] }>(
+        `${FB}/${pageId}/${edge}?fields=description,source&limit=100&access_token=${encodeURIComponent(token)}`
+      );
+      for (const v of r.data ?? []) if (v.source && v.description) out.push({ key: captionKey(v.description), source: v.source });
+    } catch (err) {
+      console.warn(`[instagram] page ${edge} lookup failed:`, (err as Error).message);
+    }
+  }
+  return out;
+}
+
+function fillMissingVideos(posts: InstagramPost[], files: { key: string; source: string }[], raw: RawMedia[]) {
+  if (files.length === 0) return;
+  const captions = new Map(raw.map((m) => [m.id, captionKey(m.caption)]));
+  let filled = 0;
+  for (const p of posts) {
+    if (p.mediaType !== "VIDEO" || p.videoUrl) continue;
+    const key = captions.get(p.id) ?? "";
+    if (key.length < 12) continue;
+    const hit = files.find((f) => f.key === key) ?? files.find((f) => f.key.startsWith(key.slice(0, 40)) || key.startsWith(f.key.slice(0, 40)));
+    if (hit) { p.videoUrl = hit.source; filled++; }
+  }
+  if (filled) console.log(`[instagram] filled ${filled} reel video files from the Facebook Page`);
 }
 
 function toPosts(items: RawMedia[]): InstagramPost[] {
@@ -153,12 +192,20 @@ async function fetchViaFacebook(): Promise<InstagramFeed> {
     if (withIg.access_token) token = withIg.access_token;
     console.log(`[instagram] resolved Instagram Business account ${igUserId} (${username}) via Page "${withIg.name}"`);
   }
+  // Prefer the Page token for the Page video edges (and it does not expire).
+  if (pageId && !token.startsWith("IG")) {
+    const page = await graph<{ access_token?: string }>(`${FB}/${pageId}?fields=access_token&access_token=${encodeURIComponent(token)}`).catch(() => null);
+    if (page?.access_token) token = page.access_token;
+  }
   const media = await graph<{ data: RawMedia[] }>(`${FB}/${igUserId}/media?fields=${FIELDS}&limit=60&access_token=${encodeURIComponent(token)}`);
   if (!username) {
     const acct = await graph<{ username?: string }>(`${FB}/${igUserId}?fields=username&access_token=${encodeURIComponent(token)}`).catch(() => ({ username: "" }));
     username = acct.username ?? "";
   }
-  return { username, posts: toPosts(media.data ?? []), fetchedAt: Date.now() };
+  const raw = media.data ?? [];
+  const posts = toPosts(raw);
+  fillMissingVideos(posts, await pageVideoFiles(), raw);
+  return { username, posts, fetchedAt: Date.now() };
 }
 
 async function fetchFeed(): Promise<InstagramFeed> {

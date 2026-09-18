@@ -19,7 +19,6 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { videoEmbedUrl, videoThumb, type Video } from "@/lib/videos";
 import { ReelCard, ReelPlayer, useReelMedia } from "@/components/InstagramReels";
 import { Instagram, Youtube, X } from "lucide-react";
-import { reelUrl } from "@/lib/instagramPosts";
 import type { InstagramReel } from "@/lib/instagramPosts";
 
 const previewUrl = (id: string) =>
@@ -99,7 +98,7 @@ function VideoCard({ video, preview, onOpen }: { video: Video; preview: boolean;
 }
 
 /** Branded frame around the popup player: orange border and glow, title bar with source badge, close button. */
-function PlayerFrame({ source, title, href, onClose, children }: { source: "youtube" | "instagram"; title: string; href?: string; onClose: () => void; children: React.ReactNode }) {
+function PlayerFrame({ source, title, onClose, children }: { source: "youtube" | "instagram"; title: string; onClose: () => void; children: React.ReactNode }) {
   return (
     <div className="border-2 border-[#E85D04] bg-[#0A0A0A] shadow-[0_0_0_1px_rgba(0,0,0,0.6),0_0_60px_rgba(232,93,4,0.35)] overflow-hidden">
       <div className="flex items-center justify-between gap-3 px-4 py-3 bg-[#E85D04]">
@@ -116,11 +115,6 @@ function PlayerFrame({ source, title, href, onClose, children }: { source: "yout
       </div>
       <div className="px-4 pb-4 pt-1">
         <h3 className="text-white font-semibold leading-snug">{title}</h3>
-        {href && (
-          <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white mt-2 inline-block">
-            {source === "youtube" ? "Open on YouTube" : "Open on Instagram"} →
-          </a>
-        )}
       </div>
     </div>
   );
@@ -142,6 +136,8 @@ export default function VideoCarousel({
   const [open, setOpen] = useState<InstagramReel | null>(null);
   const [openVideo, setOpenVideo] = useState<Video | null>(null);
   const media = useReelMedia(reels.length > 0);
+  // Only reels with a playable file make it into the carousel.
+  const playable = reels.filter((r) => media.get(r.code)?.video);
 
   useEffect(() => {
     if (!api || !autoAdvanceMs || open || openVideo) return;
@@ -152,7 +148,7 @@ export default function VideoCarousel({
     return () => clearInterval(t);
   }, [api, autoAdvanceMs, open, openVideo]);
 
-  if (videos.length === 0 && reels.length === 0) return null;
+  if (videos.length === 0 && playable.length === 0) return null;
   const itemClass = "pl-4 basis-[78%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5";
   return (
     <>
@@ -163,7 +159,7 @@ export default function VideoCarousel({
               <VideoCard video={v} preview={preview} onOpen={() => setOpenVideo(v)} />
             </CarouselItem>
           ))}
-          {reels.map((r) => (
+          {playable.map((r) => (
             <CarouselItem key={`ig-${r.code}`} className={itemClass}>
               <ReelCard reel={r} media={media.get(r.code)} onOpen={() => setOpen(r)} />
             </CarouselItem>
@@ -178,7 +174,6 @@ export default function VideoCarousel({
           <PlayerFrame
             source={openVideo ? "youtube" : "instagram"}
             title={openVideo?.title ?? open?.title ?? ""}
-            href={openVideo ? `https://www.youtube.com/shorts/${openVideo.id}` : open ? reelUrl(open) : undefined}
             onClose={() => { setOpenVideo(null); setOpen(null); }}
           >
             {openVideo && (
@@ -192,7 +187,7 @@ export default function VideoCarousel({
                 />
               </div>
             )}
-            {open && !openVideo && <ReelPlayer reel={open} media={media.get(open.code)} />}
+            {open && !openVideo && <ReelPlayer media={media.get(open.code)} />}
           </PlayerFrame>
         </DialogContent>
       </Dialog>

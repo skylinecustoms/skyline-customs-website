@@ -3,13 +3,14 @@
  * - ReelCard: autoplays the reel muted and looping while on screen (direct MP4
  *   from the live feed via trpc.site.instagram), exactly like the YouTube
  *   preview cards; tapping opens the popup player with sound.
- * - ReelPlayer: the popup player (direct MP4 with controls). Reels whose video
- *   file Instagram withholds (licensed music) use Instagram's own embedded
- *   player iframe instead, which plays with sound on tap.
+ * - ReelPlayer: the popup player (direct MP4 with controls, sound on).
+ * Reels with no playable file (feed not loaded, or Instagram and the Facebook
+ * Page both withhold it) are not rendered at all, so nothing on the site ever
+ * sends a visitor off to Instagram to watch.
  * Curated reels live in lib/instagramPosts.ts.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Instagram, Play, Volume2 } from "lucide-react";
+import { Instagram, Volume2 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { reelUrl, type InstagramReel } from "@/lib/instagramPosts";
 import { INSTAGRAM_HANDLE } from "@/lib/social";
@@ -29,28 +30,9 @@ export function useReelMedia(enabled: boolean) {
   }, [feed]);
 }
 
-/**
- * Instagram's own embedded player for a reel (the same iframe embed.js would
- * build, without depending on the script). Plays with sound on tap.
- */
-function ReelEmbed({ reel }: { reel: InstagramReel }) {
-  return (
-    <div className="aspect-[9/16] w-full bg-black overflow-hidden">
-      <iframe
-        src={`${reelUrl(reel)}embed/`}
-        title={reel.title}
-        className="w-full h-full bg-black"
-        allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"
-        allowFullScreen
-        loading="eager"
-      />
-    </div>
-  );
-}
-
 /** Popup player body for a reel (the frame/title bar is drawn by VideoCarousel). */
-export function ReelPlayer({ reel, media }: { reel: InstagramReel; media?: ReelMedia }) {
-  if (!media?.video) return <ReelEmbed reel={reel} />;
+export function ReelPlayer({ media }: { media?: ReelMedia }) {
+  if (!media?.video) return null;
   return (
     <div className="aspect-[9/16] w-full bg-black">
       <video
@@ -111,13 +93,6 @@ export function ReelCard({ reel, media, onOpen }: { reel: InstagramReel; media?:
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-black/70 text-white text-[11px] font-semibold px-2 py-1 border border-white/20">
             <Instagram className="w-3.5 h-3.5 text-[#E85D04]" /> Reel
           </span>
-          {!media?.video && (
-            <span className="absolute inset-0 flex items-center justify-center">
-              <span className="w-14 h-14 bg-[#E85D04] text-white flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Play className="w-6 h-6 ml-0.5" fill="currentColor" />
-              </span>
-            </span>
-          )}
           <span className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
           <span className="absolute left-3 bottom-3 inline-flex items-center gap-1.5 bg-black/70 text-white text-xs font-semibold px-2.5 py-1.5 border border-white/20 group-hover:border-[#E85D04] transition-colors">
             <Volume2 className="w-3.5 h-3.5 text-[#E85D04]" /> Tap to watch
@@ -126,7 +101,7 @@ export function ReelCard({ reel, media, onOpen }: { reel: InstagramReel; media?:
       </div>
       <div className="p-4">
         <h3 className="text-white font-semibold leading-snug">{reel.title}</h3>
-        <a href={reelUrl(reel)} target="_blank" rel="noopener noreferrer" className="text-zinc-400 text-xs mt-1 inline-block hover:text-[#E85D04]">@{INSTAGRAM_HANDLE} on Instagram</a>
+        <p className="text-zinc-400 text-xs mt-1">From @{INSTAGRAM_HANDLE}</p>
       </div>
     </div>
   );

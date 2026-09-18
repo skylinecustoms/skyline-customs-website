@@ -16,6 +16,8 @@ export const ENV = {
   instagramAccessToken: (process.env.INSTAGRAM_ACCESS_TOKEN ?? "").trim(),
   // @skylinecustomshop Instagram Business account id (via the Skyline Customs Facebook Page).
   instagramUserId: (process.env.INSTAGRAM_USER_ID ?? "17841477151858349").trim(),
+  // Skyline Customs Facebook Page id; its cross-posted reels supply video files Instagram withholds.
+  instagramPageId: (process.env.INSTAGRAM_PAGE_ID ?? "787706447769809").trim(),
   instagramAppId: (process.env.INSTAGRAM_APP_ID ?? "").trim(),
   instagramAppSecret: (process.env.INSTAGRAM_APP_SECRET ?? "").trim(),
 };
