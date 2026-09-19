@@ -10,15 +10,25 @@
 import { renderToPipeableStream } from "react-dom/server";
 import { Writable } from "node:stream";
 import { Router } from "wouter";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, dehydrate } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
+import { getQueryKey } from "@trpc/react-query";
 import superjson from "superjson";
 import { trpc } from "@/lib/trpc";
 import App from "./App";
 
-export function render(url: string, timeoutMs = 8000): Promise<string> {
+export interface RenderResult { html: string; /** superjson-serialized react-query cache for client hydration */ state: string }
+export interface Preload { blogPost?: { slug: string; post: unknown } }
+
+export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Promise<RenderResult> {
   const [path, search = ""] = url.split("?");
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: Infinity } } });
+  // Data the server already has (e.g. the blog post for /blog/:slug) is seeded into
+  // the query cache so it renders into the HTML; the same state is handed to the
+  // client so hydration matches exactly.
+  if (preload.blogPost) {
+    queryClient.setQueryData(getQueryKey(trpc.blog.getBySlug, { slug: preload.blogPost.slug }, "query"), preload.blogPost.post);
+  }
   const trpcClient = trpc.createClient({
     links: [
       httpBatchLink({
@@ -35,7 +45,7 @@ export function render(url: string, timeoutMs = 8000): Promise<string> {
     let settled = false;
     const sink = new Writable({
       write(chunk, _enc, cb) { html += chunk.toString(); cb(); },
-      final(cb) { cb(); if (!settled) { settled = true; resolve(html); } },
+      final(cb) { cb(); if (!settled) { settled = true; resolve({ html, state: superjson.stringify(dehydrate(queryClient)) }); } },
     });
     const timer = setTimeout(() => {
       if (settled) return;

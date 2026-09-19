@@ -7,6 +7,7 @@ import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 import { pathToFileURL } from "node:url";
+import { getBlogPostBySlug } from "../db";
 
 /**
  * Server-side rendering of the React app (dist/ssr/entry-server.js).
@@ -14,9 +15,9 @@ import { pathToFileURL } from "node:url";
  * live bits (promo, gallery, reviews, feeds) load on the client after hydration.
  * Set SSR=0 to serve the empty shell instead.
  */
-type Renderer = { render: (url: string) => Promise<string> };
+type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown } }) => Promise<{ html: string; state: string }> };
 let renderer: Promise<Renderer | null> | null = null;
-const ssrCache = new Map<string, { html: string; at: number }>();
+const ssrCache = new Map<string, { html: string; state: string; at: number }>();
 const SSR_TTL_MS = 10 * 60 * 1000;
 
 function loadRenderer(distPath: string): Promise<Renderer | null> {
@@ -37,14 +38,25 @@ function loadRenderer(distPath: string): Promise<Renderer | null> {
 }
 
 export async function renderPage(urlPath: string, distPath = path.resolve(import.meta.dirname, "public")): Promise<string | null> {
+  return (await renderPageWithState(urlPath, distPath))?.html ?? null;
+}
+
+export async function renderPageWithState(urlPath: string, distPath = path.resolve(import.meta.dirname, "public")): Promise<{ html: string; state: string } | null> {
   const r = await loadRenderer(distPath);
   if (!r) return null;
   const hit = ssrCache.get(urlPath);
-  if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit.html;
+  if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit;
   try {
-    const html = await r.render(urlPath);
-    ssrCache.set(urlPath, { html, at: Date.now() });
-    return html;
+    const preload: { blogPost?: { slug: string; post: unknown } } = {};
+    const blog = urlPath.match(/^\/blog\/([a-z0-9-]+)$/);
+    if (blog) {
+      const post = await getBlogPostBySlug(blog[1]).catch(() => null);
+      if (post) preload.blogPost = { slug: blog[1], post };
+    }
+    const out = await r.render(urlPath, preload);
+    const entry = { ...out, at: Date.now() };
+    ssrCache.set(urlPath, entry);
+    return entry;
   } catch (err) {
     console.warn(`[ssr] ${urlPath}:`, (err as Error).message);
     return null;
@@ -142,8 +154,11 @@ export function serveStatic(app: Express) {
       const [meta, known] = await Promise.all([resolveMetaForPath(req.originalUrl), isKnownPath(pathOnly)]);
       let page = injectMetaIntoHtml(indexHtml, meta);
       if (known) {
-        const appHtml = await renderPage(pathOnly);
-        if (appHtml) page = page.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+        const rendered = await renderPageWithState(pathOnly);
+        if (rendered) {
+          const state = `<script>window.__RQ_STATE__=${JSON.stringify(rendered.state).replace(/</g, "\\u003c")}</script>`;
+          page = page.replace('<div id="root"></div>', `<div id="root">${rendered.html}</div>${state}`);
+        }
       }
       // Unknown URLs render the app's Not Found page with a real 404 status,
       // so search engines don't index "soft 404" pages.
