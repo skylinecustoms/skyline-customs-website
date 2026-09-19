@@ -9,6 +9,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { buildSitemap } from "./sitemap";
+import { buildVideoSitemap } from "./videoSitemap";
 import { handleTelegramWebhook } from "../telegramWebhook";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -121,6 +122,10 @@ async function startServer() {
       createContext,
     })
   );
+  // Video sitemap for the embedded YouTube Shorts
+  app.get("/video-sitemap.xml", (_req, res) => {
+    res.set({ "Content-Type": "application/xml", "Cache-Control": "public, max-age=86400" }).send(buildVideoSitemap());
+  });
   // Sitemap generated from routes + database (registered before static files so it wins)
   app.get("/sitemap.xml", async (_req, res) => {
     try {

@@ -170,9 +170,21 @@ export default defineConfig({
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
   publicDir: path.resolve(import.meta.dirname, "client", "public"),
-  build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true,
+  build: process.env.SSR_BUILD
+    ? {
+        // Server bundle of the app for HTML rendering (see client/src/entry-server.tsx)
+        outDir: path.resolve(import.meta.dirname, "dist/ssr"),
+        emptyOutDir: true,
+        ssr: path.resolve(import.meta.dirname, "client", "src", "entry-server.tsx"),
+        rollupOptions: { output: { format: "es", entryFileNames: "entry-server.js" } },
+      }
+    : {
+        outDir: path.resolve(import.meta.dirname, "dist/public"),
+        emptyOutDir: true,
+      },
+  ssr: {
+    // Bundle the app's UI dependencies so the server render sees the same modules the browser does.
+    noExternal: process.env.SSR_BUILD ? [/^@radix-ui\//, "wouter", "lucide-react", "embla-carousel-react", "embla-carousel", "sonner", "class-variance-authority", "clsx", "tailwind-merge"] : [],
   },
   server: {
     host: true,

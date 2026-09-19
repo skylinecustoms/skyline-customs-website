@@ -72,19 +72,21 @@ export default function SEO({ title, description, canonical, ogImage, jsonLd }: 
     }
     canonicalEl.setAttribute("href", canonicalUrl);
 
-    // JSON-LD structured data — supports single object or array of objects
-    document.querySelectorAll('script[data-seo-jsonld]').forEach(el => el.remove());
-    if (jsonLd) {
-      const schemas = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
-      schemas.forEach((schema, i) => {
-        const script = document.createElement("script");
-        script.setAttribute("type", "application/ld+json");
-        script.setAttribute("data-seo-jsonld", String(i));
-        script.textContent = JSON.stringify(schema);
-        document.head.appendChild(script);
-      });
-    }
-  }, [fullTitle, description, canonicalUrl, imageUrl, jsonLd]);
+  }, [fullTitle, description, canonicalUrl, imageUrl]);
 
-  return null;
+  // JSON-LD is rendered inline so it is present in the server-rendered HTML that
+  // crawlers fetch (Google reads structured data anywhere in the document).
+  const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+  return (
+    <>
+      {schemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          data-seo-jsonld={String(i)}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
+        />
+      ))}
+    </>
+  );
 }

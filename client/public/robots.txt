@@ -7,3 +7,4 @@ Disallow: /_preview/
 Disallow: /api/
 
 Sitemap: https://www.skylinecustomshop.com/sitemap.xml
+Sitemap: https://www.skylinecustomshop.com/video-sitemap.xml

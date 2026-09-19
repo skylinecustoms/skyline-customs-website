@@ -38,6 +38,7 @@ try {
 
   // --- Blog posts (unique by slug) ---
   let blogAdded = 0, blogSkipped = 0;
+  const changedUrls = [];
   for (const p of blogPosts) {
     let exists = false;
     if (conn) {
@@ -52,6 +53,7 @@ try {
            typeof p.content === "string" ? p.content : JSON.stringify(p.content), p.status ?? "published", new Date(p.updatedAt), rows[0].id]
         );
         console.log(`[seed] updated blog post: ${p.slug}`);
+        changedUrls.push(`https://www.skylinecustomshop.com/blog/${p.slug}`);
         blogSkipped++; continue;
       }
     }
@@ -63,9 +65,21 @@ try {
       typeof p.content === "string" ? p.content : JSON.stringify(p.content), p.status ?? "published",
       new Date(p.createdAt ?? Date.now()), new Date(p.updatedAt ?? Date.now())];
     if (p.id != null) { cols.unshift("id"); vals.unshift(Number(p.id)); } // omit id -> autoincrement
+    changedUrls.push(`https://www.skylinecustomshop.com/blog/${p.slug}`);
     await conn.execute(`INSERT INTO blogPosts (${cols.join(", ")}) VALUES (${cols.map(() => "?").join(", ")})`, vals);
   }
   console.log(`[seed] blog posts: ${blogAdded} added, ${blogSkipped} already present`);
+  // Tell IndexNow search engines (Bing, DuckDuckGo, ...) about new or changed posts.
+  if (changedUrls.length && !DRY) {
+    try {
+      const KEY = "0ed1c0a4e1ed8b576c62f5d93cf46839";
+      const res = await fetch("https://api.indexnow.org/indexnow", {
+        method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify({ host: "www.skylinecustomshop.com", key: KEY, keyLocation: `https://www.skylinecustomshop.com/${KEY}.txt`, urlList: [...changedUrls, "https://www.skylinecustomshop.com/blog", "https://www.skylinecustomshop.com/sitemap.xml"] }),
+      });
+      console.log(`[seed] IndexNow: HTTP ${res.status} for ${changedUrls.length} post url(s)`);
+    } catch (err) { console.warn("[seed] IndexNow ping failed:", err.message); }
+  }
 
   // --- Gallery photos (unique by photoUrl) ---
   let galAdded = 0, galSkipped = 0;

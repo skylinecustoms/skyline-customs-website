@@ -77,5 +77,26 @@ const rank = (id: string) => { const i = CHANNEL_ORDER.indexOf(id); return i ===
 export const videosByCategory = (category: VideoCategory) =>
   VIDEOS.filter((v) => v.category === category).sort((a, b) => rank(a.id) - rank(b.id));
 export const videoThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+/** Upload date + ISO 8601 duration per YouTube id (from the YouTube Data API; scripts/fetch-video-meta.mjs). */
+import videoMeta from "./videoMeta.json";
+export const videoMetaFor = (id: string): { uploadDate?: string; duration?: string } =>
+  (videoMeta as Record<string, { uploadDate: string; duration: string }>)[id] ?? {};
+
+/** schema.org VideoObject for a YouTube Short. */
+export const videoObject = (v: Video) => {
+  const m = videoMetaFor(v.id);
+  return {
+    "@type": "VideoObject",
+    "name": v.title,
+    "description": v.blurb,
+    "thumbnailUrl": [`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`, videoThumb(v.id)],
+    "contentUrl": `https://www.youtube.com/shorts/${v.id}`,
+    "embedUrl": `https://www.youtube.com/embed/${v.id}`,
+    ...(m.uploadDate ? { "uploadDate": m.uploadDate } : {}),
+    ...(m.duration ? { "duration": m.duration } : {}),
+    "publisher": { "@type": "Organization", "name": "Skyline Customs", "url": "https://www.skylinecustomshop.com" },
+  };
+};
 export const videoEmbedUrl = (id: string) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;
 export const videoWatchUrl = (id: string) => `https://www.youtube.com/shorts/${id}`;

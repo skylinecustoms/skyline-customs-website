@@ -20,7 +20,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Testimonials from "@/components/Testimonials";
 import VideoCarousel from "@/components/VideoCarousel";
-import { VIDEOS } from "@/lib/videos";
+import { VIDEOS, videoObject } from "@/lib/videos";
 import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES } from "@/lib/ppf";
 import { CITY_ORDER } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
@@ -103,6 +103,12 @@ export default function ServicePPF() {
               { "@type": "ListItem", "position": 2, "name": "Services", "item": `${BASE_URL}/services` },
               { "@type": "ListItem", "position": 3, "name": "Paint Protection Film", "item": `${BASE_URL}/services/ppf` },
             ],
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "PPF videos",
+            "itemListElement": videos.map((v, i) => ({ "@type": "ListItem", "position": i + 1, "item": videoObject(v) })),
           },
         ]}
       />

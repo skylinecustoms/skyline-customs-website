@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import VideoCarousel from "@/components/VideoCarousel";
 import { reelsByCategory } from "@/lib/instagramPosts";
-import { VIDEOS, VIDEO_CATEGORIES, videosByCategory, videoThumb, videoWatchUrl, type VideoCategory } from "@/lib/videos";
+import { VIDEOS, VIDEO_CATEGORIES, videosByCategory, videoThumb, videoWatchUrl, type VideoCategory, videoObject } from "@/lib/videos";
 import { INSTAGRAM_URL, YOUTUBE_URL } from "@/lib/social";
 
 const ORDER: VideoCategory[] = ["learn", "customers", "work"];
@@ -31,16 +31,7 @@ export default function Videos() {
             "itemListElement": VIDEOS.map((v, i) => ({
               "@type": "ListItem",
               "position": i + 1,
-              "item": {
-                "@type": "VideoObject",
-                "name": v.title,
-                "description": v.blurb,
-                "thumbnailUrl": videoThumb(v.id),
-                "contentUrl": videoWatchUrl(v.id),
-                "embedUrl": `https://www.youtube.com/embed/${v.id}`,
-                ...(v.uploadDate ? { "uploadDate": v.uploadDate } : {}),
-                "publisher": { "@type": "Organization", "name": "Skyline Customs", "url": "https://www.skylinecustomshop.com" },
-              },
+              "item": videoObject(v),
             })),
           },
           {

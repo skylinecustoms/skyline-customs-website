@@ -6,6 +6,50 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
+import { pathToFileURL } from "node:url";
+
+/**
+ * Server-side rendering of the React app (dist/ssr/entry-server.js).
+ * Rendered HTML is cached per path for a while; pages are mostly static and the
+ * live bits (promo, gallery, reviews, feeds) load on the client after hydration.
+ * Set SSR=0 to serve the empty shell instead.
+ */
+type Renderer = { render: (url: string) => Promise<string> };
+let renderer: Promise<Renderer | null> | null = null;
+const ssrCache = new Map<string, { html: string; at: number }>();
+const SSR_TTL_MS = 10 * 60 * 1000;
+
+function loadRenderer(distPath: string): Promise<Renderer | null> {
+  if (!renderer) {
+    renderer = (async () => {
+      if (process.env.SSR === "0") return null;
+      const file = path.resolve(distPath, "..", "ssr", "entry-server.js");
+      if (!fs.existsSync(file)) { console.warn("[ssr] bundle not found, serving client-only shell"); return null; }
+      try {
+        return (await import(pathToFileURL(file).href)) as Renderer;
+      } catch (err) {
+        console.warn("[ssr] failed to load renderer:", (err as Error).message);
+        return null;
+      }
+    })();
+  }
+  return renderer;
+}
+
+export async function renderPage(urlPath: string, distPath = path.resolve(import.meta.dirname, "public")): Promise<string | null> {
+  const r = await loadRenderer(distPath);
+  if (!r) return null;
+  const hit = ssrCache.get(urlPath);
+  if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit.html;
+  try {
+    const html = await r.render(urlPath);
+    ssrCache.set(urlPath, { html, at: Date.now() });
+    return html;
+  } catch (err) {
+    console.warn(`[ssr] ${urlPath}:`, (err as Error).message);
+    return null;
+  }
+}
 
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
@@ -96,7 +140,11 @@ export function serveStatic(app: Express) {
 
     try {
       const [meta, known] = await Promise.all([resolveMetaForPath(req.originalUrl), isKnownPath(pathOnly)]);
-      const page = injectMetaIntoHtml(indexHtml, meta);
+      let page = injectMetaIntoHtml(indexHtml, meta);
+      if (known) {
+        const appHtml = await renderPage(pathOnly);
+        if (appHtml) page = page.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+      }
       // Unknown URLs render the app's Not Found page with a real 404 status,
       // so search engines don't index "soft 404" pages.
       res
