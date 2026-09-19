@@ -50,6 +50,11 @@ async function startServer() {
     "/_preview": "/",
     "/_preview/": "/",
     "/privacy-policy-112467": "/privacy-policy",
+    // Retired pages: server-side 301s so Google consolidates them instead of seeing a 200 that navigates away
+    "/pricing": "/get-a-quote",
+    "/configure": "/get-a-quote",
+    "/price-sheet": "/get-a-quote",
+    "/index.html": "/",
   };
   // Vinyl wraps are no longer offered: send old wrap URLs to the closest live page.
   app.get("/services/vinyl-wraps", (_req, res) => res.redirect(301, "/services"));

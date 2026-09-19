@@ -1,16 +1,9 @@
 User-agent: *
 Allow: /
 
-# Block internal/legacy paths that should never be indexed
+# Internal paths that should never be crawled
 Disallow: /tmp/
 Disallow: /_preview/
-Disallow: /disconnected
-Disallow: /booking-page
-Disallow: /home
-Disallow: /thank-you
-Disallow: /contact-us
-Disallow: /privacy-policy-112467
-Disallow: /pricing
 Disallow: /api/
 
 Sitemap: https://www.skylinecustomshop.com/sitemap.xml
