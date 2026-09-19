@@ -55,6 +55,14 @@ async function startServer() {
     "/configure": "/get-a-quote",
     "/price-sheet": "/get-a-quote",
     "/index.html": "/",
+    // Old service URLs still in Google's index (reported as soft 404s)
+    "/services/ceramic": "/services/ceramic-coating",
+    "/services/tint": "/services/window-tinting",
+    "/services/window-tint": "/services/window-tinting",
+    "/services/paint-protection-film": "/services/ppf",
+    "/services/wrap": "/services",
+    "/services/wraps": "/services",
+    "/$": "/",
   };
   // Vinyl wraps are no longer offered: send old wrap URLs to the closest live page.
   app.get("/services/vinyl-wraps", (_req, res) => res.redirect(301, "/services"));
