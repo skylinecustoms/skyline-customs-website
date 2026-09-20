@@ -10,6 +10,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { buildSitemap } from "./sitemap";
 import { buildVideoSitemap } from "./videoSitemap";
+import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
 import { handleTelegramWebhook } from "../telegramWebhook";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -64,6 +65,8 @@ async function startServer() {
     "/services/wrap": "/services",
     "/services/wraps": "/services",
   };
+  // Gallery photos were renamed to descriptive file names; keep the old upload URLs working.
+  for (const [from, to] of Object.entries(GALLERY_IMAGE_REDIRECTS)) app.get(from, (_req, res) => res.redirect(301, to));
   // Vinyl wraps are no longer offered: send old wrap URLs to the closest live page.
   app.get("/services/vinyl-wraps", (_req, res) => res.redirect(301, "/services"));
   app.get(/^\/vinyl-wraps-([a-z-]+-va)$/, (req, res) => res.redirect(301, `/ppf-${req.params[0]}`));

@@ -13,6 +13,12 @@ import { getBlogPost, blogPosts as staticPosts, type BlogSection } from "@/lib/b
 import { trpc } from "@/lib/trpc";
 
 /** Render inline [text](/path) links and **bold** inside blog text. Everything else stays plain text. */
+/** "September 19, 2026" -> "2026-09-19" for schema.org dates; leaves other formats untouched. */
+const isoDate = (d: string) => {
+  const t = new Date(d);
+  return isNaN(t.getTime()) ? d : t.toISOString().slice(0, 10);
+};
+
 function renderInline(text: string) {
   const parts: React.ReactNode[] = [];
   const re = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*/g;
@@ -99,6 +105,7 @@ export default function BlogPost() {
         title: dbPost.title,
         excerpt: dbPost.excerpt,
         date: dbPost.date,
+        updated: undefined as string | undefined,
         readTime: dbPost.readTime,
         category: dbPost.category,
         heroImage: dbPost.heroImage,
@@ -169,8 +176,8 @@ export default function BlogPost() {
             "url": absoluteUrl(post.heroImage),
             "description": post.heroImageAlt
           },
-          "datePublished": post.date,
-          "dateModified": post.date,
+          "datePublished": isoDate(post.date),
+          "dateModified": isoDate(post.updated ?? post.date),
           "author": {
             "@type": "Organization",
             "name": "Skyline Customs",
@@ -228,7 +235,7 @@ export default function BlogPost() {
             {post.title}
           </h1>
           <div className="flex items-center gap-3 mt-4 text-white/50 text-sm" style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: "0.08em" }}>
-            <span>{post.date}</span>
+            <span>{post.updated ? `Updated ${post.updated}` : post.date}</span>
             <span className="w-1 h-1 rounded-full bg-[#e85d04]" />
             <span>{post.readTime}</span>
           </div>
@@ -319,7 +326,7 @@ export default function BlogPost() {
 
       {/* Author / E-E-A-T */}
       <div className="container mx-auto px-4 lg:px-8 pb-6">
-        <AuthorBox dateModified={post.date} />
+        <AuthorBox dateModified={post.updated ?? post.date} />
       </div>
 
       {/* Related Posts */}

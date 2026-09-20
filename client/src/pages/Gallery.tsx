@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { trpc } from "@/lib/trpc";
+import { Link } from "wouter";
+import { withJobSlugs } from "@shared/galleryJobs";
 
 // ─── Static non-PPF photos (only real confirmed jobs) ───────────────────────
 const STATIC_ITEMS = [
@@ -31,19 +33,20 @@ export default function Gallery() {
   const { data: dbPhotos = [], isLoading } = trpc.site.gallery.useQuery();
 
   // Convert DB photos to the same shape as static items
-  const dbItems = dbPhotos.map((p: { id: number; photoUrl: string; alt: string; category: string; carDescription: string | null }) => ({
+  const dbItems = withJobSlugs(dbPhotos).map((p) => ({
     id: `db-${p.id}`,
     category: p.category,
     image: p.photoUrl,
     alt: p.alt,
-    vehicle: p.carDescription ?? p.alt,
-    service: p.category === "PPF" ? "Full Front PPF + Ceramic Coating" : p.category,
+    vehicle: p.car,
+    service: p.services.join(" + "),
+    href: `/gallery/${p.slug}` as string | undefined,
   }));
 
   // Merge: DB photos first (PPF promo shots), then static non-PPF photos
   const allItems = [
     ...dbItems,
-    ...STATIC_ITEMS.filter((s) => !dbItems.some((d: { image: string }) => d.image === s.image)),
+    ...STATIC_ITEMS.filter((s) => !dbItems.some((d) => d.image === s.image)).map((s) => ({ ...s, href: undefined as string | undefined })),
   ];
 
   const filtered =
@@ -132,11 +135,10 @@ export default function Gallery() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-[oklch(0.20_0.006_285)]">
-              {filtered.map((item) => (
-                <div
-                  key={item.id}
-                  className="group relative overflow-hidden bg-[oklch(0.10_0.005_285)]"
-                >
+              {filtered.map((item) => {
+                const cardClass = "group relative block overflow-hidden bg-[oklch(0.10_0.005_285)]";
+                const inner = (
+                  <>
                   <div className="relative h-64 overflow-hidden">
                     <img
                       src={item.image}
@@ -167,12 +169,18 @@ export default function Gallery() {
                         {item.service}
                       </p>
                       <span className="font-mono-brand text-xs text-brand-orange">
-                        Chantilly, VA
+                        {item.href ? "View job →" : "Chantilly, VA"}
                       </span>
                     </div>
                   </div>
-                </div>
-              ))}
+                  </>
+                );
+                return item.href ? (
+                  <Link key={item.id} href={item.href} aria-label={`${item.vehicle}: ${item.service} in Chantilly, VA`} className={cardClass}>{inner}</Link>
+                ) : (
+                  <div key={item.id} className={cardClass}>{inner}</div>
+                );
+              })}
             </div>
           )}
         </div>

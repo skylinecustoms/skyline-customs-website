@@ -16,6 +16,7 @@ import { VIDEOS } from "@/lib/videos";
 import type { VehicleBrand } from "@/lib/modelPpf";
 import VehicleLinks from "@/components/VehicleLinks";
 import { trpc } from "@/lib/trpc";
+import { withJobSlugs } from "@shared/galleryJobs";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const ICONS = [Shield, Zap, Star];
@@ -24,7 +25,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const { data: photos } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
   const { data: promo } = trpc.promo.getActive.useQuery();
-  const jobs = (photos ?? []).filter((p) => brand.photoMatch.test(p.alt)).slice(0, 4);
+  const jobs = withJobSlugs(photos ?? []).filter((p) => brand.photoMatch.test(p.alt)).slice(0, 4);
   const videos = VIDEOS.filter((v) => brand.videoIds.includes(v.id));
   const path = `/${brand.slug}-ppf`;
   const canonical = `${BASE_URL}${path}`;
@@ -142,10 +143,12 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl text-white mb-8">{brand.name.toUpperCase()}S WE'VE PROTECTED</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-800">
               {jobs.map((p) => (
-                <figure key={p.id} className="bg-[#0D0D0D]">
-                  <img src={p.photoUrl} alt={`${p.alt} at Skyline Custom Shop in Chantilly, VA`} loading="lazy" decoding="async" className="w-full aspect-[4/3] object-cover" />
-                  <figcaption className="p-3 text-zinc-400 text-xs">{p.alt}</figcaption>
-                </figure>
+                <Link key={p.id} href={`/gallery/${p.slug}`} className="block bg-[#0D0D0D] group">
+                  <figure>
+                    <img src={p.photoUrl} alt={`${p.alt} at Skyline Custom Shop in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
+                    <figcaption className="p-3 text-zinc-400 text-xs"><span className="text-white font-semibold">{p.car}</span> · {p.services.join(" + ")}</figcaption>
+                  </figure>
+                </Link>
               ))}
             </div>
             <Link href="/gallery" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] hover:underline text-sm font-medium">See the full gallery <ArrowRight className="w-4 h-4" /></Link>

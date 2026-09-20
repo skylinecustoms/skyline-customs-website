@@ -15,10 +15,10 @@ import { trpc } from "@/lib/trpc";
 import { INSTAGRAM_HANDLE, INSTAGRAM_POSTS, INSTAGRAM_URL } from "@/lib/social";
 
 const FALLBACK_PHOTOS = [
-  { src: "/images/slot-scott-s-2026-tesla-cybertruck-1784043332469.jpg", alt: "Tesla Cybertruck with full front PPF at Skyline Customs" },
-  { src: "/images/slot-gui-d-2018-ford-shelby-gt350-1782926847823.jpg", alt: "Ford Shelby GT350 paint protection film install" },
-  { src: "/images/slot-bernard-c-1994-toyota-supra-1783276263431.jpg", alt: "1994 Toyota Supra protected with PPF" },
-  { src: "/images/slot-keith-n-2024-mercedes-gle-53-amg-coupe-1782829578687.jpg", alt: "Mercedes GLE 53 AMG Coupe PPF and ceramic coating" },
+  { src: "/images/2026-tesla-cybertruck-full-front-ppf-chantilly-va.jpg", alt: "Tesla Cybertruck with full front PPF at Skyline Customs" },
+  { src: "/images/2018-ford-shelby-gt350-full-front-ppf-chantilly-va.jpg", alt: "Ford Shelby GT350 paint protection film install" },
+  { src: "/images/1994-toyota-supra-full-front-ppf-chantilly-va.jpg", alt: "1994 Toyota Supra protected with PPF" },
+  { src: "/images/2024-mercedes-gle-53-amg-coupe-full-front-ppf-ceramic-coating-chantilly-va.jpg", alt: "Mercedes GLE 53 AMG Coupe PPF and ceramic coating" },
   { src: "/images/tint_bmw_m2_847caa83.webp", alt: "BMW M2 ceramic window tint in Chantilly, VA" },
   { src: "/images/ppf_1_c7c64665.webp", alt: "Corvette C8 paint protection film" },
 ];

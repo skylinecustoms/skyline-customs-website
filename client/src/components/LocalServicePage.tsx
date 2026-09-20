@@ -17,6 +17,7 @@ import { Shield, MapPin, Phone, Star, CheckCircle, ArrowRight, ChevronDown } fro
 import { useState } from "react";
 import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
+import { withJobSlugs } from "@shared/galleryJobs";
 
 const SERVICE_MATCH: Record<ServiceKey, RegExp> = { ppf: /ppf|paint protection/i, ceramic: /ceramic coat/i, tint: /tint/i };
 const FALLBACK_PHOTO = { photoUrl: "/images/ppf_1_c7c64665.webp", alt: "Paint protection film installation on a Corvette C8" };
@@ -26,8 +27,9 @@ function hash(s: string) { let h = 0; for (const ch of s) h = (h * 31 + ch.charC
 /** One real customer-car photo per city page, rotated deterministically so each page is different. */
 function CityPhoto({ cityName, cityLabel, service }: { cityName: string; cityLabel: string; service: ServiceKey }) {
   const { data: photos } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
-  const pool = (photos ?? []).filter((p) => SERVICE_MATCH[service].test(p.alt));
-  const list = pool.length > 0 ? pool : (photos ?? []);
+  const all = withJobSlugs(photos ?? []);
+  const pool = all.filter((p) => SERVICE_MATCH[service].test(p.alt));
+  const list = pool.length > 0 ? pool : all;
   const photo = list.length > 0 ? list[hash(`${cityName}-${service}`) % list.length] : FALLBACK_PHOTO;
   const svcLabel = SERVICES[service].label.toLowerCase();
   return (
@@ -45,6 +47,7 @@ function CityPhoto({ cityName, cityLabel, service }: { cityName: string; cityLab
             <span className="text-[#E85D04] font-bold uppercase tracking-widest text-xs mr-2">Recent work</span>
             {photo.alt} — {svcLabel} done in our Chantilly bay, 
             {" "}{cityLabel} drivers welcome.
+            {"slug" in photo && <Link href={`/gallery/${photo.slug}`} className="ml-2 text-[#E85D04] hover:underline">See this job →</Link>}
           </figcaption>
         </figure>
       </div>

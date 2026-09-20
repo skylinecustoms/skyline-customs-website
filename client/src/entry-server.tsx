@@ -18,7 +18,7 @@ import { trpc } from "@/lib/trpc";
 import App from "./App";
 
 export interface RenderResult { html: string; /** superjson-serialized react-query cache for client hydration */ state: string }
-export interface Preload { blogPost?: { slug: string; post: unknown } }
+export interface Preload { blogPost?: { slug: string; post: unknown }; gallery?: unknown[] }
 
 export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Promise<RenderResult> {
   const [path, search = ""] = url.split("?");
@@ -28,6 +28,9 @@ export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Pr
   // client so hydration matches exactly.
   if (preload.blogPost) {
     queryClient.setQueryData(getQueryKey(trpc.blog.getBySlug, { slug: preload.blogPost.slug }, "query"), preload.blogPost.post);
+  }
+  if (preload.gallery) {
+    queryClient.setQueryData(getQueryKey(trpc.site.gallery, undefined, "query"), preload.gallery);
   }
   const trpcClient = trpc.createClient({
     links: [

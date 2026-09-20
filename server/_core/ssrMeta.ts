@@ -11,6 +11,7 @@ import { getDb } from "../db";
 import { blogPosts, promos } from "../../drizzle/schema";
 import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
 import { and, eq } from "drizzle-orm";
+import { findGalleryJob } from "../galleryJobs";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -25,6 +26,8 @@ export interface PageMeta {
   preloadImage?: string;
   /** Media query for the preload, e.g. only phones. */
   preloadMedia?: string;
+  /** Social share image (path or absolute URL). Defaults to the site image in index.html. */
+  ogImage?: string;
 }
 
 // Static meta map for all local landing pages and core pages
@@ -533,6 +536,22 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
     return STATIC_META[cleanPath];
   }
 
+  // Gallery job pages: /gallery/:slug
+  const jobMatch = cleanPath.match(/^\/gallery\/([a-z0-9-]+)$/);
+  if (jobMatch) {
+    const job = await findGalleryJob(jobMatch[1]);
+    if (job) {
+      const svc = job.services.join(" + ");
+      return {
+        title: `${job.car} ${svc} in Chantilly, VA | ${SITE_NAME}`,
+        description: `${svc} on a ${job.car} at Skyline Customs in Chantilly, VA: what we covered, why it fits this vehicle, and how the install went. STEK-certified, 12-year film warranty. Free quotes for your ${job.car}.`,
+        canonical: `${BASE_URL}/gallery/${job.slug}`,
+        preloadImage: job.photoUrl,
+        ogImage: job.photoUrl,
+      };
+    }
+  }
+
   // Handle blog post pages: /blog/:slug
   const blogMatch = cleanPath.match(/^\/blog\/([a-z0-9-]+)$/);
   if (blogMatch) {
@@ -557,6 +576,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
           description: post.excerpt ?? `Read this article from Skyline Customs in Chantilly, VA.`,
           canonical: `${BASE_URL}/blog/${slug}`,
           preloadImage: post.heroImage ?? undefined,
+          ogImage: post.heroImage ?? undefined,
         };
       }
     } catch (e) {
@@ -569,6 +589,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
         description: staticPost.excerpt,
         canonical: `${BASE_URL}/blog/${slug}`,
         preloadImage: staticPost.heroImage,
+        ogImage: staticPost.heroImage,
       };
     }
   }
@@ -598,6 +619,9 @@ const OTHER_KNOWN_PATHS = new Set([
 export async function isKnownPath(urlPath: string): Promise<boolean> {
   const cleanPath = urlPath.split("?")[0].split("#")[0];
   if (STATIC_META[cleanPath] || OTHER_KNOWN_PATHS.has(cleanPath)) return true;
+
+  const jobMatch = cleanPath.match(/^\/gallery\/([a-z0-9-]+)$/);
+  if (jobMatch) return !!(await findGalleryJob(jobMatch[1]));
 
   const blogMatch = cleanPath.match(/^\/blog\/([a-z0-9-]+)$/);
   if (blogMatch) {
@@ -645,6 +669,17 @@ export function injectMetaIntoHtml(html: string, meta: PageMeta): string {
       "</head>",
       `<link rel="preload" as="image" href="${escapeHtml(meta.preloadImage)}" fetchpriority="high"${media} />\n</head>`
     );
+  }
+
+  // Social share image
+  if (meta.ogImage) {
+    const abs = meta.ogImage.startsWith("http") ? meta.ogImage : `${BASE_URL}${meta.ogImage.startsWith("/") ? "" : "/"}${meta.ogImage}`;
+    result = result
+      .replace(/<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/, `<meta property="og:image" content="${escapeHtml(abs)}" />`)
+      .replace(/<meta\s+property="og:image:width"\s+content="[^"]*"\s*\/?>\s*/, "")
+      .replace(/<meta\s+property="og:image:height"\s+content="[^"]*"\s*\/?>\s*/, "")
+      .replace(/<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/?>/, `<meta property="og:image:alt" content="${escapeHtml(meta.title)}" />`)
+      .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/, `<meta name="twitter:image" content="${escapeHtml(abs)}" />`);
   }
 
   // Replace <title>

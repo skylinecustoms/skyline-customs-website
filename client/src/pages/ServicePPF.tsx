@@ -24,6 +24,7 @@ import { VIDEOS, videoObject } from "@/lib/videos";
 import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES } from "@/lib/ppf";
 import { CITY_ORDER } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
+import { withJobSlugs } from "@shared/galleryJobs";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const LAST_REVIEWED = "September 18, 2026";
@@ -50,7 +51,7 @@ export default function ServicePPF() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const { data: photos } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
   const { data: promo } = trpc.promo.getActive.useQuery();
-  const jobs = (photos ?? []).filter((p) => /ppf/i.test(p.alt)).slice(0, 8);
+  const jobs = withJobSlugs(photos ?? []).filter((p) => /ppf/i.test(p.alt)).slice(0, 8);
   const videos = VIDEOS.filter((v) => v.service === "ppf");
 
   // Facebook Pixel: ViewContent event when visitor lands on PPF service page
@@ -310,10 +311,12 @@ export default function ServicePPF() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-800">
               {jobs.map((p) => (
-                <figure key={p.id} className="bg-[#0A0A0A]">
-                  <img src={p.photoUrl} alt={`${p.alt} at Skyline Customs in Chantilly, VA`} loading="lazy" decoding="async" className="w-full aspect-[4/3] object-cover" />
-                  <figcaption className="text-zinc-400 text-xs p-3">{p.alt}</figcaption>
-                </figure>
+                <Link key={p.id} href={`/gallery/${p.slug}`} className="block bg-[#0A0A0A] group">
+                  <figure>
+                    <img src={p.photoUrl} alt={`${p.alt} at Skyline Customs in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
+                    <figcaption className="text-zinc-400 text-xs p-3"><span className="text-white font-semibold">{p.car}</span> · {p.services.join(" + ")}</figcaption>
+                  </figure>
+                </Link>
               ))}
             </div>
           </div>

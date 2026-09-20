@@ -1,272 +1,299 @@
 [
   {
     "id": 1,
-    "photoUrl": "/images/slot-1-abdul-a-bmw-m340i-1781792221953.jpg",
+    "photoUrl": "/images/bmw-m340i-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "BMW M340i - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "BMW M340i",
     "sortOrder": 1,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-1-abdul-a-bmw-m340i-1781792221953.jpg"
   },
   {
     "id": 2,
-    "photoUrl": "/images/slot-derek-gebelhardt-2027-mini--countryman-s-1781790412173.jpg",
+    "photoUrl": "/images/2027-mini-countryman-s-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "2027 Mini Countryman S - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "2027 Mini Countryman S",
     "sortOrder": 2,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-derek-gebelhardt-2027-mini--countryman-s-1781790412173.jpg"
   },
   {
     "id": 3,
-    "photoUrl": "/images/slot-sri-tesla-model-3-1781797119253.jpg",
+    "photoUrl": "/images/tesla-model-3-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Tesla Model 3 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Tesla Model 3",
     "sortOrder": 3,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-sri-tesla-model-3-1781797119253.jpg"
   },
   {
     "id": 4,
-    "photoUrl": "/images/slot-mo-cybertruck-1781797234187.jpg",
+    "photoUrl": "/images/tesla-cybertruck-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Tesla Cybertruck - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Tesla Cybertruck",
     "sortOrder": 4,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-mo-cybertruck-1781797234187.jpg"
   },
   {
     "id": 5,
-    "photoUrl": "/images/slot-michael-t-2026-corvette-c8-z06-1781797351953.jpg",
+    "photoUrl": "/images/2026-corvette-c8-z06-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "2026 Corvette C8 Z06 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "2026 Corvette C8 Z06",
     "sortOrder": 5,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-michael-t-2026-corvette-c8-z06-1781797351953.jpg"
   },
   {
     "id": 6,
-    "photoUrl": "/images/slot-rod-bmw-ix-2026-1781797463753.jpg",
+    "photoUrl": "/images/bmw-ix-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "BMW iX 2026 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "BMW iX 2026",
     "sortOrder": 6,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-rod-bmw-ix-2026-1781797463753.jpg"
   },
   {
     "id": 7,
-    "photoUrl": "/images/slot-bianca-a-bmw-x5-1781797538653.jpg",
+    "photoUrl": "/images/bmw-x5-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "BMW X5 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "BMW X5",
     "sortOrder": 7,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-bianca-a-bmw-x5-1781797538653.jpg"
   },
   {
     "id": 8,
-    "photoUrl": "/images/slot-john-s-kia-seltos-1781797604953.jpg",
+    "photoUrl": "/images/kia-seltos-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Kia Seltos - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Kia Seltos",
     "sortOrder": 8,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-john-s-kia-seltos-1781797604953.jpg"
   },
   {
     "id": 9,
-    "photoUrl": "/images/slot-john-s-jeep-grand-cherokee-2026-1781797733453.jpg",
+    "photoUrl": "/images/jeep-grand-cherokee-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Jeep Grand Cherokee 2026 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Jeep Grand Cherokee 2026",
     "sortOrder": 9,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-john-s-jeep-grand-cherokee-2026-1781797733453.jpg"
   },
   {
     "id": 10,
-    "photoUrl": "/images/slot-paolo-m-acura-integra-type-s-2023-1782569135286.jpg",
+    "photoUrl": "/images/acura-integra-type-s-2023-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Acura Integra Type S 2023 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Acura Integra Type S 2023",
     "sortOrder": 10,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-paolo-m-acura-integra-type-s-2023-1782569135286.jpg"
   },
   {
     "id": 11,
-    "photoUrl": "/images/slot-mo-e-acura-mdx-1782569282087.jpg",
+    "photoUrl": "/images/acura-mdx-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Acura MDX - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Acura MDX",
     "sortOrder": 11,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-mo-e-acura-mdx-1782569282087.jpg"
   },
   {
     "id": 12,
-    "photoUrl": "/images/slot-gizelle-c-bmw-z4-m40i-2026-1782569525687.jpg",
+    "photoUrl": "/images/bmw-z4-m40i-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "BMW Z4 M40i 2026 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "BMW Z4 M40i 2026",
     "sortOrder": 12,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-gizelle-c-bmw-z4-m40i-2026-1782569525687.jpg"
   },
   {
     "id": 13,
-    "photoUrl": "/images/slot-singh-h-nissan-gtr-2021-1782569600086.jpg",
+    "photoUrl": "/images/nissan-gt-r-2021-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Nissan GT-R 2021 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Nissan GT-R 2021",
     "sortOrder": 13,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-singh-h-nissan-gtr-2021-1782569600086.jpg"
   },
   {
     "id": 14,
-    "photoUrl": "/images/slot-young-k-bmw-x5-2026-1782569709586.jpg",
+    "photoUrl": "/images/bmw-x5-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "BMW X5 2026 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "BMW X5 2026",
     "sortOrder": 14,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-young-k-bmw-x5-2026-1782569709586.jpg"
   },
   {
     "id": 15,
-    "photoUrl": "/images/slot-john-w-ford-bronco-1782570115387.jpg",
+    "photoUrl": "/images/ford-bronco-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Ford Bronco - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Ford Bronco",
     "sortOrder": 15,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-john-w-ford-bronco-1782570115387.jpg"
   },
   {
     "id": 16,
-    "photoUrl": "/images/slot-anthony-j-toyota-tacoma-trd-2026-1782747017765.jpg",
+    "photoUrl": "/images/toyota-tacoma-trd-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Toyota Tacoma TRD 2026 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Toyota Tacoma TRD 2026",
     "sortOrder": 16,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-anthony-j-toyota-tacoma-trd-2026-1782747017765.jpg"
   },
   {
     "id": 17,
-    "photoUrl": "/images/slot-tom-m-toyota-4runner-trailhunter-2026-1782747153287.jpg",
+    "photoUrl": "/images/toyota-4runner-trailhunter-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Toyota 4Runner Trailhunter 2026 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Toyota 4Runner Trailhunter 2026",
     "sortOrder": 17,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-tom-m-toyota-4runner-trailhunter-2026-1782747153287.jpg"
   },
   {
     "id": 18,
-    "photoUrl": "/images/slot-vincent-p-honda-pilot-elite-2026-1782747219986.jpg",
+    "photoUrl": "/images/honda-pilot-elite-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "Honda Pilot Elite 2026 - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "Honda Pilot Elite 2026",
     "sortOrder": 18,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-vincent-p-honda-pilot-elite-2026-1782747219986.jpg"
   },
   {
     "id": 19,
-    "photoUrl": "/images/slot-elzie-m-2022-lucid-air-1782760398187.jpg",
+    "photoUrl": "/images/2022-lucid-air-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "2022 Lucid Air - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "2022 Lucid Air",
     "sortOrder": 19,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-elzie-m-2022-lucid-air-1782760398187.jpg"
   },
   {
     "id": 20,
-    "photoUrl": "/images/slot-ak-j-2023-cadillac-escalade-1782765639186.jpg",
+    "photoUrl": "/images/2023-cadillac-escalade-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "2023 Cadillac Escalade - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "2023 Cadillac Escalade",
     "sortOrder": 20,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-ak-j-2023-cadillac-escalade-1782765639186.jpg"
   },
   {
     "id": 21,
-    "photoUrl": "/images/slot-keith-n-2024-mercedes-gle-53-amg-coupe-1782829578687.jpg",
+    "photoUrl": "/images/2024-mercedes-gle-53-amg-coupe-full-front-ppf-ceramic-coating-chantilly-va.jpg",
     "alt": "2024 Mercedes GLE 53 AMG Coupe - Full Front PPF + Ceramic Coating",
     "category": "PPF",
     "carDescription": "2024 Mercedes GLE 53 AMG Coupe",
     "sortOrder": 21,
     "active": 1,
-    "createdAt": "2026-07-01T17:05:20.000Z"
+    "createdAt": "2026-07-01T17:05:20.000Z",
+    "previousUrl": "/images/slot-keith-n-2024-mercedes-gle-53-amg-coupe-1782829578687.jpg"
   },
   {
     "id": 30001,
-    "photoUrl": "/images/slot-gui-d-2018-ford-shelby-gt350-1782926847823.jpg",
+    "photoUrl": "/images/2018-ford-shelby-gt350-full-front-ppf-chantilly-va.jpg",
     "alt": "PPF on 2018 Ford Shelby GT350 - Skyline Custom Shop Chantilly VA",
     "category": "PPF",
     "carDescription": "2018 Ford Shelby GT350",
     "sortOrder": 22,
     "active": 1,
-    "createdAt": "2026-07-01T17:32:24.000Z"
+    "createdAt": "2026-07-01T17:32:24.000Z",
+    "previousUrl": "/images/slot-gui-d-2018-ford-shelby-gt350-1782926847823.jpg"
   },
   {
     "id": 60001,
-    "photoUrl": "/images/slot-bernard-c-1994-toyota-supra-1783276263431.jpg",
+    "photoUrl": "/images/1994-toyota-supra-full-front-ppf-chantilly-va.jpg",
     "alt": "PPF on 1994 Toyota Supra - Skyline Custom Shop Chantilly VA",
     "category": "PPF",
     "carDescription": "1994 Toyota Supra",
     "sortOrder": 23,
     "active": 1,
-    "createdAt": "2026-07-05T18:31:19.000Z"
+    "createdAt": "2026-07-05T18:31:19.000Z",
+    "previousUrl": "/images/slot-bernard-c-1994-toyota-supra-1783276263431.jpg"
   },
   {
     "id": 90001,
-    "photoUrl": "/images/slot-scott-s-2026-tesla-cybertruck-1784043332469.jpg",
+    "photoUrl": "/images/2026-tesla-cybertruck-full-front-ppf-chantilly-va.jpg",
     "alt": "PPF on 2026 Tesla Cybertruck - Skyline Custom Shop Chantilly VA",
     "category": "PPF",
     "carDescription": "2026 Tesla Cybertruck",
     "sortOrder": 24,
     "active": 1,
-    "createdAt": "2026-07-14T15:35:42.000Z"
+    "createdAt": "2026-07-14T15:35:42.000Z",
+    "previousUrl": "/images/slot-scott-s-2026-tesla-cybertruck-1784043332469.jpg"
   },
   {
     "id": 120001,
-    "photoUrl": "/images/slot-sean-2026-mazda-cx90-1784043409070.jpg",
+    "photoUrl": "/images/2026-mazda-cx-90-full-front-ppf-chantilly-va.jpg",
     "alt": "PPF on 2026 Mazda cx90 - Skyline Custom Shop Chantilly VA",
     "category": "PPF",
     "carDescription": "2026 Mazda cx90",
     "sortOrder": 25,
     "active": 1,
-    "createdAt": "2026-07-14T15:36:57.000Z"
+    "createdAt": "2026-07-14T15:36:57.000Z",
+    "previousUrl": "/images/slot-sean-2026-mazda-cx90-1784043409070.jpg"
   },
   {
     "id": 150001,
-    "photoUrl": "/images/slot-raquel-f-2023-jeep-wrangler-sahara-1784293728366.jpg",
+    "photoUrl": "/images/2023-jeep-wrangler-sahara-full-front-ppf-chantilly-va.jpg",
     "alt": "PPF on 2023 Jeep wrangler Sahara - Skyline Custom Shop Chantilly VA",
     "category": "PPF",
     "carDescription": "2023 Jeep wrangler Sahara",
     "sortOrder": 26,
     "active": 1,
-    "createdAt": "2026-07-17T13:09:04.000Z"
+    "createdAt": "2026-07-17T13:09:04.000Z",
+    "previousUrl": "/images/slot-raquel-f-2023-jeep-wrangler-sahara-1784293728366.jpg"
   },
   {
     "id": 180001,
-    "photoUrl": "/images/slot-mo-z-2025-jeep-rubicon-1784293792366.jpg",
+    "photoUrl": "/images/2025-jeep-rubicon-full-front-ppf-chantilly-va.jpg",
     "alt": "PPF on 2025 Jeep Rubicon - Skyline Custom Shop Chantilly VA",
     "category": "PPF",
     "carDescription": "2025 Jeep Rubicon",
     "sortOrder": 27,
     "active": 1,
-    "createdAt": "2026-07-17T13:10:02.000Z"
+    "createdAt": "2026-07-17T13:10:02.000Z",
+    "previousUrl": "/images/slot-mo-z-2025-jeep-rubicon-1784293792366.jpg"
   }
 ]

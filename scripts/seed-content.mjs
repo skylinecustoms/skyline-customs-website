@@ -82,10 +82,19 @@ try {
   }
 
   // --- Gallery photos (unique by photoUrl) ---
-  let galAdded = 0, galSkipped = 0;
+  let galAdded = 0, galSkipped = 0, galRenamed = 0;
   for (const g of galleryPhotos) {
     let exists = false;
     if (conn) {
+      // A renamed image: move the existing row to the new URL instead of inserting a duplicate.
+      if (g.previousUrl) {
+        const [old] = await conn.execute("SELECT id FROM galleryPhotos WHERE photoUrl = ? LIMIT 1", [g.previousUrl]);
+        if (old.length > 0) {
+          if (DRY) console.log(`[seed] would rename photo ${g.previousUrl} -> ${g.photoUrl}`);
+          else await conn.execute("UPDATE galleryPhotos SET photoUrl = ?, alt = ? WHERE id = ?", [g.photoUrl, g.alt, old[0].id]);
+          galRenamed++;
+        }
+      }
       const [rows] = await conn.execute("SELECT id FROM galleryPhotos WHERE photoUrl = ? LIMIT 1", [g.photoUrl]);
       exists = rows.length > 0;
     }
@@ -99,7 +108,7 @@ try {
        Number(g.sortOrder ?? 0), Number(g.active ?? 1), new Date(g.createdAt ?? Date.now())]
     );
   }
-  console.log(`[seed] gallery photos: ${galAdded} added, ${galSkipped} already present`);
+  console.log(`[seed] gallery photos: ${galAdded} added, ${galSkipped} already present, ${galRenamed} renamed`);
 
   // --- Promos (unique by slug). A new active promo deactivates the others,
   // matching what the Telegram bot's /promo_new does. Existing slugs are left

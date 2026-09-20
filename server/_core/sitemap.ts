@@ -12,6 +12,7 @@ import { eq } from "drizzle-orm";
 import { createHash } from "node:crypto";
 import { siteSettings } from "../../drizzle/schema";
 import { renderPage } from "./vite";
+import { getGalleryJobs } from "../galleryJobs";
 import { STATIC_PATHS } from "./ssrMeta";
 import { SITEMAP_META } from "./sitemapMeta";
 import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
@@ -99,7 +100,16 @@ export async function buildSitemap(): Promise<string> {
   // when the content does, which is what makes lastmod useful to Google.
   const lastmods = await pageLastmods(STATIC_PATHS);
   for (const path of STATIC_PATHS) add(path, { lastmod: lastmods.get(path) ?? SITE_UPDATED });
-  for (const post of staticBlogPosts) add(`/blog/${post.slug}`);
+  for (const post of staticBlogPosts) {
+    const d = new Date(post.updated ?? post.date);
+    add(`/blog/${post.slug}`, isNaN(d.getTime()) ? undefined : { lastmod: d.toISOString().slice(0, 10) });
+  }
+  try {
+    for (const job of await getGalleryJobs()) {
+      const d = job.createdAt ? new Date(job.createdAt) : null;
+      add(`/gallery/${job.slug}`, { lastmod: d && !isNaN(d.getTime()) ? d.toISOString().slice(0, 10) : SITE_UPDATED, changefreq: "monthly", priority: "0.7" });
+    }
+  } catch { /* gallery pages are optional in the sitemap */ }
 
   try {
     const database = await getDb();

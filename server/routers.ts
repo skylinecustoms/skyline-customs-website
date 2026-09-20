@@ -8,6 +8,7 @@ import { getAllBlogPosts, getBlogPostBySlug, insertBlogPost, blogPostSlugExists,
 import { getDb } from "./db";
 import { getGoogleReviews } from "./googleReviews";
 import { getInstagramFeed } from "./instagram";
+import { getGalleryRows } from "./galleryJobs";
 import { siteSettings, galleryPhotos } from "../drizzle/schema";
 import { eq, asc } from "drizzle-orm";
 
@@ -376,7 +377,7 @@ Guidelines:
     // Public: get all active gallery photos from DB (bot-uploaded)
     gallery: publicProcedure.query(async () => {
       const db = await getDb();
-      if (!db) return [];
+      if (!db) return (await getGalleryRows()) as (typeof galleryPhotos.$inferSelect)[]; // seeded photos when no database
       return db.select().from(galleryPhotos)
         .where(eq(galleryPhotos.active, 1))
         .orderBy(asc(galleryPhotos.sortOrder));
