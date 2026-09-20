@@ -87,6 +87,12 @@ async function startServer() {
     res.status(404).send("Not found");
   });
 
+  // Build assets of the old Next.js site (/_next/static/...) are gone for good:
+  // 410 tells Google to drop them from the index faster than a 404 would.
+  app.use("/_next", (_req, res) => {
+    res.status(410).type("text/plain").send("Gone");
+  });
+
   // In production: enforce canonical https://www.skylinecustomshop.com for all 4 URL variants
   // Handles: http://www., http://non-www., https://non-www., and mixed cases
   // Runs AFTER legacy redirects so those paths get a single clean hop to the canonical destination
