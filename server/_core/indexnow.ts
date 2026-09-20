@@ -3,7 +3,7 @@
  * about new or changed URLs immediately. Google does not use it. The key file is
  * served from client/public/<key>.txt.
  */
-export const INDEXNOW_KEY = "0ed1c0a4e1ed8b576c62f5d93cf46839";
+export const INDEXNOW_KEY = "38576f4b734896647704c96e87d44956";
 const HOST = "www.skylinecustomshop.com";
 
 export async function submitIndexNow(urls: string[]): Promise<{ ok: boolean; status?: number; error?: string }> {

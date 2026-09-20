@@ -4,7 +4,7 @@
  *   node scripts/indexnow.mjs                 # every URL in the live sitemap
  *   node scripts/indexnow.mjs /blog/x /faq    # specific paths
  */
-const KEY = "0ed1c0a4e1ed8b576c62f5d93cf46839";
+const KEY = "38576f4b734896647704c96e87d44956";
 const HOST = "www.skylinecustomshop.com";
 
 async function main() {

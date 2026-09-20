@@ -72,7 +72,7 @@ try {
   // Tell IndexNow search engines (Bing, DuckDuckGo, ...) about new or changed posts.
   if (changedUrls.length && !DRY) {
     try {
-      const KEY = "0ed1c0a4e1ed8b576c62f5d93cf46839";
+      const KEY = "38576f4b734896647704c96e87d44956";
       const res = await fetch("https://api.indexnow.org/indexnow", {
         method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" },
         body: JSON.stringify({ host: "www.skylinecustomshop.com", key: KEY, keyLocation: `https://www.skylinecustomshop.com/${KEY}.txt`, urlList: [...changedUrls, "https://www.skylinecustomshop.com/blog", "https://www.skylinecustomshop.com/sitemap.xml"] }),
