@@ -22,7 +22,9 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/images/blog-hero-window-tint-laws-2026_1c3
 export const absoluteUrl = (u: string) => (u.startsWith("http") ? u : `${BASE_URL}${u.startsWith("/") ? "" : "/"}${u}`);
 
 export default function SEO({ title, description, canonical, ogImage, jsonLd }: SEOProps) {
-  const fullTitle = `${title} | ${SITE_NAME}`;
+  // Google shows about 60 characters of a title. Add the brand only when it fits;
+  // long titles stand on their own (Google appends the site name in results anyway).
+  const fullTitle = title.includes("Skyline") || title.length > 47 ? title : `${title} | ${SITE_NAME}`;
   const canonicalUrl = canonical
     ? canonical.startsWith("http")
       ? canonical

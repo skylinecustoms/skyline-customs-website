@@ -40,7 +40,7 @@ export default function Faq() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="FAQ | PPF, Ceramic Coating & Window Tint Questions Answered"
+        title="FAQ: PPF, Ceramic Coating & Window Tint | Skyline Customs"
         description="Straight answers on paint protection film, ceramic coating, and window tinting in Chantilly, VA: pricing, how long each lasts, Virginia tint law, care, and warranties."
         canonical="https://www.skylinecustomshop.com/faq"
         jsonLd={[

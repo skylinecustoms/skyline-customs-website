@@ -30,10 +30,13 @@ export interface PageMeta {
   ogImage?: string;
 }
 
+/** Adds the brand to a title only when the result stays within Google's ~60-65 character title width. */
+export const withBrand = (title: string) => (title.includes("Skyline") || title.length > 47 ? title : `${title} | ${SITE_NAME}`);
+
 // Static meta map for all local landing pages and core pages
 export const STATIC_META: Record<string, PageMeta> = {
   "/": {
-    title: `${SITE_NAME} | PPF, Ceramic Coating & Window Tinting — Chantilly, VA`,
+    title: `${SITE_NAME} | PPF, Ceramic Coating & Tint in Chantilly, VA`,
     description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 140+ five-star reviews in Chantilly, VA. Free quotes.",
     canonical: `${BASE_URL}/`,
     preloadImage: "/images/hero-poster_702747e9.webp",
@@ -45,13 +48,13 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/services`,
   },
   "/services/ppf": {
-    title: `Paint Protection Film (PPF) Chantilly, VA | STEK Certified PPF Installer, Northern Virginia | ${SITE_NAME}`,
-    description: "Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Partial front, full front, and full front extended coverage in self-healing DYNOshield with a 12-year warranty. 141 five-star reviews. Free quotes, usually within the hour.",
+    title: "Paint Protection Film (PPF) in Chantilly, VA | STEK Certified",
+    description: "STEK-certified paint protection film in Chantilly, VA. Partial front, full front, and full front extended coverage in self-healing DYNOshield, 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/services/ppf`,
   },
   "/ppf-cost": {
-    title: `How Much Does PPF Cost in Northern Virginia? What Sets Your Quote | ${SITE_NAME}`,
-    description: "What determines the cost of paint protection film in Chantilly, VA and Northern Virginia: coverage level, vehicle size, matte vs gloss film, paint condition, and bundles with ceramic coating and tint. Get an exact quote within the hour.",
+    title: "How Much Does PPF Cost in Northern Virginia? | Skyline Customs",
+    description: "What sets the cost of paint protection film in Chantilly, VA: coverage level, vehicle size, matte vs gloss film, paint condition, and bundles with ceramic or tint. Exact quote within the hour.",
     canonical: `${BASE_URL}/ppf-cost`,
   },
   "/services/ceramic-coating": {
@@ -70,52 +73,52 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/reviews`,
   },
   "/faq": {
-    title: `FAQ | PPF, Ceramic Coating & Window Tint Questions Answered | ${SITE_NAME}`,
+    title: "FAQ: PPF, Ceramic Coating & Window Tint | Skyline Customs",
     description: "Straight answers on paint protection film, ceramic coating, and window tinting in Chantilly, VA: pricing, how long each lasts, Virginia tint law, care, and warranties.",
     canonical: `${BASE_URL}/faq`,
   },
   "/tesla-ppf": {
-    title: `Tesla PPF Northern Virginia | Model 3, Y, S, X & Cybertruck Paint Protection | ${SITE_NAME}`,
+    title: "Tesla PPF in Northern Virginia | Model 3, Y, S, X & Cybertruck",
     description: "Tesla paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for Model 3, Y, S, X, and Cybertruck. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/tesla-ppf`,
   },
   "/bmw-ppf": {
-    title: `BMW PPF Northern Virginia | 3 Series, 5 Series, X3, X5, iX & M Paint Protection | ${SITE_NAME}`,
+    title: "BMW PPF in Northern Virginia | 3 Series, X5, iX & M Models",
     description: "BMW paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 3 Series, M3, 5 Series, X3, X5, iX, and M models. 12-year warranty.",
     canonical: `${BASE_URL}/bmw-ppf`,
   },
   "/porsche-ppf": {
-    title: `Porsche PPF Northern Virginia | 911, Cayman, Taycan, Macan & Cayenne Paint Protection | ${SITE_NAME}`,
-    description: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front and full front extended coverage. 12-year warranty. Free quotes.",
+    title: "Porsche PPF in Northern Virginia | 911, Taycan, Macan & Cayenne",
+    description: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Taycan, Macan, and Cayenne. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/porsche-ppf`,
   },
   "/corvette-ppf": {
-    title: `Corvette PPF Northern Virginia | C8 Stingray, Z06 & E-Ray Paint Protection Film | ${SITE_NAME}`,
-    description: "Corvette paint protection film in Chantilly, VA. Full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. Free quotes.",
+    title: "Corvette PPF in Northern Virginia | C8 Stingray, Z06 & E-Ray",
+    description: "Corvette paint protection film in Chantilly, VA. Full front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/corvette-ppf`,
   },
   "/rivian-ppf": {
-    title: `Rivian PPF Northern Virginia | R1T & R1S Paint Protection Film in Chantilly, VA | ${SITE_NAME}`,
-    description: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front and full front extended coverage. 12-year warranty. Free quotes.",
+    title: "Rivian R1T & R1S PPF in Northern Virginia | Skyline Customs",
+    description: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/rivian-ppf`,
   },
   "/bronco-ppf": {
-    title: `Ford Bronco PPF Northern Virginia | Rocker, Fender & Full Front Paint Protection | ${SITE_NAME}`,
-    description: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Bronco Raptor, and Bronco Sport: full front with rocker and fender-flare coverage for trail use. 12-year warranty.",
+    title: "Ford Bronco PPF in Northern Virginia | Skyline Customs",
+    description: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Raptor, and Bronco Sport: full front plus rocker and fender coverage. 12-year warranty.",
     canonical: `${BASE_URL}/bronco-ppf`,
   },
   "/ppf-vs-ceramic-coating": {
-    title: `PPF vs Ceramic Coating: Which Do You Need? (Northern Virginia Guide) | ${SITE_NAME}`,
-    description: "Paint protection film vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers actually need, and when to do both.",
+    title: "PPF vs Ceramic Coating: Which Do You Need? | Northern Virginia",
+    description: "PPF vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers need, and when to do both.",
     canonical: `${BASE_URL}/ppf-vs-ceramic-coating`,
   },
   "/ceramic-vs-carbon-vs-dyed-tint": {
-    title: `Ceramic vs Carbon vs Dyed Window Tint: Heat Rejection, Price & Legality | ${SITE_NAME}`,
-    description: "Ceramic, carbon, and dyed window tint compared: heat rejection, UV and glare, fading, signal interference, Virginia tint law, and what each costs in Chantilly, VA. Which film is worth it.",
+    title: "Ceramic vs Carbon vs Dyed Window Tint: Which Is Worth It?",
+    description: "Ceramic, carbon, and dyed window tint compared: heat rejection, UV and glare, fading, signal interference, and Virginia tint law. Which film is worth it in Chantilly, VA.",
     canonical: `${BASE_URL}/ceramic-vs-carbon-vs-dyed-tint`,
   },
   "/videos": {
-    title: `Videos | Window Tint, PPF & Ceramic Coating Explained | ${SITE_NAME}`,
+    title: "Videos: PPF, Tint & Ceramic Coating Explained | Skyline Customs",
     description: "Short videos from Skyline Customs in Chantilly, VA: ceramic vs dyed tint, is PPF worth it, Virginia tint law, customer stories, and recent installs.",
     canonical: `${BASE_URL}/videos`,
   },
@@ -157,17 +160,17 @@ export const STATIC_META: Record<string, PageMeta> = {
   // ===== CHANTILLY VA =====
   "/ppf-chantilly-va": {
     title: `PPF Chantilly VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation in Chantilly, VA. STEK and XPEL films protect your car from rock chips and road debris. 5.0 stars. Free quotes.",
+    description: "Expert PPF installation in Chantilly, VA. Self-healing STEK film protects your car from rock chips and road debris. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-chantilly-va`,
   },
   "/ceramic-coating-chantilly-va": {
     title: `Ceramic Coating Chantilly VA | Car Detailing Near Me | ${SITE_NAME}`,
-    description: "Professional ceramic coating in Chantilly, VA. Nano-ceramic protection, hydrophobic barrier, UV defense. 5.0 stars on Google. Free quotes.",
+    description: "Ceramic coating at our Chantilly, VA shop on Walney Rd. Gtechniq 5-year and 7-year coatings with paint correction, hydrophobic gloss, and UV defense. Free quotes.",
     canonical: `${BASE_URL}/ceramic-coating-chantilly-va`,
   },
   "/window-tinting-chantilly-va": {
     title: `Window Tinting Chantilly VA | Car Tinting Near Me | ${SITE_NAME}`,
-    description: "Professional window tinting in Chantilly, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. 5.0 stars on Google. Free quotes.",
+    description: "Ceramic window tint at our Chantilly, VA shop on Walney Rd. Computer-cut film, metered for Virginia tint law, lifetime film warranty. Free quotes, same-day appointments.",
     canonical: `${BASE_URL}/window-tinting-chantilly-va`,
   },
   // ===== CENTREVILLE VA =====
@@ -543,8 +546,8 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
     if (job) {
       const svc = job.services.join(" + ");
       return {
-        title: `${job.car} ${svc} in Chantilly, VA | ${SITE_NAME}`,
-        description: `${svc} on a ${job.car} at Skyline Customs in Chantilly, VA: what we covered, why it fits this vehicle, and how the install went. STEK-certified, 12-year film warranty. Free quotes for your ${job.car}.`,
+        title: withBrand(`${job.car} ${svc} in Chantilly, VA`),
+        description: `${svc} on a ${job.car} at Skyline Customs in Chantilly, VA. What we covered and why it fits this car. STEK film, 12-year warranty. Free quotes.`,
         canonical: `${BASE_URL}/gallery/${job.slug}`,
         preloadImage: job.photoUrl,
         ogImage: job.photoUrl,
@@ -572,7 +575,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
       if (posts.length > 0) {
         const post = posts[0];
         return {
-          title: `${post.title} | ${SITE_NAME}`,
+          title: withBrand(post.title),
           description: post.excerpt ?? `Read this article from Skyline Customs in Chantilly, VA.`,
           canonical: `${BASE_URL}/blog/${slug}`,
           preloadImage: post.heroImage ?? undefined,
@@ -585,7 +588,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
     const staticPost = staticBlogPosts.find((p) => p.slug === slug);
     if (staticPost) {
       return {
-        title: `${staticPost.title} | ${SITE_NAME}`,
+        title: withBrand(staticPost.title),
         description: staticPost.excerpt,
         canonical: `${BASE_URL}/blog/${slug}`,
         preloadImage: staticPost.heroImage,
@@ -608,6 +611,12 @@ export const STATIC_PATHS: string[] = Object.keys(STATIC_META).filter(
 );
 
 // Paths handled by client-side redirects or utility routes in App.tsx
+// Google shows ~60 characters of a title: drop the brand suffix from static titles that run long.
+for (const m of Object.values(STATIC_META)) {
+  const suffix = ` | ${SITE_NAME}`;
+  if (m.title.endsWith(suffix) && m.title.length > 65) m.title = m.title.slice(0, -suffix.length);
+}
+
 const OTHER_KNOWN_PATHS = new Set([
   "/pricing", "/configure", "/contact-us", "/booking-page", "/home", "/404", "/privacy-policy-112467",
 ]);

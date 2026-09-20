@@ -64,8 +64,8 @@ export default function ServicePPF() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Paint Protection Film (PPF) Chantilly, VA | STEK Certified PPF Installer, Northern Virginia"
-        description="Paint protection film in Chantilly, VA from Northern Virginia's STEK-certified PPF installer. Partial front, full front, and full front extended coverage in self-healing DYNOshield with a 12-year warranty. 141 five-star reviews. Free quotes, usually within the hour."
+        title="Paint Protection Film (PPF) in Chantilly, VA | STEK Certified"
+        description="STEK-certified paint protection film in Chantilly, VA. Partial front, full front, and full front extended coverage in self-healing DYNOshield, 12-year warranty. Free quotes."
         canonical={`${BASE_URL}/services/ppf`}
         jsonLd={[
           {

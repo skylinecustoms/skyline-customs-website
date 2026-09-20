@@ -20,7 +20,7 @@ export default function Videos() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Videos | Window Tint, PPF & Ceramic Coating Explained"
+        title="Videos: PPF, Tint & Ceramic Coating Explained | Skyline Customs"
         description="Short videos from Skyline Customs in Chantilly, VA: ceramic vs dyed tint, is PPF worth it, Virginia tint law, customer stories, and recent installs."
         canonical="https://www.skylinecustomshop.com/videos"
         jsonLd={[

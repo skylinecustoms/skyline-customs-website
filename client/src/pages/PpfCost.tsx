@@ -54,8 +54,8 @@ export default function PpfCost() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white">
       <SEO
-        title="How Much Does PPF Cost in Northern Virginia? What Sets Your Quote"
-        description="What determines the cost of paint protection film in Chantilly, VA and Northern Virginia: coverage level, vehicle size, matte vs gloss film, paint condition, and bundles with ceramic coating and tint. Get an exact quote within the hour."
+        title="How Much Does PPF Cost in Northern Virginia? | Skyline Customs"
+        description="What sets the cost of paint protection film in Chantilly, VA: coverage level, vehicle size, matte vs gloss film, paint condition, and bundles with ceramic or tint. Exact quote within the hour."
         canonical={canonical}
         jsonLd={[
           {

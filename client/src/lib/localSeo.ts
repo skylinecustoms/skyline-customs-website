@@ -361,7 +361,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     badges: ["5.0 ★ Google Rating", "Free Quotes", "Lifetime Warranty", "STEK DYNOshield Film"],
     seoTitle: (city) => `PPF ${city} VA | Paint Protection Film Near Me`,
     seoDescription: (city) =>
-      `Top-rated paint protection film installer serving ${city}, VA. Self-healing STEK PPF, rock chip protection, and full-front or full-front-extended coverage. Free quotes. 5.0 stars on Google.`,
+      `Paint protection film for ${city}, VA drivers. Self-healing STEK PPF, rock chip protection, full front or full front extended coverage. 5.0 stars on Google. Free quotes.`,
     heroLabel: "Paint Protection Film",
     heroHeading: "PPF NEAR",
     heroText: (c) => `Northern Virginia's top-rated PPF installer, ${c.heroDrive}. Protect your paint from rock chips and road debris with self-healing film.`,

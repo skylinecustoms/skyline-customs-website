@@ -9,6 +9,7 @@ import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 import { pathToFileURL } from "node:url";
 import { getBlogPostBySlug } from "../db";
 import { getGalleryRows } from "../galleryJobs";
+import { getActivePromoByActive, getPromoSlots } from "../db";
 
 /**
  * Server-side rendering of the React app (dist/ssr/entry-server.js).
@@ -16,7 +17,7 @@ import { getGalleryRows } from "../galleryJobs";
  * live bits (promo, gallery, reviews, feeds) load on the client after hydration.
  * Set SSR=0 to serve the empty shell instead.
  */
-type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[] }) => Promise<{ html: string; state: string }> };
+type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown }) => Promise<{ html: string; state: string }> };
 let renderer: Promise<Renderer | null> | null = null;
 const ssrCache = new Map<string, { html: string; state: string; at: number }>();
 const SSR_TTL_MS = 10 * 60 * 1000;
@@ -48,9 +49,14 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
   const hit = ssrCache.get(urlPath);
   if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit;
   try {
-    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[] } = {};
+    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown } = {};
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
     if (/^\/gallery(\/|$)|^\/services\/ppf$|-ppf$|^\/ppf-/.test(urlPath)) preload.gallery = await getGalleryRows().catch(() => undefined);
+    if (urlPath === "/promo" || urlPath === "/") {
+      preload.promo = await getActivePromoByActive()
+        .then(async (p) => (p ? { ...p, slots: await getPromoSlots(p.id) } : null))
+        .catch(() => undefined);
+    }
     const blog = urlPath.match(/^\/blog\/([a-z0-9-]+)$/);
     if (blog) {
       const post = await getBlogPostBySlug(blog[1]).catch(() => null);
@@ -148,9 +154,14 @@ export function serveStatic(app: Express) {
 
     // Canonicalize trailing slashes: /ppf-chantilly-va/ -> /ppf-chantilly-va
     const [pathOnly, query] = req.originalUrl.split("?");
+    const origin = process.env.NODE_ENV === "development" ? "" : "https://www.skylinecustomshop.com";
     if (pathOnly.length > 1 && pathOnly.endsWith("/")) {
       const target = pathOnly.replace(/\/+$/, "") + (query ? `?${query}` : "");
-      return res.redirect(301, target);
+      return res.redirect(301, `${origin}${target}`);
+    }
+    // /Services/PPF -> /services/ppf when the lowercase page exists (one URL per page for Google)
+    if (pathOnly !== pathOnly.toLowerCase() && (await isKnownPath(pathOnly.toLowerCase()))) {
+      return res.redirect(301, `${origin}${pathOnly.toLowerCase()}${query ? `?${query}` : ""}`);
     }
 
     try {

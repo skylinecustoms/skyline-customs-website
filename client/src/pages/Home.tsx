@@ -562,7 +562,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)] text-[oklch(0.95_0.005_85)]">
       <SEO
-        title="Skyline Custom Shop — PPF, Ceramic Coating & Window Tinting in Chantilly, VA"
+        title="Skyline Customs | PPF, Ceramic Coating & Tint in Chantilly, VA"
         description="Skyline Custom Shop in Chantilly, VA offers professional paint protection film (PPF), ceramic coating, and window tinting. STEK DYNOshield certified installer. Get a free quote today."
         canonical="https://www.skylinecustomshop.com/"
       />

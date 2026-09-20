@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "window-tinting-near-me-chantilly-va",
     title: "Window Tinting Near Me: Why Chantilly, VA Drivers Choose Skyline Customs",
-    excerpt: "Searching \"window tinting near me\" in Chantilly, VA? Here is what separates a ceramic tint install that lasts from a bargain job, how Virginia's tint law applies to your car, and why 140+ Northern Virginia drivers left us five stars.",
+    excerpt: "Searching \"window tinting near me\" in Chantilly, VA? What separates a ceramic tint that lasts from a bargain job, how Virginia tint law applies, and why 140+ drivers left five stars.",
     date: "April 23, 2026",
     updated: "September 19, 2026",
     readTime: "6 min read",
@@ -73,7 +73,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "virginia-window-tint-laws-2026",
     title: "Virginia Window Tint Laws 2026: What's Legal and What's Not",
-    excerpt: "Virginia's 2026 window tint law explained: legal VLT for sedans, SUVs, and trucks, reflectivity limits, medical exemptions, fines, and how Skyline Custom Shop in Chantilly, VA keeps your tint inspection-legal.",
+    excerpt: "Virginia's 2026 window tint law explained: legal VLT for sedans, SUVs, and trucks, reflectivity limits, medical exemptions, fines, and how we keep your tint inspection-legal.",
     date: "March 23, 2026",
     updated: "September 19, 2026",
     readTime: "5 min read",
@@ -109,7 +109,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "spring-ceramic-coating-northern-virginia",
     title: "Spring Prep: Why Ceramic Coating Is a Must-Have for Your Car in Northern Virginia",
-    excerpt: "Pollen, acid rain, leftover road salt, and stronger sun hit Northern Virginia paint every spring. Here is how a professional Gtechniq ceramic coating protects your car, how long it lasts, and why pairing it with PPF is the smart move.",
+    excerpt: "Pollen, acid rain, road salt, and stronger sun hit Northern Virginia paint every spring. How a Gtechniq ceramic coating protects your car, how long it lasts, and why to pair it with PPF.",
     date: "March 2, 2026",
     updated: "September 19, 2026",
     readTime: "6 min read",
@@ -153,7 +153,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "ppf-paint-protection-film-northern-virginia",
     title: "Paint Protection Film (PPF) in Northern Virginia: Is It Worth It?",
-    excerpt: "PPF is the only product that stops rock chips. We break down what it protects, which coverage makes sense for Northern Virginia highways, how long STEK film lasts, and how to decide whether full front PPF is worth it for your car.",
+    excerpt: "PPF is the only product that stops rock chips. What it protects, which coverage fits Northern Virginia highways, how long STEK film lasts, and whether full front PPF is worth it.",
     date: "March 5, 2026",
     updated: "September 19, 2026",
     readTime: "7 min read",

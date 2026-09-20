@@ -30,7 +30,7 @@ const shared = {
 export const VEHICLE_BRANDS: VehicleBrand[] = [
   {
     slug: "bmw", name: "BMW", headline: "PPF",
-    seoTitle: "BMW PPF Northern Virginia | 3 Series, 5 Series, X3, X5, iX & M Paint Protection",
+    seoTitle: "BMW PPF in Northern Virginia | 3 Series, X5, iX & M Models",
     seoDescription: "BMW paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 3 Series, M3, 5 Series, X3, X5, iX, and M models. 12-year warranty.",
     intro: "BMW's modern clear coat is thin, the front bumpers are large and low, and the kidney grilles and lower intakes take the brunt of every highway mile on I-66 and the Toll Road. Film on the front end is the single most common request we get from BMW owners in Northern Virginia, from M340i daily drivers to iX EVs.",
     photoMatch: /bmw/i,
@@ -57,8 +57,8 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   },
   {
     slug: "porsche", name: "Porsche", headline: "PPF",
-    seoTitle: "Porsche PPF Northern Virginia | 911, Cayman, Taycan, Macan & Cayenne Paint Protection",
-    seoDescription: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Boxster, Taycan, Macan, and Cayenne. Full front and full front extended coverage. 12-year warranty. Free quotes.",
+    seoTitle: "Porsche PPF in Northern Virginia | 911, Taycan, Macan & Cayenne",
+    seoDescription: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Taycan, Macan, and Cayenne. 12-year warranty. Free quotes.",
     intro: "Porsche owners in Northern Virginia drive their cars, whether that means a Cayenne on the Beltway every day, a 911 to Skyline Drive on Sunday, or a GT car to Summit Point for a track day. Wide front bumpers, exposed radiator intakes, and painted rocker panels mean the film needs to cover more than a partial kit does, and most Porsche customers choose full front with rockers.",
     photoMatch: /porsche/i,
     videoIds: ["ZvVdjXH06ug"],
@@ -84,8 +84,8 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   },
   {
     slug: "corvette", name: "Corvette", headline: "PPF",
-    seoTitle: "Corvette PPF Northern Virginia | C8 Stingray, Z06 & E-Ray Paint Protection Film",
-    seoDescription: "Corvette paint protection film in Chantilly, VA. Full-front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing with a 12-year warranty. Free quotes.",
+    seoTitle: "Corvette PPF in Northern Virginia | C8 Stingray, Z06 & E-Ray",
+    seoDescription: "Corvette paint protection film in Chantilly, VA. Full front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing. 12-year warranty. Free quotes.",
     intro: "The mid-engine C8 puts a low, wide nose and a front splitter inches off the pavement, right where every pebble on I-66 and Route 28 lands. We've filmed C8 Stingrays, Z06s, and E-Rays in the Chantilly bay, and Corvette owners are the group most likely to protect the front end from day one.",
     photoMatch: /corvette|c8/i,
     videoIds: ["euOKAH_QStE", "U0hjC5pdMZM"],
@@ -109,8 +109,8 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   },
   {
     slug: "rivian", name: "Rivian", headline: "PPF",
-    seoTitle: "Rivian PPF Northern Virginia | R1T & R1S Paint Protection Film in Chantilly, VA",
-    seoDescription: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. Full front and full front extended coverage. 12-year warranty. Free quotes.",
+    seoTitle: "Rivian R1T & R1S PPF in Northern Virginia | Skyline Customs",
+    seoDescription: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. 12-year warranty. Free quotes.",
     intro: "Rivians get used the way they were designed to be: gravel roads out past Leesburg, trailheads in Shenandoah, and daily commutes on the Dulles Toll Road. The tall front end, wide fenders, and painted rocker area on the R1T and R1S take constant abuse, and because Rivian paint is only available in a handful of colors, keeping the original finish matters for resale.",
     photoMatch: /rivian/i,
     videoIds: [],
@@ -133,8 +133,8 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   },
   {
     slug: "bronco", name: "Bronco", headline: "PPF",
-    seoTitle: "Ford Bronco PPF Northern Virginia | Rocker, Fender & Full Front Paint Protection",
-    seoDescription: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Bronco Raptor, and Bronco Sport: full front with rocker and fender-flare coverage for trail use. 12-year warranty.",
+    seoTitle: "Ford Bronco PPF in Northern Virginia | Skyline Customs",
+    seoDescription: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Raptor, and Bronco Sport: full front plus rocker and fender coverage. 12-year warranty.",
     intro: "Broncos live two lives in Northern Virginia: commuting on I-66 during the week and running trails, beaches, and gravel on the weekend. Fender flares, rocker panels, and the flat hood take the abuse, and with the doors and roof coming off, the door edges and jambs get more wear than on any other vehicle we see. We've filmed and tinted Broncos in the Chantilly bay, and the same STEK DYNOshield film covers all of it.",
     photoMatch: /bronco/i,
     videoIds: ["FsQ8yZxh4Es"],

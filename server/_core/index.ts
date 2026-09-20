@@ -64,6 +64,31 @@ async function startServer() {
     "/services/paint-protection-film": "/services/ppf",
     "/services/wrap": "/services",
     "/services/wraps": "/services",
+    // Routes of the previous (Next.js) site and common hand-typed URLs
+    "/ceramic-coating": "/services/ceramic-coating",
+    "/quote": "/get-a-quote",
+    "/quotes": "/get-a-quote",
+    "/estimate": "/get-a-quote",
+    "/book": "/get-a-quote",
+    "/booking": "/get-a-quote",
+    "/schedule": "/get-a-quote",
+    "/appointment": "/get-a-quote",
+    "/ppf": "/services/ppf",
+    "/paint-protection-film": "/services/ppf",
+    "/clear-bra": "/services/ppf",
+    "/window-tinting": "/services/window-tinting",
+    "/window-tint": "/services/window-tinting",
+    "/tint": "/services/window-tinting",
+    "/tinting": "/services/window-tinting",
+    "/about-us": "/about",
+    "/faqs": "/faq",
+    "/testimonials": "/reviews",
+    "/portfolio": "/gallery",
+    "/our-work": "/gallery",
+    "/photos": "/gallery",
+    "/blogs": "/blog",
+    "/news": "/blog",
+    "/articles": "/blog",
   };
   // Gallery photos were renamed to descriptive file names; keep the old upload URLs working.
   for (const [from, to] of Object.entries(GALLERY_IMAGE_REDIRECTS)) app.get(from, (_req, res) => res.redirect(301, to));
@@ -113,7 +138,10 @@ async function startServer() {
       // Redirect any non-canonical form to https://www.skylinecustomshop.com
       if (isSkyline && (!isHttps || !isWww)) {
         const canonicalHost = isWww ? host : `www.${host}`;
-        return res.redirect(301, `https://${canonicalHost}${req.url}`);
+        // Also drop a trailing slash here so a non-canonical URL needs one hop, not two.
+        const [p, q] = req.url.split("?");
+        const path = p.length > 1 ? p.replace(/\/+$/, "") : p;
+        return res.redirect(301, `https://${canonicalHost}${path}${q ? `?${q}` : ""}`);
       }
       next();
     });

@@ -117,7 +117,7 @@ export default function GalleryJob() {
   const more = related.length < 4 ? jobs.filter((j) => j.slug !== job.slug && !related.includes(j)).slice(0, 4 - related.length) : [];
   const relatedJobs = [...related, ...more];
   const faqs = FAQS(job);
-  const description = `${services} on a ${job.car} at Skyline Customs in Chantilly, VA: what we covered, why it fits this vehicle, and how the install went. STEK-certified, 12-year film warranty. Free quotes for your ${job.car}.`;
+  const description = `${services} on a ${job.car} at Skyline Customs in Chantilly, VA. What we covered and why it fits this car. STEK film, 12-year warranty. Free quotes.`;
   const dateCreated = job.createdAt ? new Date(job.createdAt).toISOString().slice(0, 10) : undefined;
 
   return (

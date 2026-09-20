@@ -5,8 +5,8 @@ import type { ComparisonData } from "@/components/ComparisonPage";
 
 export const PPF_VS_CERAMIC: ComparisonData = {
   path: "/ppf-vs-ceramic-coating",
-  title: "PPF vs Ceramic Coating: Which Do You Need? (Northern Virginia Guide)",
-  description: "Paint protection film vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers actually need, and when to do both.",
+  title: "PPF vs Ceramic Coating: Which Do You Need? | Northern Virginia",
+  description: "PPF vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers need, and when to do both.",
   eyebrow: "PPF vs ceramic coating",
   h1: "PPF VS CERAMIC COATING: WHICH ONE DO YOU ACTUALLY NEED?",
   intro: "They get sold as if they were rivals, but paint protection film and ceramic coating solve different problems. Film is a physical barrier that stops rock chips and scratches. A coating is a chemical layer that makes paint glossier, slicker, and easier to wash. This is how we explain the difference to customers in our Chantilly bay every week, with the same numbers we quote them.",
@@ -30,7 +30,7 @@ export const PPF_VS_CERAMIC: ComparisonData = {
   verdicts: [
     { title: "Get PPF if…", body: "You commute on I-66, Route 28, or the Dulles Toll Road, you just bought a new car, or you already have chips on the bumper and hood. Nothing else stops the next one.", href: "/services/ppf", cta: "PPF packages" },
     { title: "Get ceramic if…", body: "The paint is in good shape, you mostly drive local, and what you want is gloss and a car that stays clean with a quick rinse instead of a weekend of waxing.", href: "/services/ceramic-coating", cta: "Coating packages" },
-    { title: "Get both if…", body: "You plan to keep the car three years or more. Film on the front, coating on everything. This month every full-front PPF at Skyline includes a free full-car ceramic coating.", href: "/promo", cta: "This month's special" },
+    { title: "Get both if…", body: "You plan to keep the car three years or more. Film on the front, coating on everything. Ask about this month's special when you request a quote; we often bundle full front PPF with a ceramic coating.", href: "/promo", cta: "This month's special" },
   ],
   faqs: [
     { q: "Does ceramic coating protect against rock chips?", a: "No. A ceramic coating is a few microns thick and cannot absorb an impact. It resists chemicals, UV, and light marring. If chips are the problem, you need paint protection film." },
@@ -46,15 +46,15 @@ export const PPF_VS_CERAMIC: ComparisonData = {
     { label: "Ceramic coating packages", href: "/services/ceramic-coating" },
     { label: "Ceramic vs carbon vs dyed tint", href: "/ceramic-vs-carbon-vs-dyed-tint" },
     { label: "Tesla PPF", href: "/tesla-ppf" },
-    { label: "Pricing", href: "/pricing" },
+    { label: "Get a Quote", href: "/get-a-quote" },
     { label: "FAQ", href: "/faq" },
   ],
 };
 
 export const TINT_COMPARISON: ComparisonData = {
   path: "/ceramic-vs-carbon-vs-dyed-tint",
-  title: "Ceramic vs Carbon vs Dyed Window Tint: Heat Rejection, Price & Legality",
-  description: "Ceramic, carbon, and dyed window tint compared: heat rejection, UV and glare, fading, signal interference, Virginia tint law, and what each costs in Chantilly, VA. Which film is worth it.",
+  title: "Ceramic vs Carbon vs Dyed Window Tint: Which Is Worth It?",
+  description: "Ceramic, carbon, and dyed window tint compared: heat rejection, UV and glare, fading, signal interference, and Virginia tint law. Which film is worth it in Chantilly, VA.",
   eyebrow: "Window tint compared",
   h1: "CERAMIC VS CARBON VS DYED TINT: WHAT YOU'RE ACTUALLY PAYING FOR",
   intro: "Two cars can look identically dark and feel completely different in July traffic on Route 28. The shade is the same; the film is not. Dyed film blocks light. Carbon film blocks some heat. Ceramic film blocks most of the infrared heat without going darker or interfering with your phone, GPS, or Tesla's connectivity. Here is what separates them, and why we only install ceramic.",
@@ -75,7 +75,7 @@ export const TINT_COMPARISON: ComparisonData = {
     { label: "Warranty", cells: { dyed: { text: "Often 1–3 years, if any." }, carbon: { text: "Usually limited lifetime on the film only." }, ceramic: { text: "GeoShield nationwide lifetime warranty on film and labor at Skyline." } } },
   ],
   verdicts: [
-    { title: "Skip dyed tint", body: "It is the film that turns purple and bubbles on cars you see around Fairfax County. The savings disappear the first time it has to be stripped and redone, which costs more than tinting it right once.", href: "/services/window-tinting", cta: "See ceramic pricing" },
+    { title: "Skip dyed tint", body: "It is the film that turns purple and bubbles on cars you see around Fairfax County. The savings disappear the first time it has to be stripped and redone, which costs more than tinting it right once.", href: "/services/window-tinting", cta: "See ceramic tint options" },
     { title: "Carbon: fine, but ask why", body: "Carbon is a reasonable middle option at a shop that carries it. The step up to ceramic is small on a sedan, and the heat difference on a black interior in August is not small.", href: "/faq", cta: "Tint FAQ" },
     { title: "Ceramic: what we install", body: "Every car at Skyline gets GeoShield Pro Nano Ceramic. Real IR rejection, signal-safe for Teslas and EVs, and a lifetime warranty backed by us in Chantilly. Add the windshield for the full effect.", href: "/get-a-quote?service=tint", cta: "Get a tint quote" },
   ],
@@ -93,7 +93,7 @@ export const TINT_COMPARISON: ComparisonData = {
     { label: "PPF vs ceramic coating", href: "/ppf-vs-ceramic-coating" },
     { label: "Tint FAQ", href: "/faq" },
     { label: "Videos", href: "/videos" },
-    { label: "Pricing", href: "/pricing" },
+    { label: "Get a Quote", href: "/get-a-quote" },
     { label: "Chantilly window tinting", href: "/window-tinting-chantilly-va" },
   ],
 };
