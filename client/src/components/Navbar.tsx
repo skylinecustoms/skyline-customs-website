@@ -176,7 +176,7 @@ export default function Navbar() {
             {/* Phone + Book Now stacked group */}
             <div className="hidden lg:flex items-center gap-3 2xl:gap-4">
               <div className="hidden 2xl:flex flex-col items-end leading-none gap-0.5">
-                <span className="block font-mono-brand text-[10px] text-[oklch(0.45_0.008_285)] uppercase tracking-widest">
+                <span className="block font-mono-brand text-[10px] text-[oklch(0.66_0.008_285)] uppercase tracking-widest">
                   Call Us
                 </span>
                 <a

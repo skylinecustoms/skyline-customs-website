@@ -25,7 +25,7 @@ export default function TermsOfService() {
             TERMS OF<br />
             <span className="text-brand-orange">SERVICE</span>
           </h1>
-          <p className="text-[oklch(0.45_0.008_285)] text-sm">Last updated: May 2026</p>
+          <p className="text-[oklch(0.66_0.008_285)] text-sm">Last updated: May 2026</p>
         </div>
       </section>
 

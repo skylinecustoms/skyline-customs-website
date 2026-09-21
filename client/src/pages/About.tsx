@@ -79,15 +79,15 @@ export default function About() {
               <div className="flex gap-8">
                 <div>
                   <div className="font-display text-4xl text-brand-orange">140+</div>
-                  <div className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest">5-Star Reviews</div>
+                  <div className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)] uppercase tracking-widest">5-Star Reviews</div>
                 </div>
                 <div>
                   <div className="font-display text-4xl text-brand-orange">8+</div>
-                  <div className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest">Years in Business</div>
+                  <div className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)] uppercase tracking-widest">Years in Business</div>
                 </div>
                 <div>
                   <div className="font-display text-4xl text-brand-orange">10+</div>
-                  <div className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest">Year Warranties</div>
+                  <div className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)] uppercase tracking-widest">Year Warranties</div>
                 </div>
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function About() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[oklch(0.65_0.008_85)] text-sm">Weekends</span>
-                      <span className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)]">Closed</span>
+                      <span className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)]">Closed</span>
                     </div>
                   </div>
                 </div>

@@ -200,7 +200,7 @@ export default function Services() {
               <p className="text-[oklch(0.65_0.008_85)] text-sm leading-relaxed">Ceramic window film blocks 99% of UV and most of the heat that turns a parked car into an oven, without the signal problems of metallic tint. We meter every window so the result is legal in Virginia: 50% on the front doors, 35% behind them on sedans, any darkness behind the front doors on SUVs and trucks. A rear package takes a few hours and fits the same day as a PPF install. Compare films in our <Link href="/ceramic-vs-carbon-vs-dyed-tint" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">ceramic vs carbon vs dyed guide</Link>.</p>
             </div>
           </div>
-          <p className="text-[oklch(0.45_0.008_285)] text-sm mt-6">Every service is done at our shop at 4215 Walney Rd in Chantilly, VA, by STEK-certified installers, and every quote is written for your exact year, make, model, and coverage. Browse <Link href="/gallery" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">recent jobs</Link> to see the work.</p>
+          <p className="text-[oklch(0.66_0.008_285)] text-sm mt-6">Every service is done at our shop at 4215 Walney Rd in Chantilly, VA, by STEK-certified installers, and every quote is written for your exact year, make, model, and coverage. Browse <Link href="/gallery" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">recent jobs</Link> to see the work.</p>
         </div>
       </section>
 

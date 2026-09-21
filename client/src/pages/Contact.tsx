@@ -184,14 +184,14 @@ export default function Contact() {
                     <p className={labelClass}>Hours</p>
                     <div className="space-y-1">
                       <p className="text-[oklch(0.75_0.008_85)] text-sm">Mon–Fri: 9:00 AM – 6:00 PM</p>
-                      <p className="text-[oklch(0.45_0.008_285)] text-sm">Weekends: Closed</p>
+                      <p className="text-[oklch(0.66_0.008_285)] text-sm">Weekends: Closed</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="border-t border-[oklch(0.20_0.006_285)] pt-6">
-                <p className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)] uppercase tracking-widest mb-4">
+                <p className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)] uppercase tracking-widest mb-4">
                   Follow Us
                 </p>
                 <div className="flex gap-3">
@@ -413,7 +413,7 @@ export default function Contact() {
               <li><span className="text-brand-orange font-semibold">From Route 50 and Fairfax:</span> head west on Route 50, turn right on Walney Rd, and follow it north past the Ellanor C. Lawrence Park entrance.</li>
               <li><span className="text-brand-orange font-semibold">From Loudoun and Ashburn:</span> Route 28 south or the Greenway to Route 28, then Walney Rd. About twenty minutes from Broadlands.</li>
             </ul>
-            <p className="text-[oklch(0.45_0.008_285)] text-sm mt-6">
+            <p className="text-[oklch(0.66_0.008_285)] text-sm mt-6">
               Serving Chantilly, Centreville, Herndon, Reston, Fairfax, Ashburn, Sterling, Manassas, and all of Northern Virginia. See our <Link href="/service-areas" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">service areas</Link> for directions from your city.
             </p>
           </div>

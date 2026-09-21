@@ -222,8 +222,8 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
       <div className="flex items-center gap-3 pt-3 border-t border-zinc-800">
         <div
           aria-hidden="true"
-          className="w-10 h-10 rounded-full flex items-center justify-center text-black text-sm font-bold shrink-0"
-          style={{ backgroundColor: review.avatarColor }}
+          className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm border-2 bg-[#111] font-bold shrink-0"
+          style={{ borderColor: review.avatarColor }}
         >
           {review.initials}
         </div>

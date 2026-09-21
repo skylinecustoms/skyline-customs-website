@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
             PRIVACY<br />
             <span className="text-brand-orange">POLICY</span>
           </h1>
-          <p className="text-[oklch(0.45_0.008_285)] text-sm">Last updated: February 2026</p>
+          <p className="text-[oklch(0.66_0.008_285)] text-sm">Last updated: February 2026</p>
         </div>
       </section>
 

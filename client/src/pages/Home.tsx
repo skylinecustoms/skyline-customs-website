@@ -812,20 +812,20 @@ export default function Home() {
           <h2 className="font-display text-5xl md:text-7xl text-white leading-none mb-6 tracking-tight">
             READY TO<br />PROTECT YOUR CAR?
           </h2>
-          <p className="text-orange-100 text-lg md:text-xl mb-10 max-w-xl mx-auto">
+          <p className="text-black/80 text-lg md:text-xl mb-10 max-w-xl mx-auto">
             Get a custom quote in under 2 minutes. No commitment required.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/get-a-quote"
-              className="flex items-center justify-center gap-3 bg-white text-brand-orange font-display text-lg tracking-widest px-10 py-5 hover:bg-zinc-100 transition-all duration-200 hover:scale-[1.02] group"
+              className="flex items-center justify-center gap-3 bg-white text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-zinc-100 transition-all duration-200 hover:scale-[1.02] group"
             >
               GET A FREE QUOTE
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <a
               href="tel:+17037754383"
-              className="flex items-center justify-center gap-3 border-2 border-white text-white font-display text-lg tracking-widest px-10 py-5 hover:bg-white hover:text-brand-orange transition-colors"
+              className="flex items-center justify-center gap-3 border-2 border-black text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-white hover:text-brand-orange transition-colors"
             >
               <Phone className="w-5 h-5" />
               (703) 775-4383

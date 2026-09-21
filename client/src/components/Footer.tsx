@@ -143,9 +143,9 @@ export default function Footer() {
               </li>
             </ul>
             <div className="mt-5">
-              <p className="font-mono-brand text-xs text-[oklch(0.40_0.008_285)] uppercase tracking-widest mb-1">Hours</p>
+              <p className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)] uppercase tracking-widest mb-1">Hours</p>
               <p className="text-[oklch(0.66_0.01_285)] text-sm">Mon–Fri: 9AM – 6PM</p>
-              <p className="text-[oklch(0.40_0.008_285)] text-sm">Weekends: Closed</p>
+              <p className="text-[oklch(0.66_0.008_285)] text-sm">Weekends: Closed</p>
             </div>
           </div>
         </div>
@@ -154,14 +154,14 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-[oklch(0.15_0.005_285)]">
         <div className="container py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[oklch(0.40_0.008_285)] font-mono-brand text-xs">
+          <p className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs">
             © 2026 Skyline Customs. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy-policy" className="text-[oklch(0.40_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
+            <Link href="/privacy-policy" className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" className="text-[oklch(0.40_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
+            <Link href="/terms-of-service" className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
               Terms of Service
             </Link>
           </div>

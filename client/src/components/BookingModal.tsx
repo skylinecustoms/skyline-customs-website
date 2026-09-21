@@ -142,7 +142,7 @@ export default function BookingModal({ isOpen, service, onClose }: BookingModalP
           </div>
           <button
             onClick={onClose}
-            className="text-[oklch(0.45_0.008_285)] hover:text-[oklch(0.96_0.008_85)] transition-colors p-1"
+            className="text-[oklch(0.66_0.008_285)] hover:text-[oklch(0.96_0.008_85)] transition-colors p-1"
             aria-label="Close"
           >
             <X size={22} />
@@ -164,10 +164,10 @@ export default function BookingModal({ isOpen, service, onClose }: BookingModalP
                 >
                   {/* Number + Icon row */}
                   <div className="flex items-center justify-between">
-                    <span className="font-mono-brand text-[10px] text-[oklch(0.40_0.008_285)] tracking-widest">
+                    <span className="font-mono-brand text-[10px] text-[oklch(0.66_0.008_285)] tracking-widest">
                       {opt.number}
                     </span>
-                    <span className="text-[oklch(0.40_0.008_285)] group-hover:text-brand-orange transition-colors">
+                    <span className="text-[oklch(0.66_0.008_285)] group-hover:text-brand-orange transition-colors">
                       {opt.icon}
                     </span>
                   </div>

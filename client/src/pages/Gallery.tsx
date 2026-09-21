@@ -168,7 +168,7 @@ export default function Gallery() {
                       {item.vehicle}
                     </p>
                     <div className="flex items-center justify-between mt-1">
-                      <p className="font-mono-brand text-xs text-[oklch(0.45_0.008_285)]">
+                      <p className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)]">
                         {item.service}
                       </p>
                       <span className="font-mono-brand text-xs text-brand-orange">
