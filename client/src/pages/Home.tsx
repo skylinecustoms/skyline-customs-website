@@ -8,6 +8,8 @@ import { useBooking } from "@/contexts/BookingContext";
 import type { BookingService } from "@/components/BookingModal";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
+import BrandMarquee from "@/components/BrandMarquee";
+import { SUPPLIERS, VEHICLE_MAKES } from "@shared/brands";
 const VideoSection = lazy(() => import("@/components/VideoSection"));
 const InstagramSection = lazy(() => import("@/components/InstagramSection"));
 
@@ -565,6 +567,14 @@ export default function Home() {
         title="Skyline Customs | PPF, Ceramic Coating & Tint in Chantilly, VA"
         description="Skyline Custom Shop in Chantilly, VA offers professional paint protection film (PPF), ceramic coating, and window tinting. STEK DYNOshield certified installer. Get a free quote today."
         canonical="https://www.skylinecustomshop.com/"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Vehicle makes protected at Skyline Custom Shop, Chantilly VA",
+            "itemListElement": VEHICLE_MAKES.map((m, i) => ({ "@type": "ListItem", "position": i + 1, "name": m.name, "url": `https://www.skylinecustomshop.com${m.href}` })),
+          },
+        ]}
       />
       <Navbar />
 
@@ -643,6 +653,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── SUPPLIERS (certified installer logos) ── */}
+      <section className="py-14 bg-[oklch(0.10_0.005_285)] border-b border-[oklch(0.18_0.006_285)]" aria-labelledby="suppliers-heading">
+        <div className="container max-w-6xl mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+          <div>
+            <p className="text-brand-orange text-xs font-bold tracking-[0.3em] uppercase mb-2">What we install</p>
+            <h2 id="suppliers-heading" className="font-display text-3xl md:text-4xl text-white tracking-wide">CERTIFIED INSTALLER FOR THE FILMS AND COATINGS WE TRUST</h2>
+          </div>
+          <p className="text-[oklch(0.55_0.008_285)] text-sm max-w-md">STEK and PURE PPF paint protection film, Gtechniq ceramic coatings, and GeoShield ceramic window film, all installed at our Chantilly, VA shop by trained technicians.</p>
+        </div>
+        <BrandMarquee items={SUPPLIERS} tone="light" duration={30} ariaLabel="Brands Skyline Customs installs" />
+      </section>
+
       {/* ── SERVICES ─────────────────────────────────────────────────────────── */}
       <section className="py-32 bg-[oklch(0.10_0.005_285)]">
         <div className="container max-w-6xl">
@@ -690,6 +712,18 @@ export default function Home() {
 
       {/* ── RECENT CARS (social proof from last month's promo) ──────────────── */}
       <RecentCarsSection />
+
+      {/* ── VEHICLE MAKES (from the gallery) ── */}
+      <section className="py-14 bg-[#080808] border-t border-zinc-900" aria-labelledby="makes-heading">
+        <div className="container max-w-6xl mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+          <div>
+            <p className="text-brand-orange text-xs font-bold tracking-[0.3em] uppercase mb-2">From the gallery</p>
+            <h2 id="makes-heading" className="font-display text-3xl md:text-4xl text-white tracking-wide">CARS WE'VE PROTECTED</h2>
+          </div>
+          <p className="text-zinc-500 text-sm max-w-md">Every make below is a real install from our <Link href="/gallery" className="text-brand-orange hover:underline">gallery</Link>. Tap a logo to see that car's job page or its dedicated PPF guide.</p>
+        </div>
+        <BrandMarquee items={VEHICLE_MAKES} tone="dark" duration={60} ariaLabel="Vehicle makes protected at Skyline Customs" />
+      </section>
 
       {/* ── THIS MONTH'S SPECIAL ─────────────────────────────────────────────── */}
       <ThisMonthsSpecialBanner />

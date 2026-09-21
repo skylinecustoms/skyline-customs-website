@@ -17,12 +17,13 @@ import { STATIC_PATHS } from "./ssrMeta";
 import { SITEMAP_META } from "./sitemapMeta";
 import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
 import { galleryJobNote } from "../../shared/galleryJobNotes";
+import { SUPPLIERS, VEHICLE_MAKES } from "../../shared/brands";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 /** Date used for pages added after the original sitemap was written. */
 const SITE_UPDATED = "2026-09-18";
 
-interface Entry { lastmod: string; changefreq: string; priority: string }
+interface Entry { lastmod: string; changefreq: string; priority: string; images?: { loc: string; title: string }[] }
 
 function defaultsFor(path: string): Entry {
   if (path === "/") return { lastmod: SITE_UPDATED, changefreq: "weekly", priority: "1.0" };
@@ -129,11 +130,15 @@ export async function buildSitemap(): Promise<string> {
     /* sitemap still works without the database */
   }
 
+  // Homepage logo carousels: supplier and vehicle-make logos go in the image sitemap.
+  const home = urls.get("/");
+  if (home) home.images = [...SUPPLIERS, ...VEHICLE_MAKES].filter((b) => b.logo).map((b) => ({ loc: b.logo as string, title: b.alt }));
+
   const body = Array.from(urls.entries())
     .map(([path, e]) =>
-      `  <url>\n    <loc>${escapeXml(BASE_URL + path)}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`
+      `  <url>\n    <loc>${escapeXml(BASE_URL + path)}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>${(e.images ?? []).map((im) => `\n    <image:image>\n      <image:loc>${escapeXml(BASE_URL + im.loc)}</image:loc>\n      <image:title>${escapeXml(im.title)}</image:title>\n    </image:image>`).join("")}\n  </url>`
     )
     .join("\n");
 
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${body}\n</urlset>\n`;
 }
