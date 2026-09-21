@@ -149,6 +149,16 @@ export const GALLERY_JOB_NOTES: Record<string, GalleryJobNote> = {
     why: "A Rubicon spends its weekends on trails where branches, rocks, and gravel hit the hood and fenders, and its weekdays on the highway where trucks throw stones at the same panels. Full front covers the hood, both fenders including the painted flares, the painted bumper surfaces, mirrors, and headlights, with the pattern cut around the hood latches, vents, and windshield hinges. The self-healing STEK top coat is the reason to film a trail rig: brush scratches on the hood and fenders disappear in the sun. Filmed new, the paint stays factory under the film and the owner can wheel it without watching the hood.",
     faq: { q: "Does full front PPF cover the Rubicon's steel bumper?", a: "The film covers painted body panels. Steel bumpers are powder-coated and not filmed; the painted hood, fenders, flares, and mirrors are where the film goes." },
   },
+  "2026-corvette-e-ray-full-front-ppf": {
+    intro: "A 2026 Corvette E-Ray in for full front PPF, still wearing its delivery plate. The hybrid Corvette's nose is as low and wide as the Z06's, and the paint is a color you do not want to touch up.",
+    why: "The E-Ray shares the wide-body front end with the Z06: a splitter inches off the pavement, flared fenders, and big side intakes that pull air and gravel toward the paint. With the electric front axle it launches harder than any Corvette before it, which means more time closing on the car ahead and more stones on the bumper. Full front covers the hood, both wide fenders, the bumper and splitter face, mirrors, and headlights, with the pattern following the aero pieces so nothing lifts at speed. The self-healing STEK top coat handles tire pickup, and the bright green paint stays exactly as it left the dealer.",
+    faq: { q: "Does full front PPF cover the E-Ray's wide fenders?", a: "Yes. The E-Ray uses the wide-body fenders, and the fender pattern covers them fully with the edges tucked into the wheel arch so there is no visible line." },
+  },
+  "1967-ford-mustang-gta-full-front-ppf": {
+    intro: "A 1967 Ford Mustang GTA convertible in for full front PPF. A fresh red repaint on a classic is worth protecting before its first summer of cruises.",
+    why: "A 1967 Mustang has a long, flat hood and a chrome-trimmed front end that catches every stone on a weekend drive, and the paint on a restored car is a custom job that no touch-up pen will match. Before the film went on, the paint was inspected panel by panel and corrected so nothing was locked in. Full front covers the hood, both fenders, the painted bumper valance, and the mirrors, with the pattern cut around the chrome trim, hood scoops, and the pony emblem so the original details stay untouched. The STEK film self-heals light scratches and comes off cleanly years later without harming the paint underneath.",
+    faq: { q: "Can PPF go on a restored 1967 Mustang without covering the chrome?", a: "Yes. The film covers painted panels only. Chrome bumpers, trim, and emblems are cut around, so the car keeps its original look with the paint protected." },
+  },
 };
 
 export const galleryJobNote = (slug: string): GalleryJobNote | undefined => GALLERY_JOB_NOTES[slug];

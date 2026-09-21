@@ -295,5 +295,25 @@
     "active": 1,
     "createdAt": "2026-07-17T13:10:02.000Z",
     "previousUrl": "/images/slot-mo-z-2025-jeep-rubicon-1784293792366.jpg"
+  },
+  {
+    "id": 180002,
+    "photoUrl": "/images/2026-corvette-e-ray-full-front-ppf-chantilly-va.jpg",
+    "alt": "2026 Corvette E-Ray - Full Front PPF",
+    "category": "PPF",
+    "carDescription": "2026 Corvette E-Ray",
+    "sortOrder": 28,
+    "active": 1,
+    "createdAt": "2026-09-21T20:00:00.000Z"
+  },
+  {
+    "id": 180003,
+    "photoUrl": "/images/1967-ford-mustang-gta-full-front-ppf-chantilly-va.jpg",
+    "alt": "1967 Ford Mustang GTA - Full Front PPF",
+    "category": "PPF",
+    "carDescription": "1967 Ford Mustang GTA",
+    "sortOrder": 29,
+    "active": 1,
+    "createdAt": "2026-09-21T20:00:00.000Z"
   }
 ]
