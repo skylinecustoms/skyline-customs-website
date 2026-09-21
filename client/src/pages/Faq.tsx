@@ -27,7 +27,7 @@ function Accordion({ items, offset }: { items: { q: string; a: string }[]; offse
               <span className="text-white font-medium">{faq.q}</span>
               <ChevronDown className={`w-5 h-5 text-[#E85D04] shrink-0 transition-transform ${open === id ? "rotate-180" : ""}`} />
             </button>
-            {open === id && <div className="px-6 pb-5 text-zinc-400 text-sm leading-relaxed">{faq.a}</div>}
+            <div className={open === id ? "px-6 pb-5 text-zinc-400 text-sm leading-relaxed" : "hidden"}>{faq.a}</div>
           </div>
         );
       })}

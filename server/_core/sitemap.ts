@@ -16,6 +16,7 @@ import { getGalleryJobs } from "../galleryJobs";
 import { STATIC_PATHS } from "./ssrMeta";
 import { SITEMAP_META } from "./sitemapMeta";
 import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
+import { galleryJobNote } from "../../shared/galleryJobNotes";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 /** Date used for pages added after the original sitemap was written. */
@@ -106,6 +107,7 @@ export async function buildSitemap(): Promise<string> {
   }
   try {
     for (const job of await getGalleryJobs()) {
+      if (!galleryJobNote(job.slug)) continue; // template-only pages are noindex
       const d = job.createdAt ? new Date(job.createdAt) : null;
       add(`/gallery/${job.slug}`, { lastmod: d && !isNaN(d.getTime()) ? d.toISOString().slice(0, 10) : SITE_UPDATED, changefreq: "monthly", priority: "0.7" });
     }

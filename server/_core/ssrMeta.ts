@@ -12,6 +12,7 @@ import { blogPosts, promos } from "../../drizzle/schema";
 import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
 import { and, eq } from "drizzle-orm";
 import { findGalleryJob } from "../galleryJobs";
+import { galleryJobNote } from "../../shared/galleryJobNotes";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -545,12 +546,16 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
     const job = await findGalleryJob(jobMatch[1]);
     if (job) {
       const svc = job.services.join(" + ");
+      const note = galleryJobNote(job.slug);
+      const intro = note ? note.intro.split(". ")[0].replace(/\.$/, "") : `${svc} on a ${job.car} at Skyline Customs in Chantilly, VA`;
       return {
         title: withBrand(`${job.car} ${svc} in Chantilly, VA`),
-        description: `${svc} on a ${job.car} at Skyline Customs in Chantilly, VA. What we covered and why it fits this car. STEK film, 12-year warranty. Free quotes.`,
+        description: `${intro}. What we covered and why it fits this car. STEK film, 12-year warranty. Free quotes in Chantilly, VA.`.slice(0, 165),
         canonical: `${BASE_URL}/gallery/${job.slug}`,
         preloadImage: job.photoUrl,
         ogImage: job.photoUrl,
+        // A job page without written copy is template-only: keep it out of the index until a note exists.
+        ...(note ? {} : { robots: "noindex, follow" }),
       };
     }
   }

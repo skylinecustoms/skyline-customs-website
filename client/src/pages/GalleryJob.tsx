@@ -15,6 +15,7 @@ import NotFound from "@/pages/NotFound";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs, type GalleryJob as Job } from "@shared/galleryJobs";
 import { PPF_PACKAGES } from "@/lib/ppf";
+import { galleryJobNote } from "@shared/galleryJobNotes";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 
@@ -116,7 +117,8 @@ export default function GalleryJob() {
   const related = jobs.filter((j) => j.slug !== job.slug && (j.bodyType === job.bodyType || (job.brandSlug && j.brandSlug === job.brandSlug))).slice(0, 4);
   const more = related.length < 4 ? jobs.filter((j) => j.slug !== job.slug && !related.includes(j)).slice(0, 4 - related.length) : [];
   const relatedJobs = [...related, ...more];
-  const faqs = FAQS(job);
+  const note = galleryJobNote(job.slug);
+  const faqs = [...(note ? [note.faq] : []), ...FAQS(job)];
   const description = `${services} on a ${job.car} at Skyline Customs in Chantilly, VA. What we covered and why it fits this car. STEK film, 12-year warranty. Free quotes.`;
   const dateCreated = job.createdAt ? new Date(job.createdAt).toISOString().slice(0, 10) : undefined;
 
@@ -169,7 +171,7 @@ export default function GalleryJob() {
             <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Real job · Chantilly, VA</p>
             <h1 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white leading-none mb-6">{job.car} {services} in Chantilly, VA</h1>
             <p className="text-zinc-300 text-lg leading-relaxed max-w-3xl">
-              A {job.car} came into our Chantilly bay for {services.toLowerCase()}. Here is what we covered, why this coverage fits the {job.car}, and how the install went.
+              {note ? note.intro : `A ${job.car} came into our Chantilly bay for ${services.toLowerCase()}. Here is what we covered, why this coverage fits the ${job.car}, and how the install went.`}
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <Link href={quoteHref} className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
@@ -248,13 +250,13 @@ export default function GalleryJob() {
             <div className="md:col-span-3">
               <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Why this coverage</p>
               <h2 className="font-['Bebas_Neue',sans-serif] text-4xl text-white mb-6">WHY {services.toUpperCase()} FITS THE {job.car.toUpperCase()}</h2>
-              <p className="text-zinc-300 leading-relaxed mb-5">{copy.why}</p>
-              {hasCeramic && (
+              <p className="text-zinc-300 leading-relaxed mb-5">{note ? note.why : copy.why}</p>
+              {hasCeramic && !note && (
                 <p className="text-zinc-300 leading-relaxed mb-5">
                   The ceramic coating goes on after the film cures. It bonds to the PPF and the exposed paint, adds a slick hydrophobic layer that sheds water and road grime, and makes the {job.car} much easier to wash. Coated film also resists the water spotting and bug etching that dull uncoated film over time.
                 </p>
               )}
-              <p className="text-zinc-400 text-sm border-l-2 border-[#E85D04] pl-4 mb-8">{copy.tip}</p>
+              {!note && <p className="text-zinc-400 text-sm border-l-2 border-[#E85D04] pl-4 mb-8">{copy.tip}</p>}
 
               <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">HOW THE INSTALL WENT</h3>
               <ol className="space-y-3 text-zinc-300 text-sm">
