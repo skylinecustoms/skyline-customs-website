@@ -58,7 +58,7 @@ export default function Videos() {
             Quick, honest answers from the shop floor in Chantilly, VA, plus customer stories and recent installs. New videos every week.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+            <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
               <Youtube className="w-4 h-4" /> Subscribe on YouTube
             </a>
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">

@@ -5,6 +5,7 @@ import SEO from "@/components/SEO";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { withJobSlugs } from "@shared/galleryJobs";
+import { responsiveImage } from "@/lib/responsiveImage";
 
 // ─── Static non-PPF photos (only real confirmed jobs) ───────────────────────
 const STATIC_ITEMS = [
@@ -142,6 +143,8 @@ export default function Gallery() {
                   <div className="relative h-64 overflow-hidden">
                     <img
                       src={item.image}
+                      srcSet={responsiveImage(item.image).srcSet}
+                      sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       alt={item.alt}
                       title={`${item.service} on ${item.vehicle} | Skyline Custom Shop – Chantilly, VA`}
                       loading="lazy"

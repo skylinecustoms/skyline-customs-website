@@ -16,6 +16,7 @@ import { trpc } from "@/lib/trpc";
 import { withJobSlugs, type GalleryJob as Job } from "@shared/galleryJobs";
 import { PPF_PACKAGES } from "@/lib/ppf";
 import { galleryJobNote } from "@shared/galleryJobNotes";
+import { responsiveImage } from "@/lib/responsiveImage";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 
@@ -174,7 +175,7 @@ export default function GalleryJob() {
               {note ? note.intro : `A ${job.car} came into our Chantilly bay for ${services.toLowerCase()}. Here is what we covered, why this coverage fits the ${job.car}, and how the install went.`}
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
-              <Link href={quoteHref} className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+              <Link href={quoteHref} className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
                 Quote my {make} <ArrowRight className="w-4 h-4" />
               </Link>
               <a href="tel:+17037754383" className="border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
@@ -190,9 +191,9 @@ export default function GalleryJob() {
             <figure className="border border-zinc-800 bg-[#0D0D0D]">
               <img
                 src={job.photoUrl}
+                {...responsiveImage(job.photoUrl)}
+                sizes="(min-width: 1024px) 960px, 100vw"
                 alt={`${job.alt} at Skyline Custom Shop in Chantilly, VA`}
-                width="1200"
-                height="900"
                 fetchPriority="high"
                 decoding="async"
                 className="w-full aspect-[4/3] object-cover"
@@ -336,7 +337,7 @@ export default function GalleryJob() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-800">
                 {relatedJobs.map((r) => (
                   <Link key={r.slug} href={`/gallery/${r.slug}`} className="block bg-[#0A0A0A] group">
-                    <img src={r.photoUrl} alt={`${r.alt} at Skyline Custom Shop in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
+                    <img src={r.photoUrl} srcSet={responsiveImage(r.photoUrl).srcSet} sizes="(min-width: 768px) 240px, 45vw" alt={`${r.alt} at Skyline Custom Shop in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
                     <p className="text-white text-sm font-semibold px-3 pt-3">{r.car}</p>
                     <p className="text-zinc-500 text-xs px-3 pb-3">{svcLabel(r.services)}</p>
                   </Link>

@@ -54,7 +54,7 @@ function SlotCard({
             <span className="text-zinc-700 text-xs tracking-widest uppercase">No photo</span>
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">
+        <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
           #{slotNumber}
         </div>
         <div className="absolute top-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
@@ -144,7 +144,7 @@ function ArchiveNotFound() {
           <AlertTriangle className="w-16 h-16 text-zinc-700 mx-auto mb-6" />
           <h1 className="font-display text-4xl text-white tracking-wide mb-4">PROMO NOT FOUND</h1>
           <p className="text-zinc-500 mb-8">This promo archive doesn't exist or hasn't been archived yet.</p>
-          <Link href="/promo" className="inline-flex items-center gap-2 bg-[#E85D04] text-white font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors">
+          <Link href="/promo" className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors">
             SEE CURRENT OFFER <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
@@ -406,7 +406,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
             </p>
             <Link
               href="/promo"
-              className="inline-flex items-center gap-3 bg-[#E85D04] text-white font-display text-xl tracking-[0.1em] px-10 py-5 hover:bg-orange-600 transition-colors"
+              className="inline-flex items-center gap-3 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] px-10 py-5 hover:bg-orange-600 transition-colors"
             >
               SEE THIS MONTH'S OFFER <ArrowRight className="w-6 h-6" />
             </Link>

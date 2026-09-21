@@ -89,7 +89,7 @@ function SlotCard({
           </div>
         )}
         {/* Slot badge */}
-        <div className="absolute top-3 left-3 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">
+        <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
           #{slotNumber}
         </div>
         {/* Verified badge */}
@@ -203,7 +203,7 @@ export default function JuneSpecial() {
                     <p className="text-zinc-500 text-xs line-through">Normally $3,200+</p>
                     <p className="font-['Bebas_Neue',sans-serif] text-4xl text-white">$2,400</p>
                   </div>
-                  <div className="bg-[#E85D04] text-white text-xs font-bold tracking-widest px-3 py-2">
+                  <div className="bg-[#E85D04] text-black text-xs font-bold tracking-widest px-3 py-2">
                     SAVE $800+
                   </div>
                 </div>
@@ -214,7 +214,7 @@ export default function JuneSpecial() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/get-a-quote?service=ppf&promo=june-special"
-                    className="bg-[#E85D04] text-white hover:bg-orange-600 font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
+                    className="bg-[#E85D04] text-black hover:bg-orange-600 font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
                   >
                     CLAIM YOUR SLOT <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -300,7 +300,7 @@ export default function JuneSpecial() {
 
             {/* Paint Correction */}
             <div className="bg-[#111] p-10 relative">
-              <div className="absolute top-4 right-4 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">FREE</div>
+              <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
                 <Sparkles className="w-6 h-6 text-[#E85D04]" />
               </div>
@@ -321,7 +321,7 @@ export default function JuneSpecial() {
 
             {/* Ceramic Coating */}
             <div className="bg-[#0D0D0D] p-10 relative">
-              <div className="absolute top-4 right-4 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">FREE</div>
+              <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
                 <Zap className="w-6 h-6 text-[#E85D04]" />
               </div>

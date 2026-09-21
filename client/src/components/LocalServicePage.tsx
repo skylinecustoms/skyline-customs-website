@@ -18,6 +18,7 @@ import { useState } from "react";
 import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
+import { responsiveImage } from "@/lib/responsiveImage";
 import { cityServiceNote } from "@/lib/localSeoNotes";
 
 const SERVICE_MATCH: Record<ServiceKey, RegExp> = { ppf: /ppf|paint protection/i, ceramic: /ceramic coat/i, tint: /tint/i };
@@ -39,6 +40,8 @@ function CityPhoto({ cityName, cityLabel, service }: { cityName: string; cityLab
         <figure className="relative overflow-hidden border border-zinc-800">
           <img
             src={photo.photoUrl}
+            srcSet={responsiveImage(photo.photoUrl).srcSet}
+            sizes="(min-width: 1280px) 1100px, 100vw"
             alt={`${photo.alt} at Skyline Custom Shop in Chantilly, VA, serving ${cityLabel}`}
             loading="lazy"
             decoding="async"
@@ -185,7 +188,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             </div>
             <div className="flex flex-wrap gap-4">
               <Link href={`/get-a-quote?service=${svc.quoteParam}`}
-                className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
+                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
               >
                 GET A FREE QUOTE <ArrowRight className="w-4 h-4" />
               </Link>

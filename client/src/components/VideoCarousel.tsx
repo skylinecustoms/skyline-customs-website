@@ -32,7 +32,7 @@ function ClickToPlayCard({ video, onOpen }: { video: Video; onOpen: () => void }
         <img src={videoThumb(video.id)} alt={video.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover scale-[1.35] group-hover:scale-[1.4] transition-transform duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
         <span className="absolute inset-0 flex items-center justify-center">
-          <span className="w-14 h-14 bg-[#E85D04] text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+          <span className="w-14 h-14 bg-[#E85D04] text-black flex items-center justify-center group-hover:scale-110 transition-transform">
             <Play className="w-6 h-6 ml-0.5" fill="currentColor" />
           </span>
         </span>
@@ -165,8 +165,8 @@ export default function VideoCarousel({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="hidden md:flex -left-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
-        <CarouselNext className="hidden md:flex -right-4 bg-[#111] border-zinc-700 text-white hover:bg-[#E85D04] hover:text-white rounded-none" />
+        <CarouselPrevious className="hidden md:flex -left-4 bg-[#111] border-zinc-700 text-black hover:bg-[#E85D04] rounded-none" />
+        <CarouselNext className="hidden md:flex -right-4 bg-[#111] border-zinc-700 text-black hover:bg-[#E85D04] rounded-none" />
       </Carousel>
       <Dialog open={!!openVideo || !!open} onOpenChange={(o) => { if (!o) { setOpenVideo(null); setOpen(null); } }}>
         <DialogContent showCloseButton={false} className="w-[min(440px,calc(100vw-2rem),calc((100vh-190px)*0.5625))] max-w-none p-0 bg-transparent border-0 shadow-none overflow-visible">

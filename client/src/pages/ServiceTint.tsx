@@ -244,13 +244,13 @@ export default function ServiceTint() {
             <div className="flex flex-wrap gap-4">
               <a
                 href="tel:+17037754383"
-                className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
+                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
               >
                 FREE CONSULTATION
               </a>
               <Link
                 href="/get-a-quote?service=tint"
-                className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 inline-flex items-center gap-2"
+                className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 inline-flex items-center gap-2"
               >
                 GET A QUOTE
               </Link>
@@ -327,7 +327,7 @@ export default function ServiceTint() {
                 } transition-colors`}
               >
                 {pkg.featured && (
-                  <div className="absolute top-3 left-4 z-10 bg-[#E85D04] text-white text-xs font-bold tracking-widest uppercase px-3 py-1">
+                  <div className="absolute top-3 left-4 z-10 bg-[#E85D04] text-black text-xs font-bold tracking-widest uppercase px-3 py-1">
                     MOST POPULAR
                   </div>
                 )}
@@ -346,7 +346,7 @@ export default function ServiceTint() {
                   <Link
                     href="/get-a-quote?service=tint"
                     className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${
-                      pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-white" : "border border-zinc-700 hover:border-[#E85D04] text-white hover:text-[#E85D04]"
+                      pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-black hover:text-[#E85D04]"
                     }`}
                   >
                     GET A QUOTE
@@ -385,7 +385,7 @@ export default function ServiceTint() {
             </ul>
             <a
               href="/get-a-quote?service=tint"
-              className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold text-sm tracking-widest uppercase px-8 py-3 transition-all inline-block"
+              className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold text-sm tracking-widest uppercase px-8 py-3 transition-all inline-block"
             >
               GET A QUOTE
             </a>

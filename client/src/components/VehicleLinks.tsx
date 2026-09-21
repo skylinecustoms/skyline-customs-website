@@ -4,11 +4,13 @@
  */
 import { Link } from "wouter";
 import { VEHICLE_BRANDS } from "@/lib/modelPpf";
+import { MODEL_PAGES } from "@/lib/modelPages";
 
 export default function VehicleLinks({ current }: { current?: string }) {
   const links = [
     { slug: "tesla", name: "Tesla" },
     ...VEHICLE_BRANDS.map((b) => ({ slug: b.slug, name: b.name })),
+    ...MODEL_PAGES.map((m) => ({ slug: m.slug, name: m.name })),
   ].filter((l) => l.slug !== current);
   return (
     <section className="py-10 bg-[#0A0A0A] border-t border-zinc-800">

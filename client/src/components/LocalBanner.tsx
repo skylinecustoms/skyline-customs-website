@@ -55,7 +55,7 @@ export default function LocalBanner({ localHref, serviceName }: LocalBannerProps
           <div className="flex-shrink-0">
             <Link
               href={localHref}
-              className="inline-flex items-center gap-2 bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase text-sm px-6 py-3 transition-all duration-200 hover:scale-105 whitespace-nowrap"
+              className="inline-flex items-center gap-2 bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase text-sm px-6 py-3 transition-all duration-200 hover:scale-105 whitespace-nowrap"
             >
               {serviceName} in Chantilly, VA
               <ArrowRight className="w-4 h-4" />

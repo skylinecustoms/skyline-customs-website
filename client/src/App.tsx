@@ -50,6 +50,7 @@ const Videos = lazy(() => import("./pages/Videos"));
 const Faq = lazy(() => import("./pages/Faq"));
 const Reviews = lazy(() => import("./pages/Reviews"));
 const TeslaPPF = lazy(() => import("./pages/TeslaPPF"));
+const ModelPPF = lazy(() => import("./pages/ModelPPF"));
 const BmwPPF = lazy(() => import("./pages/BmwPPF"));
 const PorschePPF = lazy(() => import("./pages/PorschePPF"));
 const CorvettePPF = lazy(() => import("./pages/CorvettePPF"));
@@ -154,6 +155,10 @@ function Router() {
       <Route path={"/faq"} component={Faq} />
       <Route path={"/reviews"} component={Reviews} />
       <Route path={"/tesla-ppf"} component={TeslaPPF} />
+      <Route path={"/tesla-model-y-ppf"}>{() => <ModelPPF slug="tesla-model-y" />}</Route>
+      <Route path={"/tesla-model-3-ppf"}>{() => <ModelPPF slug="tesla-model-3" />}</Route>
+      <Route path={"/cybertruck-ppf"}>{() => <ModelPPF slug="cybertruck" />}</Route>
+      <Route path={"/porsche-911-ppf"}>{() => <ModelPPF slug="porsche-911" />}</Route>
       <Route path={"/bmw-ppf"} component={BmwPPF} />
       <Route path={"/porsche-ppf"} component={PorschePPF} />
       <Route path={"/corvette-ppf"} component={CorvettePPF} />

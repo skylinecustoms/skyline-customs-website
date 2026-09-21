@@ -59,7 +59,7 @@ export default function Reviews() {
             Real Google reviews from Northern Virginia drivers who trusted us with their paint, glass, and clear coat. Every one is public on our Google Business Profile.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+            <a href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
               <PenLine className="w-4 h-4" /> Write a Review
             </a>
             <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">

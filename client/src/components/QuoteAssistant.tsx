@@ -136,7 +136,7 @@ export default function QuoteAssistant({ autoOpen = false }: { autoOpen?: boolea
           <button
             onClick={handleOpen}
             aria-label="Open AI Quote Assistant"
-            className="group flex items-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 rounded-full px-5 py-4"
+            className="group flex items-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-black shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 rounded-full px-5 py-4"
           >
             <MessageSquare className="w-5 h-5 flex-shrink-0" />
             <span className="font-bold tracking-wide text-sm whitespace-nowrap">
@@ -202,7 +202,7 @@ export default function QuoteAssistant({ autoOpen = false }: { autoOpen?: boolea
                     <div
                       className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-[#E85D04] text-white rounded-br-sm"
+                          ? "bg-[#E85D04] text-black rounded-br-sm"
                           : "bg-zinc-800 text-zinc-100 rounded-bl-sm"
                       }`}
                     >
@@ -244,7 +244,7 @@ export default function QuoteAssistant({ autoOpen = false }: { autoOpen?: boolea
                   <div className="flex gap-2">
                     <button
                       onClick={() => navigate("/get-a-quote")}
-                      className="flex-1 bg-[#E85D04] hover:bg-[#d14e00] text-white text-sm font-bold py-2.5 rounded-xl transition-colors"
+                      className="flex-1 bg-[#E85D04] hover:bg-[#d14e00] text-black text-sm font-bold py-2.5 rounded-xl transition-colors"
                     >
                       Open Quote Form →
                     </button>
@@ -271,7 +271,7 @@ export default function QuoteAssistant({ autoOpen = false }: { autoOpen?: boolea
                       onClick={handleSend}
                       disabled={!input.trim() || chatMutation.isPending}
                       aria-label="Send message"
-                      className="w-10 h-10 bg-[#E85D04] hover:bg-[#d14e00] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
+                      className="w-10 h-10 bg-[#E85D04] hover:bg-[#d14e00] disabled:opacity-40 disabled:cursor-not-allowed text-black rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
                     >
                       {chatMutation.isPending ? (
                         <Loader2 className="w-4 h-4 animate-spin" />

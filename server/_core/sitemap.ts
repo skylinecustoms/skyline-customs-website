@@ -90,7 +90,7 @@ export async function buildSitemap(): Promise<string> {
   // PPF is the primary service: its hub and sub-pages outrank the legacy sitemap metadata.
   const ppfBoost = (path: string): Partial<Entry> | undefined => {
     if (path === "/services/ppf") return { changefreq: "weekly", priority: "1.0" };
-    if (/^\/(ppf-cost|tesla-ppf|bmw-ppf|porsche-ppf|corvette-ppf|rivian-ppf|bronco-ppf|ppf-vs-ceramic-coating)$/.test(path)) return { changefreq: "weekly", priority: "0.9" };
+    if (/^\/(ppf-cost|tesla-ppf|tesla-model-y-ppf|tesla-model-3-ppf|cybertruck-ppf|porsche-ppf|porsche-911-ppf|bmw-ppf|corvette-ppf|rivian-ppf|bronco-ppf|ppf-vs-ceramic-coating)$/.test(path)) return { changefreq: "weekly", priority: "0.9" };
     return undefined;
   };
   const add = (path: string, override?: Partial<Entry>) => {

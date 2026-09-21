@@ -59,7 +59,7 @@ export default function ThankYou() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/gallery"
-              className="inline-flex items-center justify-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105"
+              className="inline-flex items-center justify-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105"
             >
               <Images className="w-4 h-4" />
               VIEW OUR GALLERY

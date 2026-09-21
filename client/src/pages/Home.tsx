@@ -263,7 +263,7 @@ function ActivePromoBanner() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href={promoUrl}
-                className="flex items-center justify-center gap-2 bg-[#E85D04] text-white font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors"
+                className="flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors"
               >
                 YES! PROTECT MY PAINT <ArrowRight className="w-4 h-4" />
               </Link>
@@ -432,6 +432,24 @@ function WeDidItAgainBannerHome() {
 }
 
 // ---- Recent Cars Social Proof Section ------------------------------------
+/** Starts the hero reel only after the page has loaded, so the 1.3 MB video never delays first paint. */
+function HeroReel() {
+  useEffect(() => {
+    const v = document.getElementById("hero-reel") as HTMLVideoElement | null;
+    if (!v) return;
+    const start = () => {
+      if (v.src) return;
+      v.src = "/images/hero-reel_web.mp4";
+      v.play().catch(() => {});
+    };
+    if (document.readyState === "complete") { const t = window.setTimeout(start, 400); return () => window.clearTimeout(t); }
+    const onLoad = () => window.setTimeout(start, 400);
+    window.addEventListener("load", onLoad, { once: true });
+    return () => window.removeEventListener("load", onLoad);
+  }, []);
+  return null;
+}
+
 function RecentCarsSection() {
   const { data: lastPromo } = trpc.promo.getLastArchived.useQuery();
   if (!lastPromo || !lastPromo.slots || lastPromo.slots.length === 0) return null;
@@ -468,7 +486,7 @@ function RecentCarsSection() {
                   alt={`${slot.carDescription} — Skyline Customs ${title}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">
+                <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
                   #{slot.slotNumber}
                 </div>
                 <div className="absolute top-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
@@ -521,7 +539,7 @@ function ThisMonthsSpecialBanner() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               {!soldOut ? (
-                <Link href={quoteUrl} className="inline-flex items-center gap-2 bg-[#E85D04] text-white font-display text-sm tracking-widest uppercase px-7 py-4 hover:bg-orange-600 transition-colors">
+                <Link href={quoteUrl} className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-sm tracking-widest uppercase px-7 py-4 hover:bg-orange-600 transition-colors">
                   Claim My Spot <ArrowRight className="w-4 h-4" />
                 </Link>
               ) : (
@@ -580,6 +598,7 @@ export default function Home() {
 
       {/* ── ACTIVE PROMO BANNER (dynamic from DB, renders nothing if no active promo) ── */}
       <ActivePromoBanner />
+      <HeroReel />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
@@ -587,16 +606,17 @@ export default function Home() {
         <div className="absolute inset-0">
           {/* Background reel plays on every device, phones included (poster shows while it loads). */}
           <video
-            autoPlay
+            id="hero-reel"
             muted
             loop
             playsInline
+            preload="none"
             poster="/images/hero-poster_702747e9.webp"
             title="Skyline Custom Shop — PPF, Ceramic Coating & Window Tinting in Chantilly, VA"
             aria-label="Skyline Custom Shop technicians applying paint protection film and window tinting in Chantilly, VA"
             className="w-full h-full object-cover"
           >
-            <source src="/images/hero-reel_web.mp4" type="video/mp4" />
+            {/* The mp4 is attached after the load event (see HeroReel) so the poster is the LCP on every device. */}
           </video>
           <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.005_285)]/92 via-[oklch(0.08_0.005_285)]/65 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.005_285)] via-transparent to-transparent" />
@@ -622,7 +642,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/get-a-quote"
-                className="flex items-center justify-center gap-3 bg-brand-orange text-white font-display text-lg tracking-widest px-10 py-5 hover:bg-orange-600 transition-all duration-200 hover:scale-[1.02] group"
+                className="flex items-center justify-center gap-3 bg-brand-orange text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-orange-600 transition-all duration-200 hover:scale-[1.02] group"
               >
                 GET A FREE QUOTE
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

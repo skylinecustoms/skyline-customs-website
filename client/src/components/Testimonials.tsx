@@ -294,14 +294,14 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY" }: Testi
             <button
               onClick={() => go("left")}
               aria-label="Previous review"
-              className="w-12 h-12 border border-zinc-700 hover:border-[#E85D04] hover:bg-[#E85D04]/10 text-zinc-400 hover:text-white transition-all flex items-center justify-center"
+              className="w-12 h-12 border border-zinc-700 hover:border-[#E85D04] hover:bg-[#E85D04]/10 text-zinc-400 transition-all flex items-center justify-center"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => go("right")}
               aria-label="Next review"
-              className="w-12 h-12 border border-zinc-700 hover:border-[#E85D04] hover:bg-[#E85D04]/10 text-zinc-400 hover:text-white transition-all flex items-center justify-center"
+              className="w-12 h-12 border border-zinc-700 hover:border-[#E85D04] hover:bg-[#E85D04]/10 text-zinc-400 transition-all flex items-center justify-center"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

@@ -94,7 +94,7 @@ export default function ServiceAreas() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/get-a-quote"
-                className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
+                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
               >
                 GET A FREE QUOTE <ArrowRight className="w-4 h-4" />
               </Link>
@@ -209,7 +209,7 @@ export default function ServiceAreas() {
                 ))}
               </div>
               <Link href="/get-a-quote"
-                className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
+                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
               >
                 GET A FREE QUOTE <ArrowRight className="w-4 h-4" />
               </Link>

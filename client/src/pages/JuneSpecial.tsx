@@ -84,7 +84,7 @@ function SlotCard({
             <span className="text-zinc-700 text-xs tracking-widest uppercase">Photo coming soon</span>
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">
+        <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
           #{slotNumber}
         </div>
         <div className="absolute top-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
@@ -146,7 +146,7 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, label }: { beforeSrc: string; 
         <img loading="lazy" decoding="async" src={beforeSrc} alt="Before PPF" className="absolute inset-0 w-full h-full object-cover" style={{ width: '100%', minWidth: '100%' }} />
         <div className="absolute top-3 left-3 bg-zinc-900/80 text-zinc-300 text-xs font-bold tracking-widest uppercase px-2 py-1">Before</div>
       </div>
-      <div className="absolute top-3 right-3 z-20 bg-[#E85D04]/90 text-white text-xs font-bold tracking-widest uppercase px-2 py-1">After</div>
+      <div className="absolute top-3 right-3 z-20 bg-[#E85D04]/90 text-black text-xs font-bold tracking-widest uppercase px-2 py-1">After</div>
       {/* Divider handle */}
       <div
         className="absolute top-0 bottom-0 z-10 flex items-center justify-center cursor-ew-resize"
@@ -546,8 +546,8 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
                   onClick={() => setIntent(val)}
                   className={`py-3 px-2 text-sm font-bold tracking-[0.1em] uppercase border transition-colors ${
                     active
-                      ? 'bg-[#E85D04] border-[#E85D04] text-white'
-                      : 'bg-transparent border-zinc-700 text-zinc-400 hover:border-[#E85D04] hover:text-white'
+                      ? 'bg-[#E85D04] border-[#E85D04] text-black'
+                      : 'bg-transparent border-zinc-700 text-zinc-400 hover:border-[#E85D04]'
                   }`}
                 >
                   {labels[val]}
@@ -573,7 +573,7 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
         <button
           type="submit"
           disabled={joinWaitlist.isPending || !intent}
-          className="w-full bg-[#E85D04] text-white font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+          className="w-full bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
         >
           {joinWaitlist.isPending ? 'JOINING...' : 'JOIN THE WAITLIST'} <ArrowRight className="w-5 h-5" />
         </button>
@@ -930,7 +930,7 @@ export default function JuneSpecial() {
                 <div className="flex flex-col gap-3">
                   <Link
                     href={quoteUrl}
-                    className="btn-sweep bg-[#E85D04] text-white font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
+                    className="btn-sweep bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
                   >
                     YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
                   </Link>
@@ -983,7 +983,7 @@ export default function JuneSpecial() {
               <div className="border border-[#E85D04]/30 bg-[#E85D04]/5 p-6 relative overflow-hidden">
                 {/* Savings badge */}
                 {freeValue > 0 && (
-                  <div className="absolute top-0 right-0 bg-[#E85D04] text-white font-display text-xs tracking-widest px-3 py-1.5">
+                  <div className="absolute top-0 right-0 bg-[#E85D04] text-black font-display text-xs tracking-widest px-3 py-1.5">
                     YOU SAVE {fmt(freeValue)}
                   </div>
                 )}
@@ -1095,7 +1095,7 @@ export default function JuneSpecial() {
 
               <Link
                 href={quoteUrl}
-                className="btn-sweep bg-[#E85D04] text-white font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
+                className="btn-sweep bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
               >
                 YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
               </Link>
@@ -1107,7 +1107,7 @@ export default function JuneSpecial() {
             {/* Right: included free box */}
             <div className="border-2 border-[#E85D04]/50 bg-[#E85D04]/5 p-8">
               <div className="flex items-center gap-3 mb-6">
-                <div className="bg-[#E85D04] text-white text-xs font-bold tracking-widest px-3 py-1.5">
+                <div className="bg-[#E85D04] text-black text-xs font-bold tracking-widest px-3 py-1.5">
                   INCLUDED FREE
                 </div>
                 <span className="font-mono-brand text-zinc-400 text-sm">{freeValue > 0 ? `${fmt(freeValue)} Value` : ""}</span>
@@ -1163,7 +1163,7 @@ export default function JuneSpecial() {
             {/* Paint Correction (only when the promo includes it) */}
             {hasCorrection && (
             <div className="bg-[#111] p-10 relative">
-              <div className="absolute top-4 right-4 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">FREE</div>
+              <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
                 <Sparkles className="w-6 h-6 text-[#E85D04]" />
               </div>
@@ -1185,7 +1185,7 @@ export default function JuneSpecial() {
             {/* Ceramic Coating (only when the promo includes it) */}
             {hasCeramic && (
             <div className="bg-[#0D0D0D] p-10 relative">
-              <div className="absolute top-4 right-4 bg-[#E85D04] text-white text-xs font-bold tracking-widest px-2 py-1">FREE</div>
+              <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
                 <Zap className="w-6 h-6 text-[#E85D04]" />
               </div>
@@ -1338,7 +1338,7 @@ export default function JuneSpecial() {
                 Join the {filledSlots.length} customers who&apos;ve already claimed their spot this month.
               </p>
               {!soldOut ? (
-                <Link href={quoteUrl} className="inline-flex items-center gap-2 bg-[#E85D04] text-white font-display text-sm tracking-widest uppercase px-6 py-3 hover:bg-orange-600 transition-colors">
+                <Link href={quoteUrl} className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-sm tracking-widest uppercase px-6 py-3 hover:bg-orange-600 transition-colors">
                   Claim My Spot <ArrowRight className="w-4 h-4" />
                 </Link>
               ) : (
@@ -1490,7 +1490,7 @@ export default function JuneSpecial() {
         ) : (
           <a
             href={quoteUrl}
-            className="shrink-0 bg-[#E85D04] text-white font-display text-sm tracking-widest px-5 py-3 hover:bg-orange-600 transition-colors"
+            className="shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-5 py-3 hover:bg-orange-600 transition-colors"
           >
             CLAIM MY SPOT
           </a>

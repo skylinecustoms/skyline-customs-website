@@ -34,7 +34,7 @@ export default function QuoteAssistantLauncher() {
         onClick={() => setLoaded(true)}
         onMouseEnter={() => { preload(); }}
         aria-label="Get a Quick Quote with the AI assistant"
-        className="group flex items-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 rounded-full px-5 py-4"
+        className="group flex items-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-black shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 rounded-full px-5 py-4"
       >
         <MessageSquare className="w-5 h-5 flex-shrink-0" />
         <span className="font-bold tracking-wide text-sm whitespace-nowrap">Get a Quick Quote</span>

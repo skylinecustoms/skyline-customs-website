@@ -25,6 +25,7 @@ import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES } from "@/lib/ppf";
 import { CITY_ORDER } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
+import { responsiveImage } from "@/lib/responsiveImage";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const LAST_REVIEWED = "September 18, 2026";
@@ -138,10 +139,10 @@ export default function ServicePPF() {
               ))}
             </div>
             <div className="flex flex-wrap gap-4">
-              <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+              <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
                 GET A PPF QUOTE <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 inline-flex items-center gap-2">
+              <a href="tel:+17037754383" className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 inline-flex items-center gap-2">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
               <a href="#packages" className="text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-4 py-4 inline-flex items-center gap-2">
@@ -217,7 +218,7 @@ export default function ServicePPF() {
                   </ul>
                   <p className="text-zinc-400 text-xs mb-1">{pkg.bestFor}</p>
                   <p className="text-zinc-400 text-xs mb-5">Install time: {pkg.installTime}</p>
-                  <Link href={`/get-a-quote?service=ppf&package=${pkg.key}`} className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-white" : "border border-zinc-700 hover:border-[#E85D04] text-white"}`}>
+                  <Link href={`/get-a-quote?service=ppf&package=${pkg.key}`} className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-black"}`}>
                     GET A QUOTE
                   </Link>
                 </div>
@@ -251,7 +252,7 @@ export default function ServicePPF() {
             ))}
           </div>
           <div className="flex flex-wrap gap-4 mt-8">
-            <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">GET MY EXACT PRICE <ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">GET MY EXACT PRICE <ArrowRight className="w-4 h-4" /></Link>
             <Link href="/ppf-cost" className="inline-flex items-center gap-2 text-[#E85D04] font-bold tracking-widest uppercase text-sm hover:text-white self-center">What changes a PPF quote <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </div>
@@ -313,7 +314,7 @@ export default function ServicePPF() {
               {jobs.map((p) => (
                 <Link key={p.id} href={`/gallery/${p.slug}`} className="block bg-[#0A0A0A] group">
                   <figure>
-                    <img src={p.photoUrl} alt={`${p.alt} at Skyline Customs in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
+                    <img src={p.photoUrl} srcSet={responsiveImage(p.photoUrl).srcSet} sizes="(min-width: 768px) 25vw, 50vw" alt={`${p.alt} at Skyline Customs in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
                     <figcaption className="text-zinc-400 text-xs p-3"><span className="text-white font-semibold">{p.car}</span> · {p.services.join(" + ")}</figcaption>
                   </figure>
                 </Link>
@@ -403,7 +404,7 @@ export default function ServicePPF() {
             <h2 className="font-['Bebas_Neue',sans-serif] text-3xl md:text-4xl text-white">MODEL 3, Y, S, X & CYBERTRUCK COVERAGE</h2>
             <p className="text-zinc-400 mt-2 max-w-xl">Model-specific diagrams, pricing, and answers on Autopilot sensors and Tesla's own PPF kit.</p>
           </div>
-          <Link href="/tesla-ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors self-start md:self-auto">
+          <Link href="/tesla-ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors self-start md:self-auto">
             TESLA PPF PAGE <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

@@ -17,6 +17,7 @@ import type { VehicleBrand } from "@/lib/modelPpf";
 import VehicleLinks from "@/components/VehicleLinks";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
+import { responsiveImage } from "@/lib/responsiveImage";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const ICONS = [Shield, Zap, Star];
@@ -81,7 +82,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
             ))}
           </div>
           <div className="flex flex-wrap gap-4">
-            <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}`} className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+            <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}`} className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
               GET MY {brand.name.toUpperCase()} QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
             <a href="tel:+17037754383" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2">
@@ -145,7 +146,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
               {jobs.map((p) => (
                 <Link key={p.id} href={`/gallery/${p.slug}`} className="block bg-[#0D0D0D] group">
                   <figure>
-                    <img src={p.photoUrl} alt={`${p.alt} at Skyline Custom Shop in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
+                    <img src={p.photoUrl} srcSet={responsiveImage(p.photoUrl).srcSet} sizes="(min-width: 768px) 25vw, 50vw" alt={`${p.alt} at Skyline Custom Shop in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
                     <figcaption className="p-3 text-zinc-400 text-xs"><span className="text-white font-semibold">{p.car}</span> · {p.services.join(" + ")}</figcaption>
                   </figure>
                 </Link>

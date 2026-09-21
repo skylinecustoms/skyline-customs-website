@@ -102,10 +102,10 @@ export default function PpfCost() {
               We quote every car individually rather than publishing a price list, because the same package on a Model 3 and a Cybertruck is not the same job. Your quote includes the prep, the film, the install, and the warranty. The only extras are paint correction on cars that need it and matte film, both quoted after we see the vehicle.
             </p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+              <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
                 GET MY EXACT PRICE <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+              <a href="tel:+17037754383" className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
             </div>

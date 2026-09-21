@@ -13,6 +13,7 @@ import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
 import { and, eq } from "drizzle-orm";
 import { findGalleryJob } from "../galleryJobs";
 import { galleryJobNote } from "../../shared/galleryJobNotes";
+import imageVariants from "../../shared/imageVariants.json";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -27,12 +28,23 @@ export interface PageMeta {
   preloadImage?: string;
   /** Media query for the preload, e.g. only phones. */
   preloadMedia?: string;
+  /** srcset/sizes for the preload so the browser fetches the variant it will actually use. */
+  preloadSrcSet?: string;
+  preloadSizes?: string;
   /** Social share image (path or absolute URL). Defaults to the site image in index.html. */
   ogImage?: string;
 }
 
 /** Adds the brand to a title only when the result stays within Google's ~60-65 character title width. */
 export const withBrand = (title: string) => (title.includes("Skyline") || title.length > 47 ? title : `${title} | ${SITE_NAME}`);
+
+/** srcset for a gallery photo's WebP variants (shared/imageVariants.json), for the LCP preload. */
+function variantPreload(photoUrl: string): Partial<PageMeta> {
+  const m = photoUrl.match(/^\/images\/([^/]+)\.jpe?g$/i);
+  const v = m ? (imageVariants as Record<string, { widths: number[] }>)[m[1]] : undefined;
+  if (!v) return {};
+  return { preloadSrcSet: v.widths.map((w) => `/images/w/${m![1]}-${w}.webp ${w}w`).join(", "), preloadSizes: "(min-width: 1024px) 960px, 100vw" };
+}
 
 // Static meta map for all local landing pages and core pages
 export const STATIC_META: Record<string, PageMeta> = {
@@ -82,6 +94,26 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: "Tesla PPF in Northern Virginia | Model 3, Y, S, X & Cybertruck",
     description: "Tesla paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for Model 3, Y, S, X, and Cybertruck. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/tesla-ppf`,
+  },
+  "/tesla-model-y-ppf": {
+    title: "Tesla Model Y PPF in Chantilly, VA | Full Front Paint Protection",
+    description: "Paint protection film for the Tesla Model Y in Chantilly, VA. Full front STEK film cut around the cameras, the soft-paint problem explained, and what each package covers. Free quotes.",
+    canonical: `${BASE_URL}/tesla-model-y-ppf`,
+  },
+  "/tesla-model-3-ppf": {
+    title: "Tesla Model 3 PPF in Chantilly, VA | Full Front Paint Protection",
+    description: "Paint protection film for the Tesla Model 3 in Chantilly, VA. Full front STEK film for the low bumper and thin paint, Highland and pre-refresh patterns, and what each package covers. Free quotes.",
+    canonical: `${BASE_URL}/tesla-model-3-ppf`,
+  },
+  "/cybertruck-ppf": {
+    title: "Cybertruck PPF in Chantilly, VA | Stainless Steel Protection Film",
+    description: "Paint protection film for the Tesla Cybertruck in Chantilly, VA. Clear or satin STEK film on the stainless panels stops scratches and fingerprints; what each package covers and why the coating matters. Free quotes.",
+    canonical: `${BASE_URL}/cybertruck-ppf`,
+  },
+  "/porsche-911-ppf": {
+    title: "Porsche 911 PPF in Chantilly, VA | Full Front Paint Protection Film",
+    description: "Paint protection film for the Porsche 911 in Chantilly, VA. Full front STEK film for the 992 and 991, front-lift and sensor cutouts, PTS paint, and what each package covers. Free quotes.",
+    canonical: `${BASE_URL}/porsche-911-ppf`,
   },
   "/bmw-ppf": {
     title: "BMW PPF in Northern Virginia | 3 Series, X5, iX & M Models",
@@ -553,6 +585,7 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
         description: `${intro}. What we covered and why it fits this car. STEK film, 12-year warranty. Free quotes in Chantilly, VA.`.slice(0, 165),
         canonical: `${BASE_URL}/gallery/${job.slug}`,
         preloadImage: job.photoUrl,
+        ...variantPreload(job.photoUrl),
         ogImage: job.photoUrl,
         // A job page without written copy is template-only: keep it out of the index until a note exists.
         ...(note ? {} : { robots: "noindex, follow" }),
@@ -679,9 +712,10 @@ export function injectMetaIntoHtml(html: string, meta: PageMeta): string {
   // fetch before the JS bundle has parsed and rendered.
   if (meta.preloadImage) {
     const media = meta.preloadMedia ? ` media="${escapeHtml(meta.preloadMedia)}"` : "";
+    const srcset = meta.preloadSrcSet ? ` imagesrcset="${escapeHtml(meta.preloadSrcSet)}" imagesizes="${escapeHtml(meta.preloadSizes ?? "100vw")}"` : "";
     result = result.replace(
       "</head>",
-      `<link rel="preload" as="image" href="${escapeHtml(meta.preloadImage)}" fetchpriority="high"${media} />\n</head>`
+      `<link rel="preload" as="image" href="${escapeHtml(meta.preloadImage)}"${srcset} fetchpriority="high"${media} />\n</head>`
     );
   }
 
