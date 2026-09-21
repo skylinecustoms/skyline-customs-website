@@ -19,13 +19,13 @@ interface Props {
 function Logo({ item }: { item: BrandLogo }) {
   if (!item.logo) {
     return (
-      <span className="font-display text-2xl tracking-[0.15em] text-zinc-400 group-hover:text-white transition-colors" role="img" aria-label={item.alt}>
+      <span className="font-display text-2xl italic tracking-[0.12em] text-zinc-400 group-hover:text-white transition-colors" role="img" aria-label={item.alt}>
         {item.name.toUpperCase()}
       </span>
     );
   }
-  // Colour artwork is flattened to white with a CSS filter so every logo sits in the same palette.
-  const mono = item.invertOnLight ? "" : "brightness-0 invert";
+  // Every logo is pushed into the site's monochrome palette with a CSS filter (see BrandLogo.mono).
+  const mono = { flatten: "brightness-0 invert", invert: "grayscale invert", gray: "grayscale", none: "" }[item.mono ?? "flatten"];
   return (
     <img
       src={item.logo}
@@ -34,7 +34,7 @@ function Logo({ item }: { item: BrandLogo }) {
       height={item.height}
       loading="lazy"
       decoding="async"
-      className={`h-7 w-auto max-w-[120px] object-contain ${mono} opacity-60 group-hover:opacity-100 transition-opacity`}
+      className={`h-7 w-auto max-w-[140px] object-contain ${mono} opacity-60 group-hover:opacity-100 transition-opacity`}
     />
   );
 }
