@@ -1,6 +1,7 @@
 /**
- * Infinite logo carousel (CSS-only, so it renders on the server and needs no JS).
+ * Infinite logo strip (CSS-only, so it renders on the server and needs no JS).
  * The list is rendered twice; the track slides by half its width and loops.
+ * Logos are shown monochrome in the site palette and brighten on hover.
  * Hover pauses it; reduced-motion users get a static scrollable row.
  */
 import { Link } from "wouter";
@@ -8,45 +9,49 @@ import type { BrandLogo } from "@shared/brands";
 
 interface Props {
   items: BrandLogo[];
-  /** "light" tiles for supplier logos (dark artwork), "dark" tiles for white vehicle glyphs. */
-  tone: "light" | "dark";
   /** Seconds for one full loop. */
   duration?: number;
+  /** Slide right-to-left (default) or left-to-right. */
+  reverse?: boolean;
   ariaLabel: string;
 }
 
-function Tile({ item, tone }: { item: BrandLogo; tone: Props["tone"] }) {
+function Logo({ item }: { item: BrandLogo }) {
+  if (!item.logo) {
+    return (
+      <span className="font-display text-2xl tracking-[0.15em] text-zinc-400 group-hover:text-white transition-colors" role="img" aria-label={item.alt}>
+        {item.name.toUpperCase()}
+      </span>
+    );
+  }
+  // Colour artwork is flattened to white with a CSS filter so every logo sits in the same palette.
+  const mono = item.invertOnLight ? "" : "brightness-0 invert";
+  return (
+    <img
+      src={item.logo}
+      alt={item.alt}
+      width={item.width}
+      height={item.height}
+      loading="lazy"
+      decoding="async"
+      className={`h-7 w-auto max-w-[120px] object-contain ${mono} opacity-60 group-hover:opacity-100 transition-opacity`}
+    />
+  );
+}
+
+function Item({ item }: { item: BrandLogo }) {
   const external = item.href.startsWith("http");
-  const box =
-    tone === "light"
-      ? "bg-white border border-zinc-200 hover:border-[#E85D04]"
-      : "bg-[#111] border border-zinc-800 hover:border-[#E85D04]";
+  const cls = "group flex shrink-0 items-center gap-3 px-7 py-3";
   const inner = (
     <>
-      <span className="flex h-14 items-center justify-center">
-        {item.logo ? (
-          <img
-            src={item.logo}
-            alt={item.alt}
-            width={item.width}
-            height={item.height}
-            loading="lazy"
-            decoding="async"
-            className={`max-h-12 w-auto object-contain ${tone === "dark" ? "h-10" : "max-w-[150px]"} ${item.invertOnLight && tone === "light" ? "invert" : ""}`}
-          />
-        ) : (
-          <span className={`font-display text-3xl tracking-wider ${tone === "light" ? "text-zinc-900" : "text-white"}`} role="img" aria-label={item.alt}>
-            {item.name}
-          </span>
-        )}
-      </span>
-      <span className={`mt-2 block text-center text-[11px] leading-tight ${tone === "light" ? "text-zinc-600" : "text-zinc-400"}`}>
-        <span className={`block font-semibold ${tone === "light" ? "text-zinc-900" : "text-white"}`}>{item.name}</span>
-        {item.caption}
-      </span>
+      <Logo item={item} />
+      {item.logo && (
+        <span className="font-mono-brand text-[10px] uppercase tracking-[0.2em] text-zinc-500 group-hover:text-brand-orange transition-colors whitespace-nowrap">
+          {item.name}
+        </span>
+      )}
     </>
   );
-  const cls = `group flex w-[168px] shrink-0 flex-col justify-center px-4 py-4 transition-colors ${box}`;
   return external ? (
     <a href={item.href} target="_blank" rel="noopener" className={cls} title={item.alt}>{inner}</a>
   ) : (
@@ -54,19 +59,15 @@ function Tile({ item, tone }: { item: BrandLogo; tone: Props["tone"] }) {
   );
 }
 
-export default function BrandMarquee({ items, tone, duration = 45, ariaLabel }: Props) {
+export default function BrandMarquee({ items, duration = 45, reverse = false, ariaLabel }: Props) {
   return (
     <div className="marquee relative overflow-hidden" aria-label={ariaLabel} role="region">
-      <div className="marquee-track flex w-max" style={{ animationDuration: `${duration}s` }}>
-        <div className="flex gap-3 pr-3">
-          {items.map((item) => (
-            <Tile key={item.name} item={item} tone={tone} />
-          ))}
+      <div className="marquee-track flex w-max" style={{ animationDuration: `${duration}s`, animationDirection: reverse ? "reverse" : "normal" }}>
+        <div className="flex">
+          {items.map((item) => <Item key={item.name} item={item} />)}
         </div>
-        <div className="flex gap-3 pr-3" aria-hidden="true">
-          {items.map((item) => (
-            <Tile key={`${item.name}-copy`} item={item} tone={tone} />
-          ))}
+        <div className="flex" aria-hidden="true">
+          {items.map((item) => <Item key={`${item.name}-copy`} item={item} />)}
         </div>
       </div>
     </div>
