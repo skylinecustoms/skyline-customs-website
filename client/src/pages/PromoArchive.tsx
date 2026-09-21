@@ -309,7 +309,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
-                      <span>A-Pillar Wrap <span className="text-emerald-400 text-xs">FREE ($300 value)</span></span>
+                      <span>A-Pillar PPF <span className="text-emerald-400 text-xs">FREE ($300 value)</span></span>
                     </div>
                   </div>
                 </div>

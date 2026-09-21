@@ -116,11 +116,18 @@ export default function BlogPost() {
     return staticPost ?? null;
   }, [dbPost, staticPost]);
 
-  // Related posts from static list (DB posts don't need related for now)
-  const relatedPosts = useMemo(
-    () => staticPosts.filter((p) => p.slug !== slug).slice(0, 2),
-    [slug]
-  );
+  // Related posts: database posts and static posts, same category first, so every
+  // article links to others (crawlers follow these links to the newer posts).
+  const { data: dbList } = trpc.blog.list.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const relatedPosts = useMemo(() => {
+    const all = [
+      ...(dbList ?? []).map((p) => ({ slug: p.slug, title: p.title, excerpt: p.excerpt, date: p.date, category: p.category, heroImage: p.heroImage, heroImageAlt: p.heroImageAlt })),
+      ...staticPosts.filter((p) => !(dbList ?? []).some((d) => d.slug === p.slug)),
+    ].filter((p) => p.slug !== slug);
+    const same = all.filter((p) => p.category === post?.category);
+    const rest = all.filter((p) => p.category !== post?.category);
+    return [...same, ...rest].slice(0, 3);
+  }, [dbList, slug, post?.category]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

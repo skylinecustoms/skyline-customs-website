@@ -31,7 +31,7 @@ export default function ServiceAreas() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Service Areas | Skyline Custom Shop — Northern Virginia PPF, Ceramic, Tint & Wraps"
+        title="Service Areas | PPF, Ceramic Coating & Tint Across Northern Virginia"
         description="Skyline Custom Shop serves 22 cities across Northern Virginia including Chantilly, Fairfax, Arlington, Alexandria, Woodbridge, Stafford, Fredericksburg, and more. Find your city and book a free quote."
         canonical="https://www.skylinecustomshop.com/service-areas"
         jsonLd={[

@@ -18,6 +18,7 @@ import { useState } from "react";
 import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
+import { cityServiceNote } from "@/lib/localSeoNotes";
 
 const SERVICE_MATCH: Record<ServiceKey, RegExp> = { ppf: /ppf|paint protection/i, ceramic: /ceramic coat/i, tint: /tint/i };
 const FALLBACK_PHOTO = { photoUrl: "/images/ppf_1_c7c64665.webp", alt: "Paint protection film installation on a Corvette C8" };
@@ -69,7 +70,13 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
   const svc = SERVICES[serviceKey];
   const path = cityPath(serviceKey, cityName);
   const canonical = `${BASE_URL}${path}`;
-  const faqs = svc.faqs(city);
+  const note = cityServiceNote(cityName, serviceKey);
+  // The city-specific questions come first; of the shared service questions, each
+  // city shows a different three (rotated by city) so pages do not repeat the same block.
+  const shared = svc.faqs(city);
+  const start = hash(cityName) % shared.length;
+  const rotated = [0, 1, 2].map((i) => shared[(start + i) % shared.length]);
+  const faqs = [...(note?.faqs ?? []), ...(note ? rotated : shared)];
   const cards = [
     { title: city.roadsTitle, desc: `${city.roadsDesc} ${svc.roadsBenefit}` },
     ...svc.features,
@@ -233,6 +240,20 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           <p className="text-zinc-500 text-sm mt-4">{svc.roadsBenefit}</p>
         </div>
       </section>
+
+      {/* Service-specific notes for this city: written per city and per service */}
+      {note && (
+        <section className="py-16 bg-[#0D0D0D] border-t border-zinc-800">
+          <div className="container max-w-4xl">
+            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{svc.short} in {city.name}</p>
+            <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-5">{note.heading.toUpperCase()}</h2>
+            <p className="text-zinc-300 leading-relaxed text-lg">{note.body}</p>
+            <p className="text-zinc-500 text-sm mt-5">
+              Every {svc.short.toLowerCase()} job is done at our shop, 4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151. <Link href={svc.serviceHref} className="text-[#E85D04] hover:underline">See the full {svc.short.toLowerCase()} page</Link> for packages and process.
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Service area */}
       <section className="py-20 bg-[#0A0A0A]">

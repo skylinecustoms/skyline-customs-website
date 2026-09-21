@@ -7,7 +7,7 @@ import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 import { pathToFileURL } from "node:url";
-import { getBlogPostBySlug } from "../db";
+import { getBlogPostBySlug , getAllBlogPosts } from "../db";
 import { getGalleryRows } from "../galleryJobs";
 import { getActivePromoByActive, getPromoSlots } from "../db";
 
@@ -49,7 +49,9 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
   const hit = ssrCache.get(urlPath);
   if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit;
   try {
-    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown } = {};
+    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[] } = {};
+    // The blog index and every post list the other posts: render the list so crawlers see the links.
+    if (/^\/blog(\/|$)/.test(urlPath)) preload.blogList = await getAllBlogPosts().catch(() => undefined);
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
     if (/^\/gallery(\/|$)|^\/services\/ppf$|-ppf$|^\/ppf-/.test(urlPath)) preload.gallery = await getGalleryRows().catch(() => undefined);
     if (urlPath === "/promo" || urlPath === "/") {

@@ -190,7 +190,7 @@ export default function TermsOfService() {
             <div>
               <h2 className="font-display text-2xl text-[oklch(0.96_0.008_85)] tracking-wider mb-4">PRE-EXISTING CONDITIONS</h2>
               <p>
-                Skyline Customs is not responsible for pre-existing damage or conditions. Removal of old tint, PPF, wraps, or other materials may expose or worsen existing imperfections, including but not limited to scratches, defroster line damage, seal degradation, or paint defects.
+                Skyline Customs is not responsible for pre-existing damage or conditions. Removal of old tint, PPF, or other materials may expose or worsen existing imperfections, including but not limited to scratches, defroster line damage, seal degradation, or paint defects.
               </p>
             </div>
 

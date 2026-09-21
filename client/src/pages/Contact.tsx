@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Instagram, Youtube, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { trackLead } from "@/lib/analytics";
@@ -19,6 +20,13 @@ const SERVICE_OPTIONS = [
   { value: "PPF", label: "Paint Protection Film (PPF)" },
   { value: "Multiple Services - Bundle & Save", label: "Multiple Services — Bundle & Save" },
   { value: "Not Sure Yet", label: "Not Sure Yet" },
+];
+
+const CONTACT_FAQS = [
+  { q: "Do I need an appointment, or can I walk in?", a: "Quotes and questions are welcome any time during business hours, Monday to Friday, 9 AM to 6 PM. Installs are by appointment so the bay is ready for your car. Request a quote online or call (703) 775-4383 and we will book a slot, often within the same week." },
+  { q: "How fast do you reply to a quote request?", a: "Usually within the hour during business hours and always the same business day. Tell us the year, make, model, and the coverage you want and the reply is a written quote, not a range." },
+  { q: "Where do I park, and can I leave the car for the day?", a: "Free parking is on site at 4215 Walney Rd, Suite 1A and B. Most PPF and tint jobs are same-day: drop off at 9 AM and pick up in the afternoon. Ceramic coatings are two days, so we plan a next-day pickup with you." },
+  { q: "What should I bring to the appointment?", a: "Just the car, washed or not. We decontaminate every vehicle before any film or coating goes on. If you have a medical tint exemption, bring the certificate so we install to the exempted limits." },
 ];
 
 export default function Contact() {
@@ -80,6 +88,19 @@ export default function Contact() {
         title="Contact Us | Chantilly VA Auto Protection"
         description="Book a free consultation for PPF, ceramic coating, or window tinting. Call (703) 775-4383 or visit 4215 Walney Rd, Chantilly, VA."
         canonical="https://www.skylinecustomshop.com/contact"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AutoBodyShop",
+            "name": "Skyline Custom Shop",
+            "url": "https://www.skylinecustomshop.com/contact",
+            "telephone": "+17037754383",
+            "email": "info@skylinecustomshop.com",
+            "address": { "@type": "PostalAddress", "streetAddress": "4215 Walney Rd Suite 1A & B", "addressLocality": "Chantilly", "addressRegion": "VA", "postalCode": "20151", "addressCountry": "US" },
+            "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00" }],
+          },
+          { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": CONTACT_FAQS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) },
+        ]}
       />
       <Navbar />
 
@@ -373,6 +394,38 @@ export default function Contact() {
                   </form>
                 </>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Directions + FAQ */}
+      <section className="pb-24">
+        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-px bg-[oklch(0.20_0.006_285)]">
+          <div className="bg-[oklch(0.12_0.005_285)] p-8 md:p-12">
+            <h2 className="font-display text-3xl text-[oklch(0.96_0.008_85)] tracking-wider mb-6">HOW TO FIND US</h2>
+            <p className="text-[oklch(0.65_0.008_85)] leading-relaxed mb-6">
+              Skyline Custom Shop is at 4215 Walney Rd, Suite 1A and B, in Chantilly, VA 20151, just south of Route 28 between Westfields Blvd and Route 50, about five minutes from Dulles Airport. Look for the orange Skyline sign; the bay doors face the parking lot and there is free parking out front.
+            </p>
+            <ul className="space-y-3 text-[oklch(0.65_0.008_85)] text-sm leading-relaxed">
+              <li><span className="text-brand-orange font-semibold">From I-66:</span> exit at Route 28 north toward Dulles, continue about three miles, then turn onto Walney Rd. We are on the right.</li>
+              <li><span className="text-brand-orange font-semibold">From the Dulles Toll Road or Herndon:</span> take Route 28 south past the airport and Westfields Blvd, then turn onto Walney Rd.</li>
+              <li><span className="text-brand-orange font-semibold">From Route 50 and Fairfax:</span> head west on Route 50, turn right on Walney Rd, and follow it north past the Ellanor C. Lawrence Park entrance.</li>
+              <li><span className="text-brand-orange font-semibold">From Loudoun and Ashburn:</span> Route 28 south or the Greenway to Route 28, then Walney Rd. About twenty minutes from Broadlands.</li>
+            </ul>
+            <p className="text-[oklch(0.45_0.008_285)] text-sm mt-6">
+              Serving Chantilly, Centreville, Herndon, Reston, Fairfax, Ashburn, Sterling, Manassas, and all of Northern Virginia. See our <Link href="/service-areas" className="text-brand-orange hover:underline">service areas</Link> for directions from your city.
+            </p>
+          </div>
+          <div className="bg-[oklch(0.12_0.005_285)] p-8 md:p-12">
+            <h2 className="font-display text-3xl text-[oklch(0.96_0.008_85)] tracking-wider mb-6">BEFORE YOU VISIT</h2>
+            <div className="divide-y divide-[oklch(0.20_0.006_285)]">
+              {CONTACT_FAQS.map((f) => (
+                <div key={f.q} className="py-4">
+                  <h3 className="text-[oklch(0.96_0.008_85)] font-semibold mb-2">{f.q}</h3>
+                  <p className="text-[oklch(0.65_0.008_85)] text-sm leading-relaxed">{f.a}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
