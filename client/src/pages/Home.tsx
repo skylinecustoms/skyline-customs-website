@@ -749,7 +749,7 @@ export default function Home() {
                 <Icon className="w-6 h-6 text-brand-orange" />
                 <div>
                   <p className="font-display text-3xl text-white tracking-wide">{label}</p>
-                  <p className="text-[oklch(0.55_0.008_285)] text-sm mt-1">{sub}</p>
+                  <p className="text-[oklch(0.66_0.008_285)] text-sm mt-1">{sub}</p>
                 </div>
               </div>
             ))}

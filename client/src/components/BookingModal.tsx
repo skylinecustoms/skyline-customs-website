@@ -124,7 +124,7 @@ export default function BookingModal({ isOpen, service, onClose }: BookingModalP
             {selectedService && service === "general" && (
               <button
                 onClick={() => setSelectedService(null)}
-                className="text-[oklch(0.55_0.008_285)] hover:text-brand-orange transition-colors mr-1"
+                className="text-[oklch(0.66_0.008_285)] hover:text-brand-orange transition-colors mr-1"
                 aria-label="Back to service selection"
               >
                 <ArrowLeft size={18} />
@@ -152,7 +152,7 @@ export default function BookingModal({ isOpen, service, onClose }: BookingModalP
         {/* ── STEP 1: SERVICE SELECTOR ── */}
         {!selectedService && (
           <div className="flex-1 overflow-y-auto p-6">
-            <p className="text-[oklch(0.55_0.01_285)] text-sm mb-6 font-mono-brand tracking-wide">
+            <p className="text-[oklch(0.66_0.01_285)] text-sm mb-6 font-mono-brand tracking-wide">
               Choose the service you'd like to schedule — you'll be taken directly to the right calendar.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -183,7 +183,7 @@ export default function BookingModal({ isOpen, service, onClose }: BookingModalP
                   </div>
 
                   {/* Description */}
-                  <p className="text-[oklch(0.55_0.01_285)] text-xs leading-relaxed">
+                  <p className="text-[oklch(0.66_0.01_285)] text-xs leading-relaxed">
                     {opt.description}
                   </p>
 

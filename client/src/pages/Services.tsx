@@ -105,7 +105,7 @@ export default function Services() {
             OUR<br />
             <span className="text-brand-orange">SERVICES</span>
           </h1>
-          <p className="text-[oklch(0.55_0.01_285)] text-lg max-w-2xl">
+          <p className="text-[oklch(0.66_0.01_285)] text-lg max-w-2xl">
             Every service we offer is backed by premium materials, certified installers, and a commitment to perfection. We serve all of Northern Virginia from our Chantilly facility.
           </p>
         </div>

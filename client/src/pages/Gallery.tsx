@@ -94,7 +94,7 @@ export default function Gallery() {
             THE<br />
             <span className="text-brand-orange">GALLERY</span>
           </h1>
-          <p className="text-[oklch(0.55_0.01_285)] text-lg max-w-2xl">
+          <p className="text-[oklch(0.66_0.01_285)] text-lg max-w-2xl">
             Real jobs. Real results. Browse our recent work across PPF, window tinting, and ceramic coating — all performed at our Chantilly, VA shop.
           </p>
         </div>
@@ -111,7 +111,7 @@ export default function Gallery() {
                 className={`font-display text-sm tracking-widest px-5 py-2 transition-colors ${
                   activeCategory === cat
                     ? "bg-brand-orange text-[oklch(0.10_0.005_285)]"
-                    : "border border-[oklch(0.25_0.006_285)] text-[oklch(0.55_0.01_285)] hover:border-brand-orange hover:text-brand-orange"
+                    : "border border-[oklch(0.25_0.006_285)] text-[oklch(0.66_0.01_285)] hover:border-brand-orange hover:text-brand-orange"
                 }`}
               >
                 {cat.toUpperCase()}
@@ -132,7 +132,7 @@ export default function Gallery() {
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-24">
-              <p className="text-[oklch(0.55_0.01_285)] text-lg">No photos in this category yet.</p>
+              <p className="text-[oklch(0.66_0.01_285)] text-lg">No photos in this category yet.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-[oklch(0.20_0.006_285)]">
@@ -196,7 +196,7 @@ export default function Gallery() {
           <h2 className="font-display text-4xl md:text-5xl text-[oklch(0.96_0.008_85)] mb-4">
             SEE MORE ON <span className="text-brand-orange">INSTAGRAM</span>
           </h2>
-          <p className="text-[oklch(0.55_0.01_285)] mb-8">
+          <p className="text-[oklch(0.66_0.01_285)] mb-8">
             We post new work daily. Follow us for the latest builds, transformations, and behind-the-scenes content from our Chantilly, VA shop.
           </p>
           <a

@@ -26,7 +26,7 @@ export default function Footer() {
                 </span>
               </div>
             </div>
-            <p className="text-[oklch(0.55_0.01_285)] text-sm leading-relaxed max-w-xs mb-6">
+            <p className="text-[oklch(0.66_0.01_285)] text-sm leading-relaxed max-w-xs mb-6">
               Northern Virginia's premier automotive protection specialists. Trusted by 140+ drivers for window tinting, ceramic coating, and PPF.
             </p>
             <div className="flex gap-4">
@@ -34,7 +34,7 @@ export default function Footer() {
                 href="https://www.instagram.com/skylinecustomshop/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-[oklch(0.25_0.006_285)] flex items-center justify-center text-[oklch(0.55_0.01_285)] hover:text-brand-orange hover:border-brand-orange transition-colors"
+                className="w-9 h-9 border border-[oklch(0.25_0.006_285)] flex items-center justify-center text-[oklch(0.66_0.01_285)] hover:text-brand-orange hover:border-brand-orange transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={16} />
@@ -43,7 +43,7 @@ export default function Footer() {
                 href="https://www.youtube.com/@SkylineCustomsOfficial"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-[oklch(0.25_0.006_285)] flex items-center justify-center text-[oklch(0.55_0.01_285)] hover:text-brand-orange hover:border-brand-orange transition-colors"
+                className="w-9 h-9 border border-[oklch(0.25_0.006_285)] flex items-center justify-center text-[oklch(0.66_0.01_285)] hover:text-brand-orange hover:border-brand-orange transition-colors"
                 aria-label="YouTube"
               >
                 <Youtube size={16} />
@@ -74,7 +74,7 @@ export default function Footer() {
                 <li key={s.label}>
                   <Link
                     href={s.href}
-                    className="text-[oklch(0.55_0.01_285)] text-sm hover:text-brand-orange transition-colors"
+                    className="text-[oklch(0.66_0.01_285)] text-sm hover:text-brand-orange transition-colors"
                   >
                     {s.label}
                   </Link>
@@ -94,7 +94,7 @@ export default function Footer() {
                 <li key={city}>
                   <Link
                     href={cityPath("ppf", city)}
-                    className="text-[oklch(0.55_0.01_285)] text-sm hover:text-brand-orange transition-colors"
+                    className="text-[oklch(0.66_0.01_285)] text-sm hover:text-brand-orange transition-colors"
                   >
                     {city}
                   </Link>
@@ -115,7 +115,7 @@ export default function Footer() {
               <li>
                 <a
                   href="tel:+17037754383"
-                  className="flex items-start gap-3 text-[oklch(0.55_0.01_285)] text-sm hover:text-brand-orange transition-colors"
+                  className="flex items-start gap-3 text-[oklch(0.66_0.01_285)] text-sm hover:text-brand-orange transition-colors"
                 >
                   <Phone size={14} className="mt-0.5 shrink-0 text-brand-orange" />
                   (703) 775-4383
@@ -124,7 +124,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:info@skylinecustomshop.com"
-                  className="flex items-start gap-3 text-[oklch(0.55_0.01_285)] text-sm hover:text-brand-orange transition-colors"
+                  className="flex items-start gap-3 text-[oklch(0.66_0.01_285)] text-sm hover:text-brand-orange transition-colors"
                 >
                   <Mail size={14} className="mt-0.5 shrink-0 text-brand-orange" />
                   info@skylinecustomshop.com
@@ -135,7 +135,7 @@ export default function Footer() {
                   href="https://maps.google.com/?q=4215+Walney+Rd+Suite+1A+%26+B+Chantilly+VA"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3 text-[oklch(0.55_0.01_285)] text-sm hover:text-brand-orange transition-colors"
+                  className="flex items-start gap-3 text-[oklch(0.66_0.01_285)] text-sm hover:text-brand-orange transition-colors"
                 >
                   <MapPin size={14} className="mt-0.5 shrink-0 text-brand-orange" />
                   4215 Walney Rd. Suite 1A &amp; B<br />Chantilly, VA 20151
@@ -144,7 +144,7 @@ export default function Footer() {
             </ul>
             <div className="mt-5">
               <p className="font-mono-brand text-xs text-[oklch(0.40_0.008_285)] uppercase tracking-widest mb-1">Hours</p>
-              <p className="text-[oklch(0.55_0.01_285)] text-sm">Mon–Fri: 9AM – 6PM</p>
+              <p className="text-[oklch(0.66_0.01_285)] text-sm">Mon–Fri: 9AM – 6PM</p>
               <p className="text-[oklch(0.40_0.008_285)] text-sm">Weekends: Closed</p>
             </div>
           </div>

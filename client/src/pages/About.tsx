@@ -118,7 +118,7 @@ export default function About() {
                   <Icon size={20} className="text-brand-orange" />
                 </div>
                 <h3 className="font-display text-2xl text-[oklch(0.96_0.008_85)] tracking-wider mb-3">{title}</h3>
-                <p className="text-[oklch(0.55_0.01_285)] leading-relaxed text-sm">{desc}</p>
+                <p className="text-[oklch(0.66_0.01_285)] leading-relaxed text-sm">{desc}</p>
               </div>
             ))}
           </div>
@@ -144,7 +144,7 @@ export default function About() {
                 <p className="font-mono-brand text-xs text-brand-orange uppercase tracking-widest mb-2">Certified installer</p>
                 <h3 className="font-display text-3xl text-[oklch(0.96_0.008_85)] tracking-wider mb-1">{c.name}</h3>
                 <p className="text-[oklch(0.75_0.008_85)] text-sm mb-4">{c.product}</p>
-                <p className="text-[oklch(0.55_0.01_285)] leading-relaxed text-sm flex-1">{c.what}</p>
+                <p className="text-[oklch(0.66_0.01_285)] leading-relaxed text-sm flex-1">{c.what}</p>
                 <p className="text-[oklch(0.65_0.008_85)] text-sm mt-4">{c.warranty}</p>
                 <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-brand-orange text-xs font-bold tracking-widest uppercase mt-6 hover:text-white transition-colors">
                   {c.short} website <ArrowRight size={14} />

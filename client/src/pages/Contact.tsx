@@ -117,7 +117,7 @@ export default function Contact() {
             CONTACT<br />
             <span className="text-brand-orange">US</span>
           </h1>
-          <p className="text-[oklch(0.55_0.01_285)] text-lg max-w-2xl">
+          <p className="text-[oklch(0.66_0.01_285)] text-lg max-w-2xl">
             Ready to protect your vehicle? Book an appointment online, give us a call, or send us a message and we'll get back to you within 24 hours.
           </p>
         </div>
@@ -199,7 +199,7 @@ export default function Contact() {
                     href="https://www.instagram.com/skylinecustomshop/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[oklch(0.55_0.01_285)] hover:text-brand-orange transition-colors text-sm"
+                    className="flex items-center gap-2 text-[oklch(0.66_0.01_285)] hover:text-brand-orange transition-colors text-sm"
                   >
                     <Instagram size={16} />
                     Instagram
@@ -208,7 +208,7 @@ export default function Contact() {
                     href="https://www.youtube.com/@SkylineCustomsOfficial"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[oklch(0.55_0.01_285)] hover:text-brand-orange transition-colors text-sm"
+                    className="flex items-center gap-2 text-[oklch(0.66_0.01_285)] hover:text-brand-orange transition-colors text-sm"
                   >
                     <Youtube size={16} />
                     YouTube
@@ -235,7 +235,7 @@ export default function Contact() {
                     <span className="font-display text-3xl text-[oklch(0.10_0.005_285)]">✓</span>
                   </div>
                   <h3 className="font-display text-4xl text-[oklch(0.96_0.008_85)] mb-4">MESSAGE SENT</h3>
-                  <p className="text-[oklch(0.55_0.01_285)] max-w-sm">
+                  <p className="text-[oklch(0.66_0.01_285)] max-w-sm">
                     Thank you for reaching out. We'll get back to you within 24 hours. For faster service, give us a call at (703) 775-4383.
                   </p>
                 </div>
