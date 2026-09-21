@@ -165,16 +165,16 @@ function HomepageCountdown({ endDate }: { endDate: string }) {
 
   return (
     <div className="flex items-center gap-1 bg-black/40 border border-zinc-700 px-3 py-2">
-      <Clock className="w-3 h-3 text-zinc-500 mr-1" />
+      <Clock className="w-3 h-3 text-zinc-400 mr-1" />
       {timeLeft.days > 0 && (
-        <><span className="font-mono text-[#E85D04] font-bold text-sm">{timeLeft.days}</span><span className="text-zinc-600 text-xs mr-1">d</span></>
+        <><span className="font-mono text-[#E85D04] font-bold text-sm">{timeLeft.days}</span><span className="text-zinc-400 text-xs mr-1">d</span></>
       )}
       <span className="font-mono text-[#E85D04] font-bold text-sm">{String(timeLeft.hours).padStart(2, '0')}</span>
-      <span className="text-zinc-600 text-xs">h</span>
+      <span className="text-zinc-400 text-xs">h</span>
       <span className="font-mono text-[#E85D04] font-bold text-sm ml-1">{String(timeLeft.minutes).padStart(2, '0')}</span>
-      <span className="text-zinc-600 text-xs">m</span>
+      <span className="text-zinc-400 text-xs">m</span>
       <span className="font-mono text-[#E85D04] font-bold text-sm ml-1">{String(timeLeft.seconds).padStart(2, '0')}</span>
-      <span className="text-zinc-600 text-xs">s</span>
+      <span className="text-zinc-400 text-xs">s</span>
     </div>
   );
 }
@@ -278,7 +278,7 @@ function ActivePromoBanner() {
               {remaining > 0 ? (
                 <p className="text-xs tracking-wide">
                   <span className="text-emerald-400 font-bold">Spots are limited</span>
-                  <span className="text-zinc-600"> &mdash; No catch. Just flawless paint, guaranteed 12 years.</span>
+                  <span className="text-zinc-400"> &mdash; No catch. Just flawless paint, guaranteed 12 years.</span>
                 </p>
               ) : (
                 <p className="text-red-400 text-xs font-bold tracking-wide uppercase">All slots filled &mdash; join the waitlist</p>
@@ -292,7 +292,7 @@ function ActivePromoBanner() {
             <div className="border border-[#E85D04]/30 bg-[#E85D04]/5 p-6">
               <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Starting At</p>
               <div className="flex items-baseline gap-3 mb-1">
-                {freeValue > 0 && <span className="font-mono-brand text-zinc-600 text-xl line-through">{fmt(fullPrice)}</span>}
+                {freeValue > 0 && <span className="font-mono-brand text-zinc-400 text-xl line-through">{fmt(fullPrice)}</span>}
                 <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
               </div>
               <p className="text-zinc-400 text-sm">
@@ -303,7 +303,7 @@ function ActivePromoBanner() {
             {/* Availability */}
             <div className="border border-zinc-800 bg-[#0D0D0D] p-6">
               <div className="flex justify-between text-xs mb-3">
-                <span className="text-zinc-500 font-medium tracking-wide uppercase">Availability</span>
+                <span className="text-zinc-400 font-medium tracking-wide uppercase">Availability</span>
                 {soldOut
                   ? <span className="text-red-400 font-bold">SOLD OUT</span>
                   : <span className="text-yellow-400 font-bold">Limited spots</span>}
@@ -313,7 +313,7 @@ function ActivePromoBanner() {
                   ? "This month's spots are gone. Join the waitlist and you're first in line for next month."
                   : "We only take a set number of cars each month so every one gets our full attention. First come, first served."}
               </p>
-              {endDate && <p className="text-zinc-600 text-xs mt-3">Ends {endDate}</p>}
+              {endDate && <p className="text-zinc-400 text-xs mt-3">Ends {endDate}</p>}
             </div>
 
             {/* Trust row */}
@@ -326,7 +326,7 @@ function ActivePromoBanner() {
                 <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-3 text-center">
                   <Icon className="w-4 h-4 text-[#E85D04] mx-auto mb-1.5" />
                   <p className="text-white text-xs font-bold leading-tight">{label}</p>
-                  <p className="text-zinc-600 text-xs">{sub}</p>
+                  <p className="text-zinc-400 text-xs">{sub}</p>
                 </div>
               ))}
             </div>
@@ -470,7 +470,7 @@ function RecentCarsSection() {
           <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">
             WHO WE&apos;VE PROTECTED
           </h2>
-          <p className="text-zinc-500 mt-3 text-sm max-w-xl">
+          <p className="text-zinc-400 mt-3 text-sm max-w-xl">
             Every car below was protected by our team this past month. Real customers, verified work.
           </p>
         </div>
@@ -495,7 +495,7 @@ function RecentCarsSection() {
               </div>
               <div className="p-4">
                 <p className="text-white font-semibold text-sm mb-1">{slot.customerName}</p>
-                <p className="text-zinc-500 text-xs leading-relaxed">{slot.carDescription}</p>
+                <p className="text-zinc-400 text-xs leading-relaxed">{slot.carDescription}</p>
               </div>
             </div>
           ))}
@@ -560,12 +560,12 @@ function ThisMonthsSpecialBanner() {
                 {soldOut ? 'SOLD OUT' : 'Limited spots'}
               </span>
             </div>
-            <div className="flex justify-between text-zinc-600 text-xs mb-6">
+            <div className="flex justify-between text-zinc-400 text-xs mb-6">
               <span>{soldOut ? "Join the waitlist for next month" : "First come, first served"}</span>
               {promo.endDate && <span>Ends {promo.endDate}</span>}
             </div>
             <div className="border-t border-zinc-800 pt-5">
-              <p className="text-zinc-500 text-xs leading-relaxed">
+              <p className="text-zinc-400 text-xs leading-relaxed">
                 We only take a set number of cars each month so every vehicle gets the same level of attention. Once the spots are gone, the deal is over until next month.
               </p>
             </div>
@@ -663,7 +663,7 @@ export default function Home() {
       <section className="py-8 bg-[oklch(0.10_0.005_285)] border-b border-[oklch(0.16_0.006_285)]" aria-labelledby="brands-heading">
         <h2 id="brands-heading" className="sr-only">Brands we install and vehicle makes we have protected</h2>
         <div className="container max-w-6xl">
-          <p className="font-mono-brand text-[10px] uppercase tracking-[0.3em] text-zinc-600 mb-2">
+          <p className="font-mono-brand text-[10px] uppercase tracking-[0.3em] text-zinc-400 mb-2">
             Certified installer for STEK, Gtechniq, GeoShield and PURE PPF <span className="text-zinc-700">·</span> cars we've protected, from the <Link href="/gallery" className="text-zinc-400 hover:text-brand-orange normal-case tracking-normal">gallery</Link>
           </p>
         </div>

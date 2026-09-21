@@ -51,7 +51,7 @@ function CityPhoto({ cityName, cityLabel, service }: { cityName: string; cityLab
             <span className="text-[#E85D04] font-bold uppercase tracking-widest text-xs mr-2">Recent work</span>
             {photo.alt} — {svcLabel} done in our Chantilly bay, 
             {" "}{cityLabel} drivers welcome.
-            {"slug" in photo && <Link href={`/gallery/${photo.slug}`} className="ml-2 text-[#E85D04] hover:underline">See this job →</Link>}
+            {"slug" in photo && <Link href={`/gallery/${photo.slug}`} className="ml-2 text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">See this job →</Link>}
           </figcaption>
         </figure>
       </div>
@@ -159,7 +159,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           style={{ background: "radial-gradient(ellipse at top right, #E85D04, transparent 70%)" }}
         />
         <div className="container relative z-10 pt-32">
-          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs text-zinc-500 mb-4">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-4">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
             <Link href={svc.serviceHref} className="hover:text-white">{svc.label}</Link>
@@ -225,11 +225,11 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
               );
             })}
           </div>
-          <p className="text-zinc-500 text-sm mt-8 max-w-3xl">
+          <p className="text-zinc-400 text-sm mt-8 max-w-3xl">
             Learn more about our{" "}
-            <Link href={svc.serviceHref} className="text-[#E85D04] hover:underline">{svc.label.toLowerCase()} packages</Link>
+            <Link href={svc.serviceHref} className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">{svc.label.toLowerCase()} packages</Link>
             {" "}or see recent work in the{" "}
-            <Link href="/gallery" className="text-[#E85D04] hover:underline">gallery</Link>.
+            <Link href="/gallery" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">gallery</Link>.
           </p>
         </div>
       </section>
@@ -240,7 +240,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Driving in {city.name}</p>
           <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-5">WHAT {city.name.toUpperCase()} DOES TO YOUR PAINT</h2>
           <p className="text-zinc-300 leading-relaxed text-lg">{city.localIntro}</p>
-          <p className="text-zinc-500 text-sm mt-4">{svc.roadsBenefit}</p>
+          <p className="text-zinc-400 text-sm mt-4">{svc.roadsBenefit}</p>
         </div>
       </section>
 
@@ -251,8 +251,8 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{svc.short} in {city.name}</p>
             <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-5">{note.heading.toUpperCase()}</h2>
             <p className="text-zinc-300 leading-relaxed text-lg">{note.body}</p>
-            <p className="text-zinc-500 text-sm mt-5">
-              Every {svc.short.toLowerCase()} job is done at our shop, 4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151. <Link href={svc.serviceHref} className="text-[#E85D04] hover:underline">See the full {svc.short.toLowerCase()} page</Link> for packages and process.
+            <p className="text-zinc-400 text-sm mt-5">
+              Every {svc.short.toLowerCase()} job is done at our shop, 4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151. <Link href={svc.serviceHref} className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">See the full {svc.short.toLowerCase()} page</Link> for packages and process.
             </p>
           </div>
         </section>
@@ -272,7 +272,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
               </span>
             ))}
           </div>
-          <p className="text-zinc-500 text-sm max-w-xl mx-auto">{shopLine}</p>
+          <p className="text-zinc-400 text-sm max-w-xl mx-auto">{shopLine}</p>
         </div>
       </section>
 
@@ -332,7 +332,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
       {/* Other services in this city */}
       <section className="py-10 bg-[#0A0A0A] border-t border-zinc-800">
         <div className="container">
-          <p className="text-zinc-500 text-xs font-bold tracking-[0.3em] uppercase mb-4">More services near {city.name}</p>
+          <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-4">More services near {city.name}</p>
           <div className="flex flex-wrap gap-3">
             {(Object.keys(SERVICES) as ServiceKey[]).filter((k) => k !== serviceKey).map((k) => (
               <Link key={k} href={cityPath(k, city.name)} className="border border-zinc-700 hover:border-[#E85D04] text-zinc-300 hover:text-white text-sm px-4 py-2 transition-colors">
@@ -347,7 +347,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         <div className="container text-center">
           <p className="text-zinc-400 text-sm">
             Serving all of Northern Virginia —{" "}
-            <Link href="/service-areas" className="text-[#E85D04] hover:underline font-medium">
+            <Link href="/service-areas" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2 font-medium">
               view all service areas
             </Link>
           </p>

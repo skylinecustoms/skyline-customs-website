@@ -153,7 +153,7 @@ export default function GetAQuote() {
   ) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   const inputClass =
-    "w-full bg-[#1a1a1a] border border-zinc-700 text-zinc-100 px-4 py-3 text-sm focus:outline-none focus:border-[#E85D04] transition-colors placeholder:text-zinc-600";
+    "w-full bg-[#1a1a1a] border border-zinc-700 text-zinc-100 px-4 py-3 text-sm focus:outline-none focus:border-[#E85D04] transition-colors placeholder:text-zinc-400";
 
   const labelClass =
     "block text-xs font-bold tracking-[0.2em] uppercase text-[#E85D04] mb-2";
@@ -400,7 +400,7 @@ export default function GetAQuote() {
                         href="/terms-of-service"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#E85D04] hover:underline"
+                        className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Terms of Service &amp; Warranty Policy

@@ -414,7 +414,7 @@ export default function Contact() {
               <li><span className="text-brand-orange font-semibold">From Loudoun and Ashburn:</span> Route 28 south or the Greenway to Route 28, then Walney Rd. About twenty minutes from Broadlands.</li>
             </ul>
             <p className="text-[oklch(0.45_0.008_285)] text-sm mt-6">
-              Serving Chantilly, Centreville, Herndon, Reston, Fairfax, Ashburn, Sterling, Manassas, and all of Northern Virginia. See our <Link href="/service-areas" className="text-brand-orange hover:underline">service areas</Link> for directions from your city.
+              Serving Chantilly, Centreville, Herndon, Reston, Fairfax, Ashburn, Sterling, Manassas, and all of Northern Virginia. See our <Link href="/service-areas" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">service areas</Link> for directions from your city.
             </p>
           </div>
           <div className="bg-[oklch(0.12_0.005_285)] p-8 md:p-12">
@@ -454,7 +454,7 @@ export default function Contact() {
                 href="https://maps.google.com/?q=Skyline+Customs+4215+Walney+Rd+Suite+1A+%26+B+Chantilly+VA+20151"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-2 text-brand-orange font-mono-brand text-xs uppercase tracking-widest hover:underline"
+                className="inline-flex items-center gap-2 mt-2 text-brand-orange font-mono-brand text-xs uppercase tracking-widest underline underline-offset-2 decoration-1 hover:decoration-2"
               >
                 Get Directions →
               </a>

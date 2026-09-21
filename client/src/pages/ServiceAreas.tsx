@@ -154,11 +154,11 @@ export default function ServiceAreas() {
                     <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white leading-none">
                       {city.name}
                     </h3>
-                    <span className="text-zinc-500 text-xs">{city.state}</span>
+                    <span className="text-zinc-400 text-xs">{city.state}</span>
                   </div>
                 </div>
 
-                <p className="text-zinc-500 text-xs mb-4 leading-relaxed">{city.description}</p>
+                <p className="text-zinc-400 text-xs mb-4 leading-relaxed">{city.description}</p>
 
                 {/* Service links */}
                 <div className="space-y-1.5">
@@ -199,7 +199,7 @@ export default function ServiceAreas() {
                   { label: "Address", value: "4215 Walney Rd Suite 1A & B, Chantilly, VA 20151" },
                 ].map((item) => (
                   <div key={item.label} className="flex gap-3 text-sm">
-                    <span className="text-zinc-500 w-16 shrink-0">{item.label}</span>
+                    <span className="text-zinc-400 w-16 shrink-0">{item.label}</span>
                     {item.href ? (
                       <a href={item.href} className="text-white hover:text-[#E85D04] transition-colors">{item.value}</a>
                     ) : (
@@ -224,7 +224,7 @@ export default function ServiceAreas() {
                 <div key={svc.label} className="bg-[#0D0D0D] p-6 hover:bg-[#111] transition-colors">
                   <svc.icon className="w-6 h-6 text-[#E85D04] mb-3" />
                   <div className="font-['Bebas_Neue',sans-serif] text-lg text-white mb-1">{svc.label}</div>
-                  <div className="text-zinc-500 text-xs">{svc.desc}</div>
+                  <div className="text-zinc-400 text-xs">{svc.desc}</div>
                 </div>
               ))}
             </div>

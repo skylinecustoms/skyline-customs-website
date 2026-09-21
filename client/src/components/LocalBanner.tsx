@@ -33,7 +33,7 @@ export default function LocalBanner({ localHref, serviceName }: LocalBannerProps
               <h3 className="text-white font-bold text-base mb-1">
                 Serving Chantilly, VA &amp; Northern Virginia
               </h3>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-zinc-400 text-sm leading-relaxed">
                 Our shop is located at 4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151 — minutes from{" "}
                 {NEARBY_CITIES.slice(0, 5).join(", ")}, and more.
               </p>
@@ -42,7 +42,7 @@ export default function LocalBanner({ localHref, serviceName }: LocalBannerProps
                 {NEARBY_CITIES.map((city) => (
                   <span
                     key={city}
-                    className="text-zinc-500 text-xs border border-zinc-800 px-2.5 py-1 hover:border-zinc-600 hover:text-zinc-300 transition-colors"
+                    className="text-zinc-400 text-xs border border-zinc-800 px-2.5 py-1 hover:border-zinc-600 hover:text-zinc-300 transition-colors"
                   >
                     {city}, VA
                   </span>

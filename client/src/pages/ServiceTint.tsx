@@ -229,7 +229,7 @@ export default function ServiceTint() {
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Window Tinting" }]} />
           <div className="flex items-center gap-3 mb-4">
             <Link href="/services" className="text-[#E85D04] text-sm font-medium tracking-widest uppercase hover:text-white transition-colors">Services</Link>
-            <span className="text-zinc-600">/</span>
+            <span className="text-zinc-400">/</span>
             <span className="text-zinc-400 text-sm tracking-widest uppercase">Window Tinting</span>
           </div>
           <div className="max-w-4xl">
@@ -334,7 +334,7 @@ export default function ServiceTint() {
                 <img loading="lazy" decoding="async" src={pkg.image} alt={pkg.imageAlt} className="w-full h-44 object-cover" />
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-1">{pkg.name}</h3>
-                  <p className="text-zinc-500 text-xs uppercase tracking-widest mb-4">{pkg.desc}</p>
+                  <p className="text-zinc-400 text-xs uppercase tracking-widest mb-4">{pkg.desc}</p>
                   <ul className="space-y-1.5 flex-1 mb-5">
                     {pkg.features.map((f, j) => (
                       <li key={j} className="flex items-start gap-2 text-sm text-zinc-300">
@@ -367,11 +367,11 @@ export default function ServiceTint() {
               <div className="flex gap-6">
                 <div className="text-center">
                   <p className="font-['Bebas_Neue',sans-serif] text-4xl text-[#E85D04]">80–83%</p>
-                  <p className="text-zinc-500 text-xs uppercase tracking-widest">IR Rejection</p>
+                  <p className="text-zinc-400 text-xs uppercase tracking-widest">IR Rejection</p>
                 </div>
                 <div className="text-center">
                   <p className="font-['Bebas_Neue',sans-serif] text-4xl text-[#E85D04]">99%</p>
-                  <p className="text-zinc-500 text-xs uppercase tracking-widest">UV Rejection</p>
+                  <p className="text-zinc-400 text-xs uppercase tracking-widest">UV Rejection</p>
                 </div>
               </div>
             </div>
@@ -393,14 +393,14 @@ export default function ServiceTint() {
 
           {/* Shade Selector */}
           <div>
-            <p className="text-zinc-500 text-xs uppercase tracking-widest mb-4">Available Shades — Virginia front windows must be 50%+ VLT</p>
+            <p className="text-zinc-400 text-xs uppercase tracking-widest mb-4">Available Shades — Virginia front windows must be 50%+ VLT</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
               {shades.map((s, i) => (
                 <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-4 text-center hover:border-zinc-600 transition-colors">
                   <p className="font-['Bebas_Neue',sans-serif] text-2xl text-white">{s.vlt}</p>
                   <p className="text-[#E85D04] text-xs font-bold uppercase tracking-widest">{s.label}</p>
-                  <p className="text-zinc-500 text-xs mt-1">{s.irr} IRR</p>
-                  <p className="text-zinc-600 text-xs">{s.note}</p>
+                  <p className="text-zinc-400 text-xs mt-1">{s.irr} IRR</p>
+                  <p className="text-zinc-400 text-xs">{s.note}</p>
                 </div>
               ))}
             </div>

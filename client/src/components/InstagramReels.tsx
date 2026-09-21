@@ -89,7 +89,7 @@ export function ReelCard({ reel, media, onOpen }: { reel: InstagramReel; media?:
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}
-        <button type="button" onClick={onOpen} className="group absolute inset-0 w-full h-full text-left" aria-label={`${reel.title}, watch with sound`}>
+        <button type="button" onClick={onOpen} className="group absolute inset-0 w-full h-full text-left" aria-label={`${reel.title}. Tap to watch with sound`}>
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-black/70 text-white text-[11px] font-semibold px-2 py-1 border border-white/20">
             <Instagram className="w-3.5 h-3.5 text-[#E85D04]" /> Reel
           </span>

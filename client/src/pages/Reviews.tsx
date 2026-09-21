@@ -50,7 +50,7 @@ export default function Reviews() {
           <div className="flex items-center gap-2 mb-4">
             <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-[#E85D04] text-[#E85D04]" />)}</div>
             <span className="text-white font-bold">{rating} on Google</span>
-            <span className="text-zinc-500 text-sm">· {total}</span>
+            <span className="text-zinc-400 text-sm">· {total}</span>
           </div>
           <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl leading-none text-white mb-4">
             DON'T TAKE<br /><span className="text-[#E85D04]">OUR WORD FOR IT</span>
@@ -83,14 +83,14 @@ export default function Reviews() {
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${r.avatarColor}`}>{r.initials}</div>
                   <div>
                     <p className="text-white text-sm font-semibold">{r.name}</p>
-                    <p className="text-zinc-500 text-xs">{r.service} · Google · {r.date}</p>
+                    <p className="text-zinc-400 text-xs">{r.service} · Google · {r.date}</p>
                   </div>
                 </div>
               </article>
             ))}
           </div>
-          <p className="text-zinc-500 text-sm mt-8 text-center">
-            Showing a selection of recent reviews. <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="text-[#E85D04] hover:underline">See every review on Google</a>.
+          <p className="text-zinc-400 text-sm mt-8 text-center">
+            Showing a selection of recent reviews. <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">See every review on Google</a>.
           </p>
         </div>
       </section>

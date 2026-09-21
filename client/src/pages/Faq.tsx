@@ -95,7 +95,7 @@ export default function Faq() {
               <p className="text-zinc-400 mb-8">{g.intro}</p>
               <Accordion items={g.items} offset={start} />
               {g.href && (
-                <Link href={g.href} className="inline-flex items-center gap-2 mt-6 text-[#E85D04] hover:underline font-medium text-sm">
+                <Link href={g.href} className="inline-flex items-center gap-2 mt-6 text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2 font-medium text-sm">
                   {g.hrefLabel} <ArrowRight className="w-4 h-4" />
                 </Link>
               )}

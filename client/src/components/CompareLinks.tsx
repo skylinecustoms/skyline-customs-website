@@ -20,9 +20,9 @@ export default function CompareLinks({ exclude }: { exclude?: string }) {
             <Link key={l.href} href={l.href} className="group border border-zinc-800 hover:border-[#E85D04] p-5 flex items-center justify-between gap-4 transition-colors">
               <span>
                 <span className="block text-white font-bold">{l.label}</span>
-                <span className="block text-zinc-500 text-sm mt-1">{l.sub}</span>
+                <span className="block text-zinc-400 text-sm mt-1">{l.sub}</span>
               </span>
-              <ArrowRight className="w-5 h-5 text-zinc-600 group-hover:text-[#E85D04] shrink-0" />
+              <ArrowRight className="w-5 h-5 text-zinc-400 group-hover:text-[#E85D04] shrink-0" />
             </Link>
           ))}
         </div>

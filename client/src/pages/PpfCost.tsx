@@ -132,7 +132,7 @@ export default function PpfCost() {
                     {p.coverage.map((c) => <li key={c} className="text-zinc-400 text-xs flex items-start gap-2"><CheckCircle className="w-3 h-3 text-[#E85D04] mt-0.5 shrink-0" />{c}</li>)}
                   </ul>
                   <p className="text-zinc-400 text-xs mt-3">{p.bestFor}</p>
-                  <p className="text-zinc-500 text-xs mt-2">Install time: {p.installTime}</p>
+                  <p className="text-zinc-400 text-xs mt-2">Install time: {p.installTime}</p>
                 </div>
               ))}
             </div>

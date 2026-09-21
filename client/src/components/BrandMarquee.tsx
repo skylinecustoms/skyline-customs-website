@@ -46,7 +46,7 @@ function Item({ item }: { item: BrandLogo }) {
     <>
       <Logo item={item} />
       {item.logo && (
-        <span className="font-mono-brand text-[10px] uppercase tracking-[0.2em] text-zinc-500 group-hover:text-brand-orange transition-colors whitespace-nowrap">
+        <span className="font-mono-brand text-[10px] uppercase tracking-[0.2em] text-zinc-400 group-hover:text-brand-orange transition-colors whitespace-nowrap">
           {item.name}
         </span>
       )}

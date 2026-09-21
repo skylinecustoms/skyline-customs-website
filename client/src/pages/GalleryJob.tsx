@@ -227,22 +227,22 @@ export default function GalleryJob() {
               </ul>
               <dl className="mt-8 grid grid-cols-2 gap-4 text-sm">
                 <div className="border border-zinc-800 p-4">
-                  <dt className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Vehicle</dt>
+                  <dt className="text-zinc-400 text-xs uppercase tracking-widest mb-1">Vehicle</dt>
                   <dd className="text-white font-semibold">{job.car}</dd>
                 </div>
                 <div className="border border-zinc-800 p-4">
-                  <dt className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Location</dt>
+                  <dt className="text-zinc-400 text-xs uppercase tracking-widest mb-1">Location</dt>
                   <dd className="text-white font-semibold">Chantilly, VA</dd>
                 </div>
                 {hasPpf && (
                   <div className="border border-zinc-800 p-4">
-                    <dt className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Film</dt>
+                    <dt className="text-zinc-400 text-xs uppercase tracking-widest mb-1">Film</dt>
                     <dd className="text-white font-semibold">STEK, 12-year warranty</dd>
                   </div>
                 )}
                 {hasCeramic && (
                   <div className="border border-zinc-800 p-4">
-                    <dt className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Coating</dt>
+                    <dt className="text-zinc-400 text-xs uppercase tracking-widest mb-1">Coating</dt>
                     <dd className="text-white font-semibold">Gtechniq ceramic</dd>
                   </div>
                 )}
@@ -279,24 +279,24 @@ export default function GalleryJob() {
               {servicePages.map((s) => (
                 <Link key={s.href} href={s.href} className="border border-zinc-800 bg-[#111] p-5 hover:border-[#E85D04] transition-colors">
                   <p className="text-white font-bold">{s.label}</p>
-                  <p className="text-zinc-500 text-xs mt-1">Service page</p>
+                  <p className="text-zinc-400 text-xs mt-1">Service page</p>
                 </Link>
               ))}
               {brand && (
                 <Link href={brand.href} className="border border-zinc-800 bg-[#111] p-5 hover:border-[#E85D04] transition-colors">
                   <p className="text-white font-bold">{brand.name}</p>
-                  <p className="text-zinc-500 text-xs mt-1">Coverage and FAQ for {brand.name.replace(" PPF", "")}</p>
+                  <p className="text-zinc-400 text-xs mt-1">Coverage and FAQ for {brand.name.replace(" PPF", "")}</p>
                 </Link>
               )}
               {hasPpf && (
                 <Link href="/ppf-cost" className="border border-zinc-800 bg-[#111] p-5 hover:border-[#E85D04] transition-colors">
                   <p className="text-white font-bold">What drives PPF cost</p>
-                  <p className="text-zinc-500 text-xs mt-1">Coverage, film, and vehicle size</p>
+                  <p className="text-zinc-400 text-xs mt-1">Coverage, film, and vehicle size</p>
                 </Link>
               )}
               <Link href={primaryService.city} className="border border-zinc-800 bg-[#111] p-5 hover:border-[#E85D04] transition-colors">
                 <p className="text-white font-bold">{primaryService.label} in Chantilly</p>
-                <p className="text-zinc-500 text-xs mt-1">Our home shop page</p>
+                <p className="text-zinc-400 text-xs mt-1">Our home shop page</p>
               </Link>
             </div>
           </div>
@@ -339,7 +339,7 @@ export default function GalleryJob() {
                   <Link key={r.slug} href={`/gallery/${r.slug}`} className="block bg-[#0A0A0A] group">
                     <img src={r.photoUrl} srcSet={responsiveImage(r.photoUrl).srcSet} sizes="(min-width: 768px) 240px, 45vw" alt={`${r.alt} at Skyline Custom Shop in Chantilly, VA`} loading="lazy" decoding="async" width="600" height="450" className="w-full aspect-[4/3] object-cover group-hover:opacity-90 transition-opacity" />
                     <p className="text-white text-sm font-semibold px-3 pt-3">{r.car}</p>
-                    <p className="text-zinc-500 text-xs px-3 pb-3">{svcLabel(r.services)}</p>
+                    <p className="text-zinc-400 text-xs px-3 pb-3">{svcLabel(r.services)}</p>
                   </Link>
                 ))}
               </div>

@@ -260,13 +260,13 @@ export default function TermsOfService() {
                 <p>4215 Walney Rd. Suite 1A &amp; B, Chantilly, VA 20151</p>
                 <p>
                   Phone:{" "}
-                  <a href="tel:+17037754383" className="text-brand-orange hover:underline">
+                  <a href="tel:+17037754383" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">
                     (703) 775-4383
                   </a>
                 </p>
                 <p>
                   Email:{" "}
-                  <a href="mailto:info@skylinecustomshop.com" className="text-brand-orange hover:underline">
+                  <a href="mailto:info@skylinecustomshop.com" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">
                     info@skylinecustomshop.com
                   </a>
                 </p>

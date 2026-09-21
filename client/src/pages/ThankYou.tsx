@@ -74,7 +74,7 @@ export default function ThankYou() {
           </div>
 
           {/* Hours note */}
-          <p className="text-zinc-600 text-xs font-mono mt-8 uppercase tracking-widest">
+          <p className="text-zinc-400 text-xs font-mono mt-8 uppercase tracking-widest">
             Mon–Fri 9AM–6PM  ·&nbsp; (703) 775-4383
           </p>
         </div>

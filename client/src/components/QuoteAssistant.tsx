@@ -281,7 +281,7 @@ export default function QuoteAssistant({ autoOpen = false }: { autoOpen?: boolea
                     </button>
                   </div>
                 )}
-                <p className="text-zinc-600 text-[10px] text-center mt-2">
+                <p className="text-zinc-400 text-[10px] text-center mt-2">
                   Powered by Skyline Customs AI · Your info is secure
                 </p>
               </div>

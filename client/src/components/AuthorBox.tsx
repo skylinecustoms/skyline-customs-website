@@ -28,8 +28,8 @@ export default function AuthorBox({ dateModified }: { dateModified?: string }) {
           {CERTIFICATIONS.map((c) => (
             <a key={c.name} href={c.url} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#e85d04] transition-colors">{c.short} certified</a>
           ))}
-          <Link href="/about" className="text-[#e85d04] hover:underline">About the shop</Link>
-          <Link href="/reviews" className="text-[#e85d04] hover:underline">Read our reviews</Link>
+          <Link href="/about" className="text-[#e85d04] underline underline-offset-2 decoration-1 hover:decoration-2">About the shop</Link>
+          <Link href="/reviews" className="text-[#e85d04] underline underline-offset-2 decoration-1 hover:decoration-2">Read our reviews</Link>
           {dateModified && <span className="text-white/30">Last reviewed {dateModified}</span>}
         </div>
       </div>

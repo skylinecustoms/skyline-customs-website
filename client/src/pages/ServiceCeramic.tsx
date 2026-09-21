@@ -256,7 +256,7 @@ export default function ServiceCeramic() {
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Ceramic Coating" }]} />
           <div className="flex items-center gap-3 mb-4">
             <Link href="/services" className="text-[#E85D04] text-sm font-medium tracking-widest uppercase hover:text-white transition-colors">Services</Link>
-            <span className="text-zinc-600">/</span>
+            <span className="text-zinc-400">/</span>
             <span className="text-zinc-400 text-sm tracking-widest uppercase">Ceramic Coating</span>
           </div>
           <div className="max-w-4xl">
@@ -319,7 +319,7 @@ export default function ServiceCeramic() {
               CHOOSE YOUR LEVEL
             </h2>
           </div>
-          <p className="text-zinc-500 text-sm mb-8">Pricing varies by vehicle size — sedans &amp; coupes / SUVs &amp; trucks. Request a free quote for your vehicle.</p>
+          <p className="text-zinc-400 text-sm mb-8">Pricing varies by vehicle size — sedans &amp; coupes / SUVs &amp; trucks. Request a free quote for your vehicle.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
             {packages.map((pkg, i) => (
               <div
@@ -339,7 +339,7 @@ export default function ServiceCeramic() {
                 <div className="p-8 flex flex-col flex-1">
                   <h3 className="font-['Bebas_Neue',sans-serif] text-3xl text-white mb-1">{pkg.name}</h3>
                   <p className="text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-1">{pkg.warranty}</p>
-                  <p className="text-zinc-500 text-xs uppercase tracking-widest mb-6">{pkg.desc}</p>
+                  <p className="text-zinc-400 text-xs uppercase tracking-widest mb-6">{pkg.desc}</p>
                   <ul className="space-y-2 flex-1 mb-6">
                     {pkg.features.map((item, j) => (
                       <li key={j} className="flex items-start gap-2 text-sm text-zinc-300">

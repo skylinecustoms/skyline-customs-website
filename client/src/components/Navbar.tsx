@@ -112,7 +112,7 @@ export default function Navbar() {
                       <Link
                         href="/services"
                         onClick={() => setServicesOpen(false)}
-                        className="block px-4 py-3 text-xs font-bold tracking-widest uppercase text-zinc-500 hover:text-[#E85D04] border-b border-zinc-800 transition-colors"
+                        className="block px-4 py-3 text-xs font-bold tracking-widest uppercase text-zinc-400 hover:text-[#E85D04] border-b border-zinc-800 transition-colors"
                       >
                         All Services
                       </Link>
@@ -227,7 +227,7 @@ export default function Navbar() {
                         key={sl.href}
                         href={sl.href}
                         className={`font-display text-base tracking-wide ${
-                          location === sl.href ? "text-[#E85D04]" : "text-zinc-500 hover:text-zinc-300"
+                          location === sl.href ? "text-[#E85D04]" : "text-zinc-400 hover:text-zinc-300"
                         }`}
                       >
                         {sl.label}

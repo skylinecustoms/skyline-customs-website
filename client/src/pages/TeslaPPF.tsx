@@ -95,7 +95,7 @@ export default function TeslaPPF() {
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 40px, #E85D04 40px, #E85D04 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, #E85D04 40px, #E85D04 41px)" }} />
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10" style={{ background: "radial-gradient(ellipse at top right, #E85D04, transparent 70%)" }} />
         <div className="container relative z-10 pt-32">
-          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs text-zinc-500 mb-4">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-4">
             <Link href="/" className="hover:text-white">Home</Link><span>/</span>
             <Link href="/services/ppf" className="hover:text-white">Paint Protection Film</Link><span>/</span>
             <span className="text-zinc-300">Tesla</span>
@@ -129,7 +129,7 @@ export default function TeslaPPF() {
         <section className="bg-[#E85D04]/10 border-b border-[#E85D04]/30">
           <div className="container py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <p className="text-sm text-white"><Zap className="inline w-4 h-4 text-[#E85D04] mr-1.5" /><span className="font-bold">{promo.title}:</span> {promo.tagline}</p>
-            <Link href="/promo" className="text-[#E85D04] text-sm font-bold uppercase tracking-widest hover:underline inline-flex items-center gap-1">See the deal <ArrowRight className="w-3.5 h-3.5" /></Link>
+            <Link href="/promo" className="text-[#E85D04] text-sm font-bold uppercase tracking-widest underline underline-offset-2 decoration-1 hover:decoration-2 inline-flex items-center gap-1">See the deal <ArrowRight className="w-3.5 h-3.5" /></Link>
           </div>
         </section>
       )}
@@ -153,7 +153,7 @@ export default function TeslaPPF() {
                     <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white">{p.name}</h3>
                     {p.popular && <span className="bg-[#E85D04] text-black text-[10px] font-bold tracking-widest px-2 py-1">MOST POPULAR</span>}
                   </div>
-                  <p className="text-zinc-500 text-xs mb-3">{p.sub}</p>
+                  <p className="text-zinc-400 text-xs mb-3">{p.sub}</p>
                   <ul className="mt-3 space-y-1">
                     {p.covers.map((c) => <li key={c} className="flex items-center gap-2 text-zinc-400 text-xs"><CheckCircle className="w-3 h-3 text-[#E85D04] shrink-0" />{c}</li>)}
                   </ul>
@@ -161,7 +161,7 @@ export default function TeslaPPF() {
               ))}
             </div>
           </div>
-          <p className="text-zinc-500 text-sm mt-6">Selected: <span className="text-white font-medium">{active.name}</span>. All packages in STEK DYNOshield, priced by free quote and confirmed at in-person inspection. Stealth (matte) film available on request.</p>
+          <p className="text-zinc-400 text-sm mt-6">Selected: <span className="text-white font-medium">{active.name}</span>. All packages in STEK DYNOshield, priced by free quote and confirmed at in-person inspection. Stealth (matte) film available on request.</p>
         </div>
       </section>
 

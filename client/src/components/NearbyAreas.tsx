@@ -45,9 +45,9 @@ export default function NearbyAreas({ city, service }: NearbyAreasProps) {
                   <div className="text-white text-sm font-medium group-hover:text-[#E85D04] transition-colors">
                     {neighbor}
                   </div>
-                  <div className="text-zinc-500 text-xs">{svcLabel}</div>
+                  <div className="text-zinc-400 text-xs">{svcLabel}</div>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 text-zinc-600 group-hover:text-[#E85D04] shrink-0 transition-colors" />
+                <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#E85D04] shrink-0 transition-colors" />
               </Link>
             );
           })}

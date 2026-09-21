@@ -101,7 +101,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <Link href="/service-areas" className="inline-block mt-4 text-brand-orange text-xs font-mono-brand uppercase tracking-widest hover:underline">
+            <Link href="/service-areas" className="inline-block mt-4 text-brand-orange text-xs font-mono-brand uppercase tracking-widest underline underline-offset-2 decoration-1 hover:decoration-2">
               All service areas
             </Link>
           </div>

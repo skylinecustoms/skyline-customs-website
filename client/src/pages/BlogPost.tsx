@@ -157,7 +157,7 @@ export default function BlogPost() {
           >
             Post Not Found
           </h1>
-          <Link href="/blog" className="text-[#e85d04] hover:underline">
+          <Link href="/blog" className="text-[#e85d04] underline underline-offset-2 decoration-1 hover:decoration-2">
             ← Back to Blog
           </Link>
         </div>

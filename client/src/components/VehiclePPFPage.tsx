@@ -98,7 +98,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
         <section className="bg-[#E85D04]/10 border-b border-[#E85D04]/30">
           <div className="container py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <p className="text-sm text-white"><Zap className="inline w-4 h-4 text-[#E85D04] mr-1.5" /><span className="font-bold">{promo.title}:</span> {promo.tagline}</p>
-            <Link href="/promo" className="text-[#E85D04] text-sm font-bold uppercase tracking-widest hover:underline inline-flex items-center gap-1">See the deal <ArrowRight className="w-3.5 h-3.5" /></Link>
+            <Link href="/promo" className="text-[#E85D04] text-sm font-bold uppercase tracking-widest underline underline-offset-2 decoration-1 hover:decoration-2 inline-flex items-center gap-1">See the deal <ArrowRight className="w-3.5 h-3.5" /></Link>
           </div>
         </section>
       )}
@@ -152,7 +152,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
                 </Link>
               ))}
             </div>
-            <Link href="/gallery" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] hover:underline text-sm font-medium">See the full gallery <ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/gallery" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2 text-sm font-medium">See the full gallery <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </section>
       )}

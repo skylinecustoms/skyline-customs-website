@@ -53,8 +53,8 @@ function ProgressBar({ filled, total }: { filled: number; total: number }) {
 
       {/* Count */}
       <div className="flex items-center justify-between mt-2">
-        <span className="text-zinc-600 text-xs">{filled} of {total} slots filled</span>
-        <span className="text-zinc-600 text-xs">June 2026 only</span>
+        <span className="text-zinc-400 text-xs">{filled} of {total} slots filled</span>
+        <span className="text-zinc-400 text-xs">June 2026 only</span>
       </div>
     </div>
   );
@@ -100,7 +100,7 @@ function SlotCard({
       {/* Info */}
       <div className="p-4">
         <p className="text-white font-semibold text-sm mb-1">{customerName}</p>
-        <p className="text-zinc-500 text-xs leading-relaxed">{carDescription}</p>
+        <p className="text-zinc-400 text-xs leading-relaxed">{carDescription}</p>
       </div>
     </div>
   );
@@ -117,7 +117,7 @@ function EmptySlotCard({ slotNumber }: { slotNumber: number }) {
         <p className="text-zinc-700 text-xs tracking-widest uppercase text-center">Available</p>
         <Link
           href="/get-a-quote?service=ppf&promo=june-special"
-          className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:underline"
+          className="text-[#E85D04] text-xs font-bold tracking-widest uppercase underline underline-offset-2 decoration-1 hover:decoration-2"
         >
           Claim This Slot →
         </Link>
@@ -193,14 +193,14 @@ export default function JuneSpecial() {
                       <Icon className="w-5 h-5 text-[#E85D04] shrink-0 mt-0.5" />
                       <div>
                         <p className="text-white font-semibold text-sm">{label}</p>
-                        <p className="text-zinc-500 text-xs leading-relaxed">{sub}</p>
+                        <p className="text-zinc-400 text-xs leading-relaxed">{sub}</p>
                       </div>
                     </div>
                   ))}
                 </div>
                 <div className="border-t border-zinc-800 mt-6 pt-4 flex items-center justify-between">
                   <div>
-                    <p className="text-zinc-500 text-xs line-through">Normally $3,200+</p>
+                    <p className="text-zinc-400 text-xs line-through">Normally $3,200+</p>
                     <p className="font-['Bebas_Neue',sans-serif] text-4xl text-white">$2,400</p>
                   </div>
                   <div className="bg-[#E85D04] text-black text-xs font-bold tracking-widest px-3 py-2">
@@ -228,8 +228,8 @@ export default function JuneSpecial() {
               ) : (
                 <div className="border border-red-800 bg-red-900/20 p-4 text-center">
                   <p className="text-red-400 font-bold tracking-widest uppercase">All 21 Slots Filled — June Special is Sold Out</p>
-                  <p className="text-zinc-500 text-sm mt-1">Join the waitlist for our July special.</p>
-                  <Link href="/get-a-quote" className="text-[#E85D04] text-sm font-bold mt-2 inline-block hover:underline">
+                  <p className="text-zinc-400 text-sm mt-1">Join the waitlist for our July special.</p>
+                  <Link href="/get-a-quote" className="text-[#E85D04] text-sm font-bold mt-2 inline-block underline underline-offset-2 decoration-1 hover:decoration-2">
                     Join Waitlist →
                   </Link>
                 </div>
@@ -246,7 +246,7 @@ export default function JuneSpecial() {
                 ) : (
                   <ProgressBar filled={filledSlots.length} total={totalSlots} />
                 )}
-                <p className="text-zinc-600 text-xs mt-4 leading-relaxed">
+                <p className="text-zinc-400 text-xs mt-4 leading-relaxed">
                   Each slot represents one completed vehicle. Once all 21 are filled, this deal is gone until next month's special.
                 </p>
               </div>
@@ -261,7 +261,7 @@ export default function JuneSpecial() {
                   <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-4 text-center">
                     <Icon className="w-5 h-5 text-[#E85D04] mx-auto mb-2" />
                     <p className="text-white text-xs font-bold">{label}</p>
-                    <p className="text-zinc-600 text-xs">{sub}</p>
+                    <p className="text-zinc-400 text-xs">{sub}</p>
                   </div>
                 ))}
               </div>
@@ -352,7 +352,7 @@ export default function JuneSpecial() {
             Not all PPF is the same. STEK DYNOshield is a premium thermoplastic polyurethane film with a self-healing top coat, hydrophobic surface, and optical clarity that makes it virtually invisible on your paint. Backed by a{" "}
             <strong className="text-white">12-year manufacturer warranty</strong> against yellowing, cracking, peeling, and delamination.
           </p>
-          <Link href="/services/ppf" className="text-[#E85D04] font-bold tracking-widest uppercase text-sm hover:underline flex items-center justify-center gap-2">
+          <Link href="/services/ppf" className="text-[#E85D04] font-bold tracking-widest uppercase text-sm underline underline-offset-2 decoration-1 hover:decoration-2 flex items-center justify-center gap-2">
             Learn more about our PPF installation <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -366,7 +366,7 @@ export default function JuneSpecial() {
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">
               WHO'S ALREADY IN
             </h2>
-            <p className="text-zinc-500 mt-3 text-sm">
+            <p className="text-zinc-400 mt-3 text-sm">
               Every completed car is verified by our team. Remaining slots are open — claim yours before June ends.
             </p>
           </div>

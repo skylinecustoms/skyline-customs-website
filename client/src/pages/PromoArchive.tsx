@@ -63,7 +63,7 @@ function SlotCard({
       </div>
       <div className="p-4">
         <p className="text-white font-semibold text-sm mb-1">{customerName}</p>
-        <p className="text-zinc-500 text-xs leading-relaxed">{carDescription}</p>
+        <p className="text-zinc-400 text-xs leading-relaxed">{carDescription}</p>
       </div>
     </div>
   );
@@ -143,7 +143,7 @@ function ArchiveNotFound() {
         <div className="text-center px-6">
           <AlertTriangle className="w-16 h-16 text-zinc-700 mx-auto mb-6" />
           <h1 className="font-display text-4xl text-white tracking-wide mb-4">PROMO NOT FOUND</h1>
-          <p className="text-zinc-500 mb-8">This promo archive doesn't exist or hasn't been archived yet.</p>
+          <p className="text-zinc-400 mb-8">This promo archive doesn't exist or hasn't been archived yet.</p>
           <Link href="/promo" className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors">
             SEE CURRENT OFFER <ArrowRight className="w-5 h-5" />
           </Link>
@@ -216,7 +216,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
       <div className="bg-zinc-900 border-b border-zinc-800">
         <div className="container max-w-6xl py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Lock className="w-4 h-4 text-zinc-500 shrink-0" />
+            <Lock className="w-4 h-4 text-zinc-400 shrink-0" />
             <p className="text-zinc-400 text-sm">
               <span className="text-white font-semibold">{title}</span> has ended.
               All {totalSlots} slots were filled.
@@ -224,7 +224,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
           </div>
           <Link
             href="/promo"
-            className="flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-wide hover:underline shrink-0"
+            className="flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-wide underline underline-offset-2 decoration-1 hover:decoration-2 shrink-0"
           >
             See current offer <ArrowRight className="w-4 h-4" />
           </Link>
@@ -258,7 +258,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                 </div>
 
                 {/* Dates */}
-                <div className="flex items-center gap-3 text-sm text-zinc-500 mb-8">
+                <div className="flex items-center gap-3 text-sm text-zinc-400 mb-8">
                   <span>{startDate} &ndash; {endDate}</span>
                   <span className="text-zinc-700">|</span>
                   <span className="text-zinc-400 font-semibold">SOLD OUT</span>
@@ -268,13 +268,13 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                 <div className="space-y-3">
                   <button
                     disabled
-                    className="w-full sm:w-auto bg-zinc-800 text-zinc-500 font-display text-xl tracking-[0.1em] px-10 py-5 cursor-not-allowed flex items-center gap-3"
+                    className="w-full sm:w-auto bg-zinc-800 text-zinc-400 font-display text-xl tracking-[0.1em] px-10 py-5 cursor-not-allowed flex items-center gap-3"
                   >
                     <Lock className="w-5 h-5" /> THIS PROMO HAS ENDED
                   </button>
                   <Link
                     href="/promo"
-                    className="flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-wide hover:underline"
+                    className="flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-wide underline underline-offset-2 decoration-1 hover:decoration-2"
                   >
                     See our current monthly offer <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -287,7 +287,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                 <div className="border border-zinc-700 bg-[#0D0D0D] p-6">
                   <div className="flex items-baseline gap-3 mb-2">
                     <span className="font-mono-brand text-5xl text-white font-bold">${price}</span>
-                    <span className="text-zinc-600 line-through text-2xl">$4,500</span>
+                    <span className="text-zinc-400 line-through text-2xl">$4,500</span>
                   </div>
                   <p className="text-emerald-400 text-sm font-semibold mb-4">You saved $2,100 in free services</p>
                   <div className="space-y-2 text-sm text-zinc-400">
@@ -329,8 +329,8 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                     </div>
                   </div>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-zinc-600 text-xs">{filledSlots.length} of {totalSlots} slots filled</span>
-                    <span className="text-zinc-600 text-xs">Ended {endDate}</span>
+                    <span className="text-zinc-400 text-xs">{filledSlots.length} of {totalSlots} slots filled</span>
+                    <span className="text-zinc-400 text-xs">Ended {endDate}</span>
                   </div>
                 </div>
 
@@ -343,7 +343,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                         className={`text-xs font-bold tracking-wide px-3 py-1.5 border ${svc.isFree ? "border-emerald-800 text-emerald-400 bg-emerald-900/20" : "border-zinc-700 text-zinc-300 bg-zinc-900"}`}
                       >
                         {svc.isFree && "FREE: "}{svc.name}
-                        {svc.value && <span className="text-zinc-500 ml-1">({svc.value})</span>}
+                        {svc.value && <span className="text-zinc-400 ml-1">({svc.value})</span>}
                       </span>
                     ))}
                   </div>
@@ -362,7 +362,7 @@ export default function PromoArchive({ archivedSlug }: { archivedSlug: string })
                 <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide">
                   {title.toUpperCase()} VEHICLES
                 </h2>
-                <p className="text-zinc-500 mt-3">Every car that came through during {title}.</p>
+                <p className="text-zinc-400 mt-3">Every car that came through during {title}.</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {filledSlots.map((slot) => (

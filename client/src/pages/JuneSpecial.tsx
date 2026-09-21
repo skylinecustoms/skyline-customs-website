@@ -57,7 +57,7 @@ function ProgressBar({ filled, total, endDate }: { filled: number; total: number
           ? "This month's spots are gone. Join the waitlist and you're first in line for next month."
           : "We only take a set number of cars each month so every one gets our full attention. First come, first served."}
       </p>
-      {endDate && <p className="text-zinc-600 text-xs mt-2">Ends {endDate}</p>}
+      {endDate && <p className="text-zinc-400 text-xs mt-2">Ends {endDate}</p>}
     </div>
   );
 }
@@ -93,7 +93,7 @@ function SlotCard({
       </div>
       <div className="p-4">
         <p className="text-white font-semibold text-sm mb-1">{customerName}</p>
-        <p className="text-zinc-500 text-xs leading-relaxed">{carDescription}</p>
+        <p className="text-zinc-400 text-xs leading-relaxed">{carDescription}</p>
       </div>
     </div>
   );
@@ -108,7 +108,7 @@ function EmptySlotCard({ slotNumber, quoteUrl }: { slotNumber: number; quoteUrl:
           <span className="text-zinc-700 font-bold text-sm">#{slotNumber}</span>
         </div>
         <p className="text-zinc-700 text-xs tracking-widest uppercase text-center">Available</p>
-        <Link href={quoteUrl} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:underline">
+        <Link href={quoteUrl} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase underline underline-offset-2 decoration-1 hover:decoration-2">
           Claim This Slot →
         </Link>
       </div>
@@ -233,7 +233,7 @@ function ReviewSnippet() {
           <span className="text-zinc-400 text-xs ml-2 font-medium">5.0 Google Reviews</span>
         </div>
         <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer"
-          className="text-[#E85D04] text-xs font-bold tracking-wider uppercase hover:underline">
+          className="text-[#E85D04] text-xs font-bold tracking-wider uppercase underline underline-offset-2 decoration-1 hover:decoration-2">
           See all 100+ reviews →
         </a>
       </div>
@@ -251,7 +251,7 @@ function ReviewSnippet() {
           )}
           <div>
             <p className="text-white font-bold text-sm">{review.name}</p>
-            <p className="text-zinc-500 text-xs">{review.time}</p>
+            <p className="text-zinc-400 text-xs">{review.time}</p>
           </div>
         </div>
         {/* Dot navigation */}
@@ -389,19 +389,19 @@ function CountdownTimer({ endDate }: { endDate: string }) {
 
   return (
     <div className="flex items-center gap-1 text-xs">
-      <span className="text-zinc-500 mr-1">Ends in</span>
+      <span className="text-zinc-400 mr-1">Ends in</span>
       {timeLeft.days > 0 && (
         <>
           <span className="font-mono-brand text-[#E85D04] font-bold">{timeLeft.days}</span>
-          <span className="text-zinc-600">d</span>
+          <span className="text-zinc-400">d</span>
         </>
       )}
       <span className="font-mono-brand text-[#E85D04] font-bold ml-1">{String(timeLeft.hours).padStart(2, '0')}</span>
-      <span className="text-zinc-600">h</span>
+      <span className="text-zinc-400">h</span>
       <span className="font-mono-brand text-[#E85D04] font-bold ml-1">{String(timeLeft.minutes).padStart(2, '0')}</span>
-      <span className="text-zinc-600">m</span>
+      <span className="text-zinc-400">m</span>
       <span className="font-mono-brand text-[#E85D04] font-bold ml-1">{String(timeLeft.seconds).padStart(2, '0')}</span>
-      <span className="text-zinc-600">s</span>
+      <span className="text-zinc-400">s</span>
     </div>
   );
 }
@@ -488,7 +488,7 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
           JOIN THE WAITLIST<br />
           <span className="text-zinc-400 text-xl">Be First for Next Month</span>
         </h3>
-        <p className="text-zinc-500 text-sm mt-3 leading-relaxed">
+        <p className="text-zinc-400 text-sm mt-3 leading-relaxed">
           Leave your info below. When a slot opens or next month's deal goes live, you'll be the first to know.
         </p>
       </div>
@@ -556,7 +556,7 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
             })}
           </div>
           {!intent && (
-            <p className="text-zinc-600 text-xs mt-1">Select one to continue</p>
+            <p className="text-zinc-400 text-xs mt-1">Select one to continue</p>
           )}
         </div>
 
@@ -577,7 +577,7 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
         >
           {joinWaitlist.isPending ? 'JOINING...' : 'JOIN THE WAITLIST'} <ArrowRight className="w-5 h-5" />
         </button>
-        <p className="text-zinc-600 text-xs text-center">No spam. Just a heads-up when your spot is ready.</p>
+        <p className="text-zinc-400 text-xs text-center">No spam. Just a heads-up when your spot is ready.</p>
       </form>
     </div>
   );
@@ -598,9 +598,9 @@ function LastMonthStrip() {
       <div className="container max-w-6xl">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="text-zinc-500 text-xs font-bold tracking-[0.3em] uppercase mb-2">Last Month</p>
+            <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-2">Last Month</p>
             <h3 className="font-display text-3xl text-white tracking-wide">{lastPromo.title?.toUpperCase()}</h3>
-            <p className="text-zinc-500 text-sm mt-1">
+            <p className="text-zinc-400 text-sm mt-1">
               Sold out &mdash; {filledCount} cars protected.
             </p>
           </div>
@@ -614,21 +614,21 @@ function LastMonthStrip() {
                       <img loading="lazy" decoding="async" src={slot.photoUrl} alt={slot.carDescription} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <Shield className="w-4 h-4 text-zinc-600" />
+                        <Shield className="w-4 h-4 text-zinc-400" />
                       </div>
                     )}
                   </div>
                 ))}
                 {lastPromo.slots.length > 6 && (
                   <div className="w-12 h-12 bg-zinc-800 border border-zinc-700 flex items-center justify-center">
-                    <span className="text-zinc-500 text-xs font-bold">+{lastPromo.slots.length - 6}</span>
+                    <span className="text-zinc-400 text-xs font-bold">+{lastPromo.slots.length - 6}</span>
                   </div>
                 )}
               </div>
             )}
             <Link
               href={archiveUrl}
-              className="flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-wide hover:underline"
+              className="flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-wide underline underline-offset-2 decoration-1 hover:decoration-2"
             >
               See all {filledCount} cars from {lastPromo.title} <ArrowRight className="w-4 h-4" />
             </Link>
@@ -724,7 +724,7 @@ function WeDidItAgainBanner() {
                 e.preventDefault();
                 document.getElementById("last-month")?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className="flex items-center gap-1.5 text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:underline whitespace-nowrap"
+              className="flex items-center gap-1.5 text-[#E85D04] text-xs font-bold tracking-widest uppercase underline underline-offset-2 decoration-1 hover:decoration-2 whitespace-nowrap"
             >
               See last month’s cars <ArrowRight className="w-3.5 h-3.5" />
             </a>
@@ -909,7 +909,7 @@ export default function JuneSpecial() {
               </p>
 
               {/* SEO H2 -- visually subtle but crawlable */}
-              <h2 className="text-zinc-600 text-xs tracking-widest uppercase mb-6 font-sans">
+              <h2 className="text-zinc-400 text-xs tracking-widest uppercase mb-6 font-sans">
                 {new Date().toLocaleString('default', { month: 'long' })} {new Date().getFullYear()} PPF Deal &mdash; Chantilly, VA
               </h2>
 
@@ -921,7 +921,7 @@ export default function JuneSpecial() {
                   ))}
                 </div>
                 <span className="text-zinc-300 text-sm font-semibold">5.0</span>
-                <span className="text-zinc-600 text-sm">&middot;</span>
+                <span className="text-zinc-400 text-sm">&middot;</span>
                 <span className="text-zinc-400 text-sm">140+ Google Reviews</span>
               </div>
 
@@ -934,7 +934,7 @@ export default function JuneSpecial() {
                   >
                     YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
                   </Link>
-                  <p className="text-center text-zinc-600 text-xs tracking-wide">
+                  <p className="text-center text-zinc-400 text-xs tracking-wide">
                     No catch. Just flawless paint, guaranteed 12 years.
                   </p>
                 </div>
@@ -954,12 +954,12 @@ export default function JuneSpecial() {
                 {filledSlots.length > 0 && (
                   <div className="flex items-center gap-2 mt-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04] animate-pulse" />
-                    <span className="text-zinc-500 text-xs">
+                    <span className="text-zinc-400 text-xs">
                       Last spot claimed recently &mdash; limited availability
                     </span>
                   </div>
                 )}
-                <p className="text-zinc-600 text-xs mt-3 leading-relaxed">
+                <p className="text-zinc-400 text-xs mt-3 leading-relaxed">
                   Spots are limited each month. Once they&apos;re gone, this deal is gone until next month&apos;s special.
                 </p>
               </div>
@@ -974,7 +974,7 @@ export default function JuneSpecial() {
                   <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-4 text-center">
                     <Icon className="w-5 h-5 text-[#E85D04] mx-auto mb-2" />
                     <p className="text-white text-xs font-bold">{label}</p>
-                    <p className="text-zinc-600 text-xs">{sub}</p>
+                    <p className="text-zinc-400 text-xs">{sub}</p>
                   </div>
                 ))}
               </div>
@@ -989,7 +989,7 @@ export default function JuneSpecial() {
                 )}
                 <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Starting At</p>
                 <div className="flex items-baseline gap-3 mb-1">
-                  {freeValue > 0 && <span className="font-mono-brand text-zinc-600 text-xl line-through">{fmt(fullPrice)}</span>}
+                  {freeValue > 0 && <span className="font-mono-brand text-zinc-400 text-xl line-through">{fmt(fullPrice)}</span>}
                   <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
                 </div>
                 <p className="text-zinc-400 text-sm mb-3">Full package price &mdash; everything included. No add-ons.</p>
@@ -1070,13 +1070,13 @@ export default function JuneSpecial() {
 
               {/* Price box */}
               <div className="border border-zinc-800 bg-[#0D0D0D] p-8 mb-8">
-                <p className="text-zinc-500 text-xs tracking-[0.3em] uppercase mb-3">Package Price</p>
+                <p className="text-zinc-400 text-xs tracking-[0.3em] uppercase mb-3">Package Price</p>
                 <div className="flex items-baseline gap-4 mb-2">
-                  {freeValue > 0 && <span className="font-mono-brand text-zinc-600 text-2xl line-through">{fmt(fullPrice)}</span>}
+                  {freeValue > 0 && <span className="font-mono-brand text-zinc-400 text-2xl line-through">{fmt(fullPrice)}</span>}
                   <span className="font-display text-[#E85D04] text-6xl">{fmt(Number(price) || 0)}</span>
                 </div>
                 <p className="text-zinc-400 text-sm mb-4">{freeValue > 0 ? `You save ${fmt(freeValue)} off the full package price.` : "Everything included. No add-ons."}</p>
-                <div className="flex items-center gap-2 text-zinc-500 text-xs">
+                <div className="flex items-center gap-2 text-zinc-400 text-xs">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
                   Price locked for {endDate ? `all bookings before ${endDate}` : "all slots this month"}
                 </div>
@@ -1099,7 +1099,7 @@ export default function JuneSpecial() {
               >
                 YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
               </Link>
-              <p className="text-center text-zinc-600 text-xs tracking-wide mt-3">
+              <p className="text-center text-zinc-400 text-xs tracking-wide mt-3">
                 No catch. Just flawless paint, guaranteed 12 years.
               </p>
             </div>
@@ -1119,7 +1119,7 @@ export default function JuneSpecial() {
                       <CheckCircle className="w-5 h-5 text-[#E85D04] shrink-0 mt-0.5" />
                       <div>
                         <p className="text-white font-semibold text-sm">{name}</p>
-                        <p className="text-zinc-500 text-xs">{sub}</p>
+                        <p className="text-zinc-400 text-xs">{sub}</p>
                       </div>
                     </div>
                     <span className="font-mono-brand text-zinc-400 text-xs shrink-0">{value}</span>
@@ -1313,7 +1313,7 @@ export default function JuneSpecial() {
             ))}
           </div>
           <div className="mt-8 text-center">
-            <p className="text-zinc-500 text-sm">Total install time: <strong className="text-white">2&ndash;3 days</strong></p>
+            <p className="text-zinc-400 text-sm">Total install time: <strong className="text-white">2&ndash;3 days</strong></p>
           </div>
         </div>
       </section>
@@ -1361,7 +1361,7 @@ export default function JuneSpecial() {
             <h2 className="font-display text-5xl md:text-6xl text-white">
               WHO&apos;S ALREADY IN
             </h2>
-            <p className="text-zinc-500 mt-3 text-sm">
+            <p className="text-zinc-400 mt-3 text-sm">
               Every completed car is verified by our team. Spots are limited &mdash; claim yours before {endDate || "they run out"}.
             </p>
           </div>
@@ -1392,7 +1392,7 @@ export default function JuneSpecial() {
             Not all PPF is the same. STEK DYNOshield is a premium thermoplastic polyurethane film with a self-healing top coat, hydrophobic surface, and optical clarity that makes it virtually invisible on your paint. Backed by a{" "}
             <strong className="text-white">12-year manufacturer warranty</strong> against yellowing, cracking, peeling, and delamination.
           </p>
-          <Link href="/services/ppf" className="text-[#E85D04] font-bold tracking-widest uppercase text-sm hover:underline flex items-center justify-center gap-2">
+          <Link href="/services/ppf" className="text-[#E85D04] font-bold tracking-widest uppercase text-sm underline underline-offset-2 decoration-1 hover:decoration-2 flex items-center justify-center gap-2">
             Learn more about our PPF installation <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

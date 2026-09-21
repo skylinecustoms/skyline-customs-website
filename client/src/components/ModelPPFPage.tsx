@@ -115,7 +115,7 @@ export default function ModelPPFPage({ model }: { model: ModelPage }) {
                   <div key={c.pkg} className={`relative border p-6 bg-[#111] ${pkg.featured ? "border-[#E85D04]" : "border-zinc-800"}`}>
                     {pkg.featured && <div className="absolute -top-3 left-6 bg-[#E85D04] text-black text-xs font-bold tracking-widest uppercase px-3 py-1">Most chosen</div>}
                     <h3 className="font-['Bebas_Neue',sans-serif] text-3xl text-white">{pkg.name}</h3>
-                    <p className="text-zinc-500 text-xs mb-4">{pkg.tagline} · {pkg.installTime}</p>
+                    <p className="text-zinc-400 text-xs mb-4">{pkg.tagline} · {pkg.installTime}</p>
                     <p className="text-zinc-300 text-sm leading-relaxed mb-4">{c.note}</p>
                     <ul className="space-y-1.5">
                       {pkg.coverage.map((item) => (
@@ -126,8 +126,8 @@ export default function ModelPPFPage({ model }: { model: ModelPage }) {
                 );
               })}
             </div>
-            <p className="text-zinc-500 text-sm mt-6">
-              Pricing depends on the trim and the coverage you pick. <Link href="/ppf-cost" className="text-[#E85D04] hover:underline">What sets a PPF quote</Link>, or <Link href={quoteHref} className="text-[#E85D04] hover:underline">request yours</Link> and we reply the same business day.
+            <p className="text-zinc-400 text-sm mt-6">
+              Pricing depends on the trim and the coverage you pick. <Link href="/ppf-cost" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">What sets a PPF quote</Link>, or <Link href={quoteHref} className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">request yours</Link> and we reply the same business day.
             </p>
           </div>
         </section>
