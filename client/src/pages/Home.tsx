@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, Star, ChevronDown, Phone, ClipboardList, Wrench, Shield, CheckCircle, Clock, Zap } from "lucide-react";
 import { trpc } from "@/lib/trpc";
@@ -8,8 +8,8 @@ import { useBooking } from "@/contexts/BookingContext";
 import type { BookingService } from "@/components/BookingModal";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
-import VideoSection from "@/components/VideoSection";
-import InstagramSection from "@/components/InstagramSection";
+const VideoSection = lazy(() => import("@/components/VideoSection"));
+const InstagramSection = lazy(() => import("@/components/InstagramSection"));
 
 const HERO_IMAGE = "/images/hero-bg.webp";
 
@@ -686,7 +686,7 @@ export default function Home() {
       <Testimonials />
 
       {/* ── VIDEOS (educational Shorts carousel) ─────────────────────────────── */}
-      <VideoSection />
+      <Suspense fallback={<div className="min-h-[640px]" />}><VideoSection /></Suspense>
 
       {/* ── RECENT CARS (social proof from last month's promo) ──────────────── */}
       <RecentCarsSection />
@@ -717,7 +717,7 @@ export default function Home() {
       </section>
 
       {/* ── INSTAGRAM ───────────────────────────────────────────────────────── */}
-      <InstagramSection />
+      <Suspense fallback={<div className="min-h-[480px]" />}><InstagramSection /></Suspense>
 
       {/* ── PROCESS ──────────────────────────────────────────────────────────── */}
       <section className="py-32 bg-[oklch(0.10_0.005_285)]">

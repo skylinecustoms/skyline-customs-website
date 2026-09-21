@@ -96,32 +96,31 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DDL3M7SVBK"></script>
+    <!-- Google Analytics 4 + Meta Pixel. The tiny queue stubs run now so page code can call
+         gtag()/fbq() at any time; the ~300 KB of vendor scripts load on the first interaction
+         or 3 s after the page has loaded, so they never compete with the first paint. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-DDL3M7SVBK', {
-        page_title: document.title,
-        page_location: window.location.href
-      });
-    </script>
-
-    <!-- Facebook Pixel -->
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
+      gtag('config', 'G-DDL3M7SVBK', { page_title: document.title, page_location: window.location.href });
+      !function(f,b,e,v,n){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script');
       fbq('init', '1754124245286032');
       fbq('track', 'PageView');
+      (function(){
+        var done=false;
+        function load(){
+          if(done)return; done=true;
+          ['https://www.googletagmanager.com/gtag/js?id=G-DDL3M7SVBK','https://connect.facebook.net/en_US/fbevents.js']
+            .forEach(function(u){var s=document.createElement('script');s.async=true;s.src=u;document.head.appendChild(s);});
+        }
+        ['pointerdown','keydown','touchstart','scroll'].forEach(function(e){addEventListener(e,load,{once:true,passive:true});});
+        addEventListener('load',function(){setTimeout(load,3000);});
+      })();
     </script>
-    <!-- End Facebook Pixel (noscript fallback in body) -->
+    <!-- End analytics (Meta Pixel noscript fallback in body) -->
 
     <!-- Fonts are self-hosted (client/public/fonts, client/src/fonts.css). Preload the two that paint first. -->
     <link rel="preload" href="/fonts/bebas-neue-normal-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -136,7 +135,6 @@
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-  <script src="https://link.msgsndr.com/js/form_embed.js"></script>
   </body>
 
 </html>

@@ -203,7 +203,7 @@ export default function ServicePPF() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {PPF_PACKAGES.map((pkg) => (
               <div key={pkg.key} className={`relative border flex flex-col ${pkg.featured ? "border-[#E85D04] bg-[#1a0a00]" : "border-zinc-800 bg-[#0D0D0D] hover:border-zinc-600"} transition-colors`}>
-                {pkg.featured && <div className="absolute -top-3 left-6 bg-[#E85D04] text-white text-xs font-bold tracking-widest uppercase px-3 py-1 z-10">MOST POPULAR</div>}
+                {pkg.featured && <div className="absolute -top-3 left-6 bg-[#E85D04] text-black text-xs font-bold tracking-widest uppercase px-3 py-1 z-10">MOST POPULAR</div>}
                 <div className="w-full overflow-hidden">
                   <img loading="lazy" decoding="async" src={pkg.image} alt={`${pkg.name} PPF coverage diagram on a Tesla Model Y at Skyline Customs, Chantilly VA`} width={640} height={360} className="w-full h-48 object-cover object-center" />
                 </div>
@@ -216,7 +216,7 @@ export default function ServicePPF() {
                     ))}
                   </ul>
                   <p className="text-zinc-400 text-xs mb-1">{pkg.bestFor}</p>
-                  <p className="text-zinc-500 text-xs mb-5">Install time: {pkg.installTime}</p>
+                  <p className="text-zinc-400 text-xs mb-5">Install time: {pkg.installTime}</p>
                   <Link href={`/get-a-quote?service=ppf&package=${pkg.key}`} className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-white" : "border border-zinc-700 hover:border-[#E85D04] text-white"}`}>
                     GET A QUOTE
                   </Link>

@@ -74,10 +74,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <img
-              src="/images/NaRyJghitOfUAxex.jpg"
+              src="/images/skyline-logo.webp"
               alt="Skyline Customs"
-              width={723}
-              height={800}
+              width={108}
+              height={120}
               className="h-10 w-auto object-contain"
             />
             <div className="flex flex-col leading-none">

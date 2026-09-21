@@ -11,10 +11,10 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-5">
               <img
-                src="/images/NaRyJghitOfUAxex.jpg"
+                src="/images/skyline-logo.webp"
                 alt="Skyline Customs"
-                width={723}
-                height={800}
+                width={108}
+                height={120}
                 className="h-10 w-auto object-contain"
               />
               <div className="flex flex-col leading-none">

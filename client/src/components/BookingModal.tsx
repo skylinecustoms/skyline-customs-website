@@ -89,6 +89,15 @@ export default function BookingModal({ isOpen, service, onClose }: BookingModalP
     return () => document.removeEventListener("keydown", handleKey);
   }, [isOpen, selectedService, service, onClose]);
 
+  // The GoHighLevel embed helper (iframe sizing) is only needed once the calendar is shown.
+  useEffect(() => {
+    if (!isOpen || document.querySelector('script[src="https://link.msgsndr.com/js/form_embed.js"]')) return;
+    const s = document.createElement("script");
+    s.src = "https://link.msgsndr.com/js/form_embed.js";
+    s.async = true;
+    document.body.appendChild(s);
+  }, [isOpen]);
+
   // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";

@@ -1,11 +1,9 @@
-import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch, Redirect, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { BookingProvider, useBooking } from "./contexts/BookingContext";
-import BookingModal from "./components/BookingModal";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { X } from "lucide-react";
@@ -43,6 +41,8 @@ function ScrollToTop() {
   return null;
 }
 import Home from "./pages/Home";
+const Toaster = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
+const BookingModal = lazy(() => import("./components/BookingModal"));
 const Services = lazy(() => import("./pages/Services"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const GalleryJob = lazy(() => import("./pages/GalleryJob"));
@@ -346,11 +346,11 @@ function AppContent() {
     <>
       <AnnouncementBanner />
       <ScrollToTop />
-      <Toaster />
+      <Suspense fallback={null}><Toaster /></Suspense>
       <Suspense fallback={<div className="min-h-screen bg-[#0A0A0A]" />}>
         <Router />
       </Suspense>
-      <BookingModal isOpen={isOpen} service={service} onClose={closeBooking} />
+      {isOpen && <Suspense fallback={null}><BookingModal isOpen={isOpen} service={service} onClose={closeBooking} /></Suspense>}
       <QuoteAssistantLauncher />
     </>
   );
