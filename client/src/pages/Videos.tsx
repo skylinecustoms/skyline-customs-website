@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import VideoCarousel from "@/components/VideoCarousel";
+import LatestReels from "@/components/LatestReels";
 import { reelsByCategory } from "@/lib/instagramPosts";
 import { VIDEOS, VIDEO_CATEGORIES, videosByCategory, videoThumb, videoWatchUrl, type VideoCategory, videoObject } from "@/lib/videos";
 import { INSTAGRAM_URL, YOUTUBE_URL } from "@/lib/social";
@@ -69,6 +70,8 @@ export default function Videos() {
       </section>
 
       <div className="h-1 bg-[#E85D04]" />
+
+      <LatestReels />
 
       {ORDER.map((key, i) => {
         const cat = VIDEO_CATEGORIES[key];

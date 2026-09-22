@@ -10,26 +10,8 @@
  * Newest first within each bucket.
  *
  * Reels that are the same video as a YouTube Short in lib/videos.ts are NOT
- * listed here (the YouTube card autoplays, so it wins). Those pairs:
- *   DTgiluzAGfi -> YouTube GIRnLzO2tMU
- *   DTnicqFAJ02 -> YouTube cZ7Ky48mnss
- *   DYGCGHNAncQ -> YouTube kfzGx2IROLg
- *   DUTx1C3Ejm2 -> YouTube pxpi-uF0eO0
- *   DTss57hgLDU -> YouTube SugVScEKEWM
- *   DTvWxRwABwc -> YouTube tdSO-c8EZS0
- *   DUjT9uckjy4 -> YouTube U0hjC5pdMZM
- *   DTyIOrKERTP -> YouTube A6AptHNL5kc
- *   DU_EjoKgG0K -> YouTube JCxngvQnTP0
- *   DXtufBOAFT8 -> YouTube euOKAH_QStE
- *   DYDHS2UvJY0 -> YouTube DVYvaVEy2-4
- *   DX4o-FKAtan -> YouTube yFTB2S3bZbw
- *   DZIZnpZN8vW -> YouTube C3k3BF33d7o
- *   DTDwZnEADDt -> YouTube 284uuWTiKAg
- *   DTddowJAP_0 -> YouTube dChKOZmEEEw
- *   DdJ1ikghvb6 -> YouTube dI6_E2HSmmE
- *   DY2okS-Qzlv -> YouTube ZvVdjXH06ug
- *   DdbjO5OpW1W -> YouTube P2zyuOrWiDA
- *   DdmDMrzuMwq -> YouTube LQ1iXlQpXGc
+ * listed here (the YouTube card autoplays, so it wins). Those pairs live in
+ * CROSS_POSTED_REELS below so the live "latest reels" row can skip them too.
  */
 import type { VideoCategory } from "@/lib/videos";
 
@@ -72,6 +54,35 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
   { code: "DQRyHyrgF8l", category: "work", title: "Headlight Restoration + Ceramic Coating" },
   { code: "DQFJGU4APpR", category: "work", title: "Audi S5 Paint Correction + Ceramic" },
 ];
+
+/**
+ * Reel shortcode -> YouTube id for clips posted to both. Only the YouTube card is
+ * shown. scripts/sync-videos.mjs reads this list, so keep the one-pair-per-line format.
+ */
+export const CROSS_POSTED_REELS: Record<string, string> = {
+  "DTgiluzAGfi": "GIRnLzO2tMU",
+  "DTnicqFAJ02": "cZ7Ky48mnss",
+  "DYGCGHNAncQ": "kfzGx2IROLg",
+  "DUTx1C3Ejm2": "pxpi-uF0eO0",
+  "DTss57hgLDU": "SugVScEKEWM",
+  "DTvWxRwABwc": "tdSO-c8EZS0",
+  "DUjT9uckjy4": "U0hjC5pdMZM",
+  "DTyIOrKERTP": "A6AptHNL5kc",
+  "DU_EjoKgG0K": "JCxngvQnTP0",
+  "DXtufBOAFT8": "euOKAH_QStE",
+  "DYDHS2UvJY0": "DVYvaVEy2-4",
+  "DX4o-FKAtan": "yFTB2S3bZbw",
+  "DZIZnpZN8vW": "C3k3BF33d7o",
+  "DTDwZnEADDt": "284uuWTiKAg",
+  "DTddowJAP_0": "dChKOZmEEEw",
+  "DdJ1ikghvb6": "dI6_E2HSmmE",
+  "DY2okS-Qzlv": "ZvVdjXH06ug",
+  "DdbjO5OpW1W": "P2zyuOrWiDA",
+  "DdmDMrzuMwq": "LQ1iXlQpXGc",
+};
+
+/** Reels already placed somewhere on the site (curated or replaced by their YouTube twin). */
+export const knownReelCodes = () => new Set([...INSTAGRAM_REELS.map((r) => r.code), ...Object.keys(CROSS_POSTED_REELS)]);
 
 export const reelUrl = (r: InstagramReel) => `https://www.instagram.com/${r.type ?? "reel"}/${r.code}/`;
 export const reelsByCategory = (category: VideoCategory) => INSTAGRAM_REELS.filter((r) => r.category === category);

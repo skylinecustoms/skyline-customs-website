@@ -51,7 +51,7 @@ const videosTs = read("client/src/lib/videos.ts");
 const reelsTs = read("client/src/lib/instagramPosts.ts");
 const listedYouTube = new Set([...videosTs.matchAll(/id:\s*"([A-Za-z0-9_-]{11})"/g)].map((m) => m[1]));
 const listedReels = new Set([...reelsTs.matchAll(/code:\s*"([A-Za-z0-9_-]+)"/g)].map((m) => m[1]));
-const pairedReels = new Map([...reelsTs.matchAll(/([A-Za-z0-9_-]{8,})\s*->\s*YouTube\s+([A-Za-z0-9_-]{11})/g)].map((m) => [m[1], m[2]]));
+const pairedReels = new Map([...(reelsTs.match(/export const CROSS_POSTED_REELS[^{]*\{([^}]*)\}/)?.[1] ?? "").matchAll(/"?([A-Za-z0-9_-]{8,})"?:\s*"([A-Za-z0-9_-]{11})"/g)].map((m) => [m[1], m[2]]));
 const reviewPath = path.join(ROOT, "content/videoReview.json");
 const review = fs.existsSync(reviewPath) ? JSON.parse(fs.readFileSync(reviewPath, "utf8")) : { skipYouTube: [], skipInstagram: [], pairs: {} };
 for (const [ig, yt] of Object.entries(review.pairs ?? {})) pairedReels.set(ig, yt);
