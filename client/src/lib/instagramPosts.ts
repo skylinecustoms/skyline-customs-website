@@ -28,6 +28,8 @@
  *   DTddowJAP_0 -> YouTube dChKOZmEEEw
  *   DdJ1ikghvb6 -> YouTube dI6_E2HSmmE
  *   DY2okS-Qzlv -> YouTube ZvVdjXH06ug
+ *   DdbjO5OpW1W -> YouTube P2zyuOrWiDA
+ *   DdmDMrzuMwq -> YouTube LQ1iXlQpXGc
  */
 import type { VideoCategory } from "@/lib/videos";
 
@@ -42,7 +44,6 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
   { code: "DTk1JObgJx4", category: "customers", title: "One Detail, Whole New Attitude" },
 
   // Learn before you buy
-  { code: "DdbjO5OpW1W", category: "learn", title: "One of These Cars Has PPF. Which One?" },
   { code: "DaNiBH6u8Y4", category: "learn", title: "Hacksaw, Razor, Gravel vs. Our PPF" },
   { code: "DY7LdQYBugZ", category: "learn", title: "What's Protecting the Paint Under Your Ceramic?" },
   { code: "DRPrdVTAPOP", category: "learn", title: "Our Full Ceramic Coating Process" },

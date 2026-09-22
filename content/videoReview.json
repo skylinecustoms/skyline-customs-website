@@ -1,0 +1,9 @@
+{
+  "_comment": "Videos reviewed by the sync routine. skip* = seen and intentionally not added; pairs = Instagram reel code -> YouTube id when both are the same video (only the YouTube one is listed).",
+  "skipYouTube": [],
+  "skipInstagram": [],
+  "pairs": {
+    "DdbjO5OpW1W": "P2zyuOrWiDA",
+    "DdmDMrzuMwq": "LQ1iXlQpXGc"
+  }
+}

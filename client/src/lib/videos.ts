@@ -44,6 +44,8 @@ export const CHANNEL_ORDER: string[] = [
 ];
 
 export const VIDEOS: Video[] = [
+  { id: "LQ1iXlQpXGc", category: "learn", service: "ppf", title: "Where Rock Chips Actually Land", blurb: "A walk through the body shop showing why the hood, fenders, bumper, and headlights take the hits, and why full front PPF covers exactly those panels." },
+  { id: "P2zyuOrWiDA", category: "learn", service: "ppf", title: "Can You Spot the PPF?", blurb: "Two cars, both filmed. A proper install is wrapped under the hood edges and tucked into the bumper, so there is no line to find." },
   // ---- Learn ----
   { id: "C3k3BF33d7o", category: "learn", service: "tint", title: "Dyed Factory Tint vs Ceramic Tint", blurb: "What actually separates cheap dyed film from ceramic film: heat rejection, fading, and how long each lasts." },
   { id: "284uuWTiKAg", category: "learn", service: "tint", title: "Is Window Tint More Than Just Looks?", blurb: "UV protection, heat, glare, and privacy broken down in under a minute." },
