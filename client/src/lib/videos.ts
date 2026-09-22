@@ -83,7 +83,7 @@ export const videoThumb = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefaul
 /** Upload date + ISO 8601 duration per YouTube id (from the YouTube Data API; scripts/fetch-video-meta.mjs). */
 import videoMeta from "./videoMeta.json";
 export const videoMetaFor = (id: string): { uploadDate?: string; duration?: string } =>
-  (videoMeta as Record<string, { uploadDate: string; duration: string }>)[id] ?? {};
+  (videoMeta as Record<string, { uploadDate: string; duration?: string }>)[id] ?? {};
 
 /** schema.org VideoObject for a YouTube Short. */
 export const videoObject = (v: Video) => {
