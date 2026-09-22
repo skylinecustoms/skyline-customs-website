@@ -40,7 +40,7 @@ export const VIDEO_CATEGORIES: Record<VideoCategory, { label: string; heading: s
 
 /** Channel upload order, newest first. Carousels sort by this so new videos lead. */
 export const CHANNEL_ORDER: string[] = [
-  "dI6_E2HSmmE", "C3k3BF33d7o", "ZvVdjXH06ug", "kfzGx2IROLg", "DVYvaVEy2-4", "yFTB2S3bZbw", "JCxngvQnTP0", "U0hjC5pdMZM", "aap8dfKLi98", "rdVAc15KQAI", "E7F20ZOd2Hw", "pxpi-uF0eO0", "1IwJDOhB4qA", "4lEwQEgETJA", "DNzlj5V40UQ", "_PCNkjLfG7Y", "A6AptHNL5kc", "tdSO-c8EZS0", "SugVScEKEWM", "cZ7Ky48mnss", "lZ-OYZqM5PE", "GIRnLzO2tMU", "dChKOZmEEEw", "f3J7UyIaQmM", "PnUbqFepdKQ", "284uuWTiKAg", "FsQ8yZxh4Es", "Y3vHmqfYowo", "z6_IRT__rHo", "o_fR-fJssVE", "lIIlOv42sZc", "M-4dznrTTVY", "nrzZ-3V3Rak",
+  "LQ1iXlQpXGc", "P2zyuOrWiDA", "dI6_E2HSmmE", "C3k3BF33d7o", "ZvVdjXH06ug", "kfzGx2IROLg", "DVYvaVEy2-4", "yFTB2S3bZbw", "JCxngvQnTP0", "U0hjC5pdMZM", "aap8dfKLi98", "rdVAc15KQAI", "E7F20ZOd2Hw", "pxpi-uF0eO0", "1IwJDOhB4qA", "4lEwQEgETJA", "DNzlj5V40UQ", "_PCNkjLfG7Y", "A6AptHNL5kc", "tdSO-c8EZS0", "SugVScEKEWM", "cZ7Ky48mnss", "lZ-OYZqM5PE", "GIRnLzO2tMU", "dChKOZmEEEw", "f3J7UyIaQmM", "PnUbqFepdKQ", "284uuWTiKAg", "FsQ8yZxh4Es", "Y3vHmqfYowo", "z6_IRT__rHo", "o_fR-fJssVE", "lIIlOv42sZc", "M-4dznrTTVY", "nrzZ-3V3Rak",
 ];
 
 export const VIDEOS: Video[] = [
@@ -73,7 +73,8 @@ export const VIDEOS: Video[] = [
   { id: "tdSO-c8EZS0", category: "customers", service: "tint", title: "Alfa Romeo: Factory Clear to Luxury Dark", blurb: "A clean, even shade across every window." },
 ];
 
-const rank = (id: string) => { const i = CHANNEL_ORDER.indexOf(id); return i === -1 ? Number.MAX_SAFE_INTEGER : i; };
+// Ids not yet in CHANNEL_ORDER are the newest (they are added at the top of VIDEOS), so they lead.
+const rank = (id: string) => { const i = CHANNEL_ORDER.indexOf(id); return i === -1 ? VIDEOS.findIndex((v) => v.id === id) - VIDEOS.length : i; };
 
 /** Videos in a category, newest first. */
 export const videosByCategory = (category: VideoCategory) =>
