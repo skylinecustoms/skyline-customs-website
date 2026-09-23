@@ -60,6 +60,7 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
  * shown. scripts/sync-videos.mjs reads this list, so keep the one-pair-per-line format.
  */
 export const CROSS_POSTED_REELS: Record<string, string> = {
+  "DdomnsstxtC": "n5mQVftEwfA",
   "DTgiluzAGfi": "GIRnLzO2tMU",
   "DTnicqFAJ02": "cZ7Ky48mnss",
   "DYGCGHNAncQ": "kfzGx2IROLg",

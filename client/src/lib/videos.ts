@@ -40,10 +40,11 @@ export const VIDEO_CATEGORIES: Record<VideoCategory, { label: string; heading: s
 
 /** Channel upload order, newest first. Carousels sort by this so new videos lead. */
 export const CHANNEL_ORDER: string[] = [
-  "LQ1iXlQpXGc", "P2zyuOrWiDA", "dI6_E2HSmmE", "C3k3BF33d7o", "ZvVdjXH06ug", "kfzGx2IROLg", "DVYvaVEy2-4", "yFTB2S3bZbw", "JCxngvQnTP0", "U0hjC5pdMZM", "aap8dfKLi98", "rdVAc15KQAI", "E7F20ZOd2Hw", "pxpi-uF0eO0", "1IwJDOhB4qA", "4lEwQEgETJA", "DNzlj5V40UQ", "_PCNkjLfG7Y", "A6AptHNL5kc", "tdSO-c8EZS0", "SugVScEKEWM", "cZ7Ky48mnss", "lZ-OYZqM5PE", "GIRnLzO2tMU", "dChKOZmEEEw", "f3J7UyIaQmM", "PnUbqFepdKQ", "284uuWTiKAg", "FsQ8yZxh4Es", "Y3vHmqfYowo", "z6_IRT__rHo", "o_fR-fJssVE", "lIIlOv42sZc", "M-4dznrTTVY", "nrzZ-3V3Rak",
+  "n5mQVftEwfA", "LQ1iXlQpXGc", "P2zyuOrWiDA", "dI6_E2HSmmE", "C3k3BF33d7o", "ZvVdjXH06ug", "kfzGx2IROLg", "DVYvaVEy2-4", "yFTB2S3bZbw", "JCxngvQnTP0", "U0hjC5pdMZM", "aap8dfKLi98", "rdVAc15KQAI", "E7F20ZOd2Hw", "pxpi-uF0eO0", "1IwJDOhB4qA", "4lEwQEgETJA", "DNzlj5V40UQ", "_PCNkjLfG7Y", "A6AptHNL5kc", "tdSO-c8EZS0", "SugVScEKEWM", "cZ7Ky48mnss", "lZ-OYZqM5PE", "GIRnLzO2tMU", "dChKOZmEEEw", "f3J7UyIaQmM", "PnUbqFepdKQ", "284uuWTiKAg", "FsQ8yZxh4Es", "Y3vHmqfYowo", "z6_IRT__rHo", "o_fR-fJssVE", "lIIlOv42sZc", "M-4dznrTTVY", "nrzZ-3V3Rak",
 ];
 
 export const VIDEOS: Video[] = [
+  { id: "n5mQVftEwfA", category: "learn", service: "ppf", title: "The 3-Step Prep Before PPF", blurb: "A rare Mustang GT California Special goes through the prep every car gets before film: masking the trim, a paint enhancement pass, and the alcohol wipe that makes the film bond." },
   { id: "LQ1iXlQpXGc", category: "learn", service: "ppf", title: "Where Rock Chips Actually Land", blurb: "A walk through the body shop showing why the hood, fenders, bumper, and headlights take the hits, and why full front PPF covers exactly those panels." },
   { id: "P2zyuOrWiDA", category: "learn", service: "ppf", title: "Can You Spot the PPF?", blurb: "Two cars, both filmed. A proper install is wrapped under the hood edges and tucked into the bumper, so there is no line to find." },
   // ---- Learn ----
