@@ -920,43 +920,6 @@ export default function JuneSpecial() {
       </section>
 
       {/* ================================================================
-          CLAIM YOUR SPOT (embedded form; every CTA scrolls here)
-      ================================================================ */}
-      <section id="claim" className="py-24 bg-[#0D0D0D] border-y border-zinc-900 scroll-mt-20">
-        <div className="container max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-            <div className="lg:col-span-2">
-              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{soldOut ? "Sold out this month" : "Claim your spot"}</p>
-              <h2 className="font-display text-5xl md:text-6xl text-white leading-none mb-5">
-                {soldOut ? <>GET IN LINE<br /><span className="text-[#E85D04]">FOR NEXT MONTH</span></> : <>TELL US ABOUT<br /><span className="text-[#E85D04]">YOUR CAR</span></>}
-              </h2>
-              <p className="text-zinc-300 leading-relaxed mb-6">
-                {soldOut
-                  ? "Every spot this month is taken. Leave your details and you are first in line when the next special opens."
-                  : `Sixty seconds. We call or text back with your exact price for the ${title} and the open install dates, usually within the hour during business hours.`}
-              </p>
-              <ul className="space-y-3 text-sm text-zinc-300">
-                {[
-                  "Exact price, not a range",
-                  `${paidName} with the 12-year manufacturer warranty`,
-                  freeSentence ? `Includes ${freeSentence} at no charge` : "Everything included, no add-ons",
-                  "Walk-and-pay: you inspect every panel before you pay the balance",
-                ].map((line) => (
-                  <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>
-                ))}
-              </ul>
-              <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-8 text-zinc-300 hover:text-white text-sm">
-                <Phone className="w-4 h-4 text-[#E85D04]" /> Prefer to talk? (703) 775-4383
-              </a>
-            </div>
-            <div className="lg:col-span-3">
-              {soldOut ? <WaitlistForm promoTitle={title} /> : <PromoQuoteForm promoTitle={title} promoSlug={slug} />}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================
           THE PROBLEM
       ================================================================ */}
       <section className="py-24 bg-[#0D0D0D]">
@@ -1290,6 +1253,43 @@ export default function JuneSpecial() {
           </div>
           <div className="mt-8 text-center">
             <p className="text-zinc-400 text-sm">Total install time: <strong className="text-white">2&ndash;3 days</strong></p>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          CLAIM YOUR SPOT (embedded form; every CTA scrolls here)
+      ================================================================ */}
+      <section id="claim" className="py-24 bg-[#0D0D0D] border-y border-zinc-900 scroll-mt-20">
+        <div className="container max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+            <div className="lg:col-span-2">
+              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{soldOut ? "Sold out this month" : "Claim your spot"}</p>
+              <h2 className="font-display text-5xl md:text-6xl text-white leading-none mb-5">
+                {soldOut ? <>GET IN LINE<br /><span className="text-[#E85D04]">FOR NEXT MONTH</span></> : <>SEEN ENOUGH?<br /><span className="text-[#E85D04]">CLAIM YOUR SPOT</span></>}
+              </h2>
+              <p className="text-zinc-300 leading-relaxed mb-6">
+                {soldOut
+                  ? "Every spot this month is taken. Leave your details and you are first in line when the next special opens."
+                  : `Sixty seconds. We call or text back with your exact price for the ${title} and the open install dates, usually within the hour during business hours.`}
+              </p>
+              <ul className="space-y-3 text-sm text-zinc-300">
+                {[
+                  "Exact price, not a range",
+                  `${paidName} with the 12-year manufacturer warranty`,
+                  freeSentence ? `Includes ${freeSentence} at no charge` : "Everything included, no add-ons",
+                  "Walk-and-pay: you inspect every panel before you pay the balance",
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>
+                ))}
+              </ul>
+              <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-8 text-zinc-300 hover:text-white text-sm">
+                <Phone className="w-4 h-4 text-[#E85D04]" /> Prefer to talk? (703) 775-4383
+              </a>
+            </div>
+            <div className="lg:col-span-3">
+              {soldOut ? <WaitlistForm promoTitle={title} /> : <PromoQuoteForm promoTitle={title} promoSlug={slug} />}
+            </div>
           </div>
         </div>
       </section>

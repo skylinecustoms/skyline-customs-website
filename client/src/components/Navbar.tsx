@@ -109,6 +109,15 @@ export default function Navbar() {
                   </button>
                   {servicesOpen && (
                     <div className="absolute top-full left-0 mt-2 w-56 bg-[#111] border border-zinc-800 shadow-2xl z-50">
+                      {activePromo && (
+                        <Link
+                          href="/promo"
+                          onClick={() => setServicesOpen(false)}
+                          className="flex items-center gap-2 px-4 py-3 text-sm font-display tracking-wide bg-[#1a0a00] text-[#E85D04] border-b border-zinc-800 hover:bg-[#E85D04] hover:text-black transition-colors"
+                        >
+                          <Zap size={14} className="fill-current" /> {promoLabel}: This Month&apos;s Deal
+                        </Link>
+                      )}
                       <Link
                         href="/services"
                         onClick={() => setServicesOpen(false)}
@@ -222,6 +231,11 @@ export default function Navbar() {
                     Services
                   </Link>
                   <div className="pl-4 flex flex-col gap-2 border-l border-zinc-800">
+                    {activePromo && (
+                      <Link href="/promo" onClick={() => setIsOpen(false)} className="font-display text-base tracking-wide text-[#E85D04] flex items-center gap-1.5">
+                        <Zap size={14} className="fill-current" /> {promoLabel}: This Month&apos;s Deal
+                      </Link>
+                    )}
                     {serviceLinks.map((sl) => (
                       <Link
                         key={sl.href}

@@ -58,6 +58,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {[
+                { label: "This Month's Special", href: "/promo" },
                 { label: "Window Tinting", href: "/services/window-tinting" },
                 { label: "Ceramic Coating", href: "/services/ceramic-coating" },
                 { label: "Paint Protection Film", href: "/services/ppf" },
