@@ -12,7 +12,7 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
   // { href: "/pricing", label: "Pricing" }, // temporarily hidden
-  { href: "/service-areas", label: "Areas" },
+  { href: "/service-areas", label: "Service Areas" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -69,6 +69,7 @@ export default function Navbar() {
 
   return (
     <nav
+      aria-label="Main navigation"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-[oklch(0.10_0.005_285)]/95 backdrop-blur-sm shadow-lg"
@@ -81,7 +82,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <img
               src="/images/skyline-logo.webp"
-              alt="Skyline Customs"
+              alt="Skyline Customs: full front PPF, ceramic coating, and window tint in Chantilly, VA"
               width={108}
               height={120}
               className="h-10 w-auto object-contain"
@@ -188,9 +189,9 @@ export default function Navbar() {
 
           {/* CTA + Mobile Toggle */}
           <div className="flex items-center gap-4">
-            {/* Phone + Book Now stacked group */}
-            <div className="hidden lg:flex items-center gap-3 2xl:gap-4">
-              <div className="hidden 2xl:flex flex-col items-end leading-none gap-0.5">
+            {/* Phone (click to call) */}
+            <div className="hidden lg:flex items-center">
+              <div className="flex flex-col items-end leading-none gap-0.5">
                 <span className="block font-mono-brand text-[10px] text-[oklch(0.66_0.008_285)] uppercase tracking-widest">
                   Call Us
                 </span>
@@ -202,13 +203,6 @@ export default function Navbar() {
                   (703) 775-4383
                 </a>
               </div>
-              <div className="hidden 2xl:block w-px h-8 bg-[oklch(0.25_0.006_285)]" />
-              <Link
-                href="/get-a-quote"
-                className="bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest px-6 py-2.5 hover:bg-[oklch(0.72_0.21_40)] transition-colors whitespace-nowrap"
-              >
-                GET A QUOTE
-              </Link>
             </div>
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -311,13 +305,6 @@ export default function Navbar() {
                 <Phone size={14} />
                 (703) 775-4383
               </a>
-              <Link
-                href="/get-a-quote"
-                onClick={() => setIsOpen(false)}
-                className="bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest px-6 py-3 text-center hover:bg-[oklch(0.72_0.21_40)] transition-colors"
-              >
-                GET A QUOTE
-              </Link>
             </div>
           </div>
         </div>
