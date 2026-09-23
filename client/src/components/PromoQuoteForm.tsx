@@ -12,14 +12,18 @@ interface Props {
   promoTitle: string;
   /** Slug of the active promo, used for the CRM tag when there is no title. */
   promoSlug: string;
+  /** What the deal includes, e.g. "Full Front PPF + Free Ceramic Coating"; goes into the prefilled message. */
+  dealDescription: string;
 }
 
 /** Same tag rule as the quote page: "September Special" -> "september-special-promo". */
 export const promoTagFor = (title: string, slug: string) =>
   title ? `${title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}-promo` : `${slug}-promo`;
 
-export default function PromoQuoteForm({ promoTitle, promoSlug }: Props) {
-  const [form, setForm] = useState({ firstName: "", lastName: "", phone: "", email: "", year: "", make: "", model: "" });
+export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription }: Props) {
+  // Same note the quote page prefilled from promo links, so the CRM note and text read the same.
+  const promoNote = `I'm interested in the ${promoTitle} — ${dealDescription}. Please contact me to claim my spot.`;
+  const [form, setForm] = useState({ firstName: "", lastName: "", phone: "", email: "", year: "", make: "", model: "", message: promoNote });
   const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -36,7 +40,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug }: Props) {
     },
   });
 
-  const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((p) => ({ ...p, [field]: e.target.value }));
+  const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm((p) => ({ ...p, [field]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +56,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug }: Props) {
       make: form.make || undefined,
       model: form.model || undefined,
       service: "PPF",
+      message: form.message.trim() || promoNote,
       promoTag: promoTagFor(promoTitle, promoSlug),
       journey,
     });
@@ -110,6 +115,11 @@ export default function PromoQuoteForm({ promoTitle, promoSlug }: Props) {
           <label className={label}>Model *</label>
           <input type="text" required value={form.model} onChange={set("model")} className={input} placeholder="Model Y" />
         </div>
+      </div>
+
+      <div>
+        <label className={label}>Message / Notes</label>
+        <textarea rows={3} value={form.message} onChange={set("message")} className={input} placeholder={promoNote} />
       </div>
 
       <label className={`flex items-start gap-3 cursor-pointer p-2 border transition-colors ${agreed ? "border-[#E85D04]/40 bg-[#E85D04]/5" : "border-zinc-700"}`}>

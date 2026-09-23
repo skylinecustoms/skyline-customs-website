@@ -1288,7 +1288,7 @@ export default function JuneSpecial() {
               </a>
             </div>
             <div className="lg:col-span-3">
-              {soldOut ? <WaitlistForm promoTitle={title} /> : <PromoQuoteForm promoTitle={title} promoSlug={slug} />}
+              {soldOut ? <WaitlistForm promoTitle={title} /> : <PromoQuoteForm promoTitle={title} promoSlug={slug} dealDescription={dealDescription} />}
             </div>
           </div>
         </div>
