@@ -17,12 +17,23 @@ import { track, trackLead } from "@/lib/analytics";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import PromoQuoteForm from "@/components/PromoQuoteForm";
+import ReviewWall from "@/components/ReviewWall";
+import VideoCarousel from "@/components/VideoCarousel";
+import { VIDEOS } from "@/lib/videos";
+import { INSTAGRAM_REELS } from "@/lib/instagramPosts";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import {
   Shield, Sparkles, Zap, CheckCircle, ArrowRight, Clock,
   Star, Lock, ChevronDown, AlertTriangle, Eye, Wrench, Layers, Mail, Phone, Car
 } from "lucide-react";
+
+// ---- "Watch before you buy": PPF videos in the order the objections come up ----
+const WATCH_FIRST_IDS = ["LQ1iXlQpXGc", "ZvVdjXH06ug", "P2zyuOrWiDA", "dI6_E2HSmmE", "n5mQVftEwfA"];
+const WATCH_FIRST_REELS = ["DaNiBH6u8Y4"];
+const watchFirstVideos = () => WATCH_FIRST_IDS.map((id) => VIDEOS.find((v) => v.id === id)).filter((v): v is NonNullable<typeof v> => !!v);
+const watchFirstReels = () => WATCH_FIRST_REELS.map((code) => INSTAGRAM_REELS.find((r) => r.code === code)).filter((r): r is NonNullable<typeof r> => !!r);
 
 // ---- Included Service type (matches DB JSON schema) --------------------------
 interface IncludedService {
@@ -169,105 +180,6 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, label }: { beforeSrc: string; 
 }
 
 // ---- Review Snippet ---------------------------------------------------------
-const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Skyline+Customs/@38.8875732,-77.433704,17z/data=!3m1!4b1!4m6!3m5!1s0x89b6457209ec6e35:0xd27075cd2a4f1b54!8m2!3d38.8875732!4d-77.433704!16s%2Fg%2F11yskymsnx";
-
-const PROMO_REVIEWS = [
-  {
-    name: "Paolo Miclat",
-    photo: "https://lh3.googleusercontent.com/a-/ALV-UjX3W-zZuG1k5d4PKqrb15t2jBJdiFG0F2G0WpisRMJQFPIvty_o=s128-c0x00000000-cc-rp-mo",
-    text: "Great people to deal with. Owner was very transparent with all their services and they offer payment plans. I got the front half of my car PPF'd and back half ceramic coated and has been raining for a few days on and off. You can't even tell it rained. The PPF and ceramic coat works as intended.",
-    time: "in the last week",
-  },
-  {
-    name: "Youngsu Kim",
-    photo: "https://lh3.googleusercontent.com/a-/ALV-UjUbpvlw9LVMgZzQ6k0LaXy5Ohck1j64CxBgips1OrKOwP6jROHtqA=s128-c0x00000000-cc-rp-mo-ba2",
-    text: "I highly recommend these guys! They did an excellent job on both the front end PPF installation and the two front window tints. The attention to detail they put into their work is awesome, and everything looks flawless. On top of the great quality, the staff is incredibly friendly and very flexible with scheduling.",
-    time: "a week ago",
-  },
-  {
-    name: "Auriel Young",
-    photo: "https://lh3.googleusercontent.com/a-/ALV-UjVcJDxOPKM8nPX-YgNdd4pUKIej81ahodnqn2E8yU2py2HrUC0_=s128-c0x00000000-cc-rp-mo",
-    text: "Great experience! The tint job came out looking really clean and the team was fast and efficient. Would definitely recommend!",
-    time: "a week ago",
-  },
-  {
-    name: "Clara Kim",
-    photo: "https://lh3.googleusercontent.com/a/ACg8ocIsoVT7soBUyuLnybazRn3qSXC7Q34N6slNpvtNedZ1iSA9cA=s128-c0x00000000-cc-rp-mo",
-    text: "Good friend of mine recommended me to get the tints done from skyline and i can confidently say that my car looks awesome. I work from 8:30-6 so they were super flexible with my schedule, letting me drop my car off in the morning and pick it up later. I appreciate the work and happy with it!!",
-    time: "a month ago",
-  },
-  {
-    name: "Jonathan Cao",
-    photo: "https://lh3.googleusercontent.com/a-/ALV-UjWT0lZnA17DEs1wKFkgRhFiCK05JsZQsL75K3XxHTdfcmUpLgkD=s128-c0x00000000-cc-rp-mo",
-    text: "Got my new to me car tinted by Skyline Customs. Everyone was super friendly and extremely patient, I had to reschedule multiple times and they were very accommodating. Professional quality work done at a great price. I highly recommend their services and will be returning for future work!",
-    time: "5 months ago",
-  },
-  {
-    name: "Moeez Omer",
-    photo: "https://lh3.googleusercontent.com/a/ACg8ocJXfn37iMLP3EAyuz_lE6GJV0Fanq3JfrNtAPhla3KNrPJwwA=s128-c0x00000000-cc-rp-mo",
-    text: "An Excellent and professional team. I got my rear and side windows tinted and the process was exceptional from the jump. They gave me a step by step process which gave me full confidence with my purchase. Will definitely come back for my mother's car!",
-    time: "6 months ago",
-  },
-  {
-    name: "Md Israil",
-    photo: "https://lh3.googleusercontent.com/a/ACg8ocJZfQSrnUyW64Mm6rBZSL9vmG8_RzKUGsWU64FjQcuZrJdM5g=s128-c0x00000000-cc-rp-mo",
-    text: "I took my car to Skyline Customs to get the windows tinted and I'm very happy with how everything turned out. The staff was professional, respectful, and explained everything clearly without trying to upsell me. The work was done on time and the tint looks clean and even with no bubbles or flaws. Prices were fair and the quality speaks for itself.",
-    time: "5 months ago",
-  },
-  {
-    name: "Beanz",
-    photo: "https://lh3.googleusercontent.com/a/ACg8ocIWs7Ba0R-uUnAteojCo1ICpY8jMrrubKiMVoqcth58EJT81A=s128-c0x00000000-cc-rp-mo",
-    text: "Called yesterday, got me an appointment today, and done in only a few hours. Perfect guys here.",
-    time: "in the last week",
-  },
-];
-
-function ReviewSnippet() {
-  const [active, setActive] = useState(0);
-  const review = PROMO_REVIEWS[active];
-  return (
-    <div className="border border-zinc-800 bg-[#0D0D0D] p-8">
-      {/* Header: stars + Google badge */}
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-1">
-          {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-[#E85D04] text-[#E85D04]" />)}
-          <span className="text-zinc-400 text-xs ml-2 font-medium">5.0 Google Reviews</span>
-        </div>
-        <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer"
-          className="text-[#E85D04] text-xs font-bold tracking-wider uppercase underline underline-offset-2 decoration-1 hover:decoration-2">
-          See all 100+ reviews →
-        </a>
-      </div>
-      {/* Review text */}
-      <blockquote className="text-zinc-200 text-sm leading-relaxed italic mb-6">&ldquo;{review.text}&rdquo;</blockquote>
-      {/* Author row */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          {review.photo ? (
-            <img loading="lazy" decoding="async" src={review.photo} alt={review.name} className="w-10 h-10 rounded-full object-cover border border-zinc-700" />
-          ) : (
-            <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold text-sm">
-              {review.name.charAt(0)}
-            </div>
-          )}
-          <div>
-            <p className="text-white font-bold text-sm">{review.name}</p>
-            <p className="text-zinc-400 text-xs">{review.time}</p>
-          </div>
-        </div>
-        {/* Dot navigation */}
-        <div className="flex gap-2">
-          {PROMO_REVIEWS.map((_, i) => (
-            <button key={i} onClick={() => setActive(i)}
-              className={`w-2 h-2 rounded-full transition-colors ${i === active ? 'bg-[#E85D04]' : 'bg-zinc-700 hover:bg-zinc-500'}`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ---- FAQ Accordion -----------------------------------------------------------
 interface FaqItem { q: string; a: string }
 
@@ -757,8 +669,8 @@ export default function JuneSpecial() {
   const tagline = promo?.tagline ?? "The most complete paint protection package in Northern Virginia.";
   const dealDescription = promo?.dealDescription ?? "Full Front PPF + Free Paint Correction + Ceramic Coating";
   const slug = promo?.slug ?? "promo";
-  const promoNote = encodeURIComponent(`I'm interested in the ${title} — ${dealDescription}. Please contact me to claim my spot.`);
-  const quoteUrl = `/get-a-quote?service=ppf&promo=${encodeURIComponent(slug)}&promoTitle=${encodeURIComponent(title)}&promoNote=${promoNote}`;
+  // Every "claim" button scrolls to the form embedded below the hero (see #claim).
+  const quoteUrl = "#claim";
   const canonicalUrl = "https://www.skylinecustomshop.com/promo";
 
   let includedServices: IncludedService[] = [];
@@ -931,12 +843,13 @@ export default function JuneSpecial() {
               {/* Primary CTA */}
               {!soldOut ? (
                 <div className="flex flex-col gap-3">
-                  <Link
+                  <a
                     href={quoteUrl}
+                    data-cta="promo-claim"
                     className="btn-sweep bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
                   >
                     YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
-                  </Link>
+                  </a>
                   <p className="text-center text-zinc-400 text-xs tracking-wide">
                     No catch. Just flawless paint, guaranteed 12 years.
                   </p>
@@ -1007,6 +920,43 @@ export default function JuneSpecial() {
       </section>
 
       {/* ================================================================
+          CLAIM YOUR SPOT (embedded form; every CTA scrolls here)
+      ================================================================ */}
+      <section id="claim" className="py-24 bg-[#0D0D0D] border-y border-zinc-900 scroll-mt-20">
+        <div className="container max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+            <div className="lg:col-span-2">
+              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{soldOut ? "Sold out this month" : "Claim your spot"}</p>
+              <h2 className="font-display text-5xl md:text-6xl text-white leading-none mb-5">
+                {soldOut ? <>GET IN LINE<br /><span className="text-[#E85D04]">FOR NEXT MONTH</span></> : <>TELL US ABOUT<br /><span className="text-[#E85D04]">YOUR CAR</span></>}
+              </h2>
+              <p className="text-zinc-300 leading-relaxed mb-6">
+                {soldOut
+                  ? "Every spot this month is taken. Leave your details and you are first in line when the next special opens."
+                  : `Sixty seconds. We call or text back with your exact price for the ${title} and the open install dates, usually within the hour during business hours.`}
+              </p>
+              <ul className="space-y-3 text-sm text-zinc-300">
+                {[
+                  "Exact price, not a range",
+                  `${paidName} with the 12-year manufacturer warranty`,
+                  freeSentence ? `Includes ${freeSentence} at no charge` : "Everything included, no add-ons",
+                  "Walk-and-pay: you inspect every panel before you pay the balance",
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>
+                ))}
+              </ul>
+              <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-8 text-zinc-300 hover:text-white text-sm">
+                <Phone className="w-4 h-4 text-[#E85D04]" /> Prefer to talk? (703) 775-4383
+              </a>
+            </div>
+            <div className="lg:col-span-3">
+              {soldOut ? <WaitlistForm promoTitle={title} /> : <PromoQuoteForm promoTitle={title} promoSlug={slug} />}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
           THE PROBLEM
       ================================================================ */}
       <section className="py-24 bg-[#0D0D0D]">
@@ -1048,6 +998,29 @@ export default function JuneSpecial() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          WATCH BEFORE YOU BUY (PPF videos in objection order)
+      ================================================================ */}
+      <section className="py-24 bg-[#0A0A0A] border-y border-zinc-900 overflow-hidden">
+        <div className="container max-w-6xl">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div>
+              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Watch before you buy</p>
+              <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
+                SEE IT BEFORE<br /><span className="text-[#E85D04]">YOU DECIDE</span>
+              </h2>
+              <p className="text-zinc-400 mt-4 max-w-2xl">
+                Short clips from the shop floor: where chips actually land, why factory paint is not enough, what the film survives, whether you can see it, and how we prep every car. Tap any one to watch with sound.
+              </p>
+            </div>
+            <Link href="/videos" className="border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors shrink-0">
+              All videos <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <VideoCarousel videos={watchFirstVideos()} reels={watchFirstReels()} preview autoAdvanceMs={12_000} />
         </div>
       </section>
 
@@ -1333,23 +1306,11 @@ export default function JuneSpecial() {
               <span className="text-[#E85D04]">FROM REAL CUSTOMERS</span>
             </h2>
           </div>
-          <div className="max-w-2xl mx-auto flex flex-col gap-6">
-            <ReviewSnippet />
-            <div className="border border-zinc-800 bg-[#0D0D0D] p-6">
-              <p className="text-white font-bold text-sm mb-2">Ready to protect your paint?</p>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                Join the {filledSlots.length} customers who&apos;ve already claimed their spot this month.
-              </p>
-              {!soldOut ? (
-                <Link href={quoteUrl} className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-sm tracking-widest uppercase px-6 py-3 hover:bg-orange-600 transition-colors">
-                  Claim My Spot <ArrowRight className="w-4 h-4" />
-                </Link>
-              ) : (
-                <a href="#waitlist" className="inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] font-display text-sm tracking-widest uppercase px-6 py-3 hover:bg-[#E85D04]/10 transition-colors">
-                  Join Waitlist <ArrowRight className="w-4 h-4" />
-                </a>
-              )}
-            </div>
+          <ReviewWall />
+          <div className="text-center mt-12">
+            <a href={quoteUrl} data-cta="promo-claim" className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-widest uppercase px-8 py-4 hover:bg-orange-600 transition-colors">
+              {soldOut ? "Join the waitlist" : "Claim my spot"} <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </section>
@@ -1357,6 +1318,7 @@ export default function JuneSpecial() {
       {/* ================================================================
           CUSTOMER GALLERY (live slots from DB)
       ================================================================ */}
+      {filledSlots.length >= 3 && (
       <section className="py-24 bg-[#0A0A0A]">
         <div className="container max-w-6xl">
           <div className="mb-12">
@@ -1383,6 +1345,7 @@ export default function JuneSpecial() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ================================================================
           STEK CALLOUT
@@ -1440,17 +1403,18 @@ export default function JuneSpecial() {
             Skyline Customs &mdash; Chantilly, VA &middot; (703) 775-4383
           </p>
           {soldOut ? (
-            <div className="max-w-xl mx-auto">
-              <WaitlistForm promoTitle={title} />
-            </div>
+            <a href="#claim" className="inline-flex items-center gap-2 bg-white text-[#E85D04] hover:bg-zinc-100 font-display text-xl tracking-[0.1em] px-10 py-5 transition-all">
+              JOIN THE WAITLIST <ArrowRight className="w-5 h-5" />
+            </a>
           ) : (
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link
+              <a
                 href={quoteUrl}
+                data-cta="promo-claim"
                 className="bg-white text-[#E85D04] hover:bg-zinc-100 font-display text-xl tracking-[0.1em] px-10 py-5 transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
               >
                 YES! PROTECT MY PAINT <ArrowRight className="w-5 h-5" />
-              </Link>
+              </a>
               <a
                 href="tel:+17037754383"
                 className="border-2 border-white text-white hover:bg-white hover:text-[#E85D04] font-display text-xl tracking-[0.1em] px-10 py-5 transition-all duration-200 text-center"
@@ -1485,7 +1449,7 @@ export default function JuneSpecial() {
         </div>
         {soldOut ? (
           <a
-            href="#waitlist"
+            href="#claim"
             className="shrink-0 bg-zinc-700 text-white font-display text-sm tracking-widest px-5 py-3"
           >
             JOIN WAITLIST
@@ -1493,6 +1457,7 @@ export default function JuneSpecial() {
         ) : (
           <a
             href={quoteUrl}
+            data-cta="promo-claim"
             className="shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-5 py-3 hover:bg-orange-600 transition-colors"
           >
             CLAIM MY SPOT

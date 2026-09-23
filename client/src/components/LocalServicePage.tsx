@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import NearbyAreas from "@/components/NearbyAreas";
+import ActivePromoBanner from "@/components/ActivePromoBanner";
 import { Shield, MapPin, Phone, Star, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
@@ -203,6 +204,9 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
       </section>
 
       <div className="h-1 bg-[#E85D04]" />
+
+      {/* This month's special, same block as the home page */}
+      <ActivePromoBanner />
 
       <CityPhoto cityName={cityName} cityLabel={`${city.name}, VA`} service={serviceKey} />
 
