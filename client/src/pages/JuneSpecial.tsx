@@ -233,6 +233,10 @@ function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: bo
     });
   }
   items.push({
+    q: "Is there a deposit for the special?",
+    a: `Yes. Once you approve your quote, a 20% deposit reserves your install date and locks in the ${priceText} price. It goes toward your total, so you pay the remaining balance at pickup after the walk-and-pay inspection. The deposit is fully refundable at any time, no questions asked.`,
+  });
+  items.push({
     q: "Do I need to do anything to prepare my car?",
     a: "Just bring it in clean (a basic wash is fine — we'll do the full decontamination). Don't apply any wax or sealant in the week before your appointment. That's it.",
   });

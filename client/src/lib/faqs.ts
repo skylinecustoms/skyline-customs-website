@@ -18,6 +18,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
       { q: "Do I need an appointment?", a: "Yes. Every install is scheduled so the bay is ready and dust-free when your car arrives. Request a free quote and we'll offer dates, or call (703) 775-4383." },
       { q: "Do you offer mobile service or do I come to you?", a: "We operate from our controlled-environment facility in Chantilly, VA. Proper installation of PPF and ceramic coatings requires a dust-free environment that can't be replicated outdoors — this is how we guarantee quality." },
       { q: "How do I get a quote?", a: "Use the online quote form with your year, make, model, and the service you're interested in, and we'll reply with pricing, usually within the hour during business hours. Prices are confirmed at an in-person inspection." },
+      { q: "Do you take a deposit?", a: "Yes. Once you approve your quote, a 20% deposit reserves your install date and locks in your price. It goes toward your total, so you pay the remaining balance at pickup after you've walked every panel with us. The deposit is fully refundable at any time, no questions asked." },
       { q: "What warranties do you offer?", a: "STEK DYNOshield PPF carries a 12-year manufacturer warranty against yellowing, cracking, and peeling. GeoShield ceramic tint has a nationwide lifetime warranty. Ceramic coatings are warrantied for 5 or 7 years depending on the package." },
     ],
   },

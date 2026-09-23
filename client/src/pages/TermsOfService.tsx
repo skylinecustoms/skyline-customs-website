@@ -217,10 +217,10 @@ export default function TermsOfService() {
             <div>
               <h2 className="font-display text-2xl text-[oklch(0.96_0.008_85)] tracking-wider mb-4">PAYMENT</h2>
               <p className="mb-3">
-                Payment is due upon completion of services unless otherwise agreed in writing. We accept major credit cards, cash, and other payment methods as posted at our facility. All prices are in US dollars.
+                The remaining balance is due upon completion of services, after the walk-and-pay inspection, unless otherwise agreed in writing. We accept major credit cards, cash, and other payment methods as posted at our facility. All prices are in US dollars.
               </p>
               <p>
-                For large projects, we may require a deposit at the time of booking. Deposits are non-refundable unless the Company cancels the appointment.
+                A deposit of 20% of the quoted price is required to reserve an appointment date. The deposit is applied toward the total cost of the service. Deposits are fully refundable at any time upon request, including if the Client cancels or reschedules.
               </p>
             </div>
 

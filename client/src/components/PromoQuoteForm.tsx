@@ -144,7 +144,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
         {submit.isPending ? "SENDING..." : "YES! PROTECT MY PAINT"}
         {!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
-      <p className="text-center text-zinc-400 text-xs tracking-wide">No catch. Just flawless paint, guaranteed 12 years. Exact price by phone, no obligation.</p>
+      <p className="text-center text-zinc-400 text-xs tracking-wide">No catch. Just flawless paint, guaranteed 12 years. Nothing to pay now: a fully refundable 20% deposit locks your date only after you approve your exact quote.</p>
     </form>
   );
 }

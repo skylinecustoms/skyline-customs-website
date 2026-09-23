@@ -104,6 +104,10 @@ const faqs = [
     a: "Higher-tier coatings use more advanced formulations with greater hardness (9H+), thicker layering, and stronger hydrophobic properties. The 7-year tier is our flagship product for clients who want maximum long-term protection.",
   },
   {
+    q: "Is there a deposit for ceramic coating?",
+    a: "Yes. Once you approve your quote, a 20% deposit reserves your install date and locks in your price. It goes toward your total, so you pay the remaining balance at pickup after you've walked every panel with us. The deposit is fully refundable at any time, no questions asked.",
+  },
+  {
     q: "Should I get ceramic coating with PPF?",
     a: "Absolutely. PPF handles physical impacts; ceramic coating handles chemical and UV threats while adding gloss. Together they provide complete paint protection — and ceramic coating bonds exceptionally well to PPF.",
   },

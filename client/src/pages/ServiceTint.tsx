@@ -104,6 +104,10 @@ const faqs = [
     a: "Darker tints can reduce nighttime visibility. We'll guide you toward the right VLT percentage that balances privacy, heat rejection, and safe nighttime driving for your specific vehicle.",
   },
   {
+    q: "Is there a deposit for window tinting?",
+    a: "Yes. Once you approve your quote, a 20% deposit reserves your install date and locks in your price. It goes toward your total, so you pay the remaining balance at pickup after you've walked every panel with us. The deposit is fully refundable at any time, no questions asked.",
+  },
+  {
     q: "Do you tint the windshield?",
     a: "Yes — we offer legal windshield tint strips and ceramic windshield film that rejects heat and UV without darkening your forward view beyond legal limits.",
   },

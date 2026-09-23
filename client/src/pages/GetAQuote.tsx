@@ -435,6 +435,7 @@ export default function GetAQuote() {
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     )}
                   </button>
+                  <p className="text-center text-zinc-400 text-xs leading-relaxed">Nothing to pay now. A 20% deposit locks your date only after you approve your exact quote, goes toward your total, and is fully refundable at any time.</p>
                 </form>
               </>
             )}
@@ -458,7 +459,7 @@ export default function GetAQuote() {
           <div>
             <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Step 3</p>
             <h2 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-2">BOOK A DAY THAT WORKS</h2>
-            <p className="text-zinc-400 text-sm leading-relaxed">Most PPF and tint jobs are same-day at our Chantilly shop, and a ceramic coating is two days. Drop off at 9 AM at 4215 Walney Rd, Suite 1A and B, and we call when the car is ready. Free parking on site, and we walk you through aftercare and register the warranty before you leave.</p>
+            <p className="text-zinc-400 text-sm leading-relaxed">Approve the quote and a 20% deposit locks your date and your price; it goes toward your total and is fully refundable at any time. Most PPF and tint jobs are same-day at our Chantilly shop, and a ceramic coating is two days. Drop off at 9 AM at 4215 Walney Rd, Suite 1A and B, and we call when the car is ready. Free parking on site, and we walk you through aftercare and register the warranty before you leave.</p>
           </div>
         </div>
       </section>
