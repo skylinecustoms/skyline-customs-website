@@ -28,6 +28,7 @@ export interface BrandLogo {
 export const SUPPLIERS: BrandLogo[] = [
   { name: "STEK", logo: "/images/logos/stek.svg", href: "https://www.stek-usa.com/", alt: "STEK paint protection film - Skyline Customs is a STEK certified installer in Chantilly, VA", caption: "Certified PPF installer", mono: "none", width: 100, height: 100 },
   { name: "Gtechniq", href: "https://gtechniq.com/", alt: "Gtechniq ceramic coatings installed by Skyline Customs in Chantilly, VA", caption: "Ceramic coatings", width: 240, height: 60 },
+  { name: "System X", logo: "/images/logos/systemx.svg", href: "https://systemx.com/", alt: "System X Ceramic Protection coatings installed by Skyline Customs in Chantilly, VA", caption: "Ceramic coatings", width: 1000, height: 300 },
   { name: "GeoShield", logo: "/images/logos/geoshield.png", href: "https://geoshieldusa.com/", alt: "GeoShield Pro Nano Ceramic window film installed by Skyline Customs in Chantilly, VA", caption: "Ceramic window film", width: 150, height: 66 },
   { name: "PURE PPF", logo: "/images/logos/pureppf.webp", href: "https://pureppf.com/", alt: "PURE PPF paint protection film installed by Skyline Customs in Chantilly, VA", caption: "Paint protection film", width: 480, height: 131 },
 ];
