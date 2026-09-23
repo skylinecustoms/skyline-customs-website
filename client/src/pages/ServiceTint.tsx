@@ -196,14 +196,7 @@ export default function ServiceTint() {
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "What are Virginia's window tint laws?", "acceptedAnswer": { "@type": "Answer", "text": "In Virginia, front side windows must allow more than 50% light transmission (VLT). Rear side windows and the rear window can be any darkness. We ensure all installations are compliant with state law." } },
-              { "@type": "Question", "name": "What is ceramic tint vs. regular tint?", "acceptedAnswer": { "@type": "Answer", "text": "Ceramic tint uses nano-ceramic particles instead of metal or dye. It rejects significantly more heat and UV rays, doesn't interfere with electronics, and doesn't fade or turn purple over time. It's the premium choice." } },
-              { "@type": "Question", "name": "How long does window tint last?", "acceptedAnswer": { "@type": "Answer", "text": "Quality ceramic tint professionally installed lasts 10+ years without fading, bubbling, or peeling. Cheaper dyed films can degrade in 3\u20135 years." } },
-              { "@type": "Question", "name": "Can I roll my windows down after tinting?", "acceptedAnswer": { "@type": "Answer", "text": "We recommend keeping windows up for at least 3 days after installation to allow the film to cure and adhere fully to the glass." } },
-              { "@type": "Question", "name": "Will tint affect my visibility at night?", "acceptedAnswer": { "@type": "Answer", "text": "Darker tints can reduce nighttime visibility. We'll guide you toward the right VLT percentage that balances privacy, heat rejection, and safe nighttime driving for your specific vehicle." } },
-              { "@type": "Question", "name": "Do you tint the windshield?", "acceptedAnswer": { "@type": "Answer", "text": "Yes \u2014 we offer legal windshield tint strips and ceramic windshield film that rejects heat and UV without darkening your forward view beyond legal limits." } }
-            ]
+            "mainEntity": faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
           },
           {
             "@context": "https://schema.org",

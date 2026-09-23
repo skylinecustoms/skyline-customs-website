@@ -223,14 +223,7 @@ export default function ServiceCeramic() {
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "How long does ceramic coating last?", "acceptedAnswer": { "@type": "Answer", "text": "A professionally applied ceramic coating lasts 2\u20137+ years depending on the product tier and maintenance. We offer warranty options up to 7 years." } },
-              { "@type": "Question", "name": "Does ceramic coating prevent scratches?", "acceptedAnswer": { "@type": "Answer", "text": "Ceramic coating adds hardness and chemical resistance but is not a substitute for PPF against rock chips and deep scratches. For maximum protection, we recommend PPF first, then ceramic coating on top." } },
-              { "@type": "Question", "name": "How do I maintain a ceramic-coated car?", "acceptedAnswer": { "@type": "Answer", "text": "Hand wash or touchless wash only \u2014 no automatic brushes. Use a pH-neutral shampoo. Avoid parking under trees for extended periods. That's it \u2014 the coating does the rest." } },
-              { "@type": "Question", "name": "Can ceramic coating be applied to a new car?", "acceptedAnswer": { "@type": "Answer", "text": "Yes \u2014 and it's the ideal time. New cars still benefit from paint correction to remove transport scratches and dealer swirls before coating." } },
-              { "@type": "Question", "name": "What's the difference between 5-year and 7-year coating?", "acceptedAnswer": { "@type": "Answer", "text": "Higher-tier coatings use more advanced formulations with greater hardness (9H+), thicker layering, and stronger hydrophobic properties. The 7-year tier is our flagship product for clients who want maximum long-term protection." } },
-              { "@type": "Question", "name": "Should I get ceramic coating with PPF?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. PPF handles physical impacts; ceramic coating handles chemical and UV threats while adding gloss. Together they provide complete paint protection \u2014 and ceramic coating bonds exceptionally well to PPF." } }
-            ]
+            "mainEntity": faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
           },
           {
             "@context": "https://schema.org",

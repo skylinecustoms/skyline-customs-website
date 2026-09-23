@@ -80,6 +80,9 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
   const start = hash(cityName) % shared.length;
   const rotated = [0, 1, 2].map((i) => shared[(start + i) % shared.length]);
   const faqs = [...(note?.faqs ?? []), ...(note ? rotated : shared)];
+  // The deposit policy is shown on every city page, whatever the rotation picked.
+  const deposit = shared.find((f) => /deposit/i.test(f.q));
+  if (deposit && !faqs.includes(deposit)) faqs.push(deposit);
   const cards = [
     { title: city.roadsTitle, desc: `${city.roadsDesc} ${svc.roadsBenefit}` },
     ...svc.features,
