@@ -205,8 +205,8 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
 
       <div className="h-1 bg-[#E85D04]" />
 
-      {/* This month's special, same block as the home page */}
-      <ActivePromoBanner />
+      {/* This month's special, one slim line (the home page shows the full block) */}
+      <ActivePromoBanner compact />
 
       <CityPhoto cityName={cityName} cityLabel={`${city.name}, VA`} service={serviceKey} />
 

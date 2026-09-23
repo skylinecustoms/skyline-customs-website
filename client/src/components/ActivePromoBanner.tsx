@@ -73,7 +73,11 @@ function HomepageCountdown({ endDate }: { endDate: string }) {
 // ---- Active Promo Banner (homepage) -----------------------------------------
 // Pulls ALL content dynamically from the database via trpc.promo.getActive
 // No hardcoded month names, prices, or dates -- works for any monthly promo
-export default function ActivePromoBanner() {
+/**
+ * `compact` renders a slim one-line strip (used on the city pages) instead of
+ * the full two-column block the home page shows.
+ */
+export default function ActivePromoBanner({ compact = false }: { compact?: boolean } = {}) {
   const { data: promo, isLoading } = trpc.promo.getActive.useQuery();
 
   if (isLoading) return null;
@@ -97,6 +101,30 @@ export default function ActivePromoBanner() {
     catch { includedServices = []; }
   }
   const { freeValue, fullPrice, fmt } = promoMath(price, includedServices);
+
+  if (compact) {
+    const shortTagline = (promo.tagline ?? "").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "").trim();
+    return (
+      <section className="bg-[#0D0D0D] border-b border-zinc-800" aria-label="This month's special">
+        <div className="container max-w-6xl py-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 border-l-2 border-[#E85D04] pl-4">
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 min-w-0 text-sm">
+              <span className="text-[#E85D04] font-bold tracking-[0.2em] uppercase text-[11px]">{title}</span>
+              {shortTagline && <span className="text-zinc-300">{shortTagline}</span>}
+              <span className="text-zinc-500">
+                {freeValue > 0 && <span className="line-through mr-1">{fmt(fullPrice)}</span>}
+                <span className="text-white font-bold">{fmt(Number(price) || 0)}</span>
+                {endDate && <span> · {soldOut ? "Sold out" : `Ends ${endDate}`}</span>}
+              </span>
+            </div>
+            <Link href={promoUrl} data-cta="promo-strip" className="sm:ml-auto shrink-0 inline-flex items-center gap-1.5 text-[#E85D04] font-bold tracking-widest uppercase text-xs hover:text-white transition-colors">
+              {soldOut ? "Join the waitlist" : "Claim my spot"} <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative overflow-hidden bg-[#080808]">
