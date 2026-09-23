@@ -82,7 +82,6 @@ const GetAQuote = lazy(() => import("./pages/GetAQuote"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
-import QuoteAssistantLauncher from "./components/QuoteAssistantLauncher";
 const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const ServiceAreas = lazy(() => import("./pages/ServiceAreas"));
@@ -371,7 +370,6 @@ function AppContent() {
         <Router />
       </Suspense>
       {isOpen && <Suspense fallback={null}><BookingModal isOpen={isOpen} service={service} onClose={closeBooking} /></Suspense>}
-      <QuoteAssistantLauncher />
     </>
   );
 }

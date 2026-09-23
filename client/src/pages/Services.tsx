@@ -1,8 +1,7 @@
 import { Link } from "wouter";
-import { ArrowRight, Check, Phone } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useBooking } from "@/contexts/BookingContext";
 import type { BookingService } from "@/components/BookingModal";
 import SEO from "@/components/SEO";
 
@@ -82,7 +81,6 @@ const services: { id: string; number: string; title: string; subtitle: string; i
 ];
 
 export default function Services() {
-  const { openBooking } = useBooking();
   return (
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
@@ -211,16 +209,16 @@ export default function Services() {
             NOT SURE WHAT YOU NEED?
           </h2>
           <p className="text-[oklch(0.10_0.005_285/0.75)] mb-8 max-w-lg mx-auto">
-            Call us or book a free consultation. We'll assess your vehicle and recommend the best protection package for your budget.
+            Request a free quote. We'll assess your vehicle and recommend the best protection package for your budget.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="tel:+17037754383"
+            <Link
+              href="/get-a-quote"
               className="inline-flex items-center justify-center gap-2 bg-[oklch(0.10_0.005_285)] text-[oklch(0.96_0.008_85)] font-display text-base tracking-widest px-8 py-4 hover:bg-[oklch(0.15_0.005_285)] transition-colors"
             >
-              <Phone size={16} />
-              FREE CONSULTATION
-            </a>
+              GET A QUOTE
+              <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>

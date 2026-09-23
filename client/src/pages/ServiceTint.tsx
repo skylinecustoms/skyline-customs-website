@@ -5,7 +5,6 @@
  * URL: /services/window-tinting
  */
 
-import { useBooking } from "@/contexts/BookingContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
@@ -121,7 +120,6 @@ const shades = [
 ];
 
 export default function ServiceTint() {
-  const { openBooking } = useBooking();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Facebook Pixel: ViewContent event when visitor lands on Window Tinting service page
@@ -242,17 +240,11 @@ export default function ServiceTint() {
               Premium ceramic window film engineered for heat rejection, UV protection, and interior defense. Not just shade — performance.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a
-                href="tel:+17037754383"
-                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
-              >
-                FREE CONSULTATION
-              </a>
               <Link
                 href="/get-a-quote?service=tint"
-                className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 inline-flex items-center gap-2"
+                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
               >
-                GET A QUOTE
+                GET A QUOTE <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -464,15 +456,15 @@ export default function ServiceTint() {
             STAY COOL. DRIVE PROTECTED.
           </h2>
           <p className="text-orange-100 text-lg mb-10 max-w-xl mx-auto">
-            Book a free consultation and we'll help you choose the right tint level for your vehicle, lifestyle, and Virginia's legal requirements.
+            Request a free quote and we'll help you choose the right tint level for your vehicle, lifestyle, and Virginia's legal requirements.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="tel:+17037754383"
+            <Link
+              href="/get-a-quote?service=tint"
               className="bg-white text-[#E85D04] hover:bg-zinc-100 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
-              FREE CONSULTATION <ArrowRight className="w-4 h-4" />
-            </a>
+              GET A QUOTE <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

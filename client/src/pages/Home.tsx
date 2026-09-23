@@ -4,7 +4,6 @@ import { ArrowRight, Star, ChevronDown, Phone, ClipboardList, Wrench, Shield, Ch
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useBooking } from "@/contexts/BookingContext";
 import type { BookingService } from "@/components/BookingModal";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
@@ -266,12 +265,6 @@ function ActivePromoBanner() {
                 className="flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors"
               >
                 YES! PROTECT MY PAINT <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href={quoteUrl}
-                className="flex items-center justify-center gap-2 border-2 border-zinc-700 text-zinc-300 font-display text-lg tracking-[0.1em] px-8 py-4 hover:border-[#E85D04] hover:text-white transition-colors"
-              >
-                SEE DETAILS
               </Link>
             </div>
             <div className="flex items-center gap-3 mt-3">
@@ -577,7 +570,6 @@ function ThisMonthsSpecialBanner() {
 }
 
 export default function Home() {
-  const { openBooking } = useBooking();
 
   return (
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)] text-[oklch(0.95_0.005_85)]">
@@ -647,13 +639,6 @@ export default function Home() {
                 GET A FREE QUOTE
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <button
-                onClick={() => openBooking("ppf")}
-                className="flex items-center justify-center gap-3 border-2 border-[oklch(0.35_0.008_285)] text-[oklch(0.75_0.008_285)] font-display text-lg tracking-widest px-10 py-5 hover:border-brand-orange hover:text-white transition-colors"
-              >
-                <Phone className="w-5 h-5" />
-                BOOK A CONSULT
-              </button>
             </div>
           </div>
         </div>

@@ -142,9 +142,6 @@ export default function ServicePPF() {
               <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
                 GET A PPF QUOTE <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 inline-flex items-center gap-2">
-                <Phone className="w-4 h-4" /> (703) 775-4383
-              </a>
               <a href="#packages" className="text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-4 py-4 inline-flex items-center gap-2">
                 SEE PACKAGES <ChevronDown className="w-4 h-4" />
               </a>
