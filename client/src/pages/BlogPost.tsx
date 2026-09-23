@@ -211,7 +211,7 @@ export default function BlogPost() {
       <main>
 
       {/* Hero */}
-      <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
+      <section className="relative min-h-[60vh] flex items-end overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${post.heroImage})` }}
@@ -219,7 +219,7 @@ export default function BlogPost() {
           aria-label={post.heroImageAlt}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/50 to-transparent" />
-        <div className="relative container mx-auto px-4 lg:px-8 pb-12">
+        <div className="relative container mx-auto px-4 lg:px-8 pt-36 pb-12">
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title.length > 48 ? post.title.slice(0, 45) + "…" : post.title }]} className="text-white/60" />
           <Link href="/blog" className="inline-flex items-center gap-2 text-white/50 hover:text-[#e85d04] text-xs tracking-widest uppercase mb-4 transition-colors" style={{ fontFamily: "'Oswald', sans-serif" }}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
