@@ -150,7 +150,7 @@ export default function BlogPost() {
     return (
       <div className="min-h-screen bg-[#0d0d0d] text-white flex flex-col">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center flex-col gap-4 pt-20">
+        <div className="flex-1 flex items-center justify-center flex-col gap-4 pt-32">
           <h1
             className="text-4xl font-bold text-white"
             style={{ fontFamily: "'Oswald', sans-serif", textTransform: "uppercase" }}

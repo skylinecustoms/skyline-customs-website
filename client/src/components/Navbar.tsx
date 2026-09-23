@@ -61,6 +61,12 @@ export default function Navbar() {
     ? activePromo.title.split(" ").slice(0, 2).join(" ")
     : "Promo";
 
+  // Strip under the nav row: a manual announcement wins; otherwise the active special (not on the promo page itself).
+  const { data: settings } = trpc.site.settings.useQuery();
+  const manual = settings?.announcementActive === "1" && settings.announcement ? settings.announcement : null;
+  const stripTagline = (activePromo?.tagline ?? "Full Front PPF + Free Ceramic Coating").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "");
+  const showPromoStrip = !manual && !!activePromo?.title && location !== "/promo";
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -214,6 +220,26 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      {/* Announcement / this month's special: part of the fixed header so it sits under the nav on every page */}
+      {(manual || showPromoStrip) && (
+        <div className="bg-brand-orange text-black">
+          <div className="container">
+            {manual ? (
+              <p className="py-1.5 text-center text-xs font-semibold truncate">{manual}</p>
+            ) : (
+              <Link href="/promo" data-cta="header-promo" className="flex items-center justify-center gap-2 py-1.5 text-xs font-semibold hover:underline underline-offset-2">
+                <Zap size={12} className="shrink-0 fill-current" />
+                <span className="truncate">
+                  <span className="font-bold tracking-wide uppercase">{activePromo!.title}:</span> {stripTagline}
+                  {activePromo!.endDate && <span className="hidden sm:inline"> · Ends {activePromo!.endDate}</span>}
+                </span>
+                <span className="shrink-0 font-bold whitespace-nowrap">Claim my spot &rarr;</span>
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Mobile Menu */}
       {isOpen && (

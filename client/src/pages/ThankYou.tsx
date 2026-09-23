@@ -28,7 +28,7 @@ export default function ThankYou() {
         }}
       />
 
-      <section className="relative min-h-[80vh] flex items-center justify-center pt-24 pb-16">
+      <section className="relative min-h-[80vh] flex items-center justify-center pt-32 pb-16">
         <div className="container max-w-2xl text-center relative z-10">
 
           {/* Check icon */}

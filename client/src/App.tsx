@@ -10,38 +10,6 @@ import { X } from "lucide-react";
 import { installEngagementTracking, pageViewSent, trackPageView } from "@/lib/analytics";
 
 // ─── Announcement Banner (controlled via Telegram bot /announce command) ─────
-function AnnouncementBanner() {
-  const { data: settings } = trpc.site.settings.useQuery();
-  const { data: promo } = trpc.promo.getActive.useQuery();
-  const [location] = useLocation();
-  const [dismissed, setDismissed] = useState(false);
-
-  if (dismissed) return null;
-  const manual = settings?.announcementActive === "1" && settings.announcement ? settings.announcement : null;
-  // No manual announcement: promote the active special on every page except the promo page itself.
-  const promoLine = !manual && promo?.title && location !== "/promo"
-    ? `${promo.title}: ${(promo.tagline ?? "Full Front PPF + Free Ceramic Coating").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "")}.${promo.endDate ? ` Ends ${promo.endDate}.` : ""}`
-    : null;
-  if (!manual && !promoLine) return null;
-
-  return (
-    <div className="relative z-50 bg-orange-500 text-white text-center text-sm font-semibold py-2.5 px-10">
-      {manual ? <span>{manual}</span> : (
-        <Link href="/promo" data-cta="announcement-promo" className="inline-flex items-center gap-2 hover:underline underline-offset-2">
-          <span aria-hidden="true">&#9889;</span>{promoLine}<span className="font-bold">Claim yours &rarr;</span>
-        </Link>
-      )}
-      <button
-        onClick={() => setDismissed(true)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/80 hover:text-white transition-colors"
-        aria-label="Dismiss announcement"
-      >
-        <X size={16} />
-      </button>
-    </div>
-  );
-}
-
 function ScrollToTop() {
   const [location] = useLocation();
   useEffect(() => {
@@ -371,7 +339,6 @@ function AppContent() {
   useEffect(() => installEngagementTracking(), []);
   return (
     <>
-      <AnnouncementBanner />
       <ScrollToTop />
       <PageViewTracker />
       <Suspense fallback={null}><Toaster /></Suspense>

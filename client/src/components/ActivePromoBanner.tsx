@@ -138,7 +138,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
       {/* Orange ambient glow */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[#E85D04] opacity-[0.07] blur-[100px] pointer-events-none" />
 
-      <div className="relative z-10 container max-w-6xl py-16 lg:py-20">
+      <div className="relative z-10 container max-w-6xl pt-[calc(4rem+28px)] pb-16 lg:pt-[calc(5rem+28px)] lg:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* ---- Left: headline + CTAs ---- */}
