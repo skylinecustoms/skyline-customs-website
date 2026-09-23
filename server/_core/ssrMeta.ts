@@ -66,7 +66,7 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/services/ppf`,
   },
   "/ppf-cost": {
-    title: "How Much Does PPF Cost in Northern Virginia? | Skyline Customs",
+    title: "How Much Does Full Front PPF Cost in Northern Virginia?",
     description: "What sets the cost of paint protection film in Chantilly, VA: coverage level, vehicle size, matte vs gloss film, paint condition, and bundles with ceramic or tint. Exact quote within the hour.",
     canonical: `${BASE_URL}/ppf-cost`,
   },
@@ -91,7 +91,7 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/faq`,
   },
   "/tesla-ppf": {
-    title: "Tesla PPF in Northern Virginia | Model 3, Y, S, X & Cybertruck",
+    title: "Tesla Full Front PPF in Northern Virginia | Model 3, Y, S & X",
     description: "Tesla paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for Model 3, Y, S, X, and Cybertruck. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/tesla-ppf`,
   },
@@ -106,7 +106,7 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/tesla-model-3-ppf`,
   },
   "/cybertruck-ppf": {
-    title: "Cybertruck PPF in Chantilly, VA | Stainless Steel Protection Film",
+    title: "Cybertruck Full Front PPF in Chantilly, VA | Stainless Steel Film",
     description: "Paint protection film for the Tesla Cybertruck in Chantilly, VA. Clear or satin STEK film on the stainless panels stops scratches and fingerprints; what each package covers and why the coating matters. Free quotes.",
     canonical: `${BASE_URL}/cybertruck-ppf`,
   },
@@ -116,32 +116,32 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/porsche-911-ppf`,
   },
   "/bmw-ppf": {
-    title: "BMW PPF in Northern Virginia | 3 Series, X5, iX & M Models",
+    title: "BMW Full Front PPF in Northern Virginia | 3 Series, X5, iX & M",
     description: "BMW paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 3 Series, M3, 5 Series, X3, X5, iX, and M models. 12-year warranty.",
     canonical: `${BASE_URL}/bmw-ppf`,
   },
   "/porsche-ppf": {
-    title: "Porsche PPF in Northern Virginia | 911, Taycan, Macan & Cayenne",
+    title: "Porsche Full Front PPF in Northern Virginia | 911, Taycan, Macan",
     description: "Porsche paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut for 911, Cayman, Taycan, Macan, and Cayenne. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/porsche-ppf`,
   },
   "/corvette-ppf": {
-    title: "Corvette PPF in Northern Virginia | C8 Stingray, Z06 & E-Ray",
+    title: "Corvette Full Front PPF in Northern Virginia | C8, Z06 & E-Ray",
     description: "Corvette paint protection film in Chantilly, VA. Full front STEK DYNOshield for C8 Stingray, Z06, E-Ray, and C7, computer-cut and self-healing. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/corvette-ppf`,
   },
   "/rivian-ppf": {
-    title: "Rivian R1T & R1S PPF in Northern Virginia | Skyline Customs",
+    title: "Rivian R1T & R1S Full Front PPF in Northern Virginia",
     description: "Rivian R1T and R1S paint protection film in Chantilly, VA. Self-healing STEK DYNOshield, computer-cut around the cameras and sensors. 12-year warranty. Free quotes.",
     canonical: `${BASE_URL}/rivian-ppf`,
   },
   "/bronco-ppf": {
-    title: "Ford Bronco PPF in Northern Virginia | Skyline Customs",
+    title: "Ford Bronco Full Front PPF in Northern Virginia | Skyline Customs",
     description: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Raptor, and Bronco Sport: full front plus rocker and fender coverage. 12-year warranty.",
     canonical: `${BASE_URL}/bronco-ppf`,
   },
   "/ppf-vs-ceramic-coating": {
-    title: "PPF vs Ceramic Coating: Which Do You Need? | Northern Virginia",
+    title: "Full Front PPF vs Ceramic Coating: Which Do You Need?",
     description: "PPF vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers need, and when to do both.",
     canonical: `${BASE_URL}/ppf-vs-ceramic-coating`,
   },

@@ -125,7 +125,7 @@ export const MODEL_PAGES: ModelPage[] = [
     name: "Tesla Cybertruck",
     make: "Tesla",
     brandPage: { name: "Tesla PPF", href: "/tesla-ppf" },
-    seoTitle: "Cybertruck PPF in Chantilly, VA | Stainless Steel Protection Film",
+    seoTitle: "Cybertruck Full Front PPF in Chantilly, VA | Stainless Steel Film",
     seoDescription: "Paint protection film for the Tesla Cybertruck in Chantilly, VA. Clear or satin STEK film on the stainless panels stops scratches and fingerprints; what each package covers and why the coating matters. Free quotes.",
     eyebrow: "Tesla Cybertruck",
     h1: "CYBERTRUCK PROTECTION FILM",

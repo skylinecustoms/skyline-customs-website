@@ -5,7 +5,7 @@ import type { ComparisonData } from "@/components/ComparisonPage";
 
 export const PPF_VS_CERAMIC: ComparisonData = {
   path: "/ppf-vs-ceramic-coating",
-  title: "PPF vs Ceramic Coating: Which Do You Need? | Northern Virginia",
+  title: "Full Front PPF vs Ceramic Coating: Which Do You Need?",
   description: "PPF vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers need, and when to do both.",
   eyebrow: "PPF vs ceramic coating",
   h1: "PPF VS CERAMIC COATING: WHICH ONE DO YOU ACTUALLY NEED?",
