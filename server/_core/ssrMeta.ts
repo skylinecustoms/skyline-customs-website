@@ -572,11 +572,11 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
     try {
       const promo = await getActivePromoByActive();
       if (promo?.title) {
-        const deal = (promo.dealDescription ?? "Full Front PPF + Free Ceramic Coating").replace(/\s+/g, " ").trim();
+        const deal = (promo.tagline ?? "Full Front PPF + Free Ceramic Coating").replace(/\s+/g, " ").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "").trim();
         return {
           ...STATIC_META["/promo"],
           title: `${promo.title}: Full Front PPF Deal in Chantilly, VA`,
-          description: `${deal}. Limited spots${promo.endDate ? `, ends ${promo.endDate}` : ""}. STEK DYNOshield full front PPF with a 12-year warranty at Skyline Customs, Chantilly, VA.`.slice(0, 165),
+          description: `${deal}. Limited spots${promo.endDate ? `, ends ${promo.endDate}` : ""}. STEK DYNOshield full front PPF, 12-year warranty, at Skyline Customs in Chantilly, VA.`.slice(0, 165),
         };
       }
     } catch { /* fall back to the static entry */ }

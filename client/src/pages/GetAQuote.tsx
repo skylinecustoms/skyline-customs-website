@@ -244,7 +244,7 @@ export default function GetAQuote() {
                     </h2>
                     {!promoTitle && activePromo?.title && (
                       <p className="text-zinc-400 text-xs mt-2">
-                        This month: <Link href="/promo" data-cta="quote-page-promo" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">{activePromo.title}, {activePromo.dealDescription ?? "full front PPF + free ceramic coating"}</Link>
+                        This month: <Link href="/promo" data-cta="quote-page-promo" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">{activePromo.title}: {(activePromo.tagline ?? "Full Front PPF + free ceramic coating").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "")}</Link>
                       </p>
                     )}
                   </div>

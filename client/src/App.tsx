@@ -20,7 +20,7 @@ function AnnouncementBanner() {
   const manual = settings?.announcementActive === "1" && settings.announcement ? settings.announcement : null;
   // No manual announcement: promote the active special on every page except the promo page itself.
   const promoLine = !manual && promo?.title && location !== "/promo"
-    ? `${promo.title}: ${promo.dealDescription ?? "Full Front PPF + Free Ceramic Coating"}. Limited spots${promo.endDate ? `, ends ${promo.endDate}` : ""}.`
+    ? `${promo.title}: ${(promo.tagline ?? "Full Front PPF + Free Ceramic Coating").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "")}.${promo.endDate ? ` Ends ${promo.endDate}.` : ""}`
     : null;
   if (!manual && !promoLine) return null;
 
