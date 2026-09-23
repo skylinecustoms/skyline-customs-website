@@ -7,7 +7,7 @@ import { BookingProvider, useBooking } from "./contexts/BookingContext";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { X } from "lucide-react";
-import { installPhoneCallTracking } from "@/lib/analytics";
+import { installEngagementTracking, pageViewSent, trackPageView } from "@/lib/analytics";
 
 // ─── Announcement Banner (controlled via Telegram bot /announce command) ─────
 function AnnouncementBanner() {
@@ -37,6 +37,20 @@ function ScrollToTop() {
   const [location] = useLocation();
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [location]);
+  return null;
+}
+
+/**
+ * GA4 page_view for client-side navigation. Each page's <SEO> reports the view
+ * as soon as it mounts with the right title; this is the fallback for pages
+ * without one (404, lazy chunks that fail), sent after the route has settled.
+ */
+function PageViewTracker() {
+  const [location] = useLocation();
+  useEffect(() => {
+    const t = setTimeout(() => { if (!pageViewSent()) trackPageView(); }, 1500);
+    return () => clearTimeout(t);
   }, [location]);
   return null;
 }
@@ -346,11 +360,12 @@ function Router() {
 
 function AppContent() {
   const { isOpen, service, closeBooking } = useBooking();
-  useEffect(() => installPhoneCallTracking(), []);
+  useEffect(() => installEngagementTracking(), []);
   return (
     <>
       <AnnouncementBanner />
       <ScrollToTop />
+      <PageViewTracker />
       <Suspense fallback={null}><Toaster /></Suspense>
       <Suspense fallback={<div className="min-h-screen bg-[#0A0A0A]" />}>
         <Router />

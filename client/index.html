@@ -104,12 +104,11 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-DDL3M7SVBK', { page_title: document.title, page_location: window.location.href });
+      gtag('config', 'G-DDL3M7SVBK', { send_page_view: false }); // the app sends page_view on every route change (client/src/lib/analytics.ts)
       !function(f,b,e,v,n){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
       n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script');
       fbq('init', '1754124245286032');
-      fbq('track', 'PageView');
       (function(){
         var done=false;
         function load(){

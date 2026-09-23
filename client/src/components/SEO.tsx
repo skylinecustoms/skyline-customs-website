@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { trackPageView } from "@/lib/analytics";
 
 /*
  * SKYLINE CUSTOMS — SEO Component
@@ -74,6 +75,8 @@ export default function SEO({ title, description, canonical, ogImage, jsonLd }: 
     }
     canonicalEl.setAttribute("href", canonicalUrl);
 
+    // GA4 page_view (deduped per URL inside trackPageView).
+    trackPageView(fullTitle);
   }, [fullTitle, description, canonicalUrl, imageUrl]);
 
   // JSON-LD is rendered inline so it is present in the server-rendered HTML that

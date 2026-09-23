@@ -11,7 +11,7 @@ import SEO from "@/components/SEO";
 import { Shield, Clock, Star, ArrowRight, Sparkles } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
-import { trackLead } from "@/lib/analytics";
+import { leadJourney, track, trackLead } from "@/lib/analytics";
 
 const SERVICE_OPTIONS = [
   { value: "Ceramic Coating", label: "Ceramic Coating" },
@@ -123,18 +123,21 @@ export default function GetAQuote() {
     },
     onError: (err) => {
       setErrorMsg("Something went wrong. Please call us at (703) 775-4383 or try again.");
+      track("form_error", { form_id: "quote", error_message: String(err?.message ?? err).slice(0, 100) });
       console.error("[Quote form error]", err);
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
     if (!agreedToTos) {
       setErrorMsg("Please agree to the Terms of Service before submitting.");
       return;
     }
+    const journey = await leadJourney();
     submitContact.mutate({
+      journey,
       firstName: form.firstName,
       lastName: form.lastName,
       email: form.email,
@@ -252,7 +255,7 @@ export default function GetAQuote() {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} data-form="quote" className="space-y-5">
 
                   {/* Row 1: First Name + Last Name */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

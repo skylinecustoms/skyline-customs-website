@@ -41,6 +41,25 @@ type GhlDuplicateError = {
  *     If that also returns 400 duplicate → use the second contactId from meta (just return it, no further update needed).
  *  3. Return the final contactId.
  */
+/** Human-readable "what they did on the site before this form" block for the CRM note. */
+function journeyNote(j: {
+  gaClientId?: string; landing: string; referrer: string; utm?: Record<string, string>; secondsOnSite: number; steps: { path: string; secondsIn: number }[];
+} | undefined): string {
+  if (!j) return "";
+  const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const source = j.utm?.utm_source
+    ? `${j.utm.utm_source}${j.utm.utm_medium ? ` / ${j.utm.utm_medium}` : ""}${j.utm.utm_campaign ? ` (${j.utm.utm_campaign})` : ""}`
+    : j.utm?.gclid ? "Google Ads (gclid)" : j.utm?.fbclid ? "Facebook/Instagram (fbclid)" : j.referrer ? j.referrer.replace(/^https?:\/\/(www\.)?/, "").split("/")[0] : "Direct / typed URL";
+  const lines = j.steps.map((s, i) => `${String(i + 1).padStart(2, " ")}. [${mmss(s.secondsIn)}] ${s.path}`);
+  return (
+    `\n\n--- Website Journey (${j.steps.length} page${j.steps.length === 1 ? "" : "s"}, ${mmss(j.secondsOnSite)} on site) ---\n` +
+    `Source: ${source}\n` +
+    `Landed on: ${j.landing}\n` +
+    lines.join("\n") +
+    (j.gaClientId ? `\nGA4 client id: ${j.gaClientId}` : "")
+  );
+}
+
 async function upsertGhlContact(
   payload: Record<string, unknown>
 ): Promise<{ contactId: string; phone?: string }> {
@@ -256,6 +275,17 @@ Guidelines:
           message: z.string().optional(),
           // Optional promo tag — set when visitor arrives from a promo CTA
           promoTag: z.string().max(80).optional(),
+          // The pages this visitor saw before submitting (client/src/lib/analytics.ts).
+          journey: z
+            .object({
+              gaClientId: z.string().max(64).optional(),
+              landing: z.string().max(300),
+              referrer: z.string().max(300),
+              utm: z.record(z.string(), z.string().max(120)).optional(),
+              secondsOnSite: z.number().int().nonnegative(),
+              steps: z.array(z.object({ path: z.string().max(300), secondsIn: z.number().int().nonnegative() })).max(40),
+            })
+            .optional(),
         })
       )
       .mutation(async ({ input }) => {
@@ -315,8 +345,8 @@ Guidelines:
         }
 
         // Step 3: Add a note to the GHL contact
-        // Always write a note when a promo tag is present; otherwise only when a message exists
-        const hasNote = (input.message && input.message.trim().length > 0) || !!input.promoTag;
+        // Written when there is a message, a promo tag, or a recorded website journey.
+        const hasNote = (input.message && input.message.trim().length > 0) || !!input.promoTag || !!input.journey;
         if (hasNote && contactId) {
           const vehicle = [input.year, input.make, input.model].filter(Boolean).join(" ");
           const noteHeader = input.promoTag
@@ -329,7 +359,8 @@ Guidelines:
             (vehicle ? `Vehicle: ${vehicle}\n` : "") +
             (input.service ? `Service: ${input.service}\n` : "") +
             (input.promoTag ? `\n** Came from promo CTA: ${input.promoTag} **\n` : "") +
-            (input.message && input.message.trim() ? `\n--- Customer Message ---\n${input.message}` : "");
+            (input.message && input.message.trim() ? `\n--- Customer Message ---\n${input.message}` : "") +
+            journeyNote(input.journey);
 
           try {
             const noteRes = await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, {

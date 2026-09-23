@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { trackLead } from "@/lib/analytics";
+import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { trpc } from "@/lib/trpc";
 
 // GHL field IDs (from the live form inspection)
@@ -52,14 +52,17 @@ export default function Contact() {
     },
     onError: (err) => {
       setErrorMsg("Something went wrong. Please call us at (703) 775-4383 or try again.");
+      track("form_error", { form_id: "contact", error_message: String(err?.message ?? err).slice(0, 100) });
       console.error("[Contact form error]", err);
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
+    const journey = await leadJourney();
     submitContact.mutate({
+      journey,
       firstName: form.firstName,
       lastName: form.lastName,
       email: form.email,
@@ -245,7 +248,7 @@ export default function Contact() {
                     SEND A MESSAGE
                   </h2>
 
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} data-form="contact" className="space-y-5">
 
                     {/* Row 1: First Name + Last Name */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { X, ArrowRight, ArrowLeft, Shield, Droplets, Sun } from "lucide-react";
 
 /*
@@ -159,7 +160,7 @@ export default function BookingModal({ isOpen, service, onClose }: BookingModalP
               {SERVICE_OPTIONS.map((opt) => (
                 <button
                   key={opt.key}
-                  onClick={() => setSelectedService(opt)}
+                  onClick={() => { setSelectedService(opt); track("booking_service_select", { booking_service: opt.key }); }}
                   className="group text-left border border-[oklch(0.22_0.006_285)] hover:border-brand-orange bg-[oklch(0.13_0.005_285)] hover:bg-[oklch(0.15_0.005_285)] transition-all duration-200 p-5 flex flex-col gap-3"
                 >
                   {/* Number + Icon row */}

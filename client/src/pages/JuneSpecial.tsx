@@ -13,6 +13,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { trpc } from "@/lib/trpc";
+import { track, trackLead } from "@/lib/analytics";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -430,12 +431,14 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
     onSuccess: (data) => {
       setSubmitted(true);
       setQueuePosition(data.queuePosition ?? null);
+      trackLead("promo_waitlist", "ppf");
       toast.success("You're on the waitlist!", {
         description: "We'll reach out as soon as a slot opens up.",
         duration: 6000,
       });
     },
     onError: (err) => {
+      track("form_error", { form_id: "promo-waitlist", error_message: String(err.message).slice(0, 100) });
       toast.error("Something went wrong", { description: err.message });
     },
   });
@@ -493,7 +496,7 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} data-form="promo-waitlist" className="space-y-5">
         {/* --- Contact Info --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>

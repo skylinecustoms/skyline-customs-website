@@ -5,6 +5,7 @@
  */
 
 import { lazy, Suspense, useEffect, useState } from "react";
+import { track } from "@/lib/analytics";
 import { MessageSquare } from "lucide-react";
 
 const QuoteAssistant = lazy(() => import("./QuoteAssistant"));
@@ -31,7 +32,7 @@ export default function QuoteAssistantLauncher() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
       <button
-        onClick={() => setLoaded(true)}
+        onClick={() => { setLoaded(true); track("chat_open"); }}
         onMouseEnter={() => { preload(); }}
         aria-label="Get a Quick Quote with the AI assistant"
         className="group flex items-center gap-3 bg-[#E85D04] hover:bg-[#d14e00] text-black shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 rounded-full px-5 py-4"

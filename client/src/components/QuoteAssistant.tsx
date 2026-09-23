@@ -7,7 +7,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { trackLead } from "@/lib/analytics";
+import { track, trackLead } from "@/lib/analytics";
 import { MessageSquare, X, Send, Loader2, Bot, ChevronDown } from "lucide-react";
 
 interface Message {
@@ -106,6 +106,7 @@ export default function QuoteAssistant({ autoOpen = false }: { autoOpen?: boolea
     const newMessages: Message[] = [...messages, { role: "user", content: text }];
     setMessages(newMessages);
     setInput("");
+    track("chat_message", { message_number: newMessages.filter((m) => m.role === "user").length });
 
     // Send full conversation history (excluding the initial greeting which is assistant-only)
     chatMutation.mutate({

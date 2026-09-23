@@ -20,6 +20,7 @@ import { videoEmbedUrl, videoThumb, type Video } from "@/lib/videos";
 import { ReelCard, ReelPlayer, useReelMedia } from "@/components/InstagramReels";
 import { Instagram, Youtube, X } from "lucide-react";
 import type { InstagramReel } from "@/lib/instagramPosts";
+import { track } from "@/lib/analytics";
 
 const previewUrl = (id: string) =>
   `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1` +
@@ -156,12 +157,12 @@ export default function VideoCarousel({
         <CarouselContent className="-ml-4">
           {videos.map((v) => (
             <CarouselItem key={`yt-${v.id}`} className={itemClass}>
-              <VideoCard video={v} preview={preview} onOpen={() => setOpenVideo(v)} />
+              <VideoCard video={v} preview={preview} onOpen={() => { setOpenVideo(v); track("video_open", { video_source: "youtube", video_id: v.id, video_title: v.title, video_category: v.category, video_service: v.service ?? "" }); }} />
             </CarouselItem>
           ))}
           {playable.map((r) => (
             <CarouselItem key={`ig-${r.code}`} className={itemClass}>
-              <ReelCard reel={r} media={media.get(r.code)} onOpen={() => setOpen(r)} />
+              <ReelCard reel={r} media={media.get(r.code)} onOpen={() => { setOpen(r); track("video_open", { video_source: "instagram", video_id: r.code, video_title: r.title, video_category: r.category }); }} />
             </CarouselItem>
           ))}
         </CarouselContent>
