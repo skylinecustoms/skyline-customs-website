@@ -7,7 +7,7 @@
  * This ensures Google receives correct SEO data in raw HTML, not just after JS runs.
  */
 
-import { getDb } from "../db";
+import { getDb, getActivePromoByActive } from "../db";
 import { blogPosts, promos } from "../../drizzle/schema";
 import { blogPosts as staticBlogPosts } from "../../client/src/lib/blogData";
 import { and, eq } from "drizzle-orm";
@@ -49,20 +49,20 @@ function variantPreload(photoUrl: string): Partial<PageMeta> {
 // Static meta map for all local landing pages and core pages
 export const STATIC_META: Record<string, PageMeta> = {
   "/": {
-    title: `${SITE_NAME} | PPF, Ceramic Coating & Tint in Chantilly, VA`,
-    description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 140+ five-star reviews in Chantilly, VA. Free quotes.",
+    title: `${SITE_NAME} | Full Front PPF, Ceramic & Tint in Chantilly, VA`,
+    description: "Northern Virginia's full front PPF specialists. STEK DYNOshield, 12-year warranty, 141 five-star reviews in Chantilly, VA. See this month's special and get a free quote.",
     canonical: `${BASE_URL}/`,
     preloadImage: "/images/hero-poster_702747e9.webp",
     preloadMedia: "(max-width: 767px)",
   },
   "/services": {
-    title: `Services | PPF, Ceramic Coating, Window Tinting | ${SITE_NAME}`,
-    description: "Explore Skyline Customs' full range of automotive protection services: PPF, ceramic coating, window tinting in Chantilly, VA.",
+    title: `Services | Full Front PPF, Ceramic & Tint | ${SITE_NAME}`,
+    description: "Full front PPF, ceramic coating, and ceramic window tint from Skyline Customs in Chantilly, VA. STEK certified, 12-year film warranty. See this month's special.",
     canonical: `${BASE_URL}/services`,
   },
   "/services/ppf": {
-    title: "Paint Protection Film (PPF) in Chantilly, VA | STEK Certified",
-    description: "STEK-certified paint protection film in Chantilly, VA. Partial front, full front, and full front extended coverage in self-healing DYNOshield, 12-year warranty. Free quotes.",
+    title: "Full Front PPF in Chantilly, VA | Paint Protection Film | STEK",
+    description: "Full front paint protection film in Chantilly, VA: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. Partial and extended options. Free quotes.",
     canonical: `${BASE_URL}/services/ppf`,
   },
   "/ppf-cost": {
@@ -156,8 +156,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/videos`,
   },
   "/gallery": {
-    title: `Gallery | Recent Work | ${SITE_NAME}`,
-    description: "See our recent PPF, ceramic coating, and window tinting work. Serving Northern Virginia from Chantilly, VA.",
+    title: `Gallery | Full Front PPF & Ceramic Work | ${SITE_NAME}`,
+    description: "Recent full front PPF, ceramic coating, and window tint installs at Skyline Customs in Chantilly, VA, with a page for every car.",
     canonical: `${BASE_URL}/gallery`,
   },
   "/about": {
@@ -172,7 +172,7 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   "/get-a-quote": {
     title: `Get a Free Quote | ${SITE_NAME}`,
-    description: "Request a free quote for PPF, ceramic coating, window tinting from Skyline Customs in Chantilly, VA.",
+    description: "Request a free full front PPF, ceramic coating, or window tint quote from Skyline Customs in Chantilly, VA. Exact price, usually within the hour.",
     canonical: `${BASE_URL}/get-a-quote`,
   },
   "/service-areas": {
@@ -192,8 +192,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== CHANTILLY VA =====
   "/ppf-chantilly-va": {
-    title: `PPF Chantilly VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation in Chantilly, VA. Self-healing STEK film protects your car from rock chips and road debris. 5.0 stars on Google. Free quotes.",
+    title: `Full Front PPF Chantilly VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Chantilly, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-chantilly-va`,
   },
   "/ceramic-coating-chantilly-va": {
@@ -208,8 +208,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== CENTREVILLE VA =====
   "/ppf-centreville-va": {
-    title: `PPF Centreville VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Centreville, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Centreville VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Centreville, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-centreville-va`,
   },
   "/ceramic-coating-centreville-va": {
@@ -224,8 +224,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== HERNDON VA =====
   "/ppf-herndon-va": {
-    title: `PPF Herndon VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Herndon, VA. STEK and XPEL films protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Herndon VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Herndon, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-herndon-va`,
   },
   "/ceramic-coating-herndon-va": {
@@ -240,8 +240,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== FAIRFAX VA =====
   "/ppf-fairfax-va": {
-    title: `PPF Fairfax VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Fairfax, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Fairfax VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Fairfax, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-fairfax-va`,
   },
   "/ceramic-coating-fairfax-va": {
@@ -256,8 +256,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== VIENNA VA =====
   "/ppf-vienna-va": {
-    title: `PPF Vienna VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Vienna, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Vienna VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Vienna, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-vienna-va`,
   },
   "/ceramic-coating-vienna-va": {
@@ -272,8 +272,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== RESTON VA =====
   "/ppf-reston-va": {
-    title: `PPF Reston VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Reston, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Reston VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Reston, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-reston-va`,
   },
   "/ceramic-coating-reston-va": {
@@ -288,8 +288,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== MCLEAN VA =====
   "/ppf-mclean-va": {
-    title: `PPF McLean VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near McLean, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF McLean VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for McLean, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-mclean-va`,
   },
   "/ceramic-coating-mclean-va": {
@@ -304,8 +304,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== TYSONS VA =====
   "/ppf-tysons-va": {
-    title: `PPF Tysons VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Tysons, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Tysons VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Tysons, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-tysons-va`,
   },
   "/ceramic-coating-tysons-va": {
@@ -320,8 +320,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== ALEXANDRIA VA =====
   "/ppf-alexandria-va": {
-    title: `PPF Alexandria VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Alexandria, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Alexandria VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Alexandria, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-alexandria-va`,
   },
   "/ceramic-coating-alexandria-va": {
@@ -336,8 +336,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== ARLINGTON VA =====
   "/ppf-arlington-va": {
-    title: `PPF Arlington VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Arlington, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Arlington VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Arlington, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-arlington-va`,
   },
   "/ceramic-coating-arlington-va": {
@@ -352,8 +352,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== FALLS CHURCH VA =====
   "/ppf-falls-church-va": {
-    title: `PPF Falls Church VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Falls Church, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Falls Church VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Falls Church, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-falls-church-va`,
   },
   "/ceramic-coating-falls-church-va": {
@@ -368,8 +368,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== SPRINGFIELD VA =====
   "/ppf-springfield-va": {
-    title: `PPF Springfield VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Springfield, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Springfield VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Springfield, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-springfield-va`,
   },
   "/ceramic-coating-springfield-va": {
@@ -384,8 +384,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== MANASSAS VA =====
   "/ppf-manassas-va": {
-    title: `PPF Manassas VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Manassas, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Manassas VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Manassas, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-manassas-va`,
   },
   "/ceramic-coating-manassas-va": {
@@ -400,8 +400,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== WOODBRIDGE VA =====
   "/ppf-woodbridge-va": {
-    title: `PPF Woodbridge VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Woodbridge, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Woodbridge VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Woodbridge, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-woodbridge-va`,
   },
   "/ceramic-coating-woodbridge-va": {
@@ -416,8 +416,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== STAFFORD VA =====
   "/ppf-stafford-va": {
-    title: `PPF Stafford VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Stafford, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Stafford VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Stafford, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-stafford-va`,
   },
   "/ceramic-coating-stafford-va": {
@@ -432,8 +432,8 @@ export const STATIC_META: Record<string, PageMeta> = {
   },
   // ===== FREDERICKSBURG VA =====
   "/ppf-fredericksburg-va": {
-    title: `PPF Fredericksburg VA | Paint Protection Film | ${SITE_NAME}`,
-    description: "Expert PPF installation near Fredericksburg, VA. STEK and XPEL films. Protect your car from rock chips and road debris. Free quotes.",
+    title: `Full Front PPF Fredericksburg VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Fredericksburg, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-fredericksburg-va`,
   },
   "/ceramic-coating-fredericksburg-va": {
@@ -447,8 +447,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/window-tinting-fredericksburg-va`,
   },
   "/ppf-sterling-va": {
-    title: `PPF Sterling VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Paint protection film for Sterling, VA drivers. Self-healing STEK PPF, rock chip protection, full front or extended coverage. 5.0 stars on Google. Free quotes.",
+    title: `Full Front PPF Sterling VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Sterling, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-sterling-va`,
   },
   "/ceramic-coating-sterling-va": {
@@ -462,8 +462,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/window-tinting-sterling-va`,
   },
   "/ppf-ashburn-va": {
-    title: `PPF Ashburn VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Paint protection film for Ashburn, VA drivers. Self-healing STEK PPF, rock chip protection, full front or extended coverage. 5.0 stars on Google. Free quotes.",
+    title: `Full Front PPF Ashburn VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Ashburn, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-ashburn-va`,
   },
   "/ceramic-coating-ashburn-va": {
@@ -477,8 +477,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/window-tinting-ashburn-va`,
   },
   "/ppf-oakton-va": {
-    title: `PPF Oakton VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Paint protection film for Oakton, VA drivers. Self-healing STEK PPF, rock chip protection, full front or extended coverage. 5.0 stars on Google. Free quotes.",
+    title: `Full Front PPF Oakton VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Oakton, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-oakton-va`,
   },
   "/ceramic-coating-oakton-va": {
@@ -492,8 +492,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/window-tinting-oakton-va`,
   },
   "/ppf-burke-va": {
-    title: `PPF Burke VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Paint protection film for Burke, VA drivers. Self-healing STEK PPF, rock chip protection, full front or extended coverage. 5.0 stars on Google. Free quotes.",
+    title: `Full Front PPF Burke VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Burke, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-burke-va`,
   },
   "/ceramic-coating-burke-va": {
@@ -507,8 +507,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/window-tinting-burke-va`,
   },
   "/ppf-gainesville-va": {
-    title: `PPF Gainesville VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Paint protection film for Gainesville, VA drivers. Self-healing STEK PPF, rock chip protection, full front or extended coverage. 5.0 stars on Google. Free quotes.",
+    title: `Full Front PPF Gainesville VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Gainesville, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-gainesville-va`,
   },
   "/ceramic-coating-gainesville-va": {
@@ -522,8 +522,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/window-tinting-gainesville-va`,
   },
   "/ppf-leesburg-va": {
-    title: `PPF Leesburg VA | Paint Protection Film Near Me | ${SITE_NAME}`,
-    description: "Paint protection film for Leesburg, VA drivers. Self-healing STEK PPF, rock chip protection, full front or extended coverage. 5.0 stars on Google. Free quotes.",
+    title: `Full Front PPF Leesburg VA | Paint Protection Film Near Me`,
+    description: "Full front paint protection film for Leesburg, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
     canonical: `${BASE_URL}/ppf-leesburg-va`,
   },
   "/ceramic-coating-leesburg-va": {
@@ -566,6 +566,21 @@ export const STATIC_META: Record<string, PageMeta> = {
 export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
   // Strip query string
   const cleanPath = urlPath.split("?")[0].split("#")[0];
+
+  // The promo page takes its title and description from the active promo.
+  if (cleanPath === "/promo") {
+    try {
+      const promo = await getActivePromoByActive();
+      if (promo?.title) {
+        const deal = (promo.dealDescription ?? "Full Front PPF + Free Ceramic Coating").replace(/\s+/g, " ").trim();
+        return {
+          ...STATIC_META["/promo"],
+          title: `${promo.title}: Full Front PPF Deal in Chantilly, VA`,
+          description: `${deal}. Limited spots${promo.endDate ? `, ends ${promo.endDate}` : ""}. STEK DYNOshield full front PPF with a 12-year warranty at Skyline Customs, Chantilly, VA.`.slice(0, 165),
+        };
+      }
+    } catch { /* fall back to the static entry */ }
+  }
 
   // Check static map first
   if (STATIC_META[cleanPath]) {

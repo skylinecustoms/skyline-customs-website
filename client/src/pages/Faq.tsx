@@ -70,7 +70,7 @@ export default function Faq() {
             QUESTIONS,<br /><span className="text-[#E85D04]">ANSWERED</span>
           </h1>
           <p className="text-zinc-300 text-lg max-w-2xl leading-relaxed mb-8">
-            Everything Northern Virginia drivers ask us about PPF, ceramic coating, and window tint — pricing, lifespan, Virginia law, and care.
+            Everything Northern Virginia drivers ask us about full front PPF, ceramic coating, and window tint — pricing, lifespan, Virginia law, and care.
           </p>
           <div className="flex flex-wrap gap-3">
             {FAQ_GROUPS.map((g) => (

@@ -27,7 +27,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-[oklch(0.66_0.01_285)] text-sm leading-relaxed max-w-xs mb-6">
-              Northern Virginia's premier automotive protection specialists. Trusted by 140+ drivers for window tinting, ceramic coating, and PPF.
+              Northern Virginia's premier automotive protection specialists. Trusted by 141 five-star reviewers for full front PPF, ceramic coating, and window tinting.
             </p>
             <div className="flex gap-4">
               <a
@@ -61,7 +61,7 @@ export default function Footer() {
                 { label: "This Month's Special", href: "/promo" },
                 { label: "Window Tinting", href: "/services/window-tinting" },
                 { label: "Ceramic Coating", href: "/services/ceramic-coating" },
-                { label: "Paint Protection Film", href: "/services/ppf" },
+                { label: "Full Front PPF", href: "/services/ppf" },
                 { label: "PPF Cost Guide", href: "/ppf-cost" },
                 { label: "Tesla PPF", href: "/tesla-ppf" },
                 { label: "PPF vs Ceramic Coating", href: "/ppf-vs-ceramic-coating" },

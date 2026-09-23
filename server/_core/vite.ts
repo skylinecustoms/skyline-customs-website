@@ -54,7 +54,7 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
     if (/^\/blog(\/|$)/.test(urlPath)) preload.blogList = await getAllBlogPosts().catch(() => undefined);
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
     if (/^\/gallery(\/|$)|^\/services\/ppf$|-ppf$|^\/ppf-/.test(urlPath)) preload.gallery = await getGalleryRows().catch(() => undefined);
-    if (urlPath === "/promo" || urlPath === "/") {
+    if (urlPath === "/promo" || urlPath === "/" || /^\/(ppf|ceramic-coating|window-tinting)-[a-z-]+-va$/.test(urlPath)) {
       preload.promo = await getActivePromoByActive()
         .then(async (p) => (p ? { ...p, slots: await getPromoSlots(p.id) } : null))
         .catch(() => undefined);

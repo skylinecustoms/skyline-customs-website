@@ -10,13 +10,14 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Shield, Clock, Star, ArrowRight, Sparkles } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { Link } from "wouter";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 
 const SERVICE_OPTIONS = [
   { value: "Ceramic Coating", label: "Ceramic Coating" },
   { value: "Tints", label: "Window Tinting" },
-  { value: "PPF", label: "Paint Protection Film (PPF)" },
+  { value: "PPF", label: "Full Front PPF (Paint Protection Film)" },
   { value: "Multiple Services - Bundle & Save", label: "Multiple Services — Bundle & Save" },
   { value: "Not Sure Yet", label: "Not Sure Yet" },
 ];
@@ -50,6 +51,7 @@ export default function GetAQuote() {
   // Promo context — set when visitor arrives from a promo CTA
   const [promoTitle, setPromoTitle] = useState("");
   const [promoTag, setPromoTag] = useState("");
+  const { data: activePromo } = trpc.promo.getActive.useQuery();
 
   // On mount: (1) check URL params, (2) check AI assistant pre-filled data
   useEffect(() => {
@@ -165,7 +167,7 @@ export default function GetAQuote() {
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
         title="Get a Free Quote | Chantilly VA"
-        description="Request a free quote for PPF, ceramic coating, or window tinting in Northern Virginia. A Skyline specialist will reach out within the hour."
+        description="Request a free full front PPF, ceramic coating, or window tint quote in Northern Virginia. A Skyline specialist replies with an exact price, usually within the hour."
         canonical="https://www.skylinecustomshop.com/get-a-quote"
       />
       <Navbar />
@@ -236,9 +238,16 @@ export default function GetAQuote() {
             ) : (
               <>
                 <div className="flex items-start justify-between mb-8 gap-4">
-                  <h2 className="font-['Bebas_Neue',sans-serif] text-3xl text-white tracking-wider">
-                    GET MY FREE QUOTE
-                  </h2>
+                  <div>
+                    <h2 className="font-['Bebas_Neue',sans-serif] text-3xl text-white tracking-wider">
+                      GET MY FREE QUOTE
+                    </h2>
+                    {!promoTitle && activePromo?.title && (
+                      <p className="text-zinc-400 text-xs mt-2">
+                        This month: <Link href="/promo" data-cta="quote-page-promo" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">{activePromo.title}, {activePromo.dealDescription ?? "full front PPF + free ceramic coating"}</Link>
+                      </p>
+                    )}
+                  </div>
                   <div className="flex flex-col items-end gap-2 flex-shrink-0">
                     {promoTitle && (
                       <div className="flex items-center gap-2 bg-[#E85D04] text-[#0A0A0A] text-xs font-bold px-3 py-2 tracking-widest uppercase">

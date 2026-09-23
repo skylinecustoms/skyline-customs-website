@@ -26,8 +26,8 @@ const services: { number: string; title: string; subtitle: string; description: 
   {
     number: "01",
     title: "Paint Protection Film",
-    subtitle: "Self-Healing PPF",
-    description: "An invisible barrier against rock chips, scratches, and road debris. Self-healing film absorbs impact and preserves your factory finish for years.",
+    subtitle: "Full Front PPF",
+    description: "Hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield: the panels that take the hits on Northern Virginia roads, protected for 12 years.",
     image: PPF_IMAGE,
     imageAlt: "Paint protection film installation on a Corvette C8 at Skyline Custom Shop in Chantilly, VA",
     href: "/services/ppf",
@@ -96,8 +96,8 @@ const brandStatements = [
 
 const faqs = [
   {
-    q: "How long does Paint Protection Film last?",
-    a: "High-quality PPF typically lasts 10–12 years when properly maintained. Our films come with manufacturer warranties of up to 12 years against yellowing, cracking, and delamination.",
+    q: "How long does full front PPF last?",
+    a: "A full front install in STEK DYNOshield is warrantied for 12 years against yellowing, cracking, and delamination, and typically lasts 10–12 years with normal washing.",
   },
   {
     q: "Can I wash my car after ceramic coating?",
@@ -362,8 +362,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)] text-[oklch(0.95_0.005_85)]">
       <SEO
-        title="Skyline Customs | PPF, Ceramic Coating & Tint in Chantilly, VA"
-        description="Skyline Custom Shop in Chantilly, VA offers professional paint protection film (PPF), ceramic coating, and window tinting. STEK DYNOshield certified installer. Get a free quote today."
+        title="Skyline Customs | Full Front PPF, Ceramic & Tint in Chantilly, VA"
+        description="Northern Virginia's full front PPF specialists. STEK DYNOshield, 12-year warranty, 141 five-star reviews in Chantilly, VA. See this month's special and get a free quote."
         canonical="https://www.skylinecustomshop.com/"
         jsonLd={[
           {
@@ -416,7 +416,7 @@ export default function Home() {
             </h1>
 
             <p className="text-[oklch(0.75_0.008_285)] text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
-              Professional paint protection film, ceramic coating, and window tinting — installed in a controlled facility in Chantilly, VA.
+              Full front paint protection film that stops rock chips before they reach your paint, plus ceramic coating and ceramic tint, installed in a controlled facility in Chantilly, VA.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -586,7 +586,7 @@ export default function Home() {
             READY TO<br />PROTECT YOUR CAR?
           </h2>
           <p className="text-black/80 text-lg md:text-xl mb-10 max-w-xl mx-auto">
-            Get a custom quote in under 2 minutes. No commitment required.
+            Full front PPF, ceramic coating, or tint: an exact quote in under 2 minutes, usually back within the hour. No commitment.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

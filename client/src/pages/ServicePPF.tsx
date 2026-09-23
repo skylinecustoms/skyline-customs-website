@@ -65,8 +65,8 @@ export default function ServicePPF() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Paint Protection Film (PPF) in Chantilly, VA | STEK Certified"
-        description="STEK-certified paint protection film in Chantilly, VA. Partial front, full front, and full front extended coverage in self-healing DYNOshield, 12-year warranty. Free quotes."
+        title="Full Front PPF in Chantilly, VA | Paint Protection Film | STEK"
+        description="Full front paint protection film in Chantilly, VA: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. Partial and extended options. Free quotes."
         canonical={`${BASE_URL}/services/ppf`}
         jsonLd={[
           {
@@ -126,15 +126,15 @@ export default function ServicePPF() {
           <div className="max-w-4xl">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Chantilly, VA · Serving all of Northern Virginia</p>
             <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-4">
-              PAINT<br />
-              <span className="text-[#E85D04]">PROTECTION</span><br />
+              FULL FRONT<br />
+              <span className="text-[#E85D04]">PAINT PROTECTION</span><br />
               FILM
             </h1>
             <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
-              Northern Virginia's STEK-certified PPF installer. Self-healing, invisible DYNOshield film, computer-cut for your exact model and installed in a dust-controlled bay in Chantilly, with a 12-year manufacturer warranty on every install.
+              Northern Virginia's STEK-certified full front PPF installer. Hood, bumper, fenders, mirrors, and headlights in self-healing, invisible DYNOshield, computer-cut for your exact model and installed in a dust-controlled bay in Chantilly, with a 12-year manufacturer warranty on every install.
             </p>
             <div className="flex flex-wrap gap-2 mb-8 text-xs text-zinc-300">
-              {["STEK certified installer", "12-year film warranty", "5.0 ★ · 141 Google reviews", "Computer-cut for your exact model", "Free quotes, usually within the hour"].map((t) => (
+              {["Full front specialists", "STEK certified installer", "12-year film warranty", "5.0 ★ · 141 Google reviews", "Computer-cut for your exact model", "Free quotes, usually within the hour"].map((t) => (
                 <span key={t} className="border border-zinc-700 bg-black/30 px-3 py-1.5">{t}</span>
               ))}
             </div>
@@ -266,7 +266,7 @@ export default function ServicePPF() {
                 Not all PPF is the same. We exclusively install <strong className="text-white">STEK DYNOshield</strong>, a premium thermoplastic polyurethane film with a self-healing, hydrophobic top coat, chosen because it stays clear and glossy for years in Virginia sun and road salt.
               </p>
               <p className="text-zinc-400 leading-relaxed mb-8">
-                DYNOshield is backed by a <strong className="text-white">12-year manufacturer warranty</strong> against yellowing, cracking, peeling, and delamination, and that warranty is only valid when installed by a certified shop like ours. Prefer a satin look? Ask about matte (stealth) DYNOshield for the whole car.
+                DYNOshield is backed by a <strong className="text-white">12-year manufacturer warranty</strong> against yellowing, cracking, peeling, and delamination, and that warranty is only valid when installed by a certified shop like ours. Prefer a satin look? Ask about matte (stealth) DYNOshield on the full front.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[

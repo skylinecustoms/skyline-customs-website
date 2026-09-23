@@ -14,9 +14,9 @@ const services: { id: string; number: string; title: string; subtitle: string; i
     id: "ppf",
     number: "01",
     title: "Paint Protection Film",
-    subtitle: "Self-Healing PPF",
+    subtitle: "Full Front PPF",
     image: PPF_IMAGE,
-    description: "Paint Protection Film (PPF) is the ultimate defense against physical damage. This thick, optically clear urethane film absorbs rock chips, scratches, and road debris before they reach your paint. Our self-healing film uses heat to repair minor scratches automatically — keeping your car looking showroom-perfect.",
+    description: "Full front paint protection film (PPF) is the ultimate defense against physical damage. This thick, optically clear urethane film absorbs rock chips, scratches, and road debris before they reach your paint. Our self-healing film uses heat to repair minor scratches automatically — keeping your car looking showroom-perfect.",
     benefits: [
       "Absorbs rock chips and road debris",
       "Self-healing minor scratches",
@@ -85,7 +85,7 @@ export default function Services() {
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)]">
       <SEO
         title="Auto Protection Services | Chantilly VA"
-        description="PPF, ceramic coating, and window tinting in Chantilly, VA. Lifetime craftsmanship warranty. Serving all of Northern Virginia."
+        description="Full front PPF, ceramic coating, and ceramic window tint in Chantilly, VA. STEK certified, 12-year film warranty. See this month's special."
         canonical="https://www.skylinecustomshop.com/services"
       />
       <Navbar />
