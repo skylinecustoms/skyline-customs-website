@@ -27,7 +27,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-[oklch(0.66_0.01_285)] text-sm leading-relaxed max-w-xs mb-6">
-              Northern Virginia's premier automotive protection specialists. Trusted by 141 five-star reviewers for full front PPF, ceramic coating, and window tinting.
+              Northern Virginia's premier automotive protection specialists. Trusted by 140+ five-star reviewers for full front PPF, ceramic coating, and window tinting.
             </p>
             <div className="flex gap-4">
               <a

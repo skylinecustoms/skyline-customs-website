@@ -9,8 +9,9 @@ import { trpc } from "@/lib/trpc";
 import { ALL_REVIEWS } from "@/components/Testimonials";
 import { GOOGLE_MAPS_URL } from "@/lib/social";
 import { track } from "@/lib/analytics";
+import { rankReviews } from "@/lib/reviews";
 
-interface WallReview { name: string; date: string; text: string; rating: number; tags: string[] }
+interface WallReview { name: string; date: string; text: string; rating: number; tags: string[]; live?: boolean }
 
 const SERVICE_TAGS: [string, RegExp][] = [
   ["PPF", /\bppf\b|paint protection|\bfilm\b|clear bra/i],
@@ -42,10 +43,10 @@ export default function ReviewWall({ total = "140+" }: { total?: string }) {
   const [shown, setShown] = useState(PAGE);
 
   const reviews = useMemo<WallReview[]>(() => {
-    const fromLive = (live?.reviews ?? []).filter((r) => r.rating >= 4 && r.text?.trim()).map((r) => ({ name: r.author, date: r.when, text: r.text, rating: r.rating, tags: tagsFor("", r.text) }));
+    const fromLive = (live?.reviews ?? []).filter((r) => r.rating >= 4 && r.text?.trim()).map((r) => ({ name: r.author, date: r.when, text: r.text, rating: r.rating, tags: tagsFor("", r.text), live: true }));
     const names = new Set(fromLive.map((r) => r.name));
     const fromStatic = ALL_REVIEWS.filter((r) => !names.has(r.name)).map((r) => ({ name: r.name, date: r.date, text: r.text, rating: r.rating, tags: tagsFor(r.service, r.text) }));
-    return [...fromLive, ...fromStatic];
+    return rankReviews([...fromLive, ...fromStatic]);
   }, [live]);
 
   const chips = useMemo(() => {

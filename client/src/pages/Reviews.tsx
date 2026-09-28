@@ -12,15 +12,16 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { ALL_REVIEWS } from "@/components/Testimonials";
 import { GOOGLE_MAPS_URL, GOOGLE_REVIEW_URL } from "@/lib/social";
 import { trpc } from "@/lib/trpc";
+import { rankReviews, serviceTag } from "@/lib/reviews";
 
 const COLORS = ["#7C3AED", "#0891B2", "#D97706", "#DB2777", "#16A34A", "#2563EB"];
 const initialsOf = (n: string) => n.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
 export default function Reviews() {
   const { data: live } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000 });
-  const liveReviews = (live?.reviews ?? []).map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: "Google review", text: r.text }));
+  const liveReviews = (live?.reviews ?? []).map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text, live: true }));
   const staticNames = new Set(liveReviews.map((r) => r.name));
-  const reviews = [...liveReviews, ...ALL_REVIEWS.filter((r) => !staticNames.has(r.name))];
+  const reviews = rankReviews([...liveReviews, ...ALL_REVIEWS.filter((r) => !staticNames.has(r.name))]);
   const total = live?.total ? `${live.total} Google reviews` : "140+ Google reviews";
   const rating = live?.rating ? live.rating.toFixed(1) : "5.0";
   return (

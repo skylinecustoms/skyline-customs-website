@@ -6,6 +6,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { useSiteReviews, type ReviewFocus } from "@/lib/reviews";
 
 export interface Review {
   name: string;
@@ -177,6 +178,8 @@ export const ALL_REVIEWS: Review[] = [
 interface TestimonialsProps {
   service?: string;
   title?: string;
+  /** Which reviews lead the carousel; defaults to full front PPF and ceramic coating. */
+  focus?: ReviewFocus[];
 }
 
 // Google logo SVG inline
@@ -239,8 +242,8 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
   );
 }
 
-export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY" }: TestimonialsProps) {
-  const reviews = ALL_REVIEWS;
+export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY", focus }: TestimonialsProps) {
+  const { reviews, rating, total: googleTotal } = useSiteReviews(focus);
   const total = reviews.length;
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -282,7 +285,8 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY" }: Testi
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 fill-[#E85D04] text-[#E85D04]" />
               ))}
-              <span className="text-[#E85D04] font-bold text-lg ml-1">5.0</span>
+              <span className="text-[#E85D04] font-bold text-lg ml-1">{rating ? rating.toFixed(1) : "5.0"}</span>
+              <span className="text-zinc-400 text-sm ml-1">· {googleTotal ?? "140+"} Google reviews</span>
             </div>
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white leading-none">
               {title}

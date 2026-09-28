@@ -116,7 +116,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "5",
-              "reviewCount": "141",
+              "reviewCount": "146",
               "bestRating": "5",
             },
           },
@@ -306,7 +306,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         </div>
       </section>
 
-      <Testimonials title={svc.testimonialsTitle(city.name)} />
+      <Testimonials title={svc.testimonialsTitle(city.name)} focus={[serviceKey]} />
 
       {/* CTA */}
       <section className="py-20 bg-[#E85D04]">

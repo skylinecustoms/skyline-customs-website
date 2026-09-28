@@ -90,7 +90,7 @@ export default function ServicePPF() {
               { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Marcus T." }, "reviewBody": "Got full front PPF on my BMW M4. The installation was flawless — you can't even tell it's there. Skyline's attention to detail is unmatched in Northern Virginia." },
               { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Jennifer L." }, "reviewBody": "Had PPF installed on my new Tesla Model 3. The team was professional, the shop was immaculate, and the result was perfect. Worth every penny for peace of mind." },
             ],
-            "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "141", "bestRating": "5", "worstRating": "1" },
+            "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "146", "bestRating": "5", "worstRating": "1" },
           },
           {
             "@context": "https://schema.org",
@@ -134,7 +134,7 @@ export default function ServicePPF() {
               Northern Virginia's STEK-certified full front PPF installer. Hood, bumper, fenders, mirrors, and headlights in self-healing, invisible DYNOshield, computer-cut for your exact model and installed in a dust-controlled bay in Chantilly, with a 12-year manufacturer warranty on every install.
             </p>
             <div className="flex flex-wrap gap-2 mb-8 text-xs text-zinc-300">
-              {["Full front specialists", "STEK certified installer", "12-year film warranty", "5.0 ★ · 141 Google reviews", "Computer-cut for your exact model", "Free quotes, usually within the hour"].map((t) => (
+              {["Full front specialists", "STEK certified installer", "12-year film warranty", "5.0 ★ · 140+ Google reviews", "Computer-cut for your exact model", "Free quotes, usually within the hour"].map((t) => (
                 <span key={t} className="border border-zinc-700 bg-black/30 px-3 py-1.5">{t}</span>
               ))}
             </div>

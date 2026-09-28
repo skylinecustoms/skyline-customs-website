@@ -215,7 +215,7 @@ export default function ServiceCeramic() {
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "141",
+            "reviewCount": "146",
             "bestRating": "5",
             "worstRating": "1"
           }
