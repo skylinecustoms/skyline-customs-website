@@ -74,7 +74,7 @@ export function useSiteReviews(focus: ReviewFocus[] = ["ppf", "ceramic"]): { rev
   return useMemo(() => {
     const fromLive: SiteReview[] = (live?.reviews ?? [])
       .filter((r) => r.rating >= 4 && r.text?.trim())
-      .map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text.trim(), live: true }));
+      .map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text.trim(), photo: r.photo, live: true }));
     const names = new Set(fromLive.map((r) => r.name.toLowerCase()));
     const fromStatic: SiteReview[] = ALL_REVIEWS.filter((r) => !names.has(r.name.toLowerCase())).map((r) => ({ ...r, service: serviceTag(r.text, r.service) }));
     return { reviews: rankReviews([...fromLive, ...fromStatic], focus), rating: live?.rating, total: live?.total };

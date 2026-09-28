@@ -9,7 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { ALL_REVIEWS } from "@/components/Testimonials";
+import { ALL_REVIEWS, Avatar } from "@/components/Testimonials";
 import { GOOGLE_MAPS_URL, GOOGLE_REVIEW_URL } from "@/lib/social";
 import { trpc } from "@/lib/trpc";
 import { rankReviews, serviceTag } from "@/lib/reviews";
@@ -19,7 +19,7 @@ const initialsOf = (n: string) => n.split(" ").slice(0, 2).map((w) => w[0]).join
 
 export default function Reviews() {
   const { data: live } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000 });
-  const liveReviews = (live?.reviews ?? []).map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text, live: true }));
+  const liveReviews = (live?.reviews ?? []).map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text, photo: r.photo, live: true }));
   const staticNames = new Set(liveReviews.map((r) => r.name));
   const reviews = rankReviews([...liveReviews, ...ALL_REVIEWS.filter((r) => !staticNames.has(r.name))]);
   const total = live?.total ? `${live.total} Google reviews` : "140+ Google reviews";
@@ -81,7 +81,7 @@ export default function Reviews() {
                 <div className="flex mb-3">{[...Array(r.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-[#E85D04] text-[#E85D04]" />)}</div>
                 <p className="text-zinc-300 text-sm leading-relaxed flex-1">"{r.text}"</p>
                 <div className="mt-6 flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${r.avatarColor}`}>{r.initials}</div>
+                  <Avatar review={r} />
                   <div>
                     <p className="text-white text-sm font-semibold">{r.name}</p>
                     <p className="text-zinc-400 text-xs">{r.service} · Google · {r.date}</p>

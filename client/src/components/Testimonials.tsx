@@ -16,6 +16,8 @@ export interface Review {
   date: string;
   service: string;
   text: string;
+  /** Reviewer profile picture from Google, when available. */
+  photo?: string;
 }
 
 // Real reviews from Skyline Customs Google Business Profile (5.0 ★ · 141 reviews)
@@ -194,6 +196,33 @@ function GoogleLogo({ size = 14 }: { size?: number }) {
   );
 }
 
+/** Google profile picture when the reviewer has one; initials on a colored ring otherwise (or if the image fails). */
+export function Avatar({ review, size = "w-10 h-10" }: { review: Pick<Review, "name" | "initials" | "avatarColor" | "photo">; size?: string }) {
+  const [broken, setBroken] = useState(false);
+  if (review.photo && !broken) {
+    return (
+      <img
+        src={review.photo}
+        alt=""
+        aria-hidden="true"
+        width={40}
+        height={40}
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        onError={() => setBroken(true)}
+        className={`${size} rounded-full object-cover border-2 shrink-0 bg-[#111]`}
+        style={{ borderColor: review.avatarColor }}
+      />
+    );
+  }
+  return (
+    <div aria-hidden="true" className={`${size} rounded-full flex items-center justify-center text-white text-sm border-2 bg-[#111] font-bold shrink-0`} style={{ borderColor: review.avatarColor }}>
+      {review.initials}
+    </div>
+  );
+}
+
 function ReviewCard({ review, featured }: { review: Review; featured: boolean }) {
   return (
     <div
@@ -223,13 +252,7 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
 
       {/* Reviewer row */}
       <div className="flex items-center gap-3 pt-3 border-t border-zinc-800">
-        <div
-          aria-hidden="true"
-          className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm border-2 bg-[#111] font-bold shrink-0"
-          style={{ borderColor: review.avatarColor }}
-        >
-          {review.initials}
-        </div>
+        <Avatar review={review} />
         <div className="min-w-0">
           <p className="text-white text-sm font-semibold truncate">{review.name}</p>
           <div className="flex items-center gap-1.5 mt-0.5">

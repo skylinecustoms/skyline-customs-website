@@ -5,7 +5,7 @@
  */
 import { ENV } from "./_core/env";
 
-export interface GoogleReview { author: string; rating: number; when: string; text: string; time: number }
+export interface GoogleReview { author: string; rating: number; when: string; text: string; time: number; /** Reviewer profile picture (Google-hosted). */ photo?: string }
 export interface GoogleReviewSummary { rating: number; total: number; reviews: GoogleReview[]; fetchedAt: number }
 
 const TTL_MS = 6 * 60 * 60 * 1000;
@@ -22,14 +22,14 @@ export async function getGoogleReviews(): Promise<GoogleReviewSummary | null> {
     const a = (await newest.json()) as { status: string; result?: { rating?: number; user_ratings_total?: number; reviews?: unknown[] } };
     const b = (await relevant.json()) as { status: string; result?: { reviews?: unknown[] } };
     if (a.status !== "OK" || !a.result) throw new Error(`Places API: ${a.status}`);
-    type Raw = { author_name: string; rating: number; relative_time_description: string; text?: string; time: number };
+    type Raw = { author_name: string; rating: number; relative_time_description: string; text?: string; time: number; profile_photo_url?: string };
     const seen = new Set<string>();
     const reviews: GoogleReview[] = [];
     for (const r of [...(a.result.reviews ?? []), ...(b.result?.reviews ?? [])] as Raw[]) {
       const key = `${r.author_name}|${r.time}`;
       if (seen.has(key) || !r.text?.trim() || r.rating < 4) continue;
       seen.add(key);
-      reviews.push({ author: r.author_name, rating: r.rating, when: r.relative_time_description, text: r.text.trim(), time: r.time });
+      reviews.push({ author: r.author_name, rating: r.rating, when: r.relative_time_description, text: r.text.trim(), time: r.time, photo: r.profile_photo_url || undefined });
     }
     reviews.sort((x, y) => y.time - x.time);
     const data = { rating: a.result.rating ?? 5, total: a.result.user_ratings_total ?? 0, reviews, fetchedAt: Date.now() };

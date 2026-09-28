@@ -11,7 +11,7 @@ import { GOOGLE_MAPS_URL } from "@/lib/social";
 import { track } from "@/lib/analytics";
 import { rankReviews } from "@/lib/reviews";
 
-interface WallReview { name: string; date: string; text: string; rating: number; tags: string[]; live?: boolean }
+interface WallReview { name: string; date: string; text: string; rating: number; tags: string[]; live?: boolean; photo?: string }
 
 const SERVICE_TAGS: [string, RegExp][] = [
   ["PPF", /\bppf\b|paint protection|\bfilm\b|clear bra/i],
@@ -43,7 +43,7 @@ export default function ReviewWall({ total = "140+" }: { total?: string }) {
   const [shown, setShown] = useState(PAGE);
 
   const reviews = useMemo<WallReview[]>(() => {
-    const fromLive = (live?.reviews ?? []).filter((r) => r.rating >= 4 && r.text?.trim()).map((r) => ({ name: r.author, date: r.when, text: r.text, rating: r.rating, tags: tagsFor("", r.text), live: true }));
+    const fromLive = (live?.reviews ?? []).filter((r) => r.rating >= 4 && r.text?.trim()).map((r) => ({ name: r.author, date: r.when, text: r.text, rating: r.rating, tags: tagsFor("", r.text), live: true, photo: r.photo }));
     const names = new Set(fromLive.map((r) => r.name));
     const fromStatic = ALL_REVIEWS.filter((r) => !names.has(r.name)).map((r) => ({ name: r.name, date: r.date, text: r.text, rating: r.rating, tags: tagsFor(r.service, r.text) }));
     return rankReviews([...fromLive, ...fromStatic]);
@@ -93,11 +93,14 @@ export default function ReviewWall({ total = "140+" }: { total?: string }) {
           <figure key={`${r.name}-${r.date}`} className="border border-zinc-800 bg-[#0D0D0D] p-6 flex flex-col">
             <div className="flex items-center gap-0.5 mb-3">{[...Array(r.rating)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-[#E85D04] text-[#E85D04]" />)}</div>
             <blockquote className="text-zinc-200 text-sm leading-relaxed flex-1">{r.text}</blockquote>
-            <figcaption className="mt-5 pt-4 border-t border-zinc-800">
+            <figcaption className="mt-5 pt-4 border-t border-zinc-800 flex items-center gap-3">
+              {r.photo && <img src={r.photo} alt="" aria-hidden="true" width={36} height={36} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="w-9 h-9 rounded-full object-cover border border-zinc-700 shrink-0 bg-[#111]" />}
+              <div>
               <p className="text-white font-bold text-sm">{r.name}</p>
               <p className="text-zinc-400 text-xs mt-0.5">
                 Verified Google review{r.tags.length > 0 ? ` · ${r.tags.slice(0, 2).join(" · ")}` : ""}{r.date ? ` · ${r.date}` : ""}
               </p>
+              </div>
             </figcaption>
           </figure>
         ))}
