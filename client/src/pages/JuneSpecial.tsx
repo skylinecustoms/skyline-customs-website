@@ -20,8 +20,8 @@ import SEO from "@/components/SEO";
 import PromoQuoteForm from "@/components/PromoQuoteForm";
 import ReviewWall from "@/components/ReviewWall";
 import VideoCarousel from "@/components/VideoCarousel";
-import { VIDEOS } from "@/lib/videos";
-import { INSTAGRAM_REELS } from "@/lib/instagramPosts";
+import { videosByCategory } from "@/lib/videos";
+import { reelsByCategory } from "@/lib/instagramPosts";
 import { promoExtrasFor, type PromoGiveaway } from "@/lib/promoExtras";
 import { Link } from "wouter";
 import { toast } from "sonner";
@@ -29,12 +29,6 @@ import {
   Shield, Sparkles, Zap, CheckCircle, ArrowRight, Clock,
   Star, Lock, ChevronDown, AlertTriangle, Eye, Wrench, Layers, Mail, Phone, Car, Gift
 } from "lucide-react";
-
-// ---- "Watch before you buy": PPF videos in the order the objections come up ----
-const WATCH_FIRST_IDS = ["LQ1iXlQpXGc", "ZvVdjXH06ug", "P2zyuOrWiDA", "dI6_E2HSmmE", "n5mQVftEwfA"];
-const WATCH_FIRST_REELS = ["DaNiBH6u8Y4"];
-const watchFirstVideos = () => WATCH_FIRST_IDS.map((id) => VIDEOS.find((v) => v.id === id)).filter((v): v is NonNullable<typeof v> => !!v);
-const watchFirstReels = () => WATCH_FIRST_REELS.map((code) => INSTAGRAM_REELS.find((r) => r.code === code)).filter((r): r is NonNullable<typeof r> => !!r);
 
 // ---- Included Service type (matches DB JSON schema) --------------------------
 interface IncludedService {
@@ -1023,14 +1017,14 @@ export default function JuneSpecial() {
                 SEE IT BEFORE<br /><span className="text-[#E85D04]">YOU DECIDE</span>
               </h2>
               <p className="text-zinc-400 mt-4 max-w-2xl">
-                Short clips from the shop floor: where chips actually land, why factory paint is not enough, what the film survives, whether you can see it, and how we prep every car. Tap any one to watch with sound.
+                Every education video from the shop, newest first: where chips actually land, why factory paint is not enough, what the film survives, whether you can see it, and how we prep every car. Tap any one to watch with sound.
               </p>
             </div>
             <Link href="/videos" className="border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors shrink-0">
               All videos <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <VideoCarousel videos={watchFirstVideos()} reels={watchFirstReels()} preview autoAdvanceMs={12_000} />
+          <VideoCarousel videos={videosByCategory("learn")} reels={reelsByCategory("learn")} preview autoAdvanceMs={12_000} />
         </div>
       </section>
 
