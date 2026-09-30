@@ -68,7 +68,7 @@ function ProgressBar({ filled, total, endDate }: { filled: number; total: number
       <p className="text-zinc-300 text-sm leading-relaxed">
         {soldOut
           ? "This month's spots are gone. Join the waitlist and you're first in line for next month."
-          : "We only take a set number of cars each month so every one gets our full attention. First come, first served."}
+          : "We only take a set number of cars for each special so every one gets our full attention. First come, first served."}
       </p>
       {endDate && <p className="text-zinc-400 text-xs mt-2">Ends {endDate}</p>}
     </div>
@@ -791,7 +791,7 @@ export default function JuneSpecial() {
             <div>
               {/* Eyebrow */}
               <p className="font-display text-[#E85D04] text-sm tracking-[0.35em] mb-4">
-                CHANTILLY, VA &middot; LIMITED SPOTS EACH MONTH
+                CHANTILLY, VA &middot; LIMITED SPOTS
               </p>
 
               {/* Dates badge + countdown */}
@@ -820,7 +820,7 @@ export default function JuneSpecial() {
 
               {/* SEO H2 -- visually subtle but crawlable */}
               <h2 className="text-zinc-400 text-xs tracking-widest uppercase mb-6 font-sans">
-                {new Date().toLocaleString('default', { month: 'long' })} {new Date().getFullYear()} PPF Deal &mdash; Chantilly, VA
+                {title.replace(/\s*special$/i, "")} {new Date().getFullYear()} PPF Deal &mdash; Chantilly, VA
               </h2>
 
               {/* Social proof bar */}
@@ -899,7 +899,7 @@ export default function JuneSpecial() {
                   </div>
                 )}
                 <p className="text-zinc-400 text-xs mt-3 leading-relaxed">
-                  Spots are limited each month. Once they&apos;re gone, this deal is gone until next month&apos;s special.
+                  Spots are limited. Once they&apos;re gone, this deal is gone until the next special.
                 </p>
               </div>
 
@@ -1270,8 +1270,8 @@ export default function JuneSpecial() {
               },
               {
                 number: "03",
-                title: "Limited Monthly Spots",
-                body: "We only take a set number of cars each month so every one is done right. This isn't a marketing gimmick — it's how we maintain the standard that earned us 140+ five-star reviews.",
+                title: "Limited Spots",
+                body: "We only take a set number of cars for each special so every one is done right. This isn't a marketing gimmick — it's how we maintain the standard that earned us 140+ five-star reviews.",
               },
             ].map(({ number, title: t, body }, i) => (
               <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-8 relative overflow-hidden">
