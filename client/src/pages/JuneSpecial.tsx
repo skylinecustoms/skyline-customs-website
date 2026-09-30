@@ -502,6 +502,7 @@ function LastMonthStrip() {
   if (!lastPromo) return null;
 
   const filledCount = lastPromo.slots?.length ?? 0;
+  if (filledCount === 0) return null; // nothing to show off yet
   const totalSlots = lastPromo.totalSlots ?? 21;
   const archiveUrl = lastPromo.archivedSlug ? `/${lastPromo.archivedSlug}` : null;
   if (!archiveUrl) return null;
@@ -583,6 +584,7 @@ function WeDidItAgainBanner() {
   if (!lastPromo) return null;
 
   const filledCount = lastPromo.slots?.length ?? 0;
+  if (filledCount === 0) return null; // nothing to show off yet
   const totalSlots = lastPromo.totalSlots ?? 21;
   const lastTitle = lastPromo.title ?? "Last Month's Special";
   const isSoldOut = filledCount >= totalSlots;
