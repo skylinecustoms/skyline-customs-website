@@ -33,7 +33,7 @@ const GHL_ASSIGNED_USER_ID = process.env.GHL_ASSIGNED_USER_ID ?? "towFVTHQJdQPLU
 const GHL_PIPELINE_ID = process.env.GHL_PIPELINE_ID ?? "G0QXimqSJcVChaJflrXN";
 const GHL_STAGE_NEW_LEAD = process.env.GHL_STAGE_NEW_LEAD ?? "badd36ef-a6df-4776-b168-7237d3309fbe";
 /** The one tag every website submission carries; it is removed and re-added so a "tag added" workflow fires every time. */
-const GHL_NOTIFY_TAG = "website-lead";
+const GHL_NOTIFY_TAG = "website-contact";
 // Owner chats: the bot's configured owner (TELEGRAM_OWNER_ID) first, then any extra ids.
 const TELEGRAM_OWNER_IDS = Array.from(new Set([process.env.TELEGRAM_OWNER_ID ?? "", ...(process.env.TELEGRAM_OWNER_IDS ?? "5497240056,5028193585").split(",")].map((s) => s.trim()).filter(Boolean)));
 
