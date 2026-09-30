@@ -134,7 +134,17 @@ try {
     }
     promoAdded++;
     if (DRY) { console.log(`[seed] would insert promo: ${pr.slug} (${pr.title}, $${pr.price})`); continue; }
-    if (pr.active) await conn.execute("UPDATE promos SET active = 0 WHERE active = 1");
+    if (pr.active) {
+      // Archive whatever is live now, the same way the bot's /promo_new does, so it stays
+      // reachable at /<first-word>-special (e.g. /september-special) for the "we did it again" strip.
+      const [live] = await conn.execute("SELECT id, title, isArchived FROM promos WHERE active = 1");
+      for (const row of live) {
+        if (row.isArchived) { await conn.execute("UPDATE promos SET active = 0 WHERE id = ?", [row.id]); continue; }
+        const archiveSlug = `${String(row.title).split(" ")[0].toLowerCase()}-special`;
+        await conn.execute("UPDATE promos SET active = 0, isArchived = 1, archivedSlug = ? WHERE id = ?", [archiveSlug, row.id]);
+        console.log(`[seed] archived promo ${row.title} at /${archiveSlug}`);
+      }
+    }
     await conn.execute(
       `INSERT INTO promos (slug, title, tagline, dealDescription, totalSlots, startDate, endDate, price, includedServices, active, isArchived)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`,

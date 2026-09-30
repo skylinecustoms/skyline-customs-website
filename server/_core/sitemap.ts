@@ -7,7 +7,7 @@
  * values from the original sitemap (sitemapMeta.ts).
  */
 import { getDb } from "../db";
-import { blogPosts } from "../../drizzle/schema";
+import { blogPosts, promos } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 import { createHash } from "node:crypto";
 import { siteSettings } from "../../drizzle/schema";
@@ -128,6 +128,24 @@ export async function buildSitemap(): Promise<string> {
     }
   } catch {
     /* sitemap still works without the database */
+  }
+
+  // Archived promo pages (/june-special, /september-special ...) stay live and indexable.
+  try {
+    const database = await getDb();
+    if (database) {
+      const rows = await database
+        .select({ archivedSlug: promos.archivedSlug, updatedAt: promos.updatedAt })
+        .from(promos)
+        .where(eq(promos.isArchived, 1));
+      for (const row of rows) {
+        if (!row.archivedSlug) continue;
+        const lastmod = row.updatedAt instanceof Date ? row.updatedAt.toISOString().slice(0, 10) : undefined;
+        add(`/${row.archivedSlug}`, { lastmod: lastmod ?? SITE_UPDATED, changefreq: "monthly", priority: "0.6" });
+      }
+    }
+  } catch {
+    /* optional */
   }
 
   // Homepage logo carousels: supplier and vehicle-make logos go in the image sitemap.

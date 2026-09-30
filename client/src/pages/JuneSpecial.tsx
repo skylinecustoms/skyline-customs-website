@@ -22,6 +22,7 @@ import ReviewWall from "@/components/ReviewWall";
 import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS } from "@/lib/videos";
 import { INSTAGRAM_REELS } from "@/lib/instagramPosts";
+import { promoExtrasFor, type PromoGiveaway } from "@/lib/promoExtras";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import {
@@ -97,32 +98,15 @@ function SlotCard({
           </div>
         )}
         <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
-          #{slotNumber}
+          IN THE DRAWING
         </div>
         <div className="absolute top-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
-          <CheckCircle className="w-3 h-3" /> VERIFIED
+          <CheckCircle className="w-3 h-3" /> JOB DONE
         </div>
       </div>
       <div className="p-4">
         <p className="text-white font-semibold text-sm mb-1">{customerName}</p>
         <p className="text-zinc-400 text-xs leading-relaxed">{carDescription}</p>
-      </div>
-    </div>
-  );
-}
-
-// ---- Empty Slot Card ---------------------------------------------------------
-function EmptySlotCard({ slotNumber, quoteUrl }: { slotNumber: number; quoteUrl: string }) {
-  return (
-    <div className="border border-dashed border-zinc-800 bg-[#0A0A0A] overflow-hidden">
-      <div className="aspect-[4/3] flex flex-col items-center justify-center gap-3 p-4">
-        <div className="w-10 h-10 rounded-full border-2 border-dashed border-zinc-700 flex items-center justify-center">
-          <span className="text-zinc-700 font-bold text-sm">#{slotNumber}</span>
-        </div>
-        <p className="text-zinc-700 text-xs tracking-widest uppercase text-center">Available</p>
-        <Link href={quoteUrl} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase underline underline-offset-2 decoration-1 hover:decoration-2">
-          Claim This Slot →
-        </Link>
       </div>
     </div>
   );
@@ -184,7 +168,7 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, label }: { beforeSrc: string; 
 interface FaqItem { q: string; a: string }
 
 /** FAQ copy follows the active promo: price, what is included free, and whether paint correction is part of it. */
-function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: boolean): FaqItem[] {
+function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: boolean, giveaway?: PromoGiveaway): FaqItem[] {
   const priceText = `$${(Number(price) || 0).toLocaleString("en-US")}`;
   const freeList = freeItems.length
     ? freeItems.map((f) => `${f.name}${f.value ? ` (${f.value})` : ""}`).join(", ")
@@ -236,6 +220,16 @@ function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: bo
     q: "Is there a deposit for the special?",
     a: `Yes. Once you approve your quote, a 20% deposit reserves your install date and locks in the ${priceText} price. It goes toward your total, so you pay the remaining balance at pickup after the walk-and-pay inspection. The deposit is fully refundable at any time, no questions asked.`,
   });
+  if (giveaway) {
+    items.push({
+      q: `How does the ${giveaway.name} work?`,
+      a: `${giveaway.rules[0]} ${giveaway.rules[1]} ${giveaway.prize}`,
+    });
+    items.push({
+      q: "Do I have to book to enter the giveaway?",
+      a: giveaway.rules.find((r) => /no purchase/i.test(r)) ?? "No purchase is necessary. See the giveaway rules on this page for the free entry route.",
+    });
+  }
   items.push({
     q: "Do I need to do anything to prepare my car?",
     a: "Just bring it in clean (a basic wash is fine — we'll do the full decontamination). Don't apply any wax or sealant in the week before your appointment. That's it.",
@@ -673,6 +667,7 @@ export default function JuneSpecial() {
   const tagline = promo?.tagline ?? "The most complete paint protection package in Northern Virginia.";
   const dealDescription = promo?.dealDescription ?? "Full Front PPF + Free Paint Correction + Ceramic Coating";
   const slug = promo?.slug ?? "promo";
+  const { giveaway, heroVideo } = promoExtrasFor(promo?.slug);
   // Every "claim" button scrolls to the form embedded below the hero (see #claim).
   const quoteUrl = "#claim";
   const canonicalUrl = "https://www.skylinecustomshop.com/promo";
@@ -686,22 +681,18 @@ export default function JuneSpecial() {
   const { freeItems, paidItems, freeValue, fullPrice, fmt } = promoMath(price, includedServices);
   const hasCorrection = freeItems.some((f) => /correction/i.test(f.name));
   const hasCeramic = freeItems.some((f) => /ceramic/i.test(f.name));
-  const faqItems = buildFaq(price, freeItems, hasCorrection);
+  const faqItems = buildFaq(price, freeItems, hasCorrection, giveaway);
   const paidName = paidItems[0]?.name ?? "STEK DYNOshield Full Front PPF";
   const freeNames = freeItems.map((f) => f.name.toLowerCase());
   const freeSentence = freeNames.length === 0 ? "" : freeNames.length === 1 ? freeNames[0] : `${freeNames.slice(0, -1).join(", ")} and ${freeNames[freeNames.length - 1]}`;
 
-  const allSlots = Array.from({ length: totalSlots }, (_, i) => {
-    const slot = filledSlots.find((s) => s.slotNumber === i + 1);
-    return slot ?? null;
-  });
 
-  const seoTitle = promo
-    ? `${title} — ${dealDescription.slice(0, 80)} | Skyline Customs Chantilly VA`
-    : "Monthly Special | Skyline Customs Chantilly VA";
+  // Same title and description the server renders (server/_core/ssrMeta.ts), so the tab title and analytics match the crawled page.
+  const shortTagline = tagline.replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "").trim();
+  const seoTitle = promo ? `${title}: Full Front PPF Deal in Chantilly, VA` : "This Month's Special | Full Front PPF Deal | Skyline Customs";
   const seoDesc = promo
-    ? `Spots are limited. ${tagline} Starting at $${price}. Skyline Customs, Chantilly VA.`
-    : "Exclusive monthly automotive protection deal at Skyline Customs, Chantilly VA.";
+    ? `${shortTagline}. Limited spots${endDate ? `, ends ${endDate}` : ""}. STEK DYNOshield full front PPF, 12-year warranty, at Skyline Customs in Chantilly, VA.`.slice(0, 165)
+    : "See this month's limited-spot special on full front paint protection film and ceramic coating at Skyline Customs in Chantilly, VA.";
 
   // ---- JSON-LD structured data ------------------------------------------------
   const jsonLdSchemas = [
@@ -843,6 +834,34 @@ export default function JuneSpecial() {
                 <span className="text-zinc-400 text-sm">&middot;</span>
                 <span className="text-zinc-400 text-sm">140+ Google Reviews</span>
               </div>
+
+              {giveaway && (
+                <div className="inline-flex items-start gap-3 border border-[#E85D04]/40 bg-[#E85D04]/10 px-4 py-3 mb-8 max-w-lg">
+                  <Sparkles className="w-4 h-4 text-[#E85D04] shrink-0 mt-0.5" />
+                  <p className="text-sm text-zinc-200 leading-snug">
+                    <span className="text-[#E85D04] font-bold tracking-wide uppercase">{giveaway.name}:</span> every completed job is entered to win a full body PPF install. <a href="#giveaway" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">How it works</a>
+                  </p>
+                </div>
+              )}
+
+              {heroVideo && (heroVideo.youtubeId || heroVideo.mp4) && (
+                <div className="mb-8 max-w-lg">
+                  <div className="aspect-video bg-black border border-zinc-800 overflow-hidden">
+                    {heroVideo.youtubeId ? (
+                      <iframe
+                        src={`https://www.youtube-nocookie.com/embed/${heroVideo.youtubeId}?rel=0&modestbranding=1&playsinline=1`}
+                        title={heroVideo.caption ?? `${title} video`}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <video src={heroVideo.mp4} poster={heroVideo.poster} controls playsInline preload="metadata" className="w-full h-full object-contain bg-black" />
+                    )}
+                  </div>
+                  {heroVideo.caption && <p className="text-zinc-400 text-xs mt-2 tracking-wide">{heroVideo.caption}</p>}
+                </div>
+              )}
 
               {/* Primary CTA */}
               {!soldOut ? (
@@ -1075,6 +1094,81 @@ export default function JuneSpecial() {
       </section>
 
       {/* ================================================================
+          GIVEAWAY (from lib/promoExtras.ts) + who's in the drawing
+      ================================================================ */}
+      {giveaway && (
+        <section id="giveaway" className="py-24 bg-[#0D0D0D] border-y border-zinc-900 scroll-mt-24">
+          <div className="container max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start mb-16">
+              <div className="lg:col-span-3">
+                <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Plus, this season only</p>
+                <h2 className="font-display text-5xl md:text-6xl text-white leading-none mb-5">
+                  EVERY JOB IS AN ENTRY.<br /><span className="text-[#E85D04]">ONE CAR WINS FULL BODY PPF.</span>
+                </h2>
+                <p className="text-zinc-300 text-lg leading-relaxed mb-6">
+                  Book the {title}, get your car done, and you're in the drawing. {giveaway.prize} Winner drawn {giveaway.drawingDate}.
+                </p>
+                <ul className="space-y-3 text-sm text-zinc-300">
+                  {[
+                    "Finish a Fall Special job and your entry is automatic. Nothing to sign up for.",
+                    "Your car and first name go up in the drawing below, so you can see who you're up against.",
+                    `We draw one winner on ${giveaway.drawingDate}, announce it on Instagram, and call you.`,
+                  ].map((line) => (
+                    <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>
+                  ))}
+                </ul>
+                {!soldOut && (
+                  <a href={quoteUrl} data-cta="promo-claim" className="inline-flex items-center gap-2 mt-8 bg-[#E85D04] text-black font-display text-lg tracking-widest uppercase px-8 py-4 hover:bg-orange-600 transition-colors">
+                    Get in the drawing <ArrowRight className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
+              <div className="lg:col-span-2 border border-zinc-800 bg-[#0A0A0A] p-6">
+                <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">The prize</p>
+                <p className="font-display text-3xl text-white leading-tight mb-3">FULL BODY PPF, ON US</p>
+                <p className="text-zinc-400 text-sm leading-relaxed mb-5">Every painted panel wrapped in self-healing STEK DYNOshield with the 12-year warranty. Same film, same walk-and-pay inspection, no invoice.</p>
+                <p className="text-zinc-500 text-xs">One winner. Drawing {giveaway.drawingDate}. Full rules below.</p>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Real customers, real cars</p>
+              <h3 className="font-display text-4xl md:text-5xl text-white">{giveaway.entriesHeading}</h3>
+              <p className="text-zinc-400 mt-3 text-sm max-w-2xl">
+                {filledSlots.length > 0
+                  ? "Every car here finished its Fall Special and is in the drawing. Spots are limited, so the list stays short."
+                  : "The first finished cars of the season go up here, with the owner in front of the car. Book early and you're first in the drawing."}
+              </p>
+            </div>
+            {filledSlots.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {filledSlots.map((slot) => (
+                  <SlotCard
+                    key={slot.slotNumber}
+                    slotNumber={slot.slotNumber}
+                    customerName={slot.customerName}
+                    carDescription={slot.carDescription}
+                    photoUrl={slot.photoUrl}
+                    promoTitle={title}
+                  />
+                ))}
+              </div>
+            )}
+
+            <details className="mt-12 border border-zinc-800 bg-[#0A0A0A] group">
+              <summary className="cursor-pointer list-none px-6 py-4 flex items-center justify-between text-zinc-300 text-sm font-bold tracking-widest uppercase">
+                {giveaway.name} official rules
+                <ChevronDown className="w-4 h-4 text-[#E85D04] transition-transform group-open:rotate-180" />
+              </summary>
+              <ol className="px-6 pb-6 space-y-2 text-zinc-400 text-sm leading-relaxed list-decimal list-inside">
+                {giveaway.rules.map((r) => <li key={r}>{r}</li>)}
+              </ol>
+            </details>
+          </div>
+        </section>
+      )}
+
+      {/* ================================================================
           WHAT'S INCLUDED (detail cards) -- from DB includedServices
       ================================================================ */}
       <section className="py-24 bg-[#0D0D0D]">
@@ -1283,6 +1377,7 @@ export default function JuneSpecial() {
                   `${paidName} with the 12-year manufacturer warranty`,
                   freeSentence ? `Includes ${freeSentence} at no charge` : "Everything included, no add-ons",
                   "Walk-and-pay: you inspect every panel before you pay the balance",
+                  ...(giveaway ? [`${giveaway.name}: every completed job is entered to win full body PPF`] : []),
                 ].map((line) => (
                   <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>
                 ))}
@@ -1318,38 +1413,6 @@ export default function JuneSpecial() {
           </div>
         </div>
       </section>
-
-      {/* ================================================================
-          CUSTOMER GALLERY (live slots from DB)
-      ================================================================ */}
-      {filledSlots.length >= 3 && (
-      <section className="py-24 bg-[#0A0A0A]">
-        <div className="container max-w-6xl">
-          <div className="mb-12">
-            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Real Customers, Real Cars</p>
-            <h2 className="font-display text-5xl md:text-6xl text-white">
-              WHO&apos;S ALREADY IN
-            </h2>
-            <p className="text-zinc-400 mt-3 text-sm">
-              Every completed car is verified by our team. Spots are limited &mdash; claim yours before {endDate || "they run out"}.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filledSlots.map((slot) => (
-              <SlotCard
-                key={slot.slotNumber}
-                slotNumber={slot.slotNumber}
-                customerName={slot.customerName}
-                carDescription={slot.carDescription}
-                photoUrl={slot.photoUrl}
-                promoTitle={title}
-              />
-            ))}
-            {!soldOut && <EmptySlotCard slotNumber={filledSlots.length + 1} quoteUrl={quoteUrl} />}
-          </div>
-        </div>
-      </section>
-      )}
 
       {/* ================================================================
           STEK CALLOUT
@@ -1403,6 +1466,9 @@ export default function JuneSpecial() {
           <p className="text-orange-100 text-lg mb-4 max-w-xl mx-auto">
             {tagline || `Starting at $${price}. This deal disappears when the last slot is claimed.`}
           </p>
+          {giveaway && (
+            <p className="text-white font-bold text-sm mb-4 tracking-wide">Plus every completed job is entered to win full body PPF.</p>
+          )}
           <p className="text-orange-200/70 text-sm mb-10">
             Skyline Customs &mdash; Chantilly, VA &middot; (703) 775-4383
           </p>

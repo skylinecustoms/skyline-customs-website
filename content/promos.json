@@ -2,11 +2,37 @@
   {
     "slug": "september-2026",
     "title": "September Special",
-    "tagline": "Full Front PPF + a Free Ceramic Coating on Your Whole Car \u2014 Spots Are Limited",
+    "tagline": "Full Front PPF + a Free Ceramic Coating on Your Whole Car — Spots Are Limited",
     "dealDescription": "Book STEK DYNOshield full-front paint protection film this month for $2,800 and we'll ceramic coat your entire vehicle at no charge. Hood, bumper, fenders, mirrors, and headlights are shielded from rock chips by self-healing film with a 12-year warranty, and every panel gets a hydrophobic ceramic layer that keeps the whole car glossy and easy to wash. Spots are limited for September 2026.",
     "totalSlots": 21,
     "startDate": "September 1, 2026",
     "endDate": "September 30, 2026",
+    "price": "2800",
+    "includedServices": [
+      {
+        "name": "STEK DYNOshield Full Front PPF",
+        "value": "Full Front",
+        "isFree": false,
+        "badge": "12-yr warranty"
+      },
+      {
+        "name": "Full-Car Ceramic Coating",
+        "value": "$1,300 value",
+        "isFree": true,
+        "badge": "Every painted panel, not just the front"
+      }
+    ],
+    "active": 1,
+    "sync": true
+  },
+  {
+    "slug": "fall-2026",
+    "title": "Fall Special",
+    "tagline": "Full Front PPF + a Free Ceramic Coating on Your Whole Car + a Shot at Free Full Body PPF — Spots Are Limited",
+    "dealDescription": "Book STEK DYNOshield full-front paint protection film this fall for $2,800 and we'll ceramic coat your entire vehicle at no charge. Hood, bumper, fenders, mirrors, and headlights are shielded from rock chips by self-healing film with a 12-year warranty, and every panel gets a hydrophobic ceramic layer that keeps the whole car glossy and easy to wash. Every completed Fall Special job is also entered in our giveaway for a free full body PPF install. Spots are limited for fall 2026.",
+    "totalSlots": 21,
+    "startDate": "October 1, 2026",
+    "endDate": "November 30, 2026",
     "price": "2800",
     "includedServices": [
       {
