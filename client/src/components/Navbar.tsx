@@ -66,6 +66,13 @@ export default function Navbar() {
   const manual = settings?.announcementActive === "1" && settings.announcement ? settings.announcement : null;
   const stripTagline = (activePromo?.tagline ?? "Full Front PPF + Free Ceramic Coating").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "");
   const showPromoStrip = !manual && !!activePromo?.title && location !== "/promo";
+  // Phone layout: two short lines built from the tagline ("Full Front PPF + a Free Ceramic Coating on Your Whole Car + a Shot at Free Full Body PPF").
+  const condense = (part: string) =>
+    part.replace(/^a\s+/i, "").replace(/\s+on your whole car$/i, "").replace(/^shot at free\s+/i, "Win ").replace(/free ceramic coating/i, "Free Ceramic").trim();
+  const stripParts = stripTagline.split(/\s+\+\s+/).map(condense);
+  const stripPrice = activePromo?.price ? `$${Number(activePromo.price).toLocaleString("en-US")}` : "";
+  const phoneLine1 = [activePromo?.title, stripPrice, stripParts[2]].filter(Boolean).join(" · ");
+  const phoneLine2 = `${stripParts.slice(0, 2).join(" + ")} · Claim my spot →`;
 
   return (
     <nav
@@ -220,15 +227,20 @@ export default function Navbar() {
         <div className="bg-brand-orange text-black">
           <div className="container">
             {manual ? (
-              <p className="py-1.5 text-center text-xs font-semibold truncate">{manual}</p>
+              <p className="h-7 flex items-center justify-center text-center text-xs font-semibold truncate">{manual}</p>
             ) : (
-              <Link href="/promo" data-cta="header-promo" className="flex items-center justify-center gap-2 py-1.5 text-xs font-semibold hover:underline underline-offset-2">
+              <Link href="/promo" data-cta="header-promo" className="flex items-center justify-center gap-2 h-10 sm:h-7 text-[11px] sm:text-xs font-semibold hover:underline underline-offset-2">
                 <Zap size={12} className="shrink-0 fill-current" />
-                <span className="truncate">
-                  <span className="font-bold tracking-wide uppercase">{activePromo!.title}:</span> {stripTagline}
-                  {activePromo!.endDate && <span className="hidden sm:inline"> · Ends {activePromo!.endDate}</span>}
+                {/* Phones: two fixed short lines (40px strip). Larger screens: one line (28px strip). */}
+                <span className="sm:hidden text-center leading-[14px] min-w-0">
+                  <span className="block truncate"><span className="font-bold uppercase">{phoneLine1}</span></span>
+                  <span className="block truncate">{phoneLine2}</span>
                 </span>
-                <span className="shrink-0 font-bold whitespace-nowrap">Claim my spot &rarr;</span>
+                <span className="hidden sm:inline truncate">
+                  <span className="font-bold tracking-wide uppercase">{activePromo!.title}:</span> {stripTagline}
+                  {activePromo!.endDate && <span> · Ends {activePromo!.endDate}</span>}
+                </span>
+                <span className="hidden sm:inline shrink-0 font-bold whitespace-nowrap">Claim my spot &rarr;</span>
               </Link>
             )}
           </div>
