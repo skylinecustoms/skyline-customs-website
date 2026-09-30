@@ -27,7 +27,7 @@ import { Link } from "wouter";
 import { toast } from "sonner";
 import {
   Shield, Sparkles, Zap, CheckCircle, ArrowRight, Clock,
-  Star, Lock, ChevronDown, AlertTriangle, Eye, Wrench, Layers, Mail, Phone, Car
+  Star, Lock, ChevronDown, AlertTriangle, Eye, Wrench, Layers, Mail, Phone, Car, Gift
 } from "lucide-react";
 
 // ---- "Watch before you buy": PPF videos in the order the objections come up ----
@@ -838,12 +838,13 @@ export default function JuneSpecial() {
               </div>
 
               {giveaway && (
-                <div className="inline-flex items-start gap-3 border border-[#E85D04]/40 bg-[#E85D04]/10 px-4 py-3 mb-8 max-w-lg">
-                  <Sparkles className="w-4 h-4 text-[#E85D04] shrink-0 mt-0.5" />
-                  <p className="text-sm text-zinc-200 leading-snug">
-                    <span className="text-[#E85D04] font-bold tracking-wide uppercase">{giveaway.name}:</span> every completed job is entered to win a full body PPF install. <a href="#giveaway" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">How it works</a>
-                  </p>
-                </div>
+                <a href="#giveaway" className="flex items-center gap-4 bg-[#E85D04] text-black px-5 py-4 mb-8 max-w-lg hover:bg-orange-500 transition-colors group">
+                  <Gift className="w-8 h-8 shrink-0" strokeWidth={1.75} />
+                  <span>
+                    <span className="block font-display text-2xl leading-none tracking-wide">WIN FULL BODY PPF</span>
+                    <span className="block text-sm text-black/80 mt-1">Every completed job is entered. One winner, drawn {giveaway.drawingDate}. <span className="underline underline-offset-2 group-hover:decoration-2">How it works</span></span>
+                  </span>
+                </a>
               )}
 
               {heroVideo && (heroVideo.youtubeId || heroVideo.mp4) && (
@@ -934,6 +935,7 @@ export default function JuneSpecial() {
                   <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
                 </div>
                 <p className="text-zinc-400 text-sm mb-3">Full package price &mdash; everything included. No add-ons.</p>
+                {giveaway && <p className="text-[#E85D04] text-sm font-bold mb-3 flex items-center gap-1.5"><Gift className="w-4 h-4" /> Plus you're entered to win full body PPF</p>}
                 <div className="flex items-center gap-2 text-xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-emerald-400 font-bold">{remaining > 0 ? "Spots are limited at this price" : "Sold out — join the waitlist"}</span>
@@ -943,6 +945,26 @@ export default function JuneSpecial() {
           </div>
         </div>
       </section>
+
+      {/* ================================================================
+          GIVEAWAY BAND (right under the hero so nobody misses the prize)
+      ================================================================ */}
+      {giveaway && (
+        <section className="bg-[#E85D04] text-black">
+          <div className="container max-w-6xl py-6 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+            <div className="flex items-center gap-4">
+              <Gift className="w-10 h-10 shrink-0" strokeWidth={1.75} />
+              <div>
+                <p className="font-display text-3xl md:text-4xl leading-none tracking-wide">WIN FULL BODY PPF</p>
+                <p className="text-black/80 text-sm md:text-base mt-1">Every completed {title} job is entered. One winner drawn {giveaway.drawingDate}.</p>
+              </div>
+            </div>
+            <a href="#giveaway" className="md:ml-auto shrink-0 inline-flex items-center gap-2 bg-black text-white font-display text-base tracking-widest uppercase px-6 py-3 hover:bg-zinc-900 transition-colors">
+              See the prize <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </section>
+      )}
 
       {/* ================================================================
           THE PROBLEM
@@ -1125,11 +1147,12 @@ export default function JuneSpecial() {
                   </a>
                 )}
               </div>
-              <div className="lg:col-span-2 border border-zinc-800 bg-[#0A0A0A] p-6">
-                <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">The prize</p>
-                <p className="font-display text-3xl text-white leading-tight mb-3">FULL BODY PPF, ON US</p>
-                <p className="text-zinc-400 text-sm leading-relaxed mb-5">Every painted panel wrapped in self-healing STEK DYNOshield with the 12-year warranty. Same film, same walk-and-pay inspection, no invoice.</p>
-                <p className="text-zinc-500 text-xs">One winner. Drawing {giveaway.drawingDate}. Full rules below.</p>
+              <div className="lg:col-span-2 bg-[#E85D04] text-black p-8 relative overflow-hidden">
+                <Gift className="absolute -right-6 -bottom-6 w-40 h-40 text-black/10" strokeWidth={1} />
+                <p className="text-xs font-bold tracking-[0.3em] uppercase mb-3 text-black/70">The prize</p>
+                <p className="font-display text-5xl leading-none mb-4">FULL BODY PPF,<br />ON US</p>
+                <p className="text-black/80 text-sm leading-relaxed mb-5 relative">Every painted panel wrapped in self-healing STEK DYNOshield with the 12-year warranty. Same film, same walk-and-pay inspection, no invoice.</p>
+                <p className="text-black/70 text-xs font-bold tracking-wide uppercase relative">One winner · Drawing {giveaway.drawingDate} · Rules below</p>
               </div>
             </div>
 
@@ -1358,6 +1381,27 @@ export default function JuneSpecial() {
       </section>
 
       {/* ================================================================
+          BEFORE / AFTER + REVIEW
+      ================================================================ */}
+      <section className="py-24 bg-[#0D0D0D]">
+        <div className="container max-w-6xl">
+          <div className="mb-12 text-center">
+            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">What Our Customers Say</p>
+            <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
+              REAL REVIEWS<br />
+              <span className="text-[#E85D04]">FROM REAL CUSTOMERS</span>
+            </h2>
+          </div>
+          <ReviewWall />
+          <div className="text-center mt-12">
+            <a href={quoteUrl} data-cta="promo-claim" className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-widest uppercase px-8 py-4 hover:bg-orange-600 transition-colors">
+              {soldOut ? "Join the waitlist" : "Claim my spot"} <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
           CLAIM YOUR SPOT (embedded form; every CTA scrolls here)
       ================================================================ */}
       <section id="claim" className="py-24 bg-[#0D0D0D] border-y border-zinc-900 scroll-mt-20">
@@ -1391,27 +1435,6 @@ export default function JuneSpecial() {
             <div className="lg:col-span-3">
               {soldOut ? <WaitlistForm promoTitle={title} /> : <PromoQuoteForm promoTitle={title} promoSlug={slug} dealDescription={dealDescription} />}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          BEFORE / AFTER + REVIEW
-      ================================================================ */}
-      <section className="py-24 bg-[#0D0D0D]">
-        <div className="container max-w-6xl">
-          <div className="mb-12 text-center">
-            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">What Our Customers Say</p>
-            <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
-              REAL REVIEWS<br />
-              <span className="text-[#E85D04]">FROM REAL CUSTOMERS</span>
-            </h2>
-          </div>
-          <ReviewWall />
-          <div className="text-center mt-12">
-            <a href={quoteUrl} data-cta="promo-claim" className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-widest uppercase px-8 py-4 hover:bg-orange-600 transition-colors">
-              {soldOut ? "Join the waitlist" : "Claim my spot"} <ArrowRight className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </section>
@@ -1513,7 +1536,7 @@ export default function JuneSpecial() {
           ) : (
             <>
               <p className="text-[#E85D04] text-xs font-bold tracking-wide uppercase">
-                {`Spots are limited at $${price}`}
+                {giveaway ? `$${price} · Win full body PPF` : `Spots are limited at $${price}`}
               </p>
               {endDate && <CountdownTimer endDate={endDate} />}
             </>
