@@ -58,6 +58,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
       service: "PPF",
       message: form.message.trim() || promoNote,
       promoTag: promoTagFor(promoTitle, promoSlug),
+      formId: "promo",
       journey,
     });
   };

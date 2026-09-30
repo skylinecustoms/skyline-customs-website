@@ -27,6 +27,69 @@ const GHL_HEADERS = {
   "Content-Type": "application/json",
 };
 
+// Who a website lead is assigned to (GHL notifies the assigned user). Default: Mohamed Ibrahim.
+const GHL_ASSIGNED_USER_ID = process.env.GHL_ASSIGNED_USER_ID ?? "towFVTHQJdQPLUabV4vy";
+// "PPF Qualified Pipeline" -> "New Lead" stage: every website lead gets an opportunity here.
+const GHL_PIPELINE_ID = process.env.GHL_PIPELINE_ID ?? "G0QXimqSJcVChaJflrXN";
+const GHL_STAGE_NEW_LEAD = process.env.GHL_STAGE_NEW_LEAD ?? "badd36ef-a6df-4776-b168-7237d3309fbe";
+/** The one tag every website submission carries; it is removed and re-added so a "tag added" workflow fires every time. */
+const GHL_NOTIFY_TAG = "website-lead";
+const TELEGRAM_OWNER_IDS = (process.env.TELEGRAM_OWNER_IDS ?? "5497240056,5028193585").split(",").map((s) => s.trim()).filter(Boolean);
+
+const escapeHtml = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/** Telegram message to the shop owners. Never throws. Returns true when at least one send succeeded. */
+async function notifyOwners(html: string): Promise<boolean> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return false;
+  let ok = false;
+  for (const id of TELEGRAM_OWNER_IDS) {
+    try {
+      const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: id, text: html, parse_mode: "HTML", disable_web_page_preview: true }),
+      });
+      ok = ok || r.ok;
+    } catch { /* ignore */ }
+  }
+  return ok;
+}
+
+/** Add tags to a contact (additive, keeps what is there). The notify tag is removed first so it counts as newly added. */
+async function addGhlTags(contactId: string, tags: string[]): Promise<void> {
+  const unique = Array.from(new Set(tags.filter(Boolean)));
+  try {
+    if (unique.includes(GHL_NOTIFY_TAG)) {
+      await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/tags`, { method: "DELETE", headers: GHL_HEADERS, body: JSON.stringify({ tags: [GHL_NOTIFY_TAG] }) }).catch(() => {});
+    }
+    const r = await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/tags`, { method: "POST", headers: GHL_HEADERS, body: JSON.stringify({ tags: unique }) });
+    if (!r.ok) console.warn("[GHL] add tags failed (non-fatal):", r.status, (await r.text()).slice(0, 200));
+  } catch (e) {
+    console.warn("[GHL] add tags exception (non-fatal):", e);
+  }
+}
+
+/** One open opportunity per contact in the PPF pipeline, so the lead shows on the board and "opportunity created" workflows fire. */
+async function ensureGhlOpportunity(contactId: string, name: string, source: string): Promise<void> {
+  try {
+    const q = new URLSearchParams({ location_id: GHL_LOCATION_ID, contact_id: contactId, status: "open", limit: "5" });
+    const existing = await fetch(`https://services.leadconnectorhq.com/opportunities/search?${q}`, { headers: GHL_HEADERS });
+    if (existing.ok) {
+      const data = (await existing.json()) as { opportunities?: { id: string }[] };
+      if ((data.opportunities ?? []).length > 0) return;
+    }
+    const r = await fetch("https://services.leadconnectorhq.com/opportunities/", {
+      method: "POST",
+      headers: GHL_HEADERS,
+      body: JSON.stringify({ pipelineId: GHL_PIPELINE_ID, locationId: GHL_LOCATION_ID, name, pipelineStageId: GHL_STAGE_NEW_LEAD, status: "open", contactId, source, assignedTo: GHL_ASSIGNED_USER_ID }),
+    });
+    if (!r.ok) console.warn("[GHL] opportunity create failed (non-fatal):", r.status, (await r.text()).slice(0, 200));
+  } catch (e) {
+    console.warn("[GHL] opportunity exception (non-fatal):", e);
+  }
+}
+
 type GhlDuplicateError = {
   statusCode: number;
   message: string;
@@ -88,9 +151,11 @@ async function upsertGhlContact(
   console.log("[GHL] Duplicate on create, upserting:", existingId);
 
   // --- Step 2: Attempt update (strip locationId and phone to avoid cascading duplicate) ---
-  const { locationId: _loc, phone: _ph, ...safeUpdatePayload } = payload as Record<string, unknown> & {
+  // Tags are left out of the update: a PUT replaces the whole tag list, and the caller adds tags additively afterwards.
+  const { locationId: _loc, phone: _ph, tags: _tags, ...safeUpdatePayload } = payload as Record<string, unknown> & {
     locationId?: unknown;
     phone?: unknown;
+    tags?: unknown;
   };
 
   const updateRes = await fetch(`https://services.leadconnectorhq.com/contacts/${existingId}`, {
@@ -275,6 +340,8 @@ Guidelines:
           message: z.string().optional(),
           // Optional promo tag — set when visitor arrives from a promo CTA
           promoTag: z.string().max(80).optional(),
+          // Which form on the site sent this: sets the CRM source and tags.
+          formId: z.enum(["quote", "contact", "promo"]).optional(),
           // The pages this visitor saw before submitting (client/src/lib/analytics.ts).
           journey: z
             .object({
@@ -296,24 +363,63 @@ Guidelines:
         if (input.year) customFields.push({ id: GHL_FIELD_YEAR, field_value: input.year });
         if (input.service) customFields.push({ id: GHL_FIELD_SERVICE, field_value: input.service });
 
-        // Build GHL tags: always include website-contact; add promo tag if present
-        const ghlTags = ["website-contact"];
-        if (input.promoTag) ghlTags.push(input.promoTag);
+        // Source and tags per form, so CRM workflows can tell them apart. Every one carries the notify tag.
+        const form = input.formId ?? (input.promoTag ? "promo" : "contact");
+        const source = form === "quote" ? "Website Quote Form" : form === "promo" ? `Website Promo Form${input.promoTag ? ` — ${input.promoTag}` : ""}` : "Website Contact Form";
+        const svc = (input.service ?? "").toLowerCase();
+        const serviceTag = /ppf|film|paint protection/.test(svc) ? "ppf lead" : /tint/.test(svc) ? "tint lead" : /ceramic|coat/.test(svc) ? "ceramic lead" : null;
+        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : [])];
 
         const contactPayload: Record<string, unknown> = {
           firstName: input.firstName,
           lastName: input.lastName,
           email: input.email,
           locationId: GHL_LOCATION_ID,
-          source: input.promoTag ? `Promo CTA — ${input.promoTag}` : "Website Contact Form",
+          source,
           tags: ghlTags,
+          assignedTo: GHL_ASSIGNED_USER_ID,
         };
         if (input.phone) contactPayload.phone = input.phone;
         if (customFields.length > 0) contactPayload.customFields = customFields;
 
-        // Step 1: Upsert contact (handles all duplicate scenarios)
-        const { contactId, phone: resolvedPhone } = await upsertGhlContact(contactPayload);
+        const vehicleLabel = [input.year, input.make, input.model].filter(Boolean).join(" ");
+
+        // Step 1: Upsert contact (handles all duplicate scenarios). A CRM outage must not lose the lead:
+        // the owners still get the Telegram message below, and the form still succeeds.
+        let contactId: string | null = null;
+        let resolvedPhone: string | undefined;
+        let crmError: string | null = null;
+        try {
+          const r = await upsertGhlContact(contactPayload);
+          contactId = r.contactId || null;
+          resolvedPhone = r.phone;
+        } catch (e) {
+          crmError = e instanceof Error ? e.message : String(e);
+          console.error("[GHL] lead not saved:", crmError);
+        }
         const contactPhone = resolvedPhone ?? input.phone;
+        if (contactId) {
+          await addGhlTags(contactId, ghlTags);
+          await ensureGhlOpportunity(contactId, `${input.firstName} ${input.lastName}${vehicleLabel ? ` — ${vehicleLabel}` : ""}${input.service ? ` — ${input.service}` : ""}`, source);
+        }
+
+        // Telegram to the owners, every time, so no lead depends on the CRM or on someone checking it.
+        const journeyLine = input.journey
+          ? `\nCame from: ${escapeHtml(input.journey.utm?.utm_source ? `${input.journey.utm.utm_source}${input.journey.utm.utm_medium ? ` / ${input.journey.utm.utm_medium}` : ""}` : input.journey.referrer ? input.journey.referrer.replace(/^https?:\/\/(www\.)?/, "").split("/")[0] : "direct")} · landed on ${escapeHtml(input.journey.landing)} · ${input.journey.steps.length} page${input.journey.steps.length === 1 ? "" : "s"}`
+          : "";
+        const telegramOk = await notifyOwners(
+          `<b>🚗 New website lead (${escapeHtml(source)})</b>\n` +
+          `<b>${escapeHtml(input.firstName)} ${escapeHtml(input.lastName)}</b>` +
+          (contactPhone ? `\n📞 ${escapeHtml(contactPhone)}` : "") +
+          `\n✉️ ${escapeHtml(input.email)}` +
+          (vehicleLabel ? `\n🚘 ${escapeHtml(vehicleLabel)}` : "") +
+          (input.service ? `\n🛠 ${escapeHtml(input.service)}` : "") +
+          (input.promoTag ? `\n🏷 ${escapeHtml(input.promoTag)}` : "") +
+          (input.message?.trim() ? `\n💬 ${escapeHtml(input.message.trim().slice(0, 300))}` : "") +
+          journeyLine +
+          (contactId ? `\n\nIn GHL: https://app.gohighlevel.com/v2/location/${GHL_LOCATION_ID}/contacts/detail/${contactId}` : `\n\n⚠️ <b>NOT saved in GHL</b> (${escapeHtml(crmError ?? "unknown error")}). Add this lead by hand.`)
+        );
+        if (!contactId && !telegramOk) throw new Error("Failed to create contact in GHL");
 
         // Step 2: Send an SMS via GHL conversations if a message was provided
         if (input.message && input.message.trim().length > 0 && contactId && contactPhone) {
@@ -386,7 +492,7 @@ Guidelines:
           }
         }
 
-        return { success: true, contactId: contactId ?? null };
+        return { success: true, contactId: contactId ?? null, crm: contactId ? "ok" : "failed" };
       }),
   }),
 
@@ -497,7 +603,7 @@ Guidelines:
           const nameParts = input.name.trim().split(/\s+/);
           const firstName = nameParts[0] ?? input.name;
           const lastName = nameParts.slice(1).join(' ') || undefined;
-          const tags = ['ppf-waitlist', 'ppf lead'];
+          const tags = [GHL_NOTIFY_TAG, 'website-waitlist', 'ppf-waitlist', 'ppf lead'];
           if (intentTag) tags.push(intentTag);
           // Build GHL custom fields for vehicle (same IDs as contact form)
           const customFields: { id: string; field_value: string }[] = [];
@@ -512,11 +618,13 @@ Guidelines:
             source: 'Promo Waitlist',
             tags,
             customFields,
+            assignedTo: GHL_ASSIGNED_USER_ID,
           };
           if (lastName) ghlPayload.lastName = lastName;
           if (input.phone) ghlPayload.phone = input.phone;
           const { contactId } = await upsertGhlContact(ghlPayload);
           ghlContactId = contactId ?? null;
+          if (ghlContactId) await addGhlTags(ghlContactId, tags);
 
           // Add a note to the GHL contact
           if (ghlContactId) {

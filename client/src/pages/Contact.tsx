@@ -63,6 +63,7 @@ export default function Contact() {
     const journey = await leadJourney();
     submitContact.mutate({
       journey,
+      formId: "contact",
       firstName: form.firstName,
       lastName: form.lastName,
       email: form.email,
