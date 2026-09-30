@@ -34,15 +34,18 @@ const GHL_PIPELINE_ID = process.env.GHL_PIPELINE_ID ?? "G0QXimqSJcVChaJflrXN";
 const GHL_STAGE_NEW_LEAD = process.env.GHL_STAGE_NEW_LEAD ?? "badd36ef-a6df-4776-b168-7237d3309fbe";
 /** The one tag every website submission carries; it is removed and re-added so a "tag added" workflow fires every time. */
 const GHL_NOTIFY_TAG = "website-lead";
-const TELEGRAM_OWNER_IDS = (process.env.TELEGRAM_OWNER_IDS ?? "5497240056,5028193585").split(",").map((s) => s.trim()).filter(Boolean);
+// Owner chats: the bot's configured owner (TELEGRAM_OWNER_ID) first, then any extra ids.
+const TELEGRAM_OWNER_IDS = Array.from(new Set([process.env.TELEGRAM_OWNER_ID ?? "", ...(process.env.TELEGRAM_OWNER_IDS ?? "5497240056,5028193585").split(",")].map((s) => s.trim()).filter(Boolean)));
 
 const escapeHtml = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-/** Telegram message to the shop owners. Never throws. Returns true when at least one send succeeded. */
-async function notifyOwners(html: string): Promise<boolean> {
+/** Telegram message to the shop owners. Never throws. Reports per-chat results so a wrong chat id or a blocked bot is visible. */
+async function notifyOwners(html: string): Promise<{ ok: boolean; results: string[] }> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  if (!token) return false;
+  if (!token) return { ok: false, results: ["TELEGRAM_BOT_TOKEN not set"] };
+  if (TELEGRAM_OWNER_IDS.length === 0) return { ok: false, results: ["no owner chat ids"] };
   let ok = false;
+  const results: string[] = [];
   for (const id of TELEGRAM_OWNER_IDS) {
     try {
       const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -50,10 +53,15 @@ async function notifyOwners(html: string): Promise<boolean> {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: id, text: html, parse_mode: "HTML", disable_web_page_preview: true }),
       });
+      const body = (await r.json().catch(() => ({}))) as { ok?: boolean; description?: string };
       ok = ok || r.ok;
-    } catch { /* ignore */ }
+      results.push(`${id.slice(0, 4)}…: ${r.ok ? "sent" : body.description ?? `HTTP ${r.status}`}`);
+    } catch (e) {
+      results.push(`${id.slice(0, 4)}…: ${e instanceof Error ? e.message : String(e)}`);
+    }
   }
-  return ok;
+  if (!ok) console.warn("[telegram] lead alert failed:", results.join(" | "));
+  return { ok, results };
 }
 
 /** Add tags to a contact (additive, keeps what is there). The notify tag is removed first so it counts as newly added. */
@@ -407,7 +415,7 @@ Guidelines:
         const journeyLine = input.journey
           ? `\nCame from: ${escapeHtml(input.journey.utm?.utm_source ? `${input.journey.utm.utm_source}${input.journey.utm.utm_medium ? ` / ${input.journey.utm.utm_medium}` : ""}` : input.journey.referrer ? input.journey.referrer.replace(/^https?:\/\/(www\.)?/, "").split("/")[0] : "direct")} · landed on ${escapeHtml(input.journey.landing)} · ${input.journey.steps.length} page${input.journey.steps.length === 1 ? "" : "s"}`
           : "";
-        const telegramOk = await notifyOwners(
+        const telegram = await notifyOwners(
           `<b>🚗 New website lead (${escapeHtml(source)})</b>\n` +
           `<b>${escapeHtml(input.firstName)} ${escapeHtml(input.lastName)}</b>` +
           (contactPhone ? `\n📞 ${escapeHtml(contactPhone)}` : "") +
@@ -419,7 +427,7 @@ Guidelines:
           journeyLine +
           (contactId ? `\n\nIn GHL: https://app.gohighlevel.com/v2/location/${GHL_LOCATION_ID}/contacts/detail/${contactId}` : `\n\n⚠️ <b>NOT saved in GHL</b> (${escapeHtml(crmError ?? "unknown error")}). Add this lead by hand.`)
         );
-        if (!contactId && !telegramOk) throw new Error("Failed to create contact in GHL");
+        if (!contactId && !telegram.ok) throw new Error("Failed to create contact in GHL");
 
         // Step 2: Send an SMS via GHL conversations if a message was provided
         if (input.message && input.message.trim().length > 0 && contactId && contactPhone) {
@@ -492,7 +500,7 @@ Guidelines:
           }
         }
 
-        return { success: true, contactId: contactId ?? null, crm: contactId ? "ok" : "failed" };
+        return { success: true, contactId: contactId ?? null, crm: contactId ? "ok" : "failed", telegram: telegram.results };
       }),
   }),
 
@@ -678,7 +686,7 @@ Guidelines:
 
         // --- Telegram notification to owner ---
         const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-        const OWNER_IDS = ['5497240056', '5028193585'];
+        const OWNER_IDS = TELEGRAM_OWNER_IDS;
         if (BOT_TOKEN) {
           const msg =
             `*New Waitlist Entry - ${promo.title}*\n\n` +
