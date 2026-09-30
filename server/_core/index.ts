@@ -151,6 +151,24 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Telegram bot webhook — receives slot updates from @skyline_minato_bot
   app.post("/api/telegram/webhook", handleTelegramWebhook);
+  // Health: which optional integrations this deployment has credentials for (booleans only, never values).
+  const startedAt = new Date().toISOString();
+  app.get("/api/health", (_req, res) => {
+    const has = (k: string) => Boolean((process.env[k] ?? "").trim());
+    res.json({
+      ok: true,
+      startedAt,
+      uptimeSec: Math.round(process.uptime()),
+      integrations: {
+        database: has("DATABASE_URL"),
+        ghl: has("GHL_API_KEY") && has("GHL_LOCATION_ID"),
+        telegramBot: has("TELEGRAM_BOT_TOKEN"),
+        telegramOwner: has("TELEGRAM_OWNER_ID"),
+        googlePlaces: has("GOOGLE_PLACES_API_KEY"),
+        instagram: has("INSTAGRAM_ACCESS_TOKEN"),
+      },
+    });
+  });
   // tRPC API
   app.use(
     "/api/trpc",
