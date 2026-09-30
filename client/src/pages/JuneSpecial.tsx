@@ -258,6 +258,17 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
 }
 
 // ---- Countdown Timer --------------------------------------------------------
+/** "31 days left" / "Last day" for tight spaces like the mobile bar. */
+function timeLeftLabel(endDate: string): string {
+  const target = new Date(endDate.replace(/(\d+)(st|nd|rd|th)\b/gi, "$1"));
+  if (isNaN(target.getTime())) return "";
+  target.setHours(23, 59, 59, 999);
+  const days = Math.ceil((target.getTime() - Date.now()) / 86_400_000);
+  if (days <= 0) return "Ends today";
+  if (days === 1) return "Last day";
+  return `${days} days left`;
+}
+
 function CountdownTimer({ endDate }: { endDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [expired, setExpired] = useState(false);
@@ -1528,12 +1539,16 @@ export default function JuneSpecial() {
           {soldOut ? (
             <p className="text-red-400 text-xs font-bold tracking-wide uppercase truncate">All slots filled</p>
           ) : (
-            <>
-              <p className="text-[#E85D04] text-xs font-bold tracking-wide uppercase">
-                {giveaway ? `$${price} · Win full body PPF` : `Spots are limited at $${price}`}
+            <div className="leading-tight">
+              <p className="text-[11px] font-bold">
+                <span className="text-white">${Number(price).toLocaleString("en-US")}</span>
+                <span className="text-zinc-400"> · </span>
+                <span className="text-[#E85D04]">{giveaway ? "Win full body PPF" : "Limited spots"}</span>
               </p>
-              {endDate && <CountdownTimer endDate={endDate} />}
-            </>
+              <p className="text-zinc-400 text-[11px] mt-0.5">
+                {giveaway ? "Full front PPF + free ceramic" : "Full front PPF special"}{endDate && timeLeftLabel(endDate) ? ` · ${timeLeftLabel(endDate)}` : ""}
+              </p>
+            </div>
           )}
         </div>
         {soldOut ? (
@@ -1547,9 +1562,9 @@ export default function JuneSpecial() {
           <a
             href={quoteUrl}
             data-cta="promo-claim"
-            className="shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-5 py-3 hover:bg-orange-600 transition-colors"
+            className="shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-4 py-3 hover:bg-orange-600 transition-colors"
           >
-            CLAIM MY SPOT
+            CLAIM SPOT
           </a>
         )}
       </div>
