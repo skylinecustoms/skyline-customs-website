@@ -677,6 +677,28 @@ export default function JuneSpecial() {
   const { giveaway, heroVideo } = promoExtrasFor(promo?.slug);
   // Every "claim" button scrolls to the form embedded below the hero (see #claim).
   const quoteUrl = "#claim";
+
+  // Every in-page link (#claim, #giveaway) glides to its section instead of jumping,
+  // and landing on the form focuses the first field so the visitor can start typing.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
+      const a = (e.target as Element | null)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
+      const id = a?.getAttribute("href")?.slice(1);
+      const el = id ? document.getElementById(id) : null;
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${id}`);
+      if (id === "claim") {
+        window.setTimeout(() => {
+          el.querySelector<HTMLInputElement>("form input:not([type=checkbox])")?.focus({ preventScroll: true });
+        }, 800);
+      }
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
   const canonicalUrl = "https://www.skylinecustomshop.com/promo";
 
   let includedServices: IncludedService[] = [];
@@ -1084,12 +1106,13 @@ export default function JuneSpecial() {
                 </div>
               </div>
 
-              <Link
+              <a
                 href={quoteUrl}
+                data-cta="promo-claim"
                 className="btn-sweep bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
               >
                 YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
-              </Link>
+              </a>
               <p className="text-center text-zinc-400 text-xs tracking-wide mt-3">
                 No catch. Just flawless paint, guaranteed 12 years.
               </p>

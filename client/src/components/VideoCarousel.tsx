@@ -166,8 +166,8 @@ export default function VideoCarousel({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="hidden md:flex -left-4 bg-[#111] border-zinc-700 text-black hover:bg-[#E85D04] rounded-none" />
-        <CarouselNext className="hidden md:flex -right-4 bg-[#111] border-zinc-700 text-black hover:bg-[#E85D04] rounded-none" />
+        <CarouselPrevious className="hidden md:flex -left-5 size-12 bg-[#E85D04] dark:bg-[#E85D04] border-[#E85D04] dark:border-[#E85D04] text-black hover:bg-white dark:hover:bg-white hover:border-white dark:hover:border-white hover:text-black rounded-none shadow-[0_0_0_4px_rgba(0,0,0,0.7)] disabled:opacity-100 disabled:bg-zinc-800 dark:disabled:bg-zinc-800 disabled:border-zinc-700 dark:disabled:border-zinc-700 disabled:text-zinc-500 [&_svg]:size-6" />
+        <CarouselNext className="hidden md:flex -right-5 size-12 bg-[#E85D04] dark:bg-[#E85D04] border-[#E85D04] dark:border-[#E85D04] text-black hover:bg-white dark:hover:bg-white hover:border-white dark:hover:border-white hover:text-black rounded-none shadow-[0_0_0_4px_rgba(0,0,0,0.7)] disabled:opacity-100 disabled:bg-zinc-800 dark:disabled:bg-zinc-800 disabled:border-zinc-700 dark:disabled:border-zinc-700 disabled:text-zinc-500 [&_svg]:size-6" />
       </Carousel>
       <Dialog open={!!openVideo || !!open} onOpenChange={(o) => { if (!o) { setOpenVideo(null); setOpen(null); } }}>
         <DialogContent showCloseButton={false} className="w-[min(440px,calc(100vw-2rem),calc((100vh-190px)*0.5625))] max-w-none p-0 bg-transparent border-0 shadow-none overflow-visible">
