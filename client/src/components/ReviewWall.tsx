@@ -37,10 +37,11 @@ function tagsFor(service: string, text: string): string[] {
 
 const PAGE = 9;
 
-export default function ReviewWall({ total = "140+" }: { total?: string }) {
+/** `initial`: how many cards show before "more"; the promo page keeps it short. */
+export default function ReviewWall({ total = "140+", initial = PAGE }: { total?: string; initial?: number }) {
   const { data: live } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000 });
   const [filter, setFilter] = useState("All");
-  const [shown, setShown] = useState(PAGE);
+  const [shown, setShown] = useState(initial);
 
   const reviews = useMemo<WallReview[]>(() => {
     const fromLive = (live?.reviews ?? []).filter((r) => r.rating >= 4 && r.text?.trim()).map((r) => ({ name: r.author, date: r.when, text: r.text, rating: r.rating, tags: tagsFor("", r.text), live: true, photo: r.photo }));
@@ -80,7 +81,7 @@ export default function ReviewWall({ total = "140+" }: { total?: string }) {
             type="button"
             role="tab"
             aria-selected={filter === c}
-            onClick={() => { setFilter(c); setShown(PAGE); track("review_filter", { review_filter: c }); }}
+            onClick={() => { setFilter(c); setShown(initial); track("review_filter", { review_filter: c }); }}
             className={`px-4 py-2 text-xs font-bold tracking-[0.15em] uppercase border transition-colors ${filter === c ? "bg-[#E85D04] border-[#E85D04] text-black" : "border-zinc-700 text-zinc-300 hover:border-[#E85D04] hover:text-white"}`}
           >
             {c}
@@ -111,7 +112,7 @@ export default function ReviewWall({ total = "140+" }: { total?: string }) {
       {shown < visible.length && (
         <div className="text-center mt-8">
           <button type="button" onClick={() => setShown((n) => n + PAGE)} className="border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-8 py-3 transition-colors">
-            Show more reviews ({visible.length - shown} more)
+            Read more reviews ({visible.length - shown} more)
           </button>
         </div>
       )}

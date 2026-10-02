@@ -49,26 +49,6 @@ function promoMath(price: string, included: IncludedService[]) {
 }
 
 // ---- Progress Bar ------------------------------------------------------------
-function ProgressBar({ filled, total, endDate }: { filled: number; total: number; endDate?: string }) {
-  const soldOut = filled >= total;
-  return (
-    <div className="w-full">
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-zinc-400 text-sm font-medium tracking-wide uppercase">Availability</span>
-        <span className={`font-bold text-sm tracking-wide ${soldOut ? "text-red-400" : "text-emerald-400"}`}>
-          {soldOut ? "SOLD OUT" : "LIMITED SPOTS"}
-        </span>
-      </div>
-      <p className="text-zinc-300 text-sm leading-relaxed">
-        {soldOut
-          ? "This month's spots are gone. Join the waitlist and you're first in line for next month."
-          : "We only take a set number of cars for each special so every one gets our full attention. First come, first served."}
-      </p>
-      {endDate && <p className="text-zinc-400 text-xs mt-2">Ends {endDate}</p>}
-    </div>
-  );
-}
-
 // ---- Customer Slot Card ------------------------------------------------------
 function SlotCard({
   slotNumber, customerName, carDescription, photoUrl, promoTitle,
@@ -678,6 +658,15 @@ export default function JuneSpecial() {
   // Every "claim" button scrolls to the form embedded below the hero (see #claim).
   const quoteUrl = "#claim";
 
+  // One primary and one secondary button style for the whole page (item 9).
+  const BTN = "inline-flex items-center justify-center gap-2 font-display text-lg md:text-xl tracking-[0.1em] uppercase px-8 py-4 md:py-5 transition-colors";
+  const BTN_PRIMARY = `${BTN} bg-[#E85D04] text-black hover:bg-orange-600`;
+  const BTN_SECONDARY = `${BTN} border border-zinc-600 text-white hover:border-[#E85D04] hover:text-[#E85D04]`;
+  // Same shapes on the orange sections.
+  const BTN_ON_ORANGE = `${BTN} bg-black text-white hover:bg-zinc-900`;
+  const BTN_ON_ORANGE_OUTLINE = `${BTN} border border-black/60 text-black hover:bg-black hover:text-white`;
+  const FINE_PRINT = "text-zinc-400 text-xs tracking-wide";
+
   // Every in-page link (#claim, #giveaway) glides to its section instead of jumping,
   // and landing on the form focuses the first field so the visitor can start typing.
   useEffect(() => {
@@ -801,7 +790,7 @@ export default function JuneSpecial() {
       {/* ================================================================
           HERO
       ================================================================ */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0A0A0A]">
+      <section className="relative overflow-hidden bg-[#0A0A0A]">
         {/* Diagonal grid texture */}
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -813,24 +802,16 @@ export default function JuneSpecial() {
         {/* Left orange accent bar */}
         <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#E85D04]" />
 
-        <div className="container max-w-6xl relative z-10 py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="container max-w-6xl relative z-10 pt-24 pb-14 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
             {/* ---- Left: copy ---- */}
             <div>
-              {/* Eyebrow */}
-              <p className="font-display text-[#E85D04] text-sm tracking-[0.35em] mb-4">
-                CHANTILLY, VA &middot; LIMITED SPOTS
-              </p>
-
-              {/* Dates badge + countdown */}
-              <div className="flex flex-wrap items-center gap-3 mb-6">
-                <div className="inline-flex items-center gap-2 bg-[#E85D04]/10 border border-[#E85D04]/30 text-[#E85D04] text-xs font-bold tracking-[0.25em] uppercase px-4 py-2">
-                  <Clock className="w-3 h-3" />
-                  {startDate && endDate ? `${startDate} – ${endDate}` : endDate ? `Ends ${endDate}` : "Limited Time"}
-                </div>
-                {endDate && !soldOut && <CountdownTimer endDate={endDate} />}
-              </div>
+              {/* One eyebrow line: the deal, the town, the deadline. Doubles as the crawlable H2. */}
+              <h2 className="font-display text-[#E85D04] text-sm tracking-[0.3em] uppercase mb-3">
+                {title.replace(/\s*special$/i, "")} {new Date().getFullYear()} PPF Deal &middot; Chantilly, VA{endDate ? ` · Ends ${endDate}` : ""}
+              </h2>
+              {endDate && !soldOut && <div className="mb-6"><CountdownTimer endDate={endDate} /></div>}
 
               {/* Headline */}
               <h1 className="font-display leading-none mb-5">
@@ -843,17 +824,26 @@ export default function JuneSpecial() {
               </h1>
 
               {/* Subheadline */}
-              <p className="text-zinc-300 text-lg leading-relaxed italic mb-6 max-w-lg">
+              <p className="text-zinc-300 text-lg leading-relaxed italic mb-7 max-w-lg">
                 Without the constant worry &mdash; even if you daily-drive Northern Virginia&apos;s worst roads.
               </p>
 
-              {/* SEO H2 -- visually subtle but crawlable */}
-              <h2 className="text-zinc-400 text-xs tracking-widest uppercase mb-6 font-sans">
-                {title.replace(/\s*special$/i, "")} {new Date().getFullYear()} PPF Deal &mdash; Chantilly, VA
-              </h2>
+              {/* Primary CTA, above the fold on every screen */}
+              {!soldOut ? (
+                <div className="mb-7 max-w-lg">
+                  <a href={quoteUrl} data-cta="promo-claim" className={`${BTN_PRIMARY} w-full`}>
+                    YES! PROTECT MY PAINT <ArrowRight className="w-5 h-5" />
+                  </a>
+                  <p className={`${FINE_PRINT} text-center mt-3`}>
+                    {fmt(Number(price) || 0)} all in. Fully refundable 20% deposit, guaranteed 12 years.
+                  </p>
+                </div>
+              ) : (
+                <div className="mb-7 max-w-lg"><WaitlistForm promoTitle={title} /></div>
+              )}
 
               {/* Social proof bar */}
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-7">
                 <div className="flex items-center gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-[#E85D04] text-[#E85D04]" />
@@ -865,17 +855,17 @@ export default function JuneSpecial() {
               </div>
 
               {giveaway && (
-                <a href="#giveaway" className="flex items-center gap-4 bg-[#E85D04] text-black px-5 py-4 mb-8 max-w-lg hover:bg-orange-500 transition-colors group">
-                  <Gift className="w-8 h-8 shrink-0" strokeWidth={1.75} />
+                <a href="#giveaway" className="flex items-center gap-4 border border-[#E85D04]/50 bg-[#E85D04]/10 text-white px-5 py-4 max-w-lg hover:bg-[#E85D04]/20 transition-colors group">
+                  <Gift className="w-8 h-8 shrink-0 text-[#E85D04]" strokeWidth={1.75} />
                   <span>
                     <span className="block font-display text-2xl leading-none tracking-wide">WIN FULL BODY PPF</span>
-                    <span className="block text-sm text-black/80 mt-1">Every completed job is entered. One winner, drawn {giveaway.drawingDate}. <span className="underline underline-offset-2 group-hover:decoration-2">How it works</span></span>
+                    <span className="block text-sm text-zinc-300 mt-1">Every completed job is entered. One winner, drawn {giveaway.drawingDate}. <span className="text-[#E85D04] underline underline-offset-2 group-hover:decoration-2">How it works</span></span>
                   </span>
                 </a>
               )}
 
               {heroVideo && (heroVideo.youtubeId || heroVideo.mp4) && (
-                <div className="mb-8 max-w-lg">
+                <div className="mt-7 max-w-lg">
                   <div className="aspect-video bg-black border border-zinc-800 overflow-hidden">
                     {heroVideo.youtubeId ? (
                       <iframe
@@ -892,44 +882,44 @@ export default function JuneSpecial() {
                   {heroVideo.caption && <p className="text-zinc-400 text-xs mt-2 tracking-wide">{heroVideo.caption}</p>}
                 </div>
               )}
-
-              {/* Primary CTA */}
-              {!soldOut ? (
-                <div className="flex flex-col gap-3">
-                  <a
-                    href={quoteUrl}
-                    data-cta="promo-claim"
-                    className="btn-sweep bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
-                  >
-                    YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
-                  </a>
-                  <p className="text-center text-zinc-400 text-xs tracking-wide">
-                    No catch. Just flawless paint, guaranteed 12 years.
-                  </p>
-                </div>
-              ) : (
-                <WaitlistForm promoTitle={title} />
-              )}
             </div>
 
-            {/* ---- Right: availability + trust ---- */}
-            <div className="space-y-6">
-              {/* Progress box */}
-              <div className="border border-zinc-800 bg-[#0D0D0D] p-8">
-                <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-6">
-                  Availability{endDate ? ` -- Ends ${endDate}` : ""}
-                </p>
-                <ProgressBar filled={filledSlots.length} total={totalSlots} endDate={endDate} />
-                {filledSlots.length > 0 && (
-                  <div className="flex items-center gap-2 mt-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04] animate-pulse" />
-                    <span className="text-zinc-400 text-xs">
-                      Last spot claimed recently &mdash; limited availability
-                    </span>
+            {/* ---- Right: price card + trust ---- */}
+            <div className="space-y-4">
+              <div className="border border-[#E85D04]/40 bg-[#E85D04]/5 p-6 md:p-8 relative overflow-hidden">
+                {freeValue > 0 && (
+                  <div className="absolute top-0 right-0 bg-[#E85D04] text-black font-display text-xs tracking-widest px-3 py-1.5">
+                    YOU SAVE {fmt(freeValue)}
                   </div>
                 )}
-                <p className="text-zinc-400 text-xs mt-3 leading-relaxed">
-                  Spots are limited. Once they&apos;re gone, this deal is gone until the next special.
+                <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Package price</p>
+                <div className="flex items-baseline gap-3 mb-2">
+                  {freeValue > 0 && <span className="font-mono-brand text-zinc-400 text-xl line-through">{fmt(fullPrice)}</span>}
+                  <span className="font-display text-[#E85D04] text-6xl leading-none">{fmt(Number(price) || 0)}</span>
+                </div>
+                <p className="text-white font-semibold text-base mb-1">{paidName}{freeSentence ? ` + free ${freeSentence}` : ""}</p>
+                <p className="text-zinc-400 text-sm mb-5">Everything included. No add-ons. Price locked{endDate ? ` through ${endDate}` : " for this special"}.</p>
+                <ul className="space-y-2 text-sm text-zinc-300 mb-6">
+                  {[
+                    `${paidName} with the 12-year manufacturer warranty`,
+                    ...(freeSentence ? [`${freeSentence.charAt(0).toUpperCase()}${freeSentence.slice(1)} at no charge`] : []),
+                    "Walk-and-pay: inspect every panel before you pay the balance",
+                    ...(giveaway ? ["Entered to win full body PPF"] : []),
+                  ].map((line) => (
+                    <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>
+                  ))}
+                </ul>
+                {!soldOut ? (
+                  <a href={quoteUrl} data-cta="promo-claim" className={`${BTN_PRIMARY} w-full`}>
+                    Claim my spot <ArrowRight className="w-5 h-5" />
+                  </a>
+                ) : (
+                  <a href="#claim" className={`${BTN_SECONDARY} w-full`}>Join the waitlist <ArrowRight className="w-5 h-5" /></a>
+                )}
+                <p className="flex items-center justify-center gap-2 text-xs mt-3">
+                  <span className={`w-2 h-2 rounded-full ${soldOut ? "bg-red-400" : "bg-emerald-400 animate-pulse"}`} />
+                  <span className={`font-bold ${soldOut ? "text-red-400" : "text-emerald-400"}`}>{soldOut ? "Sold out this month" : "Limited spots"}</span>
+                  {endDate && <span className="text-zinc-400">&middot; Ends {endDate}</span>}
                 </p>
               </div>
 
@@ -947,27 +937,6 @@ export default function JuneSpecial() {
                   </div>
                 ))}
               </div>
-
-              {/* Price preview */}
-              <div className="border border-[#E85D04]/30 bg-[#E85D04]/5 p-6 relative overflow-hidden">
-                {/* Savings badge */}
-                {freeValue > 0 && (
-                  <div className="absolute top-0 right-0 bg-[#E85D04] text-black font-display text-xs tracking-widest px-3 py-1.5">
-                    YOU SAVE {fmt(freeValue)}
-                  </div>
-                )}
-                <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Starting At</p>
-                <div className="flex items-baseline gap-3 mb-1">
-                  {freeValue > 0 && <span className="font-mono-brand text-zinc-400 text-xl line-through">{fmt(fullPrice)}</span>}
-                  <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
-                </div>
-                <p className="text-zinc-400 text-sm mb-3">Full package price &mdash; everything included. No add-ons.</p>
-                {giveaway && <p className="text-[#E85D04] text-sm font-bold mb-3 flex items-center gap-1.5"><Gift className="w-4 h-4" /> Plus you're entered to win full body PPF</p>}
-                <div className="flex items-center gap-2 text-xs">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-emerald-400 font-bold">{remaining > 0 ? "Spots are limited at this price" : "Sold out — join the waitlist"}</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -978,7 +947,7 @@ export default function JuneSpecial() {
       ================================================================ */}
       {giveaway && (
         <section className="bg-[#E85D04] text-black">
-          <div className="container max-w-6xl py-6 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+          <div className="container max-w-6xl py-5 md:py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
             <div className="flex items-center gap-4">
               <Gift className="w-10 h-10 shrink-0" strokeWidth={1.75} />
               <div>
@@ -986,8 +955,8 @@ export default function JuneSpecial() {
                 <p className="text-black/80 text-sm md:text-base mt-1">Every completed {title} job is entered. One winner drawn {giveaway.drawingDate}.</p>
               </div>
             </div>
-            <a href="#giveaway" className="md:ml-auto shrink-0 inline-flex items-center gap-2 bg-black text-white font-display text-base tracking-widest uppercase px-6 py-3 hover:bg-zinc-900 transition-colors">
-              See the prize <ArrowRight className="w-4 h-4" />
+            <a href="#giveaway" className={`${BTN_ON_ORANGE} md:ml-auto shrink-0`}>
+              See the prize <ArrowRight className="w-5 h-5" />
             </a>
           </div>
         </section>
@@ -996,9 +965,9 @@ export default function JuneSpecial() {
       {/* ================================================================
           THE PROBLEM
       ================================================================ */}
-      <section className="py-24 bg-[#0D0D0D]">
+      <section className="py-16 md:py-24 bg-[#0D0D0D]">
         <div className="container max-w-6xl">
-          <div className="mb-16">
+          <div className="mb-10 md:mb-16">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Sound Familiar?</p>
             <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
               EVERY CAR OWNER IN NOVA<br />
@@ -1028,8 +997,8 @@ export default function JuneSpecial() {
                 body: "Not all PPF is the same. Low-grade film yellows within 3 years, peels at the edges, and traps moisture. Removing it costs more than doing it right the first time.",
               },
             ].map(({ icon: Icon, title: t, body }, i) => (
-              <div key={i} className="bg-[#0D0D0D] p-10">
-                <Icon className="w-8 h-8 text-[#E85D04] mb-5" />
+              <div key={i} className="bg-[#0D0D0D] p-6 md:p-10">
+                <Icon className="w-8 h-8 text-[#E85D04] mb-4 md:mb-5" />
                 <h3 className="font-display text-2xl text-white mb-3">{t}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{body}</p>
               </div>
@@ -1041,9 +1010,9 @@ export default function JuneSpecial() {
       {/* ================================================================
           WATCH BEFORE YOU BUY (PPF videos in objection order)
       ================================================================ */}
-      <section className="py-24 bg-[#0A0A0A] border-y border-zinc-900 overflow-hidden">
+      <section className="py-16 md:py-24 bg-[#0A0A0A] overflow-hidden">
         <div className="container max-w-6xl">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 md:mb-10">
             <div>
               <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Watch before you buy</p>
               <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
@@ -1053,8 +1022,8 @@ export default function JuneSpecial() {
                 Every education video from the shop, newest first: where chips actually land, why factory paint is not enough, what the film survives, whether you can see it, and how we prep every car. Tap any one to watch with sound.
               </p>
             </div>
-            <Link href="/videos" className="border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors shrink-0">
-              All videos <ArrowRight className="w-4 h-4" />
+            <Link href="/videos" className={`${BTN_SECONDARY} shrink-0 self-start md:self-auto`}>
+              All videos <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
           <VideoCarousel videos={videosByCategory("learn")} reels={reelsByCategory("learn")} preview autoAdvanceMs={12_000} />
@@ -1064,9 +1033,9 @@ export default function JuneSpecial() {
       {/* ================================================================
           THE OFFER
       ================================================================ */}
-      <section className="py-24 bg-[#0A0A0A]">
+      <section className="py-16 md:py-24 bg-[#140C07] border-y border-[#E85D04]/30">
         <div className="container max-w-6xl">
-          <div className="mb-16 text-center">
+          <div className="mb-10 md:mb-16 text-center">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Solution</p>
             <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
               EVERYTHING YOUR CAR NEEDS.<br />
@@ -1106,14 +1075,10 @@ export default function JuneSpecial() {
                 </div>
               </div>
 
-              <a
-                href={quoteUrl}
-                data-cta="promo-claim"
-                className="btn-sweep bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] px-8 py-5 flex items-center justify-center gap-3 hover:bg-orange-600 transition-colors"
-              >
-                YES! PROTECT MY PAINT &mdash; CLAIM MY SPOT <ArrowRight className="w-5 h-5" />
+              <a href={quoteUrl} data-cta="promo-claim" className={`${BTN_PRIMARY} w-full`}>
+                YES! PROTECT MY PAINT <ArrowRight className="w-5 h-5" />
               </a>
-              <p className="text-center text-zinc-400 text-xs tracking-wide mt-3">
+              <p className={`${FINE_PRINT} text-center mt-3`}>
                 No catch. Just flawless paint, guaranteed 12 years.
               </p>
             </div>
@@ -1149,9 +1114,9 @@ export default function JuneSpecial() {
           GIVEAWAY (from lib/promoExtras.ts) + who's in the drawing
       ================================================================ */}
       {giveaway && (
-        <section id="giveaway" className="py-24 bg-[#0D0D0D] border-y border-zinc-900 scroll-mt-24">
+        <section id="giveaway" className="py-16 md:py-24 bg-[#0A0A0A] scroll-mt-24">
           <div className="container max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 items-start mb-12 md:mb-16">
               <div className="lg:col-span-3">
                 <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Plus, this season only</p>
                 <h2 className="font-display text-5xl md:text-6xl text-white leading-none mb-5">
@@ -1170,8 +1135,8 @@ export default function JuneSpecial() {
                   ))}
                 </ul>
                 {!soldOut && (
-                  <a href={quoteUrl} data-cta="promo-claim" className="inline-flex items-center gap-2 mt-8 bg-[#E85D04] text-black font-display text-lg tracking-widest uppercase px-8 py-4 hover:bg-orange-600 transition-colors">
-                    Get in the drawing <ArrowRight className="w-4 h-4" />
+                  <a href={quoteUrl} data-cta="promo-claim" className={`${BTN_PRIMARY} mt-8 w-full sm:w-auto`}>
+                    Get in the drawing <ArrowRight className="w-5 h-5" />
                   </a>
                 )}
               </div>
@@ -1224,15 +1189,15 @@ export default function JuneSpecial() {
       {/* ================================================================
           WHAT'S INCLUDED (detail cards) -- from DB includedServices
       ================================================================ */}
-      <section className="py-24 bg-[#0D0D0D]">
+      <section className="py-16 md:py-24 bg-[#0D0D0D]">
         <div className="container max-w-6xl">
-          <div className="mb-16 text-center">
+          <div className="mb-10 md:mb-16 text-center">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Full Package</p>
             <h2 className="font-display text-5xl md:text-6xl text-white">WHAT YOU GET</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-800">
             {/* PPF -- always shown */}
-            <div className="bg-[#0D0D0D] p-10">
+            <div className="bg-[#0D0D0D] p-6 md:p-10">
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
                 <Shield className="w-6 h-6 text-[#E85D04]" />
               </div>
@@ -1252,7 +1217,7 @@ export default function JuneSpecial() {
 
             {/* Paint Correction (only when the promo includes it) */}
             {hasCorrection && (
-            <div className="bg-[#111] p-10 relative">
+            <div className="bg-[#111] p-6 md:p-10 relative">
               <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
                 <Sparkles className="w-6 h-6 text-[#E85D04]" />
@@ -1274,7 +1239,7 @@ export default function JuneSpecial() {
 
             {/* Ceramic Coating (only when the promo includes it) */}
             {hasCeramic && (
-            <div className="bg-[#0D0D0D] p-10 relative">
+            <div className="bg-[#0D0D0D] p-6 md:p-10 relative">
               <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
                 <Zap className="w-6 h-6 text-[#E85D04]" />
@@ -1300,16 +1265,16 @@ export default function JuneSpecial() {
       {/* ================================================================
           GUARANTEES
       ================================================================ */}
-      <section className="py-24 bg-[#0A0A0A]">
+      <section className="py-16 md:py-24 bg-[#0A0A0A]">
         <div className="container max-w-6xl">
-          <div className="mb-16">
+          <div className="mb-10 md:mb-16">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Our Promises</p>
             <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
               THREE GUARANTEES<br />
               <span className="text-[#E85D04]">NO ONE ELSE OFFERS</span>
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 number: "01",
@@ -1327,13 +1292,13 @@ export default function JuneSpecial() {
                 body: "We only take a set number of cars for each special so every one is done right. This isn't a marketing gimmick — it's how we maintain the standard that earned us 140+ five-star reviews.",
               },
             ].map(({ number, title: t, body }, i) => (
-              <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-8 relative overflow-hidden">
-                <span className="font-display text-8xl text-zinc-900 absolute -top-2 -right-2 leading-none select-none">
+              <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-6 md:p-8 relative overflow-hidden">
+                <span className="font-display text-7xl md:text-8xl text-zinc-900 absolute -top-2 -right-2 leading-none select-none">
                   {number}
                 </span>
                 <div className="relative z-10">
-                  <div className="w-10 h-0.5 bg-[#E85D04] mb-6" />
-                  <h3 className="font-display text-2xl text-white mb-4">{t}</h3>
+                  <div className="w-10 h-0.5 bg-[#E85D04] mb-4 md:mb-6" />
+                  <h3 className="font-display text-2xl text-white mb-3 md:mb-4">{t}</h3>
                   <p className="text-zinc-400 text-sm leading-relaxed">{body}</p>
                 </div>
               </div>
@@ -1345,13 +1310,13 @@ export default function JuneSpecial() {
       {/* ================================================================
           4-STEP PROCESS
       ================================================================ */}
-      <section className="py-24 bg-[#0D0D0D]">
+      <section className="py-16 md:py-24 bg-[#0D0D0D]">
         <div className="container max-w-6xl">
-          <div className="mb-16 text-center">
+          <div className="mb-10 md:mb-16 text-center">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">How It Works</p>
             <h2 className="font-display text-5xl md:text-6xl text-white">THE PROCESS</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-zinc-800">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-800">
             {[
               {
                 step: "01",
@@ -1392,13 +1357,13 @@ export default function JuneSpecial() {
                     body: "Every edge and panel checked with you under high-intensity lighting before you pay a dime.",
                   },
             ].map(({ step, icon: Icon, title: t, body }, i) => (
-              <div key={i} className="bg-[#0D0D0D] p-8 text-center">
-                <div className="font-display text-5xl text-[#E85D04] mb-4">{step}</div>
-                <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mx-auto mb-4">
+              <div key={i} className="bg-[#0D0D0D] p-4 md:p-8 text-center">
+                <div className="font-display text-4xl md:text-5xl text-[#E85D04] mb-3 md:mb-4">{step}</div>
+                <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mx-auto mb-3 md:mb-4">
                   <Icon className="w-6 h-6 text-[#E85D04]" />
                 </div>
-                <h3 className="font-display text-2xl text-white mb-3">{t}</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">{body}</p>
+                <h3 className="font-display text-xl md:text-2xl text-white mb-2 md:mb-3">{t}</h3>
+                <p className="text-zinc-400 text-xs md:text-sm leading-relaxed">{body}</p>
               </div>
             ))}
           </div>
@@ -1411,19 +1376,19 @@ export default function JuneSpecial() {
       {/* ================================================================
           BEFORE / AFTER + REVIEW
       ================================================================ */}
-      <section className="py-24 bg-[#0D0D0D]">
+      <section className="py-16 md:py-24 bg-[#0A0A0A]">
         <div className="container max-w-6xl">
-          <div className="mb-12 text-center">
+          <div className="mb-10 md:mb-12 text-center">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">What Our Customers Say</p>
             <h2 className="font-display text-5xl md:text-6xl text-white leading-none">
               REAL REVIEWS<br />
               <span className="text-[#E85D04]">FROM REAL CUSTOMERS</span>
             </h2>
           </div>
-          <ReviewWall />
-          <div className="text-center mt-12">
-            <a href={quoteUrl} data-cta="promo-claim" className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-widest uppercase px-8 py-4 hover:bg-orange-600 transition-colors">
-              {soldOut ? "Join the waitlist" : "Claim my spot"} <ArrowRight className="w-4 h-4" />
+          <ReviewWall initial={6} />
+          <div className="text-center mt-10 md:mt-12">
+            <a href={quoteUrl} data-cta="promo-claim" className={`${BTN_PRIMARY} w-full sm:w-auto`}>
+              {soldOut ? "Join the waitlist" : "Claim my spot"} <ArrowRight className="w-5 h-5" />
             </a>
           </div>
         </div>
@@ -1432,9 +1397,9 @@ export default function JuneSpecial() {
       {/* ================================================================
           CLAIM YOUR SPOT (embedded form; every CTA scrolls here)
       ================================================================ */}
-      <section id="claim" className="py-24 bg-[#0D0D0D] border-y border-zinc-900 scroll-mt-20">
+      <section id="claim" className="py-16 md:py-24 bg-[#140C07] border-y border-[#E85D04]/30 scroll-mt-20">
         <div className="container max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 items-start">
             <div className="lg:col-span-2">
               <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{soldOut ? "Sold out this month" : "Claim your spot"}</p>
               <h2 className="font-display text-5xl md:text-6xl text-white leading-none mb-5">
@@ -1470,7 +1435,7 @@ export default function JuneSpecial() {
       {/* ================================================================
           STEK CALLOUT
       ================================================================ */}
-      <section className="py-16 bg-[#0D0D0D] border-y border-zinc-900">
+      <section className="py-14 md:py-16 bg-[#0D0D0D]">
         <div className="container max-w-4xl text-center">
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Film</p>
           <h2 className="font-display text-5xl text-white mb-4">STEK DYNOshield</h2>
@@ -1487,9 +1452,9 @@ export default function JuneSpecial() {
       {/* ================================================================
           FAQ
       ================================================================ */}
-      <section className="py-24 bg-[#0A0A0A]">
+      <section className="py-16 md:py-24 bg-[#0A0A0A]">
         <div className="container max-w-4xl">
-          <div className="mb-16 text-center">
+          <div className="mb-10 md:mb-16 text-center">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Questions</p>
             <h2 className="font-display text-5xl md:text-6xl text-white">FREQUENTLY ASKED</h2>
           </div>
@@ -1507,7 +1472,7 @@ export default function JuneSpecial() {
       {/* ================================================================
           FINAL CTA
       ================================================================ */}
-      <section className="py-24 bg-[#E85D04]">
+      <section className="py-16 md:py-24 bg-[#E85D04]">
         <div className="container max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 bg-black/20 text-white text-xs font-bold tracking-[0.3em] uppercase px-4 py-2 mb-6">
             <Clock className="w-3 h-3" />
@@ -1526,27 +1491,20 @@ export default function JuneSpecial() {
             Skyline Customs &mdash; Chantilly, VA &middot; (703) 775-4383
           </p>
           {soldOut ? (
-            <a href="#claim" className="inline-flex items-center gap-2 bg-white text-[#E85D04] hover:bg-zinc-100 font-display text-xl tracking-[0.1em] px-10 py-5 transition-all">
+            <a href="#claim" className={BTN_ON_ORANGE}>
               JOIN THE WAITLIST <ArrowRight className="w-5 h-5" />
             </a>
           ) : (
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a
-                href={quoteUrl}
-                data-cta="promo-claim"
-                className="bg-white text-[#E85D04] hover:bg-zinc-100 font-display text-xl tracking-[0.1em] px-10 py-5 transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
-              >
+              <a href={quoteUrl} data-cta="promo-claim" className={BTN_ON_ORANGE}>
                 YES! PROTECT MY PAINT <ArrowRight className="w-5 h-5" />
               </a>
-              <a
-                href="tel:+17037754383"
-                className="border-2 border-white text-white hover:bg-white hover:text-[#E85D04] font-display text-xl tracking-[0.1em] px-10 py-5 transition-all duration-200 text-center"
-              >
+              <a href="tel:+17037754383" className={BTN_ON_ORANGE_OUTLINE}>
                 CALL (703) 775-4383
               </a>
             </div>
           )}
-          <p className="text-orange-200/60 text-xs mt-6 tracking-wide">
+          <p className="text-black/60 text-xs mt-6 tracking-wide">
             No catch. Just flawless paint, guaranteed 12 years.
           </p>
         </div>
