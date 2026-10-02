@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
+import { usePartialLead } from "@/lib/partialLead";
 
 interface Props {
   promoTitle: string;
@@ -27,6 +28,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
   const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  usePartialLead("promo", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service: "PPF", promoTag: promoTagFor(promoTitle, promoSlug) }, submitted);
 
   const submit = trpc.contact.submit.useMutation({
     onSuccess: () => {
@@ -145,7 +147,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
         {submit.isPending ? "SENDING..." : "YES! PROTECT MY PAINT"}
         {!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
-      <p className="text-center text-zinc-400 text-xs tracking-wide">No catch. Just flawless paint, guaranteed 12 years. Nothing to pay now: a fully refundable 20% deposit locks your date only after you approve your exact quote.</p>
+      <p className="text-center text-zinc-400 text-xs tracking-wide">No catch. Just flawless paint, guaranteed 12 years. Nothing to pay now: a fully refundable 20% deposit locks your date only after you approve your exact quote. Pay over time with Klarna, Afterpay, or Affirm.</p>
     </form>
   );
 }

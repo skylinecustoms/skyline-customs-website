@@ -79,6 +79,9 @@ function HomepageCountdown({ endDate }: { endDate: string }) {
  */
 export default function ActivePromoBanner({ compact = false }: { compact?: boolean } = {}) {
   const { data: promo, isLoading } = trpc.promo.getActive.useQuery();
+  // The nav hides its promo strip where this block renders; a manual announcement strip can still be there.
+  const { data: settings } = trpc.site.settings.useQuery();
+  const manualStrip = settings?.announcementActive === "1" && !!settings.announcement;
 
   if (isLoading) return null;
   if (!promo) return null;
@@ -86,7 +89,6 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
   const filled = promo.slots?.length ?? 0;
   const total = promo.totalSlots ?? 21;
   const remaining = total - filled;
-  const pct = Math.min((filled / total) * 100, 100);
   const price = promo.price ?? "2400";
   const title = promo.title ?? "Monthly Special";
   const endDate = promo.endDate ?? "";
@@ -138,7 +140,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
       {/* Orange ambient glow */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[#E85D04] opacity-[0.07] blur-[100px] pointer-events-none" />
 
-      <div className="relative z-10 container max-w-6xl pt-[calc(4rem+40px+1.5rem)] sm:pt-[calc(4rem+28px+2rem)] pb-14 lg:pt-[calc(5rem+28px+2.5rem)] lg:pb-20">
+      <div className={`relative z-10 container max-w-6xl pb-14 lg:pb-20 ${manualStrip ? "pt-[calc(4rem+28px+1.5rem)] lg:pt-[calc(5rem+28px+2.5rem)]" : "pt-[calc(4rem+1.5rem)] lg:pt-[calc(5rem+2.5rem)]"}`}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* ---- Left: headline + CTAs ---- */}
@@ -203,7 +205,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
           <div className="space-y-5">
             {/* Price box */}
             <div className="border border-[#E85D04]/30 bg-[#E85D04]/5 p-6">
-              <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Starting At</p>
+              <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Package price</p>
               <div className="flex items-baseline gap-3 mb-1">
                 {freeValue > 0 && <span className="font-mono-brand text-zinc-400 text-xl line-through">{fmt(fullPrice)}</span>}
                 <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
@@ -211,22 +213,12 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
               <p className="text-zinc-400 text-sm">
                 {freeValue > 0 ? `You save ${fmt(freeValue)} in included services.` : "Everything included. No add-ons."}
               </p>
-            </div>
-
-            {/* Availability */}
-            <div className="border border-zinc-800 bg-[#0D0D0D] p-6">
-              <div className="flex justify-between text-xs mb-3">
-                <span className="text-zinc-400 font-medium tracking-wide uppercase">Availability</span>
-                {soldOut
-                  ? <span className="text-red-400 font-bold">SOLD OUT</span>
-                  : <span className="text-yellow-400 font-bold">Limited spots</span>}
-              </div>
-              <p className="text-zinc-300 text-sm leading-relaxed">
-                {soldOut
-                  ? "This month's spots are gone. Join the waitlist and you're first in line for next month."
-                  : "We only take a set number of cars each month so every one gets our full attention. First come, first served."}
+              <p className="text-white text-sm font-semibold mt-2">Pay over time with Klarna, Afterpay, or Affirm.</p>
+              <p className="flex items-center gap-2 text-xs mt-4">
+                <span className={`w-2 h-2 rounded-full ${soldOut ? "bg-red-400" : "bg-emerald-400 animate-pulse"}`} />
+                <span className={`font-bold ${soldOut ? "text-red-400" : "text-emerald-400"}`}>{soldOut ? "Sold out, join the waitlist" : "Limited spots"}</span>
+                {endDate && <span className="text-zinc-400">&middot; Ends {endDate}</span>}
               </p>
-              {endDate && <p className="text-zinc-400 text-xs mt-3">Ends {endDate}</p>}
             </div>
 
             {/* Trust row */}

@@ -78,6 +78,17 @@ async function addGhlTags(contactId: string, tags: string[]): Promise<void> {
   }
 }
 
+/** Tag a half-finished form carries until the visitor submits for real. */
+const GHL_PARTIAL_TAG = "website-partial";
+
+async function removeGhlTags(contactId: string, tags: string[]): Promise<void> {
+  try {
+    await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/tags`, { method: "DELETE", headers: GHL_HEADERS, body: JSON.stringify({ tags }) });
+  } catch (e) {
+    console.warn("[GHL] remove tags exception (non-fatal):", e);
+  }
+}
+
 /** One open opportunity per contact in the PPF pipeline, so the lead shows on the board and "opportunity created" workflows fire. */
 async function ensureGhlOpportunity(contactId: string, name: string, source: string): Promise<void> {
   try {
@@ -407,6 +418,7 @@ Guidelines:
         }
         const contactPhone = resolvedPhone ?? input.phone;
         if (contactId) {
+          await removeGhlTags(contactId, [GHL_PARTIAL_TAG]);
           await addGhlTags(contactId, ghlTags);
           await ensureGhlOpportunity(contactId, `${input.firstName} ${input.lastName}${vehicleLabel ? ` — ${vehicleLabel}` : ""}${input.service ? ` — ${input.service}` : ""}`, source);
         }
@@ -501,6 +513,86 @@ Guidelines:
         }
 
         return { success: true, contactId: contactId ?? null, crm: contactId ? "ok" : "failed", telegram: telegram.results };
+      }),
+
+    /**
+     * A visitor typed a name and a valid phone number but has not submitted (yet).
+     * Saves them in the CRM tagged website-partial (never website-contact, so the
+     * new-lead workflow does not fire) and pings the owners, so a text can go out
+     * even if they never press the button. The full submit later upgrades the
+     * same contact and removes the partial tag.
+     */
+    partial: publicProcedure
+      .input(
+        z.object({
+          firstName: z.string().min(2).max(80),
+          lastName: z.string().max(80).optional(),
+          phone: z.string().min(10).max(30),
+          email: z.string().email().optional(),
+          service: z.string().max(60).optional(),
+          promoTag: z.string().max(80).optional(),
+          formId: z.enum(["quote", "contact", "promo", "exit"]),
+          page: z.string().max(300).optional(),
+          journey: z
+            .object({
+              gaClientId: z.string().max(64).optional(),
+              landing: z.string().max(300),
+              referrer: z.string().max(300),
+              utm: z.record(z.string(), z.string().max(120)).optional(),
+              secondsOnSite: z.number().int().nonnegative(),
+              steps: z.array(z.object({ path: z.string().max(300), secondsIn: z.number().int().nonnegative() })).max(40),
+            })
+            .optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        const digits = input.phone.replace(/\D/g, "");
+        if (digits.length < 10) return { success: false as const, reason: "phone" };
+        const svc = (input.service ?? "").toLowerCase();
+        const serviceTag = /ppf|film|paint protection/.test(svc) ? "ppf lead" : /tint/.test(svc) ? "tint lead" : /ceramic|coat/.test(svc) ? "ceramic lead" : null;
+        const source = input.formId === "exit" ? "Website Exit Prompt (text me the price)" : `Website ${input.formId} form (not submitted)`;
+        const tags = [GHL_PARTIAL_TAG, `website-${input.formId}-partial`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : [])];
+        const payload: Record<string, unknown> = {
+          firstName: input.firstName.trim(),
+          lastName: (input.lastName ?? "").trim() || undefined,
+          phone: input.phone,
+          locationId: GHL_LOCATION_ID,
+          source,
+          tags,
+          assignedTo: GHL_ASSIGNED_USER_ID,
+        };
+        if (input.email) payload.email = input.email;
+        if (input.service) payload.customFields = [{ id: GHL_FIELD_SERVICE, field_value: input.service }];
+
+        let contactId: string | null = null;
+        let crmError: string | null = null;
+        try {
+          contactId = (await upsertGhlContact(payload)).contactId || null;
+        } catch (e) {
+          crmError = e instanceof Error ? e.message : String(e);
+          console.error("[GHL] partial lead not saved:", crmError);
+        }
+        if (contactId) {
+          await addGhlTags(contactId, tags);
+          const note =
+            `PARTIAL LEAD — ${source} — ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}\n` +
+            `Started the form but did not submit. Name and phone captured as typed.\n` +
+            (input.page ? `Page: ${input.page}\n` : "") +
+            journeyNote(input.journey);
+          fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, { method: "POST", headers: GHL_HEADERS, body: JSON.stringify({ body: note, userId: "" }) }).catch(() => {});
+        }
+        const telegram = await notifyOwners(
+          `<b>✍️ Partial lead: typed name + phone, did not submit</b>\n` +
+          `<b>${escapeHtml(input.firstName)} ${escapeHtml(input.lastName ?? "")}</b>\n` +
+          `📞 ${escapeHtml(input.phone)}` +
+          (input.email ? `\n✉️ ${escapeHtml(input.email)}` : "") +
+          (input.service ? `\n🛠 ${escapeHtml(input.service)}` : "") +
+          (input.promoTag ? `\n🏷 ${escapeHtml(input.promoTag)}` : "") +
+          `\n📄 ${escapeHtml(source)}${input.page ? ` · ${escapeHtml(input.page)}` : ""}` +
+          `\n\nWorth a quick text: "Hey ${escapeHtml(input.firstName)}, saw you were looking at PPF on our site, want me to send the price?"` +
+          (contactId ? `\nIn GHL: https://app.gohighlevel.com/v2/location/${GHL_LOCATION_ID}/contacts/detail/${contactId}` : `\n⚠️ Not saved in GHL (${escapeHtml(crmError ?? "unknown")})`)
+        );
+        return { success: true as const, contactId, crm: contactId ? "ok" : "failed", telegram: telegram.results };
       }),
   }),
 

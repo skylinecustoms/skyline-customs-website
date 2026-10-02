@@ -13,6 +13,7 @@ import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
+import { usePartialLead } from "@/lib/partialLead";
 
 const SERVICE_OPTIONS = [
   { value: "Ceramic Coating", label: "Ceramic Coating" },
@@ -52,6 +53,8 @@ export default function GetAQuote() {
   const [promoTitle, setPromoTitle] = useState("");
   const [promoTag, setPromoTag] = useState("");
   const { data: activePromo } = trpc.promo.getActive.useQuery();
+  // Name + valid phone typed but never submitted still reaches the CRM (tagged website-partial).
+  usePartialLead("quote", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service: form.service, promoTag: promoTag || undefined }, submitted);
 
   // On mount: (1) check URL params, (2) check AI assistant pre-filled data
   useEffect(() => {

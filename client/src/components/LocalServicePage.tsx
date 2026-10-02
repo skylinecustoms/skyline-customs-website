@@ -152,7 +152,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           },
         ]}
       />
-      <Navbar />
+      <Navbar hidePromoStrip />
 
       {/* This month's special, same block as the home page: the area pages bring in most leads. */}
       <ActivePromoBanner />

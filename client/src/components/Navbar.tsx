@@ -24,7 +24,8 @@ const serviceLinks = [
   { href: "/tesla-ppf", label: "Tesla PPF" },
 ];
 
-export default function Navbar() {
+/** `hidePromoStrip`: pages that render the full promo block under the nav pass this so the deal is not shown twice. A manual announcement still shows. */
+export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: boolean } = {}) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function Navbar() {
   const { data: settings } = trpc.site.settings.useQuery();
   const manual = settings?.announcementActive === "1" && settings.announcement ? settings.announcement : null;
   const stripTagline = (activePromo?.tagline ?? "Full Front PPF + Free Ceramic Coating").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "");
-  const showPromoStrip = !manual && !!activePromo?.title && location !== "/promo";
+  const showPromoStrip = !manual && !hidePromoStrip && !!activePromo?.title && location !== "/promo";
   // Phone layout: two short lines built from the tagline ("Full Front PPF + a Free Ceramic Coating on Your Whole Car + a Shot at Free Full Body PPF").
   const condense = (part: string) =>
     part.replace(/^a\s+/i, "").replace(/\s+on your whole car$/i, "").replace(/^shot at free\s+/i, "Win ").replace(/free ceramic coating/i, "Free Ceramic").trim();

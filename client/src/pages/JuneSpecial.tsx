@@ -17,7 +17,8 @@ import { track, trackLead } from "@/lib/analytics";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import PromoQuoteForm from "@/components/PromoQuoteForm";
+import PromoQuoteForm, { promoTagFor } from "@/components/PromoQuoteForm";
+import ExitPrompt from "@/components/ExitPrompt";
 import ReviewWall from "@/components/ReviewWall";
 import VideoCarousel from "@/components/VideoCarousel";
 import CoverageDiagram from "@/components/CoverageDiagram";
@@ -191,6 +192,10 @@ function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: bo
       a: "Every car gets a full decontamination and inspection first. If your paint has swirls or scratches that would show under film, we'll show you under the lights and quote a single-stage correction before we start — never a surprise on the invoice.",
     });
   }
+  items.push({
+    q: "Do you offer payment plans?",
+    a: "Yes. We take Klarna, Afterpay, and Affirm, so you can split the total into payments instead of paying it all at pickup. Ask when you book and we send you the link. Approval and terms are set by the plan provider.",
+  });
   items.push({
     q: "Is there a deposit for the special?",
     a: `Yes. Once you approve your quote, a 20% deposit reserves your install date and locks in the ${priceText} price. It goes toward your total, so you pay the remaining balance at pickup after the walk-and-pay inspection. The deposit is fully refundable at any time, no questions asked.`,
@@ -744,16 +749,26 @@ export default function JuneSpecial() {
       "name": title,
       "description": seoDesc,
       "url": canonicalUrl,
-      "brand": { "@type": "Brand", "name": "Skyline Customs" },
+      "brand": { "@type": "Brand", "name": "STEK" },
+      "category": "Paint Protection Film",
+      "image": ["https://www.skylinecustomshop.com/images/w/2026-corvette-c8-z06-full-front-ppf-ceramic-coating-chantilly-va-960.webp"],
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "146", "bestRating": "5" },
       "offers": {
         "@type": "Offer",
+        "name": `${title}: full front PPF${freeSentence ? ` with free ${freeSentence}` : ""}`,
         "priceCurrency": "USD",
         "price": price,
+        "priceSpecification": freeValue > 0 ? { "@type": "UnitPriceSpecification", "priceType": "https://schema.org/StrikethroughPrice", "price": String(fullPrice), "priceCurrency": "USD" } : undefined,
+        "validFrom": safeIsoDate(startDate) ?? undefined,
+        "validThrough": safeIsoDate(endDate) ?? undefined,
+        "priceValidUntil": safeIsoDate(endDate) ?? undefined,
         "availability": soldOut
           ? "https://schema.org/SoldOut"
-          : "https://schema.org/InStock",
+          : "https://schema.org/LimitedAvailability",
+        "itemCondition": "https://schema.org/NewCondition",
         "url": canonicalUrl,
-        "seller": { "@type": "AutoBodyShop", "name": "Skyline Customs" }
+        "areaServed": ["Chantilly, VA", "Fairfax County, VA", "Loudoun County, VA", "Northern Virginia"],
+        "seller": { "@type": "AutoBodyShop", "name": "Skyline Customs", "telephone": "+1-703-775-4383", "url": "https://www.skylinecustomshop.com" }
       }
     },
     // 3. FAQPage (enables FAQ rich results in Google)
@@ -780,6 +795,7 @@ export default function JuneSpecial() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white">
       <SEO title={seoTitle} description={seoDesc} canonical={canonicalUrl} jsonLd={jsonLdSchemas} />
+      {!soldOut && <ExitPrompt promoTitle={title} promoTag={promoTagFor(title, slug)} />}
       <Navbar />
 
       {/* ================================================================
@@ -836,7 +852,7 @@ export default function JuneSpecial() {
                     YES! PROTECT MY PAINT <ArrowRight className="w-5 h-5" />
                   </a>
                   <p className={`${FINE_PRINT} text-center mt-3`}>
-                    {fmt(Number(price) || 0)} all in. Fully refundable 20% deposit, guaranteed 12 years.
+                    {fmt(Number(price) || 0)} all in. Fully refundable 20% deposit, guaranteed 12 years. Pay over time with Klarna, Afterpay, or Affirm.
                   </p>
                 </div>
               ) : (
@@ -899,7 +915,8 @@ export default function JuneSpecial() {
                   <span className="font-display text-[#E85D04] text-6xl leading-none">{fmt(Number(price) || 0)}</span>
                 </div>
                 <p className="text-white font-semibold text-base mb-1">{paidName}{freeSentence ? ` + free ${freeSentence}` : ""}</p>
-                <p className="text-zinc-400 text-sm mb-5">Everything included. No add-ons. Price locked{endDate ? ` through ${endDate}` : " for this special"}.</p>
+                <p className="text-zinc-400 text-sm mb-1">Everything included. No add-ons. Price locked{endDate ? ` through ${endDate}` : " for this special"}.</p>
+                <p className="text-[#E85D04] text-sm font-semibold mb-5">Pay over time with Klarna, Afterpay, or Affirm.</p>
                 <ul className="space-y-2 text-sm text-zinc-300 mb-6">
                   {[
                     `${paidName} with the 12-year manufacturer warranty`,
@@ -1062,6 +1079,10 @@ export default function JuneSpecial() {
                 <div className="flex items-center gap-2 text-zinc-400 text-xs">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
                   Price locked for {endDate ? `all bookings before ${endDate}` : "all slots this month"}
+                </div>
+                <div className="flex items-center gap-2 text-zinc-400 text-xs mt-2">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  Pay over time with Klarna, Afterpay, or Affirm.
                 </div>
               </div>
 

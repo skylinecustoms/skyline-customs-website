@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
+import { usePartialLead } from "@/lib/partialLead";
 import { trpc } from "@/lib/trpc";
 
 // GHL field IDs (from the live form inspection)
@@ -43,6 +44,7 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  usePartialLead("contact", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service: form.service }, submitted);
 
   const submitContact = trpc.contact.submit.useMutation({
     onSuccess: () => {

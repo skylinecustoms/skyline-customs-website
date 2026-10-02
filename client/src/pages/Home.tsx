@@ -375,7 +375,7 @@ export default function Home() {
           },
         ]}
       />
-      <Navbar />
+      <Navbar hidePromoStrip />
 
       {/* ── ACTIVE PROMO BANNER (dynamic from DB, renders nothing if no active promo) ── */}
       <ActivePromoBanner />
