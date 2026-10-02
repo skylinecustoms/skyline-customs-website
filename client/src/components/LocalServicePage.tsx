@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import NearbyAreas from "@/components/NearbyAreas";
+import ActivePromoBanner from "@/components/ActivePromoBanner";
 import { Shield, MapPin, Phone, Star, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
@@ -69,6 +70,7 @@ interface Props {
 
 export default function LocalServicePage({ city: cityName, service: serviceKey }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { data: activePromo } = trpc.promo.getActive.useQuery();
   const city = CITIES[cityName];
   const svc = SERVICES[serviceKey];
   const path = cityPath(serviceKey, cityName);
@@ -152,6 +154,9 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
       />
       <Navbar />
 
+      {/* This month's special, same block as the home page: the area pages bring in most leads. */}
+      <ActivePromoBanner />
+
       {/* Hero */}
       <section className="relative min-h-[55vh] flex items-end pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#111] to-[#0a0d0a]" />
@@ -161,7 +166,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10"
           style={{ background: "radial-gradient(ellipse at top right, #E85D04, transparent 70%)" }}
         />
-        <div className="container relative z-10 pt-32">
+        <div className={`container relative z-10 ${activePromo ? "pt-16" : "pt-32"}`}>
           <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-4">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>

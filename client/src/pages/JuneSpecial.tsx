@@ -20,6 +20,7 @@ import SEO from "@/components/SEO";
 import PromoQuoteForm from "@/components/PromoQuoteForm";
 import ReviewWall from "@/components/ReviewWall";
 import VideoCarousel from "@/components/VideoCarousel";
+import CoverageDiagram from "@/components/CoverageDiagram";
 import { videosByCategory } from "@/lib/videos";
 import { reelsByCategory } from "@/lib/instagramPosts";
 import { promoExtrasFor, type PromoGiveaway } from "@/lib/promoExtras";
@@ -1187,78 +1188,124 @@ export default function JuneSpecial() {
       )}
 
       {/* ================================================================
-          WHAT'S INCLUDED (detail cards) -- from DB includedServices
+          WHAT'S INCLUDED: coverage map, photo cards, value math
       ================================================================ */}
       <section className="py-16 md:py-24 bg-[#0D0D0D]">
         <div className="container max-w-6xl">
-          <div className="mb-10 md:mb-16 text-center">
+          <div className="mb-10 md:mb-14 text-center">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Full Package</p>
             <h2 className="font-display text-5xl md:text-6xl text-white">WHAT YOU GET</h2>
+            <p className="text-zinc-400 mt-4 max-w-2xl mx-auto">Exactly what gets wrapped{hasCeramic ? ", what gets coated," : ""} and what it is worth.</p>
           </div>
-          <div className={`grid grid-cols-1 gap-px bg-zinc-800 ${hasCorrection && hasCeramic ? "md:grid-cols-3" : hasCorrection || hasCeramic ? "md:grid-cols-2" : "md:grid-cols-1 max-w-2xl mx-auto"}`}>
-            {/* PPF -- always shown */}
-            <div className="bg-[#0D0D0D] p-6 md:p-10">
-              <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
-                <Shield className="w-6 h-6 text-[#E85D04]" />
-              </div>
-              <h3 className="font-display text-3xl text-white mb-2">STEK DYNOshield PPF</h3>
-              <p className="text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-4">Full Front Coverage</p>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                The full front end of your vehicle &mdash; hood, front bumper, both fenders, side mirrors, and headlights &mdash; wrapped in STEK DYNOshield, the industry&apos;s most advanced self-healing paint protection film.
-              </p>
-              <ul className="space-y-2">
-                {["Full hood", "Full front bumper", "Both fenders", "Side mirrors", "Headlights", "12-year manufacturer warranty"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-zinc-400 text-sm">
-                    <CheckCircle className="w-4 h-4 text-[#E85D04] shrink-0" />{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            {/* Paint Correction (only when the promo includes it) */}
-            {hasCorrection && (
-            <div className="bg-[#111] p-6 md:p-10 relative">
-              <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
-              <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
-                <Sparkles className="w-6 h-6 text-[#E85D04]" />
-              </div>
-              <h3 className="font-display text-3xl text-white mb-2">Paint Correction</h3>
-              <p className="text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-4">Single-Stage Included</p>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                Before any film goes on, we machine polish the painted surfaces to remove swirl marks, light scratches, and water spot etching. We never trap imperfections under film.
-              </p>
-              <ul className="space-y-2">
-                {["Machine polish", "Swirl removal", "Light scratch removal", "Water spot correction", "Surface decontamination", "Included at no charge"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-zinc-400 text-sm">
-                    <CheckCircle className="w-4 h-4 text-[#E85D04] shrink-0" />{item}
-                  </li>
-                ))}
-              </ul>
+          {/* Coverage map + legend */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center border border-zinc-800 bg-[#0A0A0A] p-6 md:p-10 mb-10 md:mb-12">
+            <div className="lg:col-span-5">
+              <CoverageDiagram ceramic={hasCeramic} className="w-full max-w-sm mx-auto lg:max-w-none" />
             </div>
-            )}
-
-            {/* Ceramic Coating (only when the promo includes it) */}
-            {hasCeramic && (
-            <div className="bg-[#0D0D0D] p-6 md:p-10 relative">
-              <div className="absolute top-4 right-4 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">FREE</div>
-              <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
-                <Zap className="w-6 h-6 text-[#E85D04]" />
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex gap-4">
+                <span className="mt-1 w-5 h-5 shrink-0 bg-[#E85D04]" aria-hidden="true" />
+                <div>
+                  <p className="font-display text-2xl text-white leading-none mb-1">{paidName}</p>
+                  <p className="text-zinc-400 text-sm leading-relaxed">Hood, front bumper, both fenders, mirrors, and headlights, the panels that take every rock chip, in self-healing STEK DYNOshield with the 12-year manufacturer warranty.</p>
+                </div>
               </div>
-              <h3 className="font-display text-3xl text-white mb-2">Ceramic Coating</h3>
-              <p className="text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-4">Full Vehicle Included</p>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                Applied over the PPF and across the entire vehicle, ceramic coating bonds to the surface at a molecular level &mdash; creating a hydrophobic, UV-resistant, self-cleaning barrier that makes maintenance effortless.
-              </p>
-              <ul className="space-y-2">
-                {["Full vehicle application", "Hydrophobic top coat", "UV protection", "Enhanced gloss depth", "Self-cleaning properties", "Included at no charge"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-zinc-400 text-sm">
-                    <CheckCircle className="w-4 h-4 text-[#E85D04] shrink-0" />{item}
-                  </li>
-                ))}
-              </ul>
+              {hasCeramic && (
+                <div className="flex gap-4">
+                  <span className="mt-1 w-5 h-5 shrink-0 border border-zinc-500 bg-white/15" aria-hidden="true" />
+                  <div>
+                    <p className="font-display text-2xl text-white leading-none mb-1">Ceramic coating <span className="text-[#E85D04] text-sm tracking-widest align-middle ml-1">FREE</span></p>
+                    <p className="text-zinc-400 text-sm leading-relaxed">Every painted panel on the car, over the film too. Water beads off, UV cannot fade it, and a wash takes ten minutes.</p>
+                  </div>
+                </div>
+              )}
+              {hasCorrection && (
+                <div className="flex gap-4">
+                  <Sparkles className="mt-1 w-5 h-5 shrink-0 text-[#E85D04]" aria-hidden="true" />
+                  <div>
+                    <p className="font-display text-2xl text-white leading-none mb-1">Paint correction <span className="text-[#E85D04] text-sm tracking-widest align-middle ml-1">FREE</span></p>
+                    <p className="text-zinc-400 text-sm leading-relaxed">A machine polish before any film goes on, so swirls and light scratches never get sealed underneath.</p>
+                  </div>
+                </div>
+              )}
+              <p className="text-zinc-500 text-xs tracking-wide">Computer-cut patterns, edges wrapped under the hood and bumper. No visible lines.</p>
             </div>
-            )}
           </div>
+
+          {/* Photo cards */}
+          <div className={`grid grid-cols-1 gap-5 ${hasCorrection && hasCeramic ? "md:grid-cols-3" : hasCorrection || hasCeramic ? "md:grid-cols-2" : "md:grid-cols-1 max-w-2xl mx-auto"}`}>
+            {[
+              {
+                photo: "/images/w/2026-corvette-c8-z06-full-front-ppf-ceramic-coating-chantilly-va-960.webp",
+                alt: "Corvette C8 Z06 with full front paint protection film installed at Skyline Customs in Chantilly, VA",
+                title: "STEK DYNOshield PPF",
+                sub: "Full front coverage",
+                free: false,
+                items: ["Full hood", "Full front bumper", "Both fenders", "Side mirrors", "Headlights", "12-year manufacturer warranty"],
+              },
+              ...(hasCorrection ? [{
+                photo: "/images/w/bmw-m340i-full-front-ppf-ceramic-coating-chantilly-va-960.webp",
+                alt: "BMW M340i after paint correction at Skyline Customs in Chantilly, VA",
+                title: "Paint Correction",
+                sub: "Single stage, included",
+                free: true,
+                items: ["Machine polish", "Swirl removal", "Light scratch removal", "Water spot correction", "Surface decontamination", "Included at no charge"],
+              }] : []),
+              ...(hasCeramic ? [{
+                photo: "/images/w/2024-mercedes-gle-53-amg-coupe-full-front-ppf-ceramic-coating-chantilly-va-960.webp",
+                alt: "Mercedes GLE 53 AMG with a full-car ceramic coating at Skyline Customs in Chantilly, VA",
+                title: "Ceramic Coating",
+                sub: "Whole car, included",
+                free: true,
+                items: ["Every painted panel", "Hydrophobic top coat", "UV protection", "Deeper gloss", "Easier washing", "Included at no charge"],
+              }] : []),
+            ].map((card) => (
+              <div key={card.title} className="border border-zinc-800 bg-[#0A0A0A] overflow-hidden flex flex-col">
+                <div className="relative aspect-[16/10] bg-black">
+                  <img src={card.photo} alt={card.alt} loading="lazy" decoding="async" width={960} height={600} className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+                  {card.free && <span className="absolute top-3 right-3 bg-[#E85D04] text-black font-display text-sm tracking-[0.2em] px-3 py-1">FREE</span>}
+                </div>
+                <div className="p-6 md:p-7 flex-1">
+                  <h3 className="font-display text-3xl text-white leading-none mb-1">{card.title}</h3>
+                  <p className="text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-5">{card.sub}</p>
+                  <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+                    {card.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-zinc-300 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#E85D04] shrink-0 mt-0.5" />{item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Value math */}
+          {freeValue > 0 && (
+            <div className="mt-8 border border-[#E85D04]/40 bg-[#140C07]">
+              <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 divide-x divide-[#E85D04]/20 [&>div:nth-child(3)]:border-l-0 md:[&>div:nth-child(3)]:border-l">
+                <div className="p-5 md:p-6 text-center">
+                  <p className="text-zinc-400 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">{paidName.replace(/^STEK DYNOshield\s*/i, "")}</p>
+                  <p className="font-display text-3xl md:text-4xl text-white leading-none">{fmt(Number(price) || 0)}</p>
+                </div>
+                <div className="p-5 md:p-6 text-center">
+                  <p className="text-zinc-400 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">{freeItems.map((f) => f.name.replace(/full[- ]car\s*/i, "")).join(" + ")}</p>
+                  <p className="font-display text-3xl md:text-4xl text-white leading-none">+ {fmt(freeValue)}</p>
+                </div>
+                <div className="p-5 md:p-6 text-center">
+                  <p className="text-zinc-400 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">Total value</p>
+                  <p className="font-display text-3xl md:text-4xl text-zinc-400 line-through decoration-[#E85D04] decoration-2 leading-none">{fmt(fullPrice)}</p>
+                </div>
+                <div className="p-5 md:p-6 text-center bg-[#E85D04]">
+                  <p className="text-black/70 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">You pay</p>
+                  <p className="font-display text-3xl md:text-4xl text-black leading-none">{fmt(Number(price) || 0)}</p>
+                  <p className="text-black/80 text-xs font-bold mt-1">You save {fmt(freeValue)}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
