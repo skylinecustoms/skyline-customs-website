@@ -1195,7 +1195,7 @@ export default function JuneSpecial() {
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Full Package</p>
             <h2 className="font-display text-5xl md:text-6xl text-white">WHAT YOU GET</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-800">
+          <div className={`grid grid-cols-1 gap-px bg-zinc-800 ${hasCorrection && hasCeramic ? "md:grid-cols-3" : hasCorrection || hasCeramic ? "md:grid-cols-2" : "md:grid-cols-1 max-w-2xl mx-auto"}`}>
             {/* PPF -- always shown */}
             <div className="bg-[#0D0D0D] p-6 md:p-10">
               <div className="w-12 h-12 bg-[#E85D04]/10 border border-[#E85D04]/30 flex items-center justify-center mb-6">
