@@ -81,15 +81,15 @@ async function addGhlTags(contactId: string, tags: string[]): Promise<void> {
 /** Tag a half-finished form carries until the visitor submits for real. */
 const GHL_PARTIAL_TAG = "website-partial";
 
-const SERVICE_LEAD_TAGS = ["ppf lead", "tint lead", "ceramic lead"] as const;
+const SERVICE_LEAD_TAGS = ["ppf lead", "tint lead", "ceramic coating lead"] as const;
 type ServiceLeadTag = (typeof SERVICE_LEAD_TAGS)[number];
 
-/** "Tints" -> tint lead, "PPF" -> ppf lead, "Ceramic Coating" -> ceramic lead. */
+/** "Tints" -> tint lead, "PPF" -> ppf lead, "Ceramic Coating" -> ceramic coating lead (the three tags the CRM workflows key on). */
 function serviceTagFor(service: string | undefined): ServiceLeadTag | null {
   const svc = (service ?? "").toLowerCase();
   if (/ppf|film|paint protection/.test(svc)) return "ppf lead";
   if (/tint/.test(svc)) return "tint lead";
-  if (/ceramic|coat/.test(svc)) return "ceramic lead";
+  if (/ceramic|coat/.test(svc)) return "ceramic coating lead";
   return null;
 }
 
@@ -105,7 +105,7 @@ function serviceTagsFor(service: string | undefined, message: string | undefined
   const mentioned: ServiceLeadTag[] = [];
   if (/\btint|\bwindows?\b|windshield strip|sun ?visor|\b(5|20|35|50|70)%/.test(text)) mentioned.push("tint lead");
   if (/\bppf\b|paint protection|\bfilm\b|clear bra|rock chip|full front|front bumper|\bhood\b/.test(text)) mentioned.push("ppf lead");
-  if (/ceramic|\bcoat(ing)?\b/.test(text)) mentioned.push("ceramic lead");
+  if (/ceramic|\bcoat(ing)?\b/.test(text)) mentioned.push("ceramic coating lead");
   const tags = Array.from(new Set([...(picked ? [picked] : []), ...mentioned]));
   const conflict = !!picked && mentioned.length > 0 && !mentioned.includes(picked);
   return { tags, mentioned, conflict };
@@ -113,7 +113,7 @@ function serviceTagsFor(service: string | undefined, message: string | undefined
 
 /** Keep exactly these service tags on the contact: drops the other service tags (and the CRM's derived variants) so a wrong early guess does not stick. */
 async function syncServiceTags(contactId: string, keep: ServiceLeadTag[]): Promise<void> {
-  const derived: Record<ServiceLeadTag, string[]> = { "ppf lead": ["ppf lead", "paint protection lead"], "tint lead": ["tint lead", "window tint lead"], "ceramic lead": ["ceramic lead", "ceramic coating lead"] };
+  const derived: Record<ServiceLeadTag, string[]> = { "ppf lead": ["ppf lead", "paint protection lead"], "tint lead": ["tint lead", "window tint lead"], "ceramic coating lead": ["ceramic coating lead", "ceramic lead"] };
   const drop = SERVICE_LEAD_TAGS.filter((t) => !keep.includes(t)).flatMap((t) => derived[t]);
   if (drop.length) await removeGhlTags(contactId, drop);
 }
