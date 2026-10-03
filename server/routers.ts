@@ -81,6 +81,43 @@ async function addGhlTags(contactId: string, tags: string[]): Promise<void> {
 /** Tag a half-finished form carries until the visitor submits for real. */
 const GHL_PARTIAL_TAG = "website-partial";
 
+const SERVICE_LEAD_TAGS = ["ppf lead", "tint lead", "ceramic lead"] as const;
+type ServiceLeadTag = (typeof SERVICE_LEAD_TAGS)[number];
+
+/** "Tints" -> tint lead, "PPF" -> ppf lead, "Ceramic Coating" -> ceramic lead. */
+function serviceTagFor(service: string | undefined): ServiceLeadTag | null {
+  const svc = (service ?? "").toLowerCase();
+  if (/ppf|film|paint protection/.test(svc)) return "ppf lead";
+  if (/tint/.test(svc)) return "tint lead";
+  if (/ceramic|coat/.test(svc)) return "ceramic lead";
+  return null;
+}
+
+/**
+ * What the customer wrote often says more than the button they tapped
+ * ("I'm looking to get a quote for just the front two windows" with Ceramic
+ * Coating selected). Tags come from both, so the lead is never filed under
+ * the wrong service only. Returns the tags and whether the two disagree.
+ */
+function serviceTagsFor(service: string | undefined, message: string | undefined): { tags: ServiceLeadTag[]; mentioned: ServiceLeadTag[]; conflict: boolean } {
+  const picked = serviceTagFor(service);
+  const text = (message ?? "").toLowerCase();
+  const mentioned: ServiceLeadTag[] = [];
+  if (/\btint|\bwindows?\b|windshield strip|sun ?visor|\b(5|20|35|50|70)%/.test(text)) mentioned.push("tint lead");
+  if (/\bppf\b|paint protection|\bfilm\b|clear bra|rock chip|full front|front bumper|\bhood\b/.test(text)) mentioned.push("ppf lead");
+  if (/ceramic|\bcoat(ing)?\b/.test(text)) mentioned.push("ceramic lead");
+  const tags = Array.from(new Set([...(picked ? [picked] : []), ...mentioned]));
+  const conflict = !!picked && mentioned.length > 0 && !mentioned.includes(picked);
+  return { tags, mentioned, conflict };
+}
+
+/** Keep exactly these service tags on the contact: drops the other service tags (and the CRM's derived variants) so a wrong early guess does not stick. */
+async function syncServiceTags(contactId: string, keep: ServiceLeadTag[]): Promise<void> {
+  const derived: Record<ServiceLeadTag, string[]> = { "ppf lead": ["ppf lead", "paint protection lead"], "tint lead": ["tint lead", "window tint lead"], "ceramic lead": ["ceramic lead", "ceramic coating lead"] };
+  const drop = SERVICE_LEAD_TAGS.filter((t) => !keep.includes(t)).flatMap((t) => derived[t]);
+  if (drop.length) await removeGhlTags(contactId, drop);
+}
+
 async function removeGhlTags(contactId: string, tags: string[]): Promise<void> {
   try {
     await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/tags`, { method: "DELETE", headers: GHL_HEADERS, body: JSON.stringify({ tags }) });
@@ -385,9 +422,9 @@ Guidelines:
         // Source and tags per form, so CRM workflows can tell them apart. Every one carries the notify tag.
         const form = input.formId ?? (input.promoTag ? "promo" : "contact");
         const source = form === "quote" ? "Website Quote Form" : form === "promo" ? `Website Promo Form${input.promoTag ? ` — ${input.promoTag}` : ""}` : "Website Contact Form";
-        const svc = (input.service ?? "").toLowerCase();
-        const serviceTag = /ppf|film|paint protection/.test(svc) ? "ppf lead" : /tint/.test(svc) ? "tint lead" : /ceramic|coat/.test(svc) ? "ceramic lead" : null;
-        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : [])];
+        // Promo submissions carry a prefilled note that names the free ceramic coating, so only the button counts there.
+        const svcTags = serviceTagsFor(input.service, input.promoTag ? "" : input.message);
+        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...svcTags.tags, ...(input.promoTag ? [input.promoTag] : [])];
 
         const contactPayload: Record<string, unknown> = {
           firstName: input.firstName,
@@ -418,7 +455,9 @@ Guidelines:
         }
         const contactPhone = resolvedPhone ?? input.phone;
         if (contactId) {
-          await removeGhlTags(contactId, [GHL_PARTIAL_TAG]);
+          // The real submission wins over anything a half-finished form guessed earlier.
+          await removeGhlTags(contactId, [GHL_PARTIAL_TAG, `website-${form}-partial`, "website-exit-partial"]);
+          await syncServiceTags(contactId, svcTags.tags);
           await addGhlTags(contactId, ghlTags);
           await ensureGhlOpportunity(contactId, `${input.firstName} ${input.lastName}${vehicleLabel ? ` — ${vehicleLabel}` : ""}${input.service ? ` — ${input.service}` : ""}`, source);
         }
@@ -434,6 +473,7 @@ Guidelines:
           `\n✉️ ${escapeHtml(input.email)}` +
           (vehicleLabel ? `\n🚘 ${escapeHtml(vehicleLabel)}` : "") +
           (input.service ? `\n🛠 ${escapeHtml(input.service)}` : "") +
+          (svcTags.conflict ? `\n⚠️ Picked "${escapeHtml(input.service ?? "")}" but the message reads like ${svcTags.mentioned.map((t) => t.replace(" lead", "")).join(" + ")}. Tagged both.` : "") +
           (input.promoTag ? `\n🏷 ${escapeHtml(input.promoTag)}` : "") +
           (input.message?.trim() ? `\n💬 ${escapeHtml(input.message.trim().slice(0, 300))}` : "") +
           journeyLine +
@@ -548,8 +588,7 @@ Guidelines:
       .mutation(async ({ input }) => {
         const digits = input.phone.replace(/\D/g, "");
         if (digits.length < 10) return { success: false as const, reason: "phone" };
-        const svc = (input.service ?? "").toLowerCase();
-        const serviceTag = /ppf|film|paint protection/.test(svc) ? "ppf lead" : /tint/.test(svc) ? "tint lead" : /ceramic|coat/.test(svc) ? "ceramic lead" : null;
+        const serviceTag = serviceTagFor(input.service);
         const source = input.formId === "exit" ? "Website Exit Prompt (text me the price)" : `Website ${input.formId} form (not submitted)`;
         const tags = [GHL_PARTIAL_TAG, `website-${input.formId}-partial`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : [])];
         const payload: Record<string, unknown> = {

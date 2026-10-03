@@ -16,9 +16,9 @@ import { trpc } from "@/lib/trpc";
 // j9D2tGUUK4qUONagWL71 = Service (radio)
 
 const SERVICE_OPTIONS = [
-  { value: "Ceramic Coating", label: "Ceramic Coating" },
-  { value: "Tints", label: "Window Tinting" },
   { value: "PPF", label: "Paint Protection Film (PPF)" },
+  { value: "Tints", label: "Window Tinting" },
+  { value: "Ceramic Coating", label: "Ceramic Coating" },
   { value: "Multiple Services - Bundle & Save", label: "Multiple Services — Bundle & Save" },
   { value: "Not Sure Yet", label: "Not Sure Yet" },
 ];

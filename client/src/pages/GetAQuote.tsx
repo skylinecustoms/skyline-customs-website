@@ -12,13 +12,14 @@ import { Shield, Clock, Star, ArrowRight, Sparkles } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
-import { leadJourney, track, trackLead } from "@/lib/analytics";
+import { inferredService, leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
 
+// Order matters: people tap the first thing that looks right. Lead with what we sell most.
 const SERVICE_OPTIONS = [
-  { value: "Ceramic Coating", label: "Ceramic Coating" },
-  { value: "Tints", label: "Window Tinting" },
   { value: "PPF", label: "Full Front PPF (Paint Protection Film)" },
+  { value: "Tints", label: "Window Tinting" },
+  { value: "Ceramic Coating", label: "Ceramic Coating" },
   { value: "Multiple Services - Bundle & Save", label: "Multiple Services — Bundle & Save" },
   { value: "Not Sure Yet", label: "Not Sure Yet" },
 ];
@@ -69,7 +70,10 @@ export default function GetAQuote() {
     const promoSlugParam = params.get("promo");
 
     const updates: Partial<typeof form> = {};
+    // No ?service= param (came through the nav): pre-select what they were just reading about.
+    const fromJourney = serviceParam ? undefined : inferredService();
     if (serviceParam) updates.service = normalizeService(serviceParam);
+    else if (fromJourney) updates.service = normalizeService(fromJourney);
     // promoNote takes priority over summary for the message field
     if (promoNoteParam) updates.message = decodeURIComponent(promoNoteParam);
     else if (summaryParam) updates.message = decodeURIComponent(summaryParam);

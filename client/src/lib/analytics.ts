@@ -139,6 +139,23 @@ function recordStep(path: string): Journey | null {
 }
 
 /** Compact journey facts attached to every event so funnels can segment by them. */
+/**
+ * The service the visitor most recently read about, from the pages in this
+ * session: /services/window-tinting -> "tint", a city PPF page -> "ppf", etc.
+ * Used to pre-select the quote form when no ?service= param was passed.
+ */
+export function inferredService(): "ppf" | "tint" | "ceramic" | undefined {
+  const j = readJourney();
+  if (!j) return undefined;
+  for (let i = j.steps.length - 1; i >= 0; i--) {
+    const p = j.steps[i].p.toLowerCase();
+    if (/tint/.test(p)) return "tint";
+    if (/ceramic/.test(p)) return "ceramic";
+    if (/ppf|paint-protection|promo|special/.test(p)) return "ppf";
+  }
+  return undefined;
+}
+
 export function journeyParams(): Record<string, unknown> {
   const j = readJourney();
   if (!j) return {};
