@@ -22,6 +22,7 @@ const serviceLinks = [
   { href: "/services/window-tinting", label: "Window Tinting" },
   { href: "/ppf-cost", label: "PPF Cost Guide" },
   { href: "/tesla-ppf", label: "Tesla PPF" },
+  { href: "/fleet-ppf", label: "Fleet & Dealerships" },
 ];
 
 /** `hidePromoStrip`: pages that render the full promo block under the nav pass this so the deal is not shown twice. A manual announcement still shows. */

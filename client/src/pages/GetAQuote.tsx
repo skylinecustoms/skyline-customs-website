@@ -368,6 +368,7 @@ export default function GetAQuote() {
                   {/* Service Radio Buttons */}
                   <div>
                     <label className={labelClass}>Service *</label>
+                    <p className="text-zinc-400 text-xs mb-3">Managing more than one vehicle, or a dealership? <Link href="/fleet-ppf" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">Use the fleet form</Link> for per-unit pricing.</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {SERVICE_OPTIONS.map((opt) => (
                         <label
