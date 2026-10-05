@@ -221,7 +221,7 @@ export default function FleetPPF() {
             <div className="lg:col-span-2">
               <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Fleet pricing</p>
               <h2 className="font-['Bebas_Neue',sans-serif] text-5xl text-white leading-none mb-5">TELL US ABOUT THE FLEET</h2>
-              <p className="text-zinc-300 leading-relaxed mb-6">Company, how many vehicles, what kinds. Mo calls back within one business day with per-unit pricing and a pilot-unit date. No pricing is published for fleets because every list is different.</p>
+              <p className="text-zinc-300 leading-relaxed mb-6">Company, how many vehicles, what kinds. Our fleet team calls back within one business day with per-unit pricing and a pilot-unit date. Fleet pricing is quoted on your actual list, since every fleet is different.</p>
               <ul className="space-y-3 text-sm text-zinc-300">
                 {["Per-unit written quote by model and package", "Standing weekly schedule around your dispatch", "One invoice and one warranty file per batch", "Pilot unit first, so your team sees the work before committing"].map((line) => (
                   <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>

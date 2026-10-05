@@ -27,7 +27,7 @@ export default function FleetForm() {
 
   const submit = trpc.contact.submit.useMutation({
     onSuccess: () => { setSubmitted(true); setErrorMsg(""); trackLead("contact_form", "fleet"); },
-    onError: (err) => { setErrorMsg("Something went wrong. Call (703) 775-4383 and ask for Mo, or try again."); track("form_error", { form_id: "fleet", error_message: String(err?.message ?? err).slice(0, 100) }); },
+    onError: (err) => { setErrorMsg("Something went wrong. Call (703) 775-4383, or try again."); track("form_error", { form_id: "fleet", error_message: String(err?.message ?? err).slice(0, 100) }); },
   });
 
   const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setForm((p) => ({ ...p, [field]: e.target.value }));
@@ -52,7 +52,7 @@ export default function FleetForm() {
       <div className="border border-emerald-800 bg-emerald-900/20 p-8 text-center">
         <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
         <h3 className="font-display text-3xl text-white tracking-wide mb-2">GOT IT</h3>
-        <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto">Mo will call you within one business day with per-unit pricing for your fleet, a schedule that fits your dispatch, and a sample unit date if you want to see one done first.</p>
+        <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto">Our fleet team will call you within one business day with per-unit pricing for your fleet, a schedule that fits your dispatch, and a sample unit date if you want to see one done first.</p>
         <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] font-bold tracking-widest uppercase text-sm underline underline-offset-2 decoration-1 hover:decoration-2"><Phone className="w-4 h-4" /> Or call (703) 775-4383</a>
       </div>
     );
