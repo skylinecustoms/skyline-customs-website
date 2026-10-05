@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
 import QuoteFormEs from "@/components/QuoteFormEs";
+import DepositBanner from "@/components/DepositBanner";
 import { ES_PROMO, ES_UI } from "@/lib/es";
 import { promoExtrasFor } from "@/lib/promoExtras";
 import { trpc } from "@/lib/trpc";
@@ -44,6 +45,7 @@ export default function EsPromo() {
         ]}
       />
       <Navbar />
+      <DepositBanner lang="es" />
       <main lang="es">
         {/* Hero */}
         <section className="pt-32 pb-14 bg-[#0A0A0A] relative overflow-hidden">

@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PromoQuoteForm, { promoTagFor } from "@/components/PromoQuoteForm";
 import ExitPrompt from "@/components/ExitPrompt";
+import DepositBanner from "@/components/DepositBanner";
 import ReviewWall from "@/components/ReviewWall";
 import VideoCarousel from "@/components/VideoCarousel";
 import CoverageDiagram from "@/components/CoverageDiagram";
@@ -796,6 +797,7 @@ export default function JuneSpecial() {
     <div className="min-h-screen bg-[#0A0A0A] text-white">
       <SEO title={seoTitle} description={seoDesc} canonical={canonicalUrl} jsonLd={jsonLdSchemas} />
       {!soldOut && <ExitPrompt promoTitle={title} promoTag={promoTagFor(title, slug)} />}
+      <DepositBanner />
       <Navbar />
 
       {/* ================================================================

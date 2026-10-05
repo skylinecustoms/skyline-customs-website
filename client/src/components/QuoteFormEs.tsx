@@ -10,6 +10,7 @@ import { trpc } from "@/lib/trpc";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
 import { promoTagFor } from "@/components/PromoQuoteForm";
+import DepositButton from "@/components/DepositButton";
 import type { EsUi } from "@/lib/es";
 
 interface Props {
@@ -25,11 +26,12 @@ export default function QuoteFormEs({ ui, service, promo }: Props) {
   const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [contactId, setContactId] = useState<string | null>(null);
   const promoTag = promo ? promoTagFor(promo.title, promo.slug) : undefined;
   usePartialLead(promo ? "promo" : "quote", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service, promoTag, language: "es" }, submitted);
 
   const submit = trpc.contact.submit.useMutation({
-    onSuccess: () => { setSubmitted(true); setErrorMsg(""); trackLead("quote_form", service.toLowerCase()); },
+    onSuccess: (r) => { setContactId(r?.contactId ?? null); setSubmitted(true); setErrorMsg(""); trackLead("quote_form", service.toLowerCase()); },
     onError: (err) => { setErrorMsg(ui.error); track("form_error", { form_id: "quote-es", error_message: String(err?.message ?? err).slice(0, 100) }); },
   });
 
@@ -57,6 +59,7 @@ export default function QuoteFormEs({ ui, service, promo }: Props) {
         <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
         <h3 className="font-display text-3xl text-white tracking-wide mb-2">{ui.successTitle}</h3>
         <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto">{ui.successBody}</p>
+        {promo && <DepositButton lang="es" contactId={contactId} firstName={form.firstName} lastName={form.lastName} email={form.email} phone={form.phone} promoTitle={promo.title} vehicle={[form.year, form.make, form.model].filter(Boolean).join(" ")} />}
         <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] font-bold tracking-widest uppercase text-sm underline underline-offset-2 decoration-1 hover:decoration-2">
           <Phone className="w-4 h-4" /> (703) 775-4383
         </a>

@@ -13,7 +13,7 @@ import { siteSettings, galleryPhotos } from "../drizzle/schema";
 import { eq, asc } from "drizzle-orm";
 
 const GHL_API_KEY = process.env.GHL_API_KEY ?? "";
-const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID ?? "";
+export const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID ?? "";
 
 // GHL custom field IDs (from live form inspection)
 const GHL_FIELD_MAKE = "2YNQZIRvWYEjqdJ2UGVw";
@@ -21,7 +21,7 @@ const GHL_FIELD_MODEL = "DAjqA7njYRUfAh7t67Xb";
 const GHL_FIELD_YEAR = "n5O64Bp2FJvBK5GsVSnV";
 const GHL_FIELD_SERVICE = "j9D2tGUUK4qUONagWL71";
 
-const GHL_HEADERS = {
+export const GHL_HEADERS = {
   Authorization: `Bearer ${GHL_API_KEY}`,
   Version: "2021-07-28",
   "Content-Type": "application/json",
@@ -37,10 +37,10 @@ const GHL_NOTIFY_TAG = "website-contact";
 // Owner chats: the bot's configured owner (TELEGRAM_OWNER_ID) first, then any extra ids.
 const TELEGRAM_OWNER_IDS = Array.from(new Set([process.env.TELEGRAM_OWNER_ID ?? "", ...(process.env.TELEGRAM_OWNER_IDS ?? "5497240056,5028193585").split(",")].map((s) => s.trim()).filter(Boolean)));
 
-const escapeHtml = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+export const escapeHtml = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 /** Telegram message to the shop owners. Never throws. Reports per-chat results so a wrong chat id or a blocked bot is visible. */
-async function notifyOwners(html: string): Promise<{ ok: boolean; results: string[] }> {
+export async function notifyOwners(html: string): Promise<{ ok: boolean; results: string[] }> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return { ok: false, results: ["TELEGRAM_BOT_TOKEN not set"] };
   if (TELEGRAM_OWNER_IDS.length === 0) return { ok: false, results: ["no owner chat ids"] };
@@ -65,7 +65,7 @@ async function notifyOwners(html: string): Promise<{ ok: boolean; results: strin
 }
 
 /** Add tags to a contact (additive, keeps what is there). The notify tag is removed first so it counts as newly added. */
-async function addGhlTags(contactId: string, tags: string[]): Promise<void> {
+export async function addGhlTags(contactId: string, tags: string[]): Promise<void> {
   const unique = Array.from(new Set(tags.filter(Boolean)));
   try {
     if (unique.includes(GHL_NOTIFY_TAG)) {

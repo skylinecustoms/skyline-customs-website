@@ -12,6 +12,7 @@ import { buildSitemap } from "./sitemap";
 import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
 import { handleTelegramWebhook } from "../telegramWebhook";
+import { registerDepositRoutes } from "../deposit";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -39,7 +40,8 @@ async function startServer() {
   // gzip/brotli responses (the client bundle is ~1.8 MB raw, ~300 KB compressed)
   app.use(compression());
   // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
+  // Keep the raw body so the Stripe webhook can verify its signature.
+  app.use(express.json({ limit: "50mb", verify: (req, _res, buf) => { (req as express.Request & { rawBody?: Buffer }).rawBody = buf; } }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Server-side 301 redirects for legacy/dead URLs — registered FIRST so they fire on ALL hosts
   // (before the canonical redirect, so /home on non-www also gets a clean 301 to https://www.../)
@@ -152,6 +154,8 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Telegram bot webhook — receives slot updates from @skyline_minato_bot
   app.post("/api/telegram/webhook", handleTelegramWebhook);
+  // Online deposits (Stripe Checkout + webhook)
+  registerDepositRoutes(app);
   // Health: which optional integrations this deployment has credentials for (booleans only, never values).
   const startedAt = new Date().toISOString();
   app.get("/api/health", (_req, res) => {
@@ -167,6 +171,8 @@ async function startServer() {
         telegramOwner: has("TELEGRAM_OWNER_ID"),
         googlePlaces: has("GOOGLE_PLACES_API_KEY"),
         instagram: has("INSTAGRAM_ACCESS_TOKEN"),
+        stripe: has("STRIPE_SECRET_KEY"),
+        stripeWebhook: has("STRIPE_WEBHOOK_SECRET"),
       },
     });
   });

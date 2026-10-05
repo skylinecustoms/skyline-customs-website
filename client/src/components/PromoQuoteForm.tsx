@@ -8,6 +8,7 @@ import { ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
+import DepositButton from "@/components/DepositButton";
 
 interface Props {
   promoTitle: string;
@@ -28,10 +29,12 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
   const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [contactId, setContactId] = useState<string | null>(null);
   usePartialLead("promo", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service: "PPF", promoTag: promoTagFor(promoTitle, promoSlug) }, submitted);
 
   const submit = trpc.contact.submit.useMutation({
-    onSuccess: () => {
+    onSuccess: (r) => {
+      setContactId(r?.contactId ?? null);
       setSubmitted(true);
       setErrorMsg("");
       trackLead("quote_form", "ppf");
@@ -76,6 +79,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
         <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto">
           We have your request for the {promoTitle || "special"}. Expect a call or text from the shop, usually within the hour during business hours, with your exact price and open install dates.
         </p>
+        <DepositButton contactId={contactId} firstName={form.firstName} lastName={form.lastName} email={form.email} phone={form.phone} promoTitle={promoTitle || "Special"} vehicle={[form.year, form.make, form.model].filter(Boolean).join(" ")} />
         <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] font-bold tracking-widest uppercase text-sm underline underline-offset-2 decoration-1 hover:decoration-2">
           <Phone className="w-4 h-4" /> Or call (703) 775-4383
         </a>
