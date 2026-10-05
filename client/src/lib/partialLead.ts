@@ -11,7 +11,7 @@ import { useEffect, useRef } from "react";
 import { trpc } from "@/lib/trpc";
 import { leadJourney, track } from "@/lib/analytics";
 
-export type PartialFormId = "quote" | "contact" | "promo" | "exit";
+export type PartialFormId = "quote" | "contact" | "promo" | "exit" | "fleet";
 
 export interface PartialFields {
   firstName: string;

@@ -687,6 +687,7 @@ for (const b of BODY_TYPE_PAGES) {
 for (const a of AUDIENCE_PAGES) {
   if (!STATIC_META[a.path]) STATIC_META[a.path] = { title: a.seoTitle, description: a.seoDescription, canonical: `${BASE_URL}${a.path}` };
 }
+STATIC_META["/fleet-ppf"] = { title: "Fleet PPF, Tint & Ceramic Coating in Northern Virginia | Skyline Customs", description: "Paint protection film, window tint, and ceramic coating for fleets, dealerships, and company vehicles across Virginia, Maryland, and DC. Standing schedules, one invoice, one warranty file. Per-unit pricing in one business day.", canonical: `${BASE_URL}/fleet-ppf` };
 for (const c of COMPARISON_PAGES) {
   if (!STATIC_META[c.path]) STATIC_META[c.path] = { title: c.title, description: c.description, canonical: `${BASE_URL}${c.path}` };
 }

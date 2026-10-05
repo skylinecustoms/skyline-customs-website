@@ -196,7 +196,8 @@ export default function ServiceAreas() {
         <div className="container">
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Where you work, where you bought the car</p>
           <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-3">BASES, FEDERAL WORKPLACES &amp; DEALER DELIVERY</h2>
-          <p className="text-zinc-400 max-w-2xl mb-10">PPF guides written for the schedules people actually have: a PCS move, a deployment, a delivery appointment at a dealer across town.</p>
+          <p className="text-zinc-400 max-w-2xl mb-6">PPF guides written for the schedules people actually have: a PCS move, a deployment, a delivery appointment at a dealer across town.</p>
+          <Link href="/fleet-ppf" className="inline-flex items-center gap-2 mb-10 border border-[#E85D04]/50 text-[#E85D04] hover:bg-[#E85D04]/10 font-bold tracking-widest uppercase text-sm px-5 py-3 transition-colors">Managing a fleet or a dealership? Fleet pricing <ArrowRight className="w-4 h-4" /></Link>
           {(["base", "dealer"] as const).map((kind) => (
             <div key={kind} className="mb-10 last:mb-0">
               <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-[#E85D04] tracking-wide mb-4">{kind === "base" ? "Military & federal" : "New-car delivery"}</h3>

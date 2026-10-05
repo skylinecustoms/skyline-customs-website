@@ -397,7 +397,11 @@ Guidelines:
           // Optional promo tag — set when visitor arrives from a promo CTA
           promoTag: z.string().max(80).optional(),
           // Which form on the site sent this: sets the CRM source and tags.
-          formId: z.enum(["quote", "contact", "promo"]).optional(),
+          formId: z.enum(["quote", "contact", "promo", "fleet"]).optional(),
+          // Fleet form only: the business, how many vehicles, what kinds.
+          company: z.string().max(120).optional(),
+          fleetSize: z.string().max(40).optional(),
+          vehicleTypes: z.string().max(200).optional(),
           // "es" when the visitor used a Spanish page: tags the contact so the call-back happens in Spanish.
           language: z.enum(["en", "es"]).optional(),
           // The pages this visitor saw before submitting (client/src/lib/analytics.ts).
@@ -423,10 +427,10 @@ Guidelines:
 
         // Source and tags per form, so CRM workflows can tell them apart. Every one carries the notify tag.
         const form = input.formId ?? (input.promoTag ? "promo" : "contact");
-        const source = form === "quote" ? "Website Quote Form" : form === "promo" ? `Website Promo Form${input.promoTag ? ` — ${input.promoTag}` : ""}` : "Website Contact Form";
+        const source = form === "quote" ? "Website Quote Form" : form === "promo" ? `Website Promo Form${input.promoTag ? ` — ${input.promoTag}` : ""}` : form === "fleet" ? "Website Fleet Form" : "Website Contact Form";
         // Promo submissions carry a prefilled note that names the free ceramic coating, so only the button counts there.
         const svcTags = serviceTagsFor(input.service, input.promoTag ? "" : input.message);
-        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...svcTags.tags, ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : [])];
+        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...(form === "fleet" ? ["fleet-lead"] : []), ...svcTags.tags, ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : [])];
 
         const contactPayload: Record<string, unknown> = {
           firstName: input.firstName,
@@ -438,9 +442,11 @@ Guidelines:
           assignedTo: GHL_ASSIGNED_USER_ID,
         };
         if (input.phone) contactPayload.phone = input.phone;
+        if (input.company) contactPayload.companyName = input.company;
         if (customFields.length > 0) contactPayload.customFields = customFields;
 
-        const vehicleLabel = [input.year, input.make, input.model].filter(Boolean).join(" ");
+        const fleetLabel = form === "fleet" ? [input.company, input.fleetSize ? `${input.fleetSize} vehicles` : "", input.vehicleTypes].filter(Boolean).join(" — ") : "";
+        const vehicleLabel = fleetLabel || [input.year, input.make, input.model].filter(Boolean).join(" ");
 
         // Step 1: Upsert contact (handles all duplicate scenarios). A CRM outage must not lose the lead:
         // the owners still get the Telegram message below, and the form still succeeds.
@@ -469,7 +475,7 @@ Guidelines:
           ? `\nCame from: ${escapeHtml(input.journey.utm?.utm_source ? `${input.journey.utm.utm_source}${input.journey.utm.utm_medium ? ` / ${input.journey.utm.utm_medium}` : ""}` : input.journey.referrer ? input.journey.referrer.replace(/^https?:\/\/(www\.)?/, "").split("/")[0] : "direct")} · landed on ${escapeHtml(input.journey.landing)} · ${input.journey.steps.length} page${input.journey.steps.length === 1 ? "" : "s"}`
           : "";
         const telegram = await notifyOwners(
-          `<b>🚗 New website lead (${escapeHtml(source)})</b>\n` +
+          `<b>${form === "fleet" ? "🚚 FLEET lead" : "🚗 New website lead"} (${escapeHtml(source)})</b>\n` +
           `<b>${escapeHtml(input.firstName)} ${escapeHtml(input.lastName)}</b>` +
           (contactPhone ? `\n📞 ${escapeHtml(contactPhone)}` : "") +
           `\n✉️ ${escapeHtml(input.email)}` +
@@ -515,17 +521,19 @@ Guidelines:
 
         // Step 3: Add a note to the GHL contact
         // Written when there is a message, a promo tag, or a recorded website journey.
-        const hasNote = (input.message && input.message.trim().length > 0) || !!input.promoTag || !!input.journey;
+        const hasNote = (input.message && input.message.trim().length > 0) || !!input.promoTag || !!input.journey || form === "fleet";
         if (hasNote && contactId) {
-          const vehicle = [input.year, input.make, input.model].filter(Boolean).join(" ");
-          const noteHeader = input.promoTag
+          const vehicle = form === "fleet" ? fleetLabel : [input.year, input.make, input.model].filter(Boolean).join(" ");
+          const noteHeader = form === "fleet"
+            ? `FLEET INQUIRY — ${(input.company ?? "company not given").toUpperCase()}`
+            : input.promoTag
             ? `PROMO QUOTE REQUEST — ${input.promoTag.replace(/-/g, " ").toUpperCase()}`
             : `QUOTE REQUEST`;
           const noteBody = `${noteHeader} — ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}\n` +
             `Customer: ${input.firstName} ${input.lastName}\n` +
             `Email: ${input.email}\n` +
             (input.phone ? `Phone: ${input.phone}\n` : "") +
-            (vehicle ? `Vehicle: ${vehicle}\n` : "") +
+            (form === "fleet" ? `Company: ${input.company ?? "n/a"}\nFleet size: ${input.fleetSize ?? "n/a"}\nVehicle types: ${input.vehicleTypes ?? "n/a"}\n` : vehicle ? `Vehicle: ${vehicle}\n` : "") +
             (input.service ? `Service: ${input.service}\n` : "") +
             (input.promoTag ? `\n** Came from promo CTA: ${input.promoTag} **\n` : "") +
             (input.message && input.message.trim() ? `\n--- Customer Message ---\n${input.message}` : "") +
@@ -574,7 +582,7 @@ Guidelines:
           email: z.string().email().optional(),
           service: z.string().max(60).optional(),
           promoTag: z.string().max(80).optional(),
-          formId: z.enum(["quote", "contact", "promo", "exit"]),
+          formId: z.enum(["quote", "contact", "promo", "exit", "fleet"]),
           language: z.enum(["en", "es"]).optional(),
           page: z.string().max(300).optional(),
           journey: z

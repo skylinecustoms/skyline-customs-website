@@ -73,6 +73,7 @@ export default function Footer() {
                 { label: "PPF for EVs", href: "/ev-ppf" },
                 { label: "PPF for SUVs", href: "/suv-ppf" },
                 { label: "Military & Dealer Delivery PPF", href: "/service-areas#bases" },
+                { label: "Fleet & Dealership PPF", href: "/fleet-ppf" },
                 { label: "En español", href: "/es/ppf" },
                 { label: "All Services", href: "/services" },
                 { label: "Videos", href: "/videos" },
