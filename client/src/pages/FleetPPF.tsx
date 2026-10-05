@@ -97,7 +97,7 @@ export default function FleetPPF() {
             <p className="text-zinc-300 text-lg leading-relaxed max-w-3xl">Skyline Customs installs STEK DYNOshield paint protection film, GeoShield ceramic tint, and Gtechniq coatings for fleets across Northern Virginia, Maryland, and DC from one shop in Chantilly, on a standing schedule, with one contact and one warranty file for everything you send us.</p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a href="#fleet-quote" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">Get fleet pricing <ArrowRight className="w-4 h-4" /></a>
-              <a href="tel:+17037754383" className="border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors"><Phone className="w-4 h-4" /> Call and ask for Mo</a>
+              <a href="tel:+17037754383" className="border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors"><Phone className="w-4 h-4" /> Talk to someone now</a>
             </div>
           </div>
         </section>
