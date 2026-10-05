@@ -126,10 +126,13 @@ export default function VideoCarousel({
   reels = [],
   preview = false,
   autoAdvanceMs,
+  reelsFirst = false,
 }: {
   videos: Video[];
   reels?: InstagramReel[];
   preview?: boolean;
+  /** Put the Instagram reels ahead of the YouTube cards (when the reel is the point of the section). */
+  reelsFirst?: boolean;
   /** Slide forward every N ms (wraps to the start). Omit for manual only. */
   autoAdvanceMs?: number;
 }) {
@@ -155,16 +158,17 @@ export default function VideoCarousel({
     <>
       <Carousel opts={{ align: "start", loop: true }} setApi={setApi} className="relative">
         <CarouselContent className="-ml-4">
-          {videos.map((v) => (
-            <CarouselItem key={`yt-${v.id}`} className={itemClass}>
-              <VideoCard video={v} preview={preview} onOpen={() => { setOpenVideo(v); track("video_open", { video_source: "youtube", video_id: v.id, video_title: v.title, video_category: v.category, video_service: v.service ?? "" }); }} />
-            </CarouselItem>
-          ))}
-          {playable.map((r) => (
-            <CarouselItem key={`ig-${r.code}`} className={itemClass}>
-              <ReelCard reel={r} media={media.get(r.code)} onOpen={() => { setOpen(r); track("video_open", { video_source: "instagram", video_id: r.code, video_title: r.title, video_category: r.category }); }} />
-            </CarouselItem>
-          ))}
+          {(reelsFirst ? [...playable.map((r) => ({ kind: "ig" as const, r })), ...videos.map((v) => ({ kind: "yt" as const, v }))] : [...videos.map((v) => ({ kind: "yt" as const, v })), ...playable.map((r) => ({ kind: "ig" as const, r }))]).map((item) =>
+            item.kind === "yt" ? (
+              <CarouselItem key={`yt-${item.v.id}`} className={itemClass}>
+                <VideoCard video={item.v} preview={preview} onOpen={() => { setOpenVideo(item.v); track("video_open", { video_source: "youtube", video_id: item.v.id, video_title: item.v.title, video_category: item.v.category, video_service: item.v.service ?? "" }); }} />
+              </CarouselItem>
+            ) : (
+              <CarouselItem key={`ig-${item.r.code}`} className={itemClass}>
+                <ReelCard reel={item.r} media={media.get(item.r.code)} onOpen={() => { setOpen(item.r); track("video_open", { video_source: "instagram", video_id: item.r.code, video_title: item.r.title, video_category: item.r.category }); }} />
+              </CarouselItem>
+            )
+          )}
         </CarouselContent>
         <CarouselPrevious className="hidden md:flex -left-5 size-12 bg-[#E85D04] dark:bg-[#E85D04] border-[#E85D04] dark:border-[#E85D04] text-black hover:bg-white dark:hover:bg-white hover:border-white dark:hover:border-white hover:text-black rounded-none shadow-[0_0_0_4px_rgba(0,0,0,0.7)] disabled:opacity-100 disabled:bg-zinc-800 dark:disabled:bg-zinc-800 disabled:border-zinc-700 dark:disabled:border-zinc-700 disabled:text-zinc-500 [&_svg]:size-6" />
         <CarouselNext className="hidden md:flex -right-5 size-12 bg-[#E85D04] dark:bg-[#E85D04] border-[#E85D04] dark:border-[#E85D04] text-black hover:bg-white dark:hover:bg-white hover:border-white dark:hover:border-white hover:text-black rounded-none shadow-[0_0_0_4px_rgba(0,0,0,0.7)] disabled:opacity-100 disabled:bg-zinc-800 dark:disabled:bg-zinc-800 disabled:border-zinc-700 dark:disabled:border-zinc-700 disabled:text-zinc-500 [&_svg]:size-6" />

@@ -136,6 +136,8 @@ export const STEK_VS_XPEL: ComparisonData = {
     { q: "Can I still get a good result with XPEL from another shop?", a: "You can, if that shop preps properly, cuts patterns off the car, wraps the edges, and inspects the car with you. Ask to see a finished car first. What you will not get is the DYNOshield top coat or the 12-year term, which is why we moved every car in our bay to STEK." },
   ],
   videoIds: ["P2zyuOrWiDA", "n5mQVftEwfA"],
+  reelCodes: ["DaNiBH6u8Y4"],
+  videoIntro: "First clip: a hacksaw, a razor blade, and a fistful of gravel against a fender we had just wrapped in STEK DYNOshield. Then a look at how the film disappears on a finished car and the prep that makes it bond.",
   related: [
     { label: "Our PPF packages", href: "/services/ppf" },
     { label: "Partial vs full front PPF", href: "/partial-front-vs-full-front-ppf" },

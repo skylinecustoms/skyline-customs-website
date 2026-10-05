@@ -11,6 +11,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Testimonials from "@/components/Testimonials";
 import VideoCarousel from "@/components/VideoCarousel";
+import { INSTAGRAM_REELS } from "@/lib/instagramPosts";
 import { VIDEOS } from "@/lib/videos";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
@@ -31,6 +32,10 @@ export interface ComparisonData {
   verdicts: Verdict[];
   faqs: { q: string; a: string }[];
   videoIds: string[];
+  /** Instagram reel codes from lib/instagramPosts.ts shown first in the video section. */
+  reelCodes?: string[];
+  /** One line under the "See the difference" heading. */
+  videoIntro?: string;
   breadcrumb: string;
   related: { label: string; href: string }[];
 }
@@ -52,6 +57,7 @@ export default function ComparisonPage({ data }: { data: ComparisonData }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const canonical = `${BASE_URL}${data.path}`;
   const videos = VIDEOS.filter((v) => data.videoIds.includes(v.id));
+  const reels = INSTAGRAM_REELS.filter((r) => data.reelCodes?.includes(r.code));
 
   return (
     <div className="min-h-screen bg-[#0A0A0A]">
@@ -166,12 +172,14 @@ export default function ComparisonPage({ data }: { data: ComparisonData }) {
         </div>
       </section>
 
-      {videos.length > 0 && (
-        <section className="py-16 bg-[#0D0D0D] border-t border-zinc-800">
+      {(videos.length > 0 || reels.length > 0) && (
+        <section className="py-16 bg-[#0D0D0D] border-t border-zinc-800 overflow-hidden">
           <div className="container">
             <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Watch</p>
-            <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-8">SEE THE DIFFERENCE</h2>
-            <VideoCarousel videos={videos} preview />
+            <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-3">SEE THE DIFFERENCE</h2>
+            {data.videoIntro && <p className="text-zinc-400 max-w-2xl mb-8">{data.videoIntro}</p>}
+            {!data.videoIntro && <div className="mb-5" />}
+            <VideoCarousel videos={videos} reels={reels} reelsFirst={reels.length > 0} preview />
           </div>
         </section>
       )}
