@@ -14,6 +14,8 @@ import { and, eq } from "drizzle-orm";
 import { findGalleryJob } from "../galleryJobs";
 import { galleryJobNote } from "../../shared/galleryJobNotes";
 import imageVariants from "../../shared/imageVariants.json";
+import { CITIES, SERVICES, cityPath, cityServices } from "../../client/src/lib/localSeo";
+import { MODEL_PAGES } from "../../client/src/lib/modelPages";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -656,6 +658,19 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
     description: "Northern Virginia's premier PPF, ceramic coating, window tinting shop. 140+ five-star reviews in Chantilly, VA.",
     canonical: `${BASE_URL}${cleanPath}`,
   };
+}
+
+// City × service pages and model pages not listed above get their meta from the same data the page renders.
+for (const name of Object.keys(CITIES)) {
+  const c = CITIES[name];
+  for (const k of cityServices(c)) {
+    const p = cityPath(k, name);
+    if (!STATIC_META[p]) STATIC_META[p] = { title: SERVICES[k].seoTitle(c), description: SERVICES[k].seoDescription(c), canonical: `${BASE_URL}${p}` };
+  }
+}
+for (const m of MODEL_PAGES) {
+  const p = `/${m.slug}-ppf`;
+  if (!STATIC_META[p]) STATIC_META[p] = { title: m.seoTitle, description: m.seoDescription, canonical: `${BASE_URL}${p}` };
 }
 
 /** Static routes that should appear in the sitemap (indexable, non-redirect). */

@@ -16,7 +16,7 @@ import NearbyAreas from "@/components/NearbyAreas";
 import ActivePromoBanner from "@/components/ActivePromoBanner";
 import { Shield, MapPin, Phone, Star, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
+import { CITIES, SERVICES, cityPath, cityLabel, cityServices, type ServiceKey } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
 import { responsiveImage } from "@/lib/responsiveImage";
@@ -96,8 +96,8 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title={svc.seoTitle(city.name)}
-        description={svc.seoDescription(city.name)}
+        title={svc.seoTitle(city)}
+        description={svc.seoDescription(city)}
         canonical={canonical}
         jsonLd={[
           {
@@ -114,7 +114,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
               "postalCode": "20151",
               "addressCountry": "US",
             },
-            "areaServed": [`${city.name}, VA`, "Chantilly, VA", "Northern Virginia"],
+            "areaServed": [cityLabel(city), "Chantilly, VA", "Northern Virginia", "Washington, DC metro"],
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "5",
@@ -126,9 +126,9 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             "@context": "https://schema.org",
             "@type": "Service",
             "serviceType": svc.label,
-            "name": `${svc.label} near ${city.name}, VA`,
+            "name": `${svc.label} near ${cityLabel(city)}`,
             "url": canonical,
-            "areaServed": { "@type": "City", "name": `${city.name}, VA` },
+            "areaServed": { "@type": "City", "name": cityLabel(city) },
             "provider": { "@type": "AutoBodyShop", "name": "Skyline Custom Shop", "url": BASE_URL, "telephone": "+17037754383" },
           },
           {
@@ -147,7 +147,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
               { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
               { "@type": "ListItem", "position": 2, "name": "Services", "item": `${BASE_URL}/services` },
               { "@type": "ListItem", "position": 3, "name": svc.label, "item": `${BASE_URL}${svc.serviceHref}` },
-              { "@type": "ListItem", "position": 4, "name": `${city.name}, VA`, "item": canonical },
+              { "@type": "ListItem", "position": 4, "name": cityLabel(city), "item": canonical },
             ],
           },
         ]}
@@ -172,11 +172,11 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             <span>/</span>
             <Link href={svc.serviceHref} className="hover:text-white">{svc.label}</Link>
             <span>/</span>
-            <span className="text-zinc-300">{city.name}, VA</span>
+            <span className="text-zinc-300">{cityLabel(city)}</span>
           </nav>
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-4 h-4 text-[#E85D04]" />
-            <span className="text-[#E85D04] text-sm font-bold tracking-widest uppercase">{city.name}, VA</span>
+            <span className="text-[#E85D04] text-sm font-bold tracking-widest uppercase">{cityLabel(city)}</span>
           </div>
           <div className="max-w-4xl">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{svc.heroLabel}</p>
@@ -212,7 +212,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
 
       <div className="h-1 bg-[#E85D04]" />
 
-      <CityPhoto cityName={cityName} cityLabel={`${city.name}, VA`} service={serviceKey} />
+      <CityPhoto cityName={cityName} cityLabel={cityLabel(city)} service={serviceKey} />
 
       {/* Why this service here */}
       <section className="py-20 bg-[#0D0D0D]">
@@ -271,12 +271,12 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         <div className="container text-center">
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Service Area</p>
           <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-8">
-            SERVING {city.name.toUpperCase()} & ALL OF NOVA
+            SERVING {city.name.toUpperCase()} & {city.state === "VA" ? "ALL OF NOVA" : "THE DMV"}
           </h2>
           <div className="flex flex-wrap justify-center gap-3 mb-6">
             {city.nearby.map((area) => (
               <span key={area} className="border border-zinc-700 text-zinc-400 text-sm px-4 py-2 hover:border-[#E85D04] hover:text-white transition-colors">
-                {area}, VA
+                {area}, {city.state}
               </span>
             ))}
           </div>
@@ -342,7 +342,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         <div className="container">
           <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-4">More services near {city.name}</p>
           <div className="flex flex-wrap gap-3">
-            {(Object.keys(SERVICES) as ServiceKey[]).filter((k) => k !== serviceKey).map((k) => (
+            {cityServices(city).filter((k) => k !== serviceKey).map((k) => (
               <Link key={k} href={cityPath(k, city.name)} className="border border-zinc-700 hover:border-[#E85D04] text-zinc-300 hover:text-white text-sm px-4 py-2 transition-colors">
                 {SERVICES[k].label} in {city.name}
               </Link>

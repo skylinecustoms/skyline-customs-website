@@ -11,7 +11,7 @@
 
 import { Link } from "wouter";
 import { MapPin, ArrowRight } from "lucide-react";
-import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
+import { CITIES, SERVICES, cityPath, cityServices, type ServiceKey } from "@/lib/localSeo";
 
 interface NearbyAreasProps {
   city: string;
@@ -19,7 +19,7 @@ interface NearbyAreasProps {
 }
 
 export default function NearbyAreas({ city, service }: NearbyAreasProps) {
-  const nearbyList = CITIES[city]?.neighbors ?? [];
+  const nearbyList = (CITIES[city]?.neighbors ?? []).filter((n) => CITIES[n] && cityServices(CITIES[n]).includes(service));
   if (nearbyList.length === 0) return null;
   const svcLabel = SERVICES[service].label;
 

@@ -32,15 +32,31 @@ export interface City {
   neighbors: string[];
   /** True for the shop's own city; changes a few phrasings */
   isHome?: boolean;
+  /** Two-letter state; drives the ", VA" labels and the tint-law copy. */
+  state: "VA" | "MD" | "DC";
+  /** Services with a page for this city. Omitted = all three. Far cities skip tint. */
+  services?: ServiceKey[];
   /** Unique 90–130 word paragraph about driving and car ownership in this city (service-neutral). */
   localIntro: string;
 }
 
 export const SHOP_ADDRESS = "4215 Walney Rd Suite 1A & B, Chantilly, VA 20151";
 
+export const STATE_NAMES: Record<City["state"], string> = { VA: "Virginia", MD: "Maryland", DC: "the District of Columbia" };
+/** "Fairfax, VA" / "Washington, DC" */
+export const cityLabel = (c: City) => `${c.name}, ${c.state}`;
+/** Which services have a page in this city. */
+export const cityServices = (c: City): ServiceKey[] => c.services ?? ["ppf", "ceramic", "tint"];
+/** Legal tint answer for the state the car is registered in. */
+export function tintLawAnswer(state: City["state"]): { q: string; a: string } {
+  if (state === "MD") return { q: "What is the legal tint limit in Maryland?", a: "Maryland allows 35% VLT on every window of a passenger car: front sides, rear sides, and the back glass. Multipurpose vehicles such as SUVs and vans may go darker behind the front doors. Windshields may only have a non-reflective strip above the AS-1 line. We only install Maryland-legal film on Maryland-registered cars and can help with medical exemption paperwork." };
+  if (state === "DC") return { q: "What is the legal tint limit in Washington, DC?", a: "The District allows 70% VLT on the front side windows and 50% on the rear side and back glass of a sedan. Vans and SUVs may go to 35% behind the front doors. Windshields may only have a non-reflective strip above the AS-1 line. We only install DC-legal film on DC-registered cars." };
+  return { q: "What is the legal tint limit in Virginia?", a: "For sedans, Virginia allows 50% VLT on the front side windows and 35% on the rear side and back windows. SUVs, trucks, and vans may go darker behind the front doors. Windshields may only have a non-reflective strip above the AS-1 line. We only install Virginia-legal tint and can help with medical exemption paperwork." };
+}
+
 export const CITIES: Record<string, City> = {
   Chantilly: {
-    name: "Chantilly", slug: "chantilly-va", isHome: true,
+    name: "Chantilly", slug: "chantilly-va", state: "VA", isHome: true,
     driveSentence: "We are located at 4215 Walney Rd Suite 1A & B, Chantilly, VA 20151 — just off Route 28, minutes from Dulles Airport and easily accessible from I-66, I-495, and the Dulles Toll Road. Free parking on site.",
     heroDrive: "located right here at 4215 Walney Rd Suite 1A & B",
     roads: "Route 28, I-66, and the Dulles Toll Road",
@@ -52,7 +68,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Chantilly is home base, and it shows in the cars that roll into the bay: daily drivers from the Route 28 tech corridor, weekend cars from Pleasant Valley and Poplar Tree, and plenty of new deliveries from the dealerships along Route 50. The commute here is defined by Route 28 construction traffic, Dulles Airport freight, and the I-66 merge at Centreville, all of which throw gravel and grit at a front bumper every single day. Because we're minutes from Fair Lakes, Greenbriar, and the Dulles Expo Center, most Chantilly customers drop off on the way to work and pick up the same afternoon.",
   },
   Centreville: {
-    name: "Centreville", slug: "centreville-va",
+    name: "Centreville", slug: "centreville-va", state: "VA",
     driveSentence: "Centreville is just 10 minutes away via Route 28 or I-66.",
     heroDrive: "just 10 minutes from Centreville via Route 28",
     roads: "I-66 and Route 28",
@@ -64,7 +80,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Centreville drivers put on serious highway miles. Most commutes funnel onto I-66 at Route 28 or Route 29, where the express-lane work zones and dump-truck traffic heading to the quarries have been chewing up paint for years. We see a lot of family SUVs from Little Rocky Run and Sully Station, commuter sedans parked at the Stone Road lots, and enthusiast cars that gather at the Centreville Cars and Coffee meets. The shop is ten minutes up Route 28, so a Centreville drop-off is easy before a day at Fair Oaks or a flight out of Dulles.",
   },
   Herndon: {
-    name: "Herndon", slug: "herndon-va",
+    name: "Herndon", slug: "herndon-va", state: "VA",
     driveSentence: "Herndon is just 10–15 minutes away via Route 28 or the Dulles Toll Road.",
     heroDrive: "just 10–15 minutes from Herndon",
     roads: "the Dulles Toll Road and Route 28",
@@ -76,7 +92,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Herndon sits right on the Dulles Toll Road and Route 28, two of the fastest and dustiest commuter routes in Fairfax County. Cars from downtown Herndon, Worldgate, and the Monroe Street corridor pick up chips from airport freight and the constant construction along the Silver Line. We work on a lot of tech-corridor lease returns, where keeping the factory paint clean at turn-in matters, and on weekend cars stored in Herndon garages that only see sun on Saturday. From the Herndon Metro it's a straight shot down Route 28 to our bay.",
   },
   Fairfax: {
-    name: "Fairfax", slug: "fairfax-va",
+    name: "Fairfax", slug: "fairfax-va", state: "VA",
     driveSentence: "Fairfax is about 15 minutes away via I-66 or Route 50.",
     heroDrive: "just 15 minutes from Fairfax via I-66",
     roads: "I-66 and Route 50",
@@ -88,7 +104,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Fairfax City and the surrounding county are where Route 50, Route 123, and I-66 all meet, which means stop-and-go traffic mixed with 65-mph stretches within a single commute. We see everything from Mason students' first cars to Fair Oaks and Fairfax Corner shoppers' SUVs and the enthusiast crowd that meets around Fairfax Circle. Winter road treatment on the Fairfax County Parkway and summer pollen from the tree-lined neighborhoods near Burke Lake are the two seasonal enemies of paint here, and both are easier to fight with a coated, protected finish.",
   },
   Vienna: {
-    name: "Vienna", slug: "vienna-va",
+    name: "Vienna", slug: "vienna-va", state: "VA",
     driveSentence: "Vienna is about 15 minutes away via Route 123 or I-66.",
     heroDrive: "just 15 minutes from Vienna via Route 123",
     roads: "Route 123 and I-66",
@@ -100,7 +116,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Vienna is a town of tree-lined streets and tight garages, where cars pick up sap, pollen, and bird droppings under the oaks along Maple Avenue and then take a beating on Route 123 and I-66 on the way to work. Vienna Metro commuters park outside all day in the garage lots, and the W&OD trail crowd hauls bikes on racks that scuff rear bumpers and hatches. A lot of our Vienna customers are protecting a new car bought at one of the dealerships on Maple Avenue, usually within the first week of ownership.",
   },
   Reston: {
-    name: "Reston", slug: "reston-va",
+    name: "Reston", slug: "reston-va", state: "VA",
     driveSentence: "Reston is about 15 minutes away via the Dulles Toll Road (Route 267).",
     heroDrive: "just 15 minutes from Reston via the Dulles Toll Road",
     roads: "the Dulles Toll Road and Route 7",
@@ -112,7 +128,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Reston drivers split their time between Reston Town Center's parking garages, the Wiehle-Reston Metro lot, and the Dulles Toll Road, which carries airport traffic, construction crews, and plenty of loose stone. Route 7 on the north side adds high-speed commuting toward Tysons and Leesburg. We see well-kept sedans and EVs from Lake Anne and South Lakes, plus a steady stream of Teslas charged at the Town Center Superchargers. With the Toll Road running straight to Route 28, Reston is one of the quickest drop-offs we have.",
   },
   McLean: {
-    name: "McLean", slug: "mclean-va",
+    name: "McLean", slug: "mclean-va", state: "VA",
     driveSentence: "McLean is about 20 minutes from our Chantilly shop via I-66 or the Beltway (I-495).",
     heroDrive: "just 20 minutes from McLean via I-66 or the Beltway",
     roads: "I-495 and Route 123",
@@ -124,7 +140,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "McLean garages hold some of the nicest cars in Northern Virginia, and those cars still have to commute on I-495, Route 123, and the George Washington Parkway, where gravel from the Beltway express-lane projects and debris from Chain Bridge Road find every unprotected panel. Many McLean customers are protecting a new luxury purchase from the Tysons dealerships or preserving a low-mile weekend car. Between Langley, Great Falls, and the Potomac hills, we also see plenty of tree sap and pollen damage that a coating keeps from etching.",
   },
   Tysons: {
-    name: "Tysons", slug: "tysons-va",
+    name: "Tysons", slug: "tysons-va", state: "VA",
     driveSentence: "Tysons is about 20 minutes from our Chantilly shop via Route 7 or I-495.",
     heroDrive: "just 20 minutes from Tysons via Route 7",
     roads: "Route 7 and I-495",
@@ -136,7 +152,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Tysons is the busiest square mile in Virginia: Route 7, Route 123, the Beltway, and the Toll Road all converge there, and the Silver Line construction plus never-ending tower cranes keep the roads gritty. Cars from the Tysons high-rises spend their lives in shared garages, where door dings and scuffs are a daily risk, and their commutes involve some of the highest-speed merges in the region. Buyers coming off the Tysons dealership row often bring the car to us before it ever sees a highway mile.",
   },
   Alexandria: {
-    name: "Alexandria", slug: "alexandria-va",
+    name: "Alexandria", slug: "alexandria-va", state: "VA",
     driveSentence: "Alexandria is about 25 minutes from our Chantilly shop via I-66 or Route 50.",
     heroDrive: "just 25 minutes from Alexandria via I-66 or Route 50",
     roads: "I-395 and the GW Parkway",
@@ -148,7 +164,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Alexandria driving means the George Washington Parkway, I-395, and Route 1, with tight Old Town parking on brick and cobblestone and long stretches of stop-and-go past the Pentagon. Salt spray and grit from the parkway in winter, then bugs and sun on Route 1 in summer, wear on paint fast. We serve Old Town, Del Ray, Kingstowne, and the West End, and many Alexandria customers pair a front-end film with a coating specifically because street parking makes hand washing hard to keep up with.",
   },
   Arlington: {
-    name: "Arlington", slug: "arlington-va",
+    name: "Arlington", slug: "arlington-va", state: "VA",
     driveSentence: "Arlington is about 25 minutes from our Chantilly shop via I-66 or Route 50.",
     heroDrive: "just 25 minutes from Arlington via I-66",
     roads: "I-66 and the GW Parkway",
@@ -160,7 +176,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Arlington cars live outdoors and in tight garages: Rosslyn and Ballston high-rises, Clarendon street parking, and the daily grind on I-66, Route 50, and the GW Parkway. Bumper scuffs from parallel parking, sap from the Custis Trail trees, and sandblasting from I-66 construction are the usual damage we repair or prevent. A lot of Arlington customers commute past the Pentagon and Crystal City and want a car that stays presentable without a weekly wash, which is exactly where a coating over film earns its keep.",
   },
   "Falls Church": {
-    name: "Falls Church", slug: "falls-church-va",
+    name: "Falls Church", slug: "falls-church-va", state: "VA",
     driveSentence: "Falls Church is about 20 minutes from our Chantilly location via I-66 or Route 7.",
     heroDrive: "just 20 minutes from Falls Church via I-66 or Route 7",
     roads: "Route 7 and I-66",
@@ -172,7 +188,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Falls Church sits where Route 7, Route 50, and I-66 collide at Seven Corners, one of the most congested interchanges in the region, and where Route 29 carries a steady mix of trucks and commuters. The city's old trees are beautiful and brutal on paint, dropping sap and pollen on cars parked along the side streets near Broad Street and the East Falls Church Metro. We see a lot of family vehicles from Lake Barcroft and Sleepy Hollow, and plenty of new purchases from the dealerships on Route 7.",
   },
   Springfield: {
-    name: "Springfield", slug: "springfield-va",
+    name: "Springfield", slug: "springfield-va", state: "VA",
     driveSentence: "Springfield is about 25 minutes from our Chantilly location via I-66 or the Fairfax County Parkway.",
     heroDrive: "just 25 minutes from Springfield via the Fairfax County Parkway",
     roads: "the Springfield Interchange",
@@ -184,7 +200,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Springfield drivers deal with the Mixing Bowl every day, where I-95, I-395, and I-495 interchange and freight traffic never stops. The express lanes, the constant construction, and the truck volume make Springfield one of the highest rock-chip areas we serve. We work on commuter sedans from West Springfield and Kingstowne, family SUVs from Springfield Town Center trips, and military and government vehicles from the Fort Belvoir side. The Fairfax County Parkway runs straight from Springfield to our door in Chantilly.",
   },
   Manassas: {
-    name: "Manassas", slug: "manassas-va",
+    name: "Manassas", slug: "manassas-va", state: "VA",
     driveSentence: "Manassas is about 20 minutes from our Chantilly location via I-66 or Route 28.",
     heroDrive: "just 20 minutes from Manassas via I-66 or Route 28",
     roads: "I-66 and Route 28",
@@ -196,7 +212,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Manassas is I-66 and Route 28 country: long high-speed commutes into Fairfax and Arlington, freight heading to the Manassas Regional Airport industrial parks, and construction traffic that leaves gravel on every on-ramp. We see plenty of trucks and Jeeps from the Prince William Parkway side, commuter cars from the Manassas VRE lot, and weekend builds from the Old Town Manassas car-show crowd. Because the Route 28 corridor connects Manassas directly to Chantilly, a drop-off takes about twenty minutes.",
   },
   Woodbridge: {
-    name: "Woodbridge", slug: "woodbridge-va",
+    name: "Woodbridge", slug: "woodbridge-va", state: "VA",
     driveSentence: "Woodbridge is about 30 minutes from our Chantilly location via I-95 or the Prince William Parkway.",
     heroDrive: "just 30 minutes from Woodbridge via I-95 or the Prince William Parkway",
     roads: "I-95 and the Prince William Parkway",
@@ -208,7 +224,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Woodbridge is defined by I-95 and the Prince William Parkway: heavy truck traffic, express-lane construction, and long commutes to the Pentagon and DC that add up to tens of thousands of highway miles a year. Salt and brine treatment on I-95 in winter is aggressive, and the Potomac Mills and Route 1 stop-and-go adds bumper scuffs and bug damage. We serve Lake Ridge, Dale City, Occoquan, and Montclair, and Woodbridge customers often choose full-front film plus a coating precisely because their mileage is so high.",
   },
   Stafford: {
-    name: "Stafford", slug: "stafford-va",
+    name: "Stafford", slug: "stafford-va", state: "VA",
     driveSentence: "Stafford is about 35–40 minutes from our Chantilly location via I-95 South.",
     heroDrive: "serving Stafford and the Quantico military corridor",
     roads: "I-95",
@@ -220,7 +236,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Stafford drivers commute farther than almost anyone in Northern Virginia, mostly on I-95 through the Quantico stretch, where freight traffic and express-lane work keep the pavement littered with debris. Many customers are military families from Quantico and Aquia Harbour who move often and want to protect a vehicle's resale value, plus long-haul commuters from Garrisonville and Brooke. The drive to our shop runs up I-95 and around the Beltway to Route 28, and Stafford owners usually plan the visit around a day in the Dulles area.",
   },
   Fredericksburg: {
-    name: "Fredericksburg", slug: "fredericksburg-va",
+    name: "Fredericksburg", slug: "fredericksburg-va", state: "VA",
     driveSentence: "Fredericksburg is about 45–50 minutes from our Chantilly location via I-95 North.",
     heroDrive: "serving Fredericksburg and the surrounding Rappahannock region",
     roads: "I-95",
@@ -233,7 +249,7 @@ export const CITIES: Record<string, City> = {
   },
   // ---- Added September 2026 ----
   Ashburn: {
-    name: "Ashburn", slug: "ashburn-va",
+    name: "Ashburn", slug: "ashburn-va", state: "VA",
     driveSentence: "Ashburn is about 20 minutes away via Route 28 and the Dulles Greenway.",
     heroDrive: "just 20 minutes from Ashburn via Route 28",
     roads: "Route 7, the Dulles Greenway, and Loudoun County Parkway",
@@ -245,7 +261,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Ashburn has grown faster than its roads, so Loudoun County Parkway, the Dulles Greenway, and Route 7 are lined with active construction and the constant truck traffic that feeds the data-center corridor. New homes in Brambleton, Broadlands, and Ashburn Farm mean a lot of brand-new cars from the Dulles and Sterling dealerships, and One Loudoun's garages see plenty of enthusiast metal on weekends. Route 28 runs straight from Ashburn to our bay, which makes same-day drop-off and pickup easy.",
   },
   Sterling: {
-    name: "Sterling", slug: "sterling-va",
+    name: "Sterling", slug: "sterling-va", state: "VA",
     driveSentence: "Sterling is about 10 minutes away via Route 28.",
     heroDrive: "just 10 minutes from Sterling via Route 28",
     roads: "Route 28 and Route 7",
@@ -257,7 +273,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Sterling drivers live on Route 28 and Route 7, with Dulles Airport freight, Route 28 widening projects, and Cascades and Dulles Town Center traffic all throwing grit at the front of the car. It's a big commuter town, with Potomac Falls and Sugarland Run residents heading to Tysons and Reston every morning on roads that never seem finished. Sterling is our closest Loudoun neighbor, ten minutes down Route 28, so it's common for customers to drop off before a shift at the airport and pick up after.",
   },
   Leesburg: {
-    name: "Leesburg", slug: "leesburg-va",
+    name: "Leesburg", slug: "leesburg-va", state: "VA",
     driveSentence: "Leesburg is about 30 minutes away via Route 7 or the Dulles Greenway.",
     heroDrive: "just 30 minutes from Leesburg via Route 7 or the Dulles Greenway",
     roads: "Route 7, Route 15, and the Dulles Greenway",
@@ -269,7 +285,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Leesburg blends a historic downtown with the fast, rural-edge driving of Route 7, Route 15, and the Dulles Greenway, where farm equipment, gravel shoulders, and high-speed commuting mix. Cars from Lansdowne, River Creek, and the older streets around King Street pick up chips on the way to Tysons and tree sap at home. We see a lot of trucks and SUVs headed out to western Loudoun on weekends, and plenty of enthusiast cars that gather for the area's car shows, all of which benefit from protected front ends and a coating that shrugs off dust.",
   },
   Gainesville: {
-    name: "Gainesville", slug: "gainesville-va",
+    name: "Gainesville", slug: "gainesville-va", state: "VA",
     driveSentence: "Gainesville is about 20 minutes away via I-66 West.",
     heroDrive: "just 20 minutes from Gainesville via I-66",
     roads: "I-66, Route 29, and Linton Hall Road",
@@ -281,7 +297,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Gainesville and Haymarket are where I-66 opens up and speeds climb, right as the years-long interchange construction at Route 29 and Linton Hall Road keeps the pavement covered in debris. Virginia Gateway shopping traffic and the Jiffy Lube Live event crowds add stop-and-go wear. Many customers commute from Heritage Hunt, Piedmont, and Bristow into Fairfax and Arlington, and trucks and SUVs are common given the rural roads west of town. I-66 east runs directly to Route 28 and our Chantilly bay.",
   },
   Burke: {
-    name: "Burke", slug: "burke-va",
+    name: "Burke", slug: "burke-va", state: "VA",
     driveSentence: "Burke is about 20 minutes away via the Fairfax County Parkway.",
     heroDrive: "just 20 minutes from Burke via the Fairfax County Parkway",
     roads: "the Fairfax County Parkway, Burke Centre Parkway, and Braddock Road",
@@ -293,7 +309,7 @@ export const CITIES: Record<string, City> = {
     localIntro: "Burke is a commuter suburb built around the Fairfax County Parkway, Burke Centre Parkway, and Braddock Road, with the Burke Centre VRE station and Rolling Road carrying steady traffic toward Springfield and the Beltway. Mature trees over Burke's cul-de-sacs drop sap and pollen on cars that sit in driveways, and parkway construction adds the gravel. We see a lot of family SUVs from Burke Centre and Lake Braddock, plus new cars from the dealerships along Route 236 in Annandale, and the parkway makes Chantilly a straight twenty-minute drive.",
   },
   Oakton: {
-    name: "Oakton", slug: "oakton-va",
+    name: "Oakton", slug: "oakton-va", state: "VA",
     driveSentence: "Oakton is about 15 minutes away via I-66 or Route 123.",
     heroDrive: "just 15 minutes from Oakton via I-66",
     roads: "I-66, Route 123, and Hunter Mill Road",
@@ -326,8 +342,8 @@ export interface ServiceContent {
   /** Value passed to /get-a-quote?service= */
   quoteParam: string;
   badges: string[];
-  seoTitle: (city: string) => string;
-  seoDescription: (city: string) => string;
+  seoTitle: (c: City) => string;
+  seoDescription: (c: City) => string;
   heroLabel: string;
   heroHeading: string; // e.g. "PPF NEAR"
   heroText: (c: City) => string;
@@ -359,9 +375,9 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     serviceHref: "/services/ppf",
     quoteParam: "ppf",
     badges: ["5.0 ★ Google Rating", "Full Front Specialists", "12-Year Film Warranty", "STEK DYNOshield Film"],
-    seoTitle: (city) => `Full Front PPF ${city} VA | Paint Protection Film Near Me`,
-    seoDescription: (city) =>
-      `Full front paint protection film for ${city}, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.`,
+    seoTitle: (c) => `Full Front PPF ${c.name} ${c.state} | Paint Protection Film Near Me`,
+    seoDescription: (c) =>
+      `Full front paint protection film for ${cityLabel(c)} drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.`,
     heroLabel: "Full Front Paint Protection Film",
     heroHeading: "FULL FRONT PPF NEAR",
     heroText: (c) => `Northern Virginia's top-rated full front PPF installer, ${c.heroDrive}. Hood, bumper, fenders, mirrors, and headlights wrapped in self-healing STEK DYNOshield, so rock chips never reach your paint.`,
@@ -375,7 +391,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     ],
     faqHeading: (city) => `PPF QUESTIONS FROM ${city.toUpperCase()} DRIVERS`,
     faqs: (c) => [
-      { q: `Do you serve ${c.name}, VA for PPF?`, a: serveAnswer(c, "paint protection film") },
+      { q: `Do you serve ${cityLabel(c)} for PPF?`, a: serveAnswer(c, "paint protection film") },
       { q: `How much does PPF cost near ${c.name}?`, a: "PPF pricing depends on how much you cover: partial front (bumper plus partial hood), full front (bumper, hood, fenders, mirrors, headlights, and A-pillars), or full front extended. Full front is what most Northern Virginia drivers choose. Every price is confirmed at an in-person inspection. Request a free, no-obligation quote and we reply with an exact number, usually within the hour." },
       { q: `Is PPF worth it driving on ${c.roads} near ${c.name}?`, a: `Absolutely. ${c.roadsDesc} PPF is one of the best investments to protect your paint from rock chips and road debris and to preserve resale value.` },
       { q: "How long does PPF installation take?", a: "A partial or full front install typically takes one day. Full front extended may take up to two days depending on the vehicle. We'll give you a firm timeline at your consultation." },
@@ -395,9 +411,9 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     serviceHref: "/services/ceramic-coating",
     quoteParam: "ceramic",
     badges: ["5.0 ★ Google Rating", "Free Quotes", "Up to 7-Year Coatings", "Graphene & SiO2 Coatings"],
-    seoTitle: (city) => `Ceramic Coating ${city} VA | Car Ceramic Coating Near Me`,
-    seoDescription: (city) =>
-      `Professional ceramic coating for ${city}, VA drivers. Gtechniq graphene and SiO2 coatings with paint correction, 5–7 year protection, and a hydrophobic finish. Free quotes. 5.0 stars on Google.`,
+    seoTitle: (c) => `Ceramic Coating ${c.name} ${c.state} | Car Ceramic Coating Near Me`,
+    seoDescription: (c) =>
+      `Professional ceramic coating for ${cityLabel(c)} drivers. Gtechniq graphene and SiO2 coatings with paint correction, 5–7 year protection, and a hydrophobic finish. Free quotes. 5.0 stars on Google.`,
     heroLabel: "Ceramic Coating",
     heroHeading: "CERAMIC COATING NEAR",
     heroText: (c) => `Northern Virginia's top-rated ceramic coating installer, ${c.heroDrive}. Paint correction plus Gtechniq coatings for a deep gloss that lasts for years.`,
@@ -411,7 +427,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     ],
     faqHeading: (city) => `CERAMIC COATING QUESTIONS FROM ${city.toUpperCase()} DRIVERS`,
     faqs: (c) => [
-      { q: `Do you serve ${c.name}, VA for ceramic coating?`, a: serveAnswer(c, "ceramic coatings") },
+      { q: `Do you serve ${cityLabel(c)} for ceramic coating?`, a: serveAnswer(c, "ceramic coatings") },
       { q: `How much does ceramic coating cost near ${c.name}?`, a: "Ceramic coating pricing depends on the package (Crystal with a 5-year warranty or Ultimate with a 7-year warranty), the level of paint correction your paint needs, and vehicle size. Request a free, no-obligation quote with your year, make, and model and we reply with an exact price." },
       { q: `Is ceramic coating worth it for ${c.name} drivers on ${c.roads}?`, a: `Yes. ${c.roadsDesc} Add winter road salt, spring pollen, and summer bug season, and unprotected clear coat dulls fast. A professional ceramic coating adds a hard, hydrophobic layer that resists chemical etching and UV fading and makes every wash easier.` },
       { q: "How long does a ceramic coating last?", a: "Our Gtechniq coatings are rated for 5–7 years depending on the package, with proper maintenance. That is years longer than a wax or sealant, which typically last a few months." },
@@ -431,9 +447,9 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     serviceHref: "/services/window-tinting",
     quoteParam: "tint",
     badges: ["5.0 ★ Google Rating", "Free Quotes", "Lifetime Warranty", "Ceramic Film Available"],
-    seoTitle: (city) => `Window Tinting ${city} VA | Car Tint Near Me`,
-    seoDescription: (city) =>
-      `Ceramic window tinting near ${city}, VA. GeoShield Pro Nano Ceramic film with 99% UV and up to 83% heat rejection, Virginia-legal shades, and a nationwide lifetime warranty. Free quotes.`,
+    seoTitle: (c) => `Window Tinting ${c.name} ${c.state} | Car Tint Near Me`,
+    seoDescription: (c) =>
+      `Ceramic window tinting near ${cityLabel(c)}. GeoShield Pro Nano Ceramic film with 99% UV and up to 83% heat rejection, ${c.state === "DC" ? "DC" : STATE_NAMES[c.state]}-legal shades, and a nationwide lifetime warranty. Free quotes.`,
     heroLabel: "Window Tinting",
     heroHeading: "WINDOW TINT NEAR",
     heroText: (c) => `Northern Virginia's top-rated window tinting shop, ${c.heroDrive}. Ceramic film that blocks heat and UV without the signal interference of metallic tint.`,
@@ -447,9 +463,9 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     ],
     faqHeading: (city) => `TINTING QUESTIONS FROM ${city.toUpperCase()} DRIVERS`,
     faqs: (c) => [
-      { q: `Do you serve ${c.name}, VA for window tinting?`, a: serveAnswer(c, "window tint") },
+      { q: `Do you serve ${cityLabel(c)} for window tinting?`, a: serveAnswer(c, "window tint") },
       { q: `How much does window tinting cost near ${c.name}?`, a: "Window tint pricing depends on how many windows you tint: four side windows, the rear package (most popular), full car including the windshield, or windshield only. Every package is GeoShield Pro Nano Ceramic with a nationwide lifetime warranty. Request a free, no-obligation quote for an exact price." },
-      { q: "What is the legal tint limit in Virginia?", a: "For sedans, Virginia allows 50% VLT on the front side windows and 35% on the rear side and back windows. SUVs, trucks, and vans may go darker behind the front doors. Windshields may only have a non-reflective strip above the AS-1 line. We only install Virginia-legal tint and can help with medical exemption paperwork." },
+      tintLawAnswer(c.state),
       { q: "Does ceramic tint interfere with phone, GPS, or radio signals?", a: "No. GeoShield Pro Nano Ceramic is metal-free, so it blocks heat and UV without affecting cell, GPS, satellite radio, or toll transponder signals the way older metallic films can." },
       { q: `How long does tinting take, and when can I roll the windows down?`, a: `Most cars take 2–3 hours at our Chantilly shop. Keep the windows up for 3–5 days while the film cures; you may see slight haze or small water pockets that clear on their own during that time.` },
       { q: "What warranty comes with the tint?", a: "Every GeoShield package carries a nationwide lifetime warranty against bubbling, peeling, cracking, fading, and purpling, honored by GeoShield dealers across the country." },

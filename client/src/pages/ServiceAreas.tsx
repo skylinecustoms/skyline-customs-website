@@ -9,21 +9,25 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { MapPin, Shield, Droplets, Sun, ArrowRight, Phone } from "lucide-react";
-import { CITIES, CITY_ORDER, cityPath } from "@/lib/localSeo";
+import { CITIES, CITY_ORDER, STATE_NAMES, cityPath, cityServices } from "@/lib/localSeo";
+
+const SERVICE_LINKS = {
+  ppf: { label: "Paint Protection Film", icon: Shield },
+  ceramic: { label: "Ceramic Coating", icon: Droplets },
+  tint: { label: "Window Tinting", icon: Sun },
+} as const;
 
 const cities = CITY_ORDER.map((name) => {
   const c = CITIES[name];
   return {
     name: c.name,
-    state: "VA",
+    state: c.state,
     description: c.hubDescription,
-    services: [
-      { label: "Paint Protection Film", href: cityPath("ppf", name), icon: Shield },
-      { label: "Ceramic Coating", href: cityPath("ceramic", name), icon: Droplets },
-      { label: "Window Tinting", href: cityPath("tint", name), icon: Sun },
-    ],
+    services: cityServices(c).map((k) => ({ label: SERVICE_LINKS[k].label, href: cityPath(k, name), icon: SERVICE_LINKS[k].icon })),
   };
 });
+/** Grouped for the hub: Virginia first (the shop's own state), then Maryland, then DC. */
+const STATE_GROUPS = (["VA", "MD", "DC"] as const).map((st) => ({ state: st, label: st === "DC" ? "Washington, DC" : STATE_NAMES[st], cities: cities.filter((c) => c.state === st) })).filter((g) => g.cities.length > 0);
 
 const serviceIcons: Record<string, typeof Shield> = { Shield, Droplets, Sun };
 
@@ -142,8 +146,11 @@ export default function ServiceAreas() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-zinc-800">
-            {cities.map((city) => (
+          {STATE_GROUPS.map((g) => (
+            <div key={g.state} className="mb-12 last:mb-0">
+              <h3 className="font-['Bebas_Neue',sans-serif] text-3xl text-[#E85D04] tracking-wide mb-4">{g.label}</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-zinc-800">
+                {g.cities.map((city) => (
               <div key={city.name} className="bg-[#0D0D0D] p-6 hover:bg-[#111] transition-colors group">
                 {/* City header */}
                 <div className="flex items-start gap-3 mb-4">
@@ -175,8 +182,10 @@ export default function ServiceAreas() {
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
