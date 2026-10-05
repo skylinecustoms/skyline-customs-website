@@ -20,6 +20,7 @@ export interface PartialFields {
   email?: string;
   service?: string;
   promoTag?: string;
+  language?: "en" | "es";
 }
 
 const SESSION_KEY = "sc-lead-captured";
@@ -44,6 +45,7 @@ function cleanFields(f: PartialFields) {
     email: f.email && isValidEmail(f.email.trim()) ? f.email.trim() : undefined,
     service: f.service?.trim() || undefined,
     promoTag: f.promoTag || undefined,
+    language: f.language,
   };
 }
 

@@ -5,9 +5,11 @@
 import { Link } from "wouter";
 import { VEHICLE_BRANDS } from "@/lib/modelPpf";
 import { MODEL_PAGES } from "@/lib/modelPages";
+import { BODY_TYPE_PAGES } from "@/lib/bodyTypePages";
 
 export default function VehicleLinks({ current }: { current?: string }) {
   const links = [
+    ...BODY_TYPE_PAGES.map((b) => ({ slug: b.slug, name: b.name })),
     { slug: "tesla", name: "Tesla" },
     ...VEHICLE_BRANDS.map((b) => ({ slug: b.slug, name: b.name })),
     ...MODEL_PAGES.map((m) => ({ slug: m.slug, name: m.name })),

@@ -10,6 +10,10 @@ import { X } from "lucide-react";
 import { installEngagementTracking, pageViewSent, trackPageView } from "@/lib/analytics";
 import { CITIES, CITY_ORDER, cityPath, cityServices } from "@/lib/localSeo";
 import { MODEL_PAGES } from "@/lib/modelPages";
+import { AUDIENCE_PAGES } from "@/lib/audiencePages";
+import { ES_PAGES } from "@/lib/es";
+import { COMPARISON_PAGES } from "@/lib/comparisons";
+import { BODY_TYPE_PAGES } from "@/lib/bodyTypePages";
 
 // ─── Announcement Banner (controlled via Telegram bot /announce command) ─────
 function ScrollToTop() {
@@ -68,6 +72,11 @@ const JuneSpecial = lazy(() => import("./pages/JuneSpecial"));
 const PromoArchive = lazy(() => import("./pages/PromoArchive"));
 // City × service landing pages: one route per city per service, generated from lib/localSeo.ts
 const LocalServicePage = lazy(() => import("./components/LocalServicePage"));
+const AudiencePage = lazy(() => import("./components/AudiencePage"));
+const SpanishServicePage = lazy(() => import("./components/SpanishServicePage"));
+const EsPromo = lazy(() => import("./pages/EsPromo"));
+const ComparisonPageLazy = lazy(() => import("./components/ComparisonPage"));
+const VehiclePPFPageLazy = lazy(() => import("./components/VehiclePPFPage"));
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -85,6 +94,24 @@ function Router() {
       {MODEL_PAGES.map((m) => (
         <Route key={m.slug} path={`/${m.slug}-ppf`}>{() => <ModelPPF slug={m.slug} />}</Route>
       ))}
+      {/* PPF by body type (/truck-ppf, /ev-ppf, /suv-ppf) */}
+      {BODY_TYPE_PAGES.map((b) => (
+        <Route key={b.slug} path={`/${b.slug}-ppf`}>{() => <VehiclePPFPageLazy brand={b} />}</Route>
+      ))}
+      {/* Bases, federal workplaces, and dealer-delivery areas */}
+      {AUDIENCE_PAGES.map((a) => (
+        <Route key={a.path} path={a.path}>{() => <AudiencePage data={a} />}</Route>
+      ))}
+      {/* Comparison guides */}
+      {COMPARISON_PAGES.map((c) => (
+        <Route key={c.path} path={c.path}>{() => <ComparisonPageLazy data={c} />}</Route>
+      ))}
+      {/* Spanish pages */}
+      {ES_PAGES.map((p) => (
+        <Route key={p.path} path={p.path}>{() => <SpanishServicePage data={p} />}</Route>
+      ))}
+      <Route path={"/es/promo"} component={EsPromo} />
+      <Route path={"/es"}><Redirect to="/es/ppf" /></Route>
       <Route path={"/bmw-ppf"} component={BmwPPF} />
       <Route path={"/porsche-ppf"} component={PorschePPF} />
       <Route path={"/corvette-ppf"} component={CorvettePPF} />

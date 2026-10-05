@@ -398,6 +398,8 @@ Guidelines:
           promoTag: z.string().max(80).optional(),
           // Which form on the site sent this: sets the CRM source and tags.
           formId: z.enum(["quote", "contact", "promo"]).optional(),
+          // "es" when the visitor used a Spanish page: tags the contact so the call-back happens in Spanish.
+          language: z.enum(["en", "es"]).optional(),
           // The pages this visitor saw before submitting (client/src/lib/analytics.ts).
           journey: z
             .object({
@@ -424,7 +426,7 @@ Guidelines:
         const source = form === "quote" ? "Website Quote Form" : form === "promo" ? `Website Promo Form${input.promoTag ? ` — ${input.promoTag}` : ""}` : "Website Contact Form";
         // Promo submissions carry a prefilled note that names the free ceramic coating, so only the button counts there.
         const svcTags = serviceTagsFor(input.service, input.promoTag ? "" : input.message);
-        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...svcTags.tags, ...(input.promoTag ? [input.promoTag] : [])];
+        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...svcTags.tags, ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : [])];
 
         const contactPayload: Record<string, unknown> = {
           firstName: input.firstName,
@@ -473,6 +475,7 @@ Guidelines:
           `\n✉️ ${escapeHtml(input.email)}` +
           (vehicleLabel ? `\n🚘 ${escapeHtml(vehicleLabel)}` : "") +
           (input.service ? `\n🛠 ${escapeHtml(input.service)}` : "") +
+          (input.language === "es" ? `\n🗣 Spanish speaker: came through the Spanish site, call back in Spanish` : "") +
           (svcTags.conflict ? `\n⚠️ Picked "${escapeHtml(input.service ?? "")}" but the message reads like ${svcTags.mentioned.map((t) => t.replace(" lead", "")).join(" + ")}. Tagged both.` : "") +
           (input.promoTag ? `\n🏷 ${escapeHtml(input.promoTag)}` : "") +
           (input.message?.trim() ? `\n💬 ${escapeHtml(input.message.trim().slice(0, 300))}` : "") +
@@ -572,6 +575,7 @@ Guidelines:
           service: z.string().max(60).optional(),
           promoTag: z.string().max(80).optional(),
           formId: z.enum(["quote", "contact", "promo", "exit"]),
+          language: z.enum(["en", "es"]).optional(),
           page: z.string().max(300).optional(),
           journey: z
             .object({
@@ -590,7 +594,7 @@ Guidelines:
         if (digits.length < 10) return { success: false as const, reason: "phone" };
         const serviceTag = serviceTagFor(input.service);
         const source = input.formId === "exit" ? "Website Exit Prompt (text me the price)" : `Website ${input.formId} form (not submitted)`;
-        const tags = [GHL_PARTIAL_TAG, `website-${input.formId}-partial`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : [])];
+        const tags = [GHL_PARTIAL_TAG, `website-${input.formId}-partial`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : [])];
         const payload: Record<string, unknown> = {
           firstName: input.firstName.trim(),
           lastName: (input.lastName ?? "").trim() || undefined,

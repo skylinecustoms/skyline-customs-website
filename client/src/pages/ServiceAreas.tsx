@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { MapPin, Shield, Droplets, Sun, ArrowRight, Phone } from "lucide-react";
 import { CITIES, CITY_ORDER, STATE_NAMES, cityPath, cityServices } from "@/lib/localSeo";
+import { AUDIENCE_PAGES } from "@/lib/audiencePages";
 
 const SERVICE_LINKS = {
   ppf: { label: "Paint Protection Film", icon: Shield },
@@ -188,6 +189,30 @@ export default function ServiceAreas() {
           ))}
         </div>
       </section>
+
+      {/* Bases, federal workplaces, dealer delivery */}
+      {AUDIENCE_PAGES.length > 0 && (
+      <section id="bases" className="py-16 md:py-20 bg-[#0D0D0D] border-t border-zinc-800 scroll-mt-24">
+        <div className="container">
+          <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Where you work, where you bought the car</p>
+          <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-3">BASES, FEDERAL WORKPLACES &amp; DEALER DELIVERY</h2>
+          <p className="text-zinc-400 max-w-2xl mb-10">PPF guides written for the schedules people actually have: a PCS move, a deployment, a delivery appointment at a dealer across town.</p>
+          {(["base", "dealer"] as const).map((kind) => (
+            <div key={kind} className="mb-10 last:mb-0">
+              <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-[#E85D04] tracking-wide mb-4">{kind === "base" ? "Military & federal" : "New-car delivery"}</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
+                {AUDIENCE_PAGES.filter((a) => a.kind === kind).map((a) => (
+                  <Link key={a.path} href={a.path} className="bg-[#0D0D0D] p-6 hover:bg-[#111] transition-colors group block">
+                    <p className="font-['Bebas_Neue',sans-serif] text-2xl text-white leading-none mb-2 group-hover:text-[#E85D04] transition-colors">{a.name}</p>
+                    <p className="text-zinc-400 text-xs leading-relaxed">{a.drive}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      )}
 
       {/* Shop info */}
       <section className="py-20 bg-[#0D0D0D] border-t border-zinc-800">

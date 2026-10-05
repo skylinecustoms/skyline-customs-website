@@ -14,6 +14,8 @@ export interface VehicleBrand {
   intro: string;
   /** Regex matched against gallery photo alt text to show real jobs of this brand */
   photoMatch: RegExp;
+  /** Body-type pages: pull every gallery job of this body type instead of matching alt text. */
+  bodyType?: "truck" | "suv" | "sports" | "ev" | "sedan";
   /** YouTube IDs from lib/videos.ts relevant to this brand */
   videoIds: string[];
   models: { name: string; cls: VehicleClass; note: string }[];

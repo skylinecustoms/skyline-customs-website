@@ -13,6 +13,10 @@ interface SEOProps {
   canonical?: string;
   ogImage?: string;
   jsonLd?: object | object[];
+  /** hreflang pairs, e.g. [{ lang: "en", href: "/services/ppf" }, { lang: "es", href: "/es/ppf" }]. */
+  alternates?: { lang: string; href: string }[];
+  /** Page language for <html lang>; defaults to "en". */
+  lang?: string;
 }
 
 const SITE_NAME = "Skyline Customs";
@@ -22,7 +26,7 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/images/blog-hero-window-tint-laws-2026_1c3
 // Social/JSON-LD images must be absolute URLs; accept site-relative paths too.
 export const absoluteUrl = (u: string) => (u.startsWith("http") ? u : `${BASE_URL}${u.startsWith("/") ? "" : "/"}${u}`);
 
-export default function SEO({ title, description, canonical, ogImage, jsonLd }: SEOProps) {
+export default function SEO({ title, description, canonical, ogImage, jsonLd, alternates, lang = "en" }: SEOProps) {
   // Google shows about 60 characters of a title. Add the brand only when it fits;
   // long titles stand on their own (Google appends the site name in results anyway).
   const fullTitle = title.includes("Skyline") || title.length > 47 ? title : `${title} | ${SITE_NAME}`;
@@ -36,6 +40,14 @@ export default function SEO({ title, description, canonical, ogImage, jsonLd }: 
   useEffect(() => {
     // Title
     document.title = fullTitle;
+    document.documentElement.lang = lang;
+    // hreflang links (replaced wholesale on each page)
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+    for (const a of alternates ?? []) {
+      const el = document.createElement("link");
+      el.rel = "alternate"; el.hreflang = a.lang; el.href = absoluteUrl(a.href);
+      document.head.appendChild(el);
+    }
 
     // Helper to set or create a meta tag
     const setMeta = (selector: string, attr: string, value: string) => {

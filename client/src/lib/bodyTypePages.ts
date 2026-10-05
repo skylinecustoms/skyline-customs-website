@@ -1,0 +1,110 @@
+import type { VehicleBrand } from "@/lib/modelPpf";
+
+/**
+ * Body-type PPF landing pages (/truck-ppf, /ev-ppf, /suv-ppf).
+ * Same VehicleBrand shape as the brand pages; `bodyType` lets the template
+ * pull every gallery job of that body type, with photoMatch as the fallback.
+ */
+export const BODY_TYPE_PAGES: VehicleBrand[] = [
+  {
+    slug: "truck",
+    name: "Trucks",
+    headline: "PAINT PROTECTION FILM",
+    bodyType: "truck",
+    seoTitle: "Truck PPF in Chantilly, VA | F-150, Silverado, Ram & Tacoma",
+    seoDescription: "Paint protection film for pickups in Chantilly, VA. STEK DYNOshield cut for the F-150, Silverado, Ram 1500, Tacoma, Tundra, Cybertruck, and Ridgeline, with the tall hood and bumper covered in one day.",
+    intro: "A pickup hood sits at the height where gravel off a dump truck on I-95 or Route 28 lands, and the bumper beneath it is a flat wall that catches the rest. That is why trucks roll into our Chantilly shop with more chips per mile than any sedan we see. We cut STEK DYNOshield for the exact year and trim, whether it is an F-150 that tows a trailer all week, a lifted Tacoma, or a Cybertruck whose stainless skin scratches instead of chipping. Partial front, full front, and full front extended are the three packages we offer on a truck; the bed and tailgate are outside all three, and chrome delete is a vinyl job we do not take on.",
+    photoMatch: /cybertruck|tacoma|f-?150|silverado|ram 1500|tundra|ridgeline/i,
+    videoIds: ["LQ1iXlQpXGc", "n5mQVftEwfA"],
+    models: [
+      { name: "Ford F-150", cls: "truck", note: "The widest hood we film, and the aluminum body shows a chip to bare metal faster than steel does." },
+      { name: "Chevy Silverado 1500", cls: "truck", note: "A grille surround taller than most car roofs takes stones square on at highway speed." },
+      { name: "Ram 1500", cls: "truck", note: "Long hood and a big painted bumper on most trims; Rebel and TRX flares expose more paint." },
+      { name: "Toyota Tacoma", cls: "truck", note: "The 2024 redesign brought a new hood and grille, so the pattern is cut for the new body, not the old." },
+      { name: "Toyota Tundra", cls: "truck", note: "Enormous hood and headlights; the TRD Pro hood scoop is accounted for in the pattern." },
+      { name: "Tesla Cybertruck", cls: "truck", note: "Stainless does not chip, but it scratches and holds fingerprints, and film keeps the planes uniform." },
+      { name: "Honda Ridgeline", cls: "truck", note: "Unibody with a lower nose than a body-on-frame truck; most Ridgeline owners land on full front." },
+    ],
+    reasons: [
+      { title: "Hoods That Face the Road", desc: "A truck hood is flat and high, so stones hit it at full speed instead of skipping off a slope. Full front covers the hood as one sheet with the edges wrapped underneath, not just the leading strip." },
+      { title: "Work Truck Tough", desc: "Jobsite gravel, trailer dust, and the scuffs from loading ladders all land on the front end. The self-healing top coat on STEK DYNOshield lets light scratches disappear in the sun." },
+      { title: "Lifted and Leveled", desc: "A lift raises the bumper into the spray thrown by the vehicle ahead, which is why lifted trucks show chips low on the fascia. Factory bumpers on TRD, Trail Boss, and Tremor trims all have patterns." },
+      { title: "Film Only, No Vinyl", desc: "Owners ask about chrome delete, and the honest answer is that we install paint protection film and nothing else. The painted hood, fenders, and bumper around that chrome are what we protect." },
+    ],
+    faqs: [
+      { q: "Do you film the bed or tailgate on a truck?", a: "We do not. Partial front, full front, and full front extended all stop at the doors, and the bed rails and tailgate sit outside every one of them. We would rather say that plainly than quote a piece we do not install. The front end, where almost all of the damage lands on a pickup, is covered completely." },
+      { q: "Which package makes sense for a truck that tows?", a: "Full front extended. Towing on I-95 means long miles behind other trucks, and the rockers and door edges on a pickup take spray from the trailer tires as well as boots climbing in. Full front handles the hood, bumper, fenders, mirrors, headlights, and A-pillars; the extended package adds the rockers, door edges, and door cups." },
+      { q: "Can you do a chrome delete on my truck?", a: "Not with vinyl, which is what a chrome delete is. We install STEK paint protection film only and never wrap trim in colored material. What we can do is cover the painted bumper, hood, and fenders around that chrome so they stay chip-free. If another shop already did the delete, film goes over the painted panels as usual." },
+      { q: "Does PPF make sense on a Cybertruck\'s stainless steel?", a: "It does. The stainless never chips the way paint does, but it scratches, shows fingerprints, and collects road film that is hard to wash off. STEK DYNOshield over the front planes keeps the finish even and makes cleaning simple. The Cybertruck patterns come from STEK\'s library, so the film fits the flat panels with no trimming on the truck." },
+      { q: "Does a lift kit or aftermarket bumper change the install?", a: "A lift changes nothing, because the body panels are the same. An aftermarket steel bumper is different: there is no pattern for most of them, so we film the factory hood, fenders, and headlights around it and leave the bumper bare. Mention the bumper when you request a quote so we plan the job correctly." },
+    ],
+  },
+  {
+    slug: "ev",
+    name: "EVs",
+    headline: "PAINT PROTECTION FILM",
+    bodyType: "ev",
+    seoTitle: "EV PPF in Chantilly, VA | Tesla, Rivian, Lucid & Ioniq 5",
+    seoDescription: "Paint protection film for electric vehicles in Chantilly, VA. STEK DYNOshield cut around the cameras and charge port on Tesla Model 3, Y, S, X, Rivian, Lucid Air, BMW iX, Mach-E, Ioniq 5, and EV6.",
+    intro: "Electric cars chip faster than the gas cars they replace, and the reasons are physical. Several EVs ship with soft or thin paint, the battery adds weight that presses harder on loose gravel and flings it farther, and a cabin with no engine noise means the first thing an owner hears on a drive is the tick of a stone on the hood. Most of the EVs in our Chantilly bay arrive within a week of pickup from the Tesla delivery centers in Tysons and Sterling. We cut STEK DYNOshield around the cameras, sensors, and the charge-port door on the fender, so nothing that needs a clear view is covered, and the three packages are partial front, full front, and full front extended.",
+    photoMatch: /tesla|lucid|bmw ix|rivian|cybertruck|ioniq|ev6|polestar|mach-?e/i,
+    videoIds: ["dI6_E2HSmmE", "P2zyuOrWiDA"],
+    models: [
+      { name: "Tesla Model 3 / Model S", cls: "sedan", note: "Soft Tesla paint and a low nose; the Highland refresh has its own front pattern." },
+      { name: "Tesla Model Y / Model X", cls: "suv", note: "The Y is the EV we film most often, and the Juniper nose is a different cut from the earlier car." },
+      { name: "Tesla Cybertruck", cls: "truck", note: "Stainless rather than paint, so the film is there to stop scratches and fingerprints on the front planes." },
+      { name: "Rivian R1S / R1T", cls: "suv", note: "Tall nose, light-bar surround, and a charge door in the front fender all shape the pattern." },
+      { name: "Lucid Air", cls: "sedan", note: "Long, low hood and a front fascia that is one wide painted piece from edge to edge." },
+      { name: "BMW iX", cls: "suv", note: "A huge grille panel with sensors behind it; the sensor windows stay uncovered." },
+      { name: "Ford Mustang Mach-E", cls: "suv", note: "Painted grille blank and a sloping hood take the first chips on the Toll Road." },
+      { name: "Ioniq 5 / EV6 / Polestar 2", cls: "suv", note: "Crisp fender creases and pixel lighting on the Hyundai and Kia; the Polestar\'s low nose catches highway grit." },
+    ],
+    reasons: [
+      { title: "Cameras Stay Clear", desc: "Autopilot, Driver+, and parking cameras need an unobstructed lens. The pattern leaves each camera, radar window, and ultrasonic sensor open, so no software has to look through film." },
+      { title: "Delivery-Week Timing", desc: "Request a quote while the car is still on order, then bring it from Tysons or Sterling the same week you take delivery. Paint with zero miles on it is the best surface the film will ever meet." },
+      { title: "Charge Door Fits", desc: "Rivian, Lucid, and the Mach-E put the charge door in the front fender, inside the coverage area. The pattern wraps around it with a relief cut so the door still swings open freely." },
+      { title: "Weight Throws Stones", desc: "A battery-heavy car on ordinary tires loads the gravel harder and sends it higher. Full front puts STEK DYNOshield on the hood, fenders, bumper, headlights, and mirrors that take those hits." },
+    ],
+    faqs: [
+      { q: "Is EV paint really softer than paint on a gas car?", a: "On several models it is. Owners of Teslas, Polestars, and some Hyundai and Kia EVs report chips and scratches far sooner than they expected, and we see it on cars with only a few hundred miles. Whatever the cause, the answer is the same: a self-healing layer of film on the front panels before the first commute." },
+      { q: "Will film interfere with Autopilot, Driver+, or the parking sensors?", a: "It will not. Each camera, radar opening, and ultrasonic sensor is cut out of the pattern before the film reaches the car, so nothing optical or acoustic has to work through plastic. The film contains no metal either, so the key card, phone key, and charging handshake behave exactly as they did before." },
+      { q: "When should I bring a new EV in after delivery?", a: "The same week if you can manage it. Ask for a quote while the car is on order and we hold an install date with a fully refundable 20% deposit that goes toward the total. Cars picked up in Tysons or Sterling reach our Chantilly bay after a short run down Route 28, before the hood has met its first highway stone." },
+      { q: "Can you cover the charge-port door?", a: "When it sits inside the coverage area, we do. Rivian, Lucid, and Mach-E place the port in the front fender, so full front wraps it with a relief cut that lets the door open. Tesla puts the port in the rear quarter, which is outside partial front, full front, and full front extended, so that panel is not part of the job." },
+      { q: "Does PPF add weight or hurt range?", a: "Not in any way you could measure. The film is thin, the amount used on a full front install weighs next to nothing, and range and efficiency are unchanged. Many EV owners add a Gtechniq ceramic coating over the film so dirt rinses off with a hose and the car looks freshly detailed between washes." },
+    ],
+  },
+  {
+    slug: "suv",
+    name: "SUVs",
+    headline: "PAINT PROTECTION FILM",
+    bodyType: "suv",
+    seoTitle: "SUV PPF in Chantilly, VA | X5, GLE, 4Runner & Grand Cherokee",
+    seoDescription: "Paint protection film for SUVs in Chantilly, VA. STEK DYNOshield full front for the BMW X5, Mercedes GLE, 4Runner, Grand Cherokee, Escalade, Tahoe, Highlander, Pilot, CX-90, and Telluride.",
+    intro: "Family SUVs do the hardest miles of any vehicle we see: parked outside year-round, through the school drop-off line every morning, into a gravel overflow lot at the soccer fields on Saturday, and up and down Route 28 and Route 50 in between. A tall hood meets the stones from the car ahead head-on rather than letting them skip across, and the door edges get swung into curbs and neighboring cars by kids who are not watching. Partial front, full front, and full front extended fit every SUV listed here, and a roof rack has no bearing on the job, because the film we install lives on the hood, front end, and lower sides.",
+    photoMatch: /x5|gle|4runner|grand cherokee|escalade|tahoe|highlander|pilot|cx-?90|telluride|model x|r1s|mdx|seltos|bronco/i,
+    videoIds: ["LQ1iXlQpXGc", "ZvVdjXH06ug"],
+    models: [
+      { name: "BMW X5", cls: "suv", note: "Tall kidney grilles and a long flat hood; one of the SUVs we film most." },
+      { name: "Mercedes GLE", cls: "suv", note: "Wide star grille and a painted lower bumper on AMG Line cars; the 53 coupe\'s nose sits lower than it looks." },
+      { name: "Toyota 4Runner", cls: "suv", note: "The 2025 redesign changed the hood and headlights; Trailhunter and TRD Pro carry their own fascia." },
+      { name: "Jeep Grand Cherokee", cls: "suv", note: "Seven-slot grille surround and a tall hood on the Route 50 commute; the L adds length, not a new nose." },
+      { name: "Cadillac Escalade / Chevy Tahoe", cls: "suv", note: "The largest hoods we cover; the Escalade\'s vertical lamps run the full height of the fender." },
+      { name: "Toyota Highlander / Honda Pilot", cls: "suv", note: "The carpool regulars, where door edges and door cups take the most abuse." },
+      { name: "Mazda CX-90 / Kia Telluride", cls: "suv", note: "Long hoods on both; the Telluride\'s upright grille catches stones squarely." },
+      { name: "Tesla Model X / Rivian R1S", cls: "suv", note: "Electric SUVs with cameras in the nose and fenders, each one left open in the pattern." },
+    ],
+    reasons: [
+      { title: "Lives Outside", desc: "An SUV that sleeps in the driveway takes sun, tree sap, and bird droppings on top of road damage. The film shrugs off all of it and heals light scratches in the afternoon heat." },
+      { title: "Door Edges Kids Open", desc: "Full front extended adds the door edges and door cups, the two spots children scrape on garage walls and on the car parked next to you at practice." },
+      { title: "Hoods at Gravel Height", desc: "A sedan hood sits below the spray from the car ahead; an SUV hood sits right in it. The hood is covered in one piece, with edges tucked under the lip so there is no line to find." },
+      { title: "Racks Welcome", desc: "Crossbars, cargo boxes, and bike mounts change nothing about the install, because the coverage is on the front end and lower doors, not up top." },
+    ],
+    faqs: [
+      { q: "Which package do most SUV owners choose?", a: "Full front, with families of young kids stepping up to full front extended for the door edges and cups. Partial front stops at the first 18 inches of the hood, which on a tall SUV leaves a visible line partway up the panel. Full front takes the hood as a single sheet, plus the bumper, fenders, mirrors, headlights, and A-pillars." },
+      { q: "How do I protect the door edges from my kids?", a: "Choose full front extended. It adds a strip along each door edge and a piece inside each door cup, both wrapped around the metal so there is no edge to peel. The strip heals light scratches with heat, so a scrape against the garage wall fades instead of becoming a chip down to primer." },
+      { q: "Does a roof rack or cargo box affect the install?", a: "It does not. The three packages cover the front end and, on the extended version, the rockers and doors, so nothing we install goes near the rails or crossbars. Leave the rack on. The one request we make is to arrive with the cargo box empty so the hood and doors can be opened freely in the bay." },
+      { q: "Can I add ceramic coating to an SUV that lives outside?", a: "Yes, and it is the pairing we suggest for a car that never sees a garage. Gtechniq Crystal Serum Light lasts five years and Crystal Serum Ultra seven; either goes over the film and the uncovered paint so sap, pollen, and bird droppings rinse away instead of etching. Film goes on the first day and coating the second." },
+      { q: "How long will my SUV be at the shop?", a: "Full front is normally in and out the same day. Add full front extended or a ceramic coating and plan on two days. Drop off at the Chantilly shop on Walney Road, off Route 28 near Dulles, and we call when the walk-and-pay inspection under the lights is ready, before the balance is due." },
+    ],
+  },
+];

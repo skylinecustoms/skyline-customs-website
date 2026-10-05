@@ -16,6 +16,10 @@ import { galleryJobNote } from "../../shared/galleryJobNotes";
 import imageVariants from "../../shared/imageVariants.json";
 import { CITIES, SERVICES, cityPath, cityServices } from "../../client/src/lib/localSeo";
 import { MODEL_PAGES } from "../../client/src/lib/modelPages";
+import { AUDIENCE_PAGES } from "../../client/src/lib/audiencePages";
+import { ES_PAGES, ES_PROMO } from "../../client/src/lib/es";
+import { COMPARISON_PAGES } from "../../client/src/lib/comparisons";
+import { BODY_TYPE_PAGES } from "../../client/src/lib/bodyTypePages";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -35,6 +39,10 @@ export interface PageMeta {
   preloadSizes?: string;
   /** Social share image (path or absolute URL). Defaults to the site image in index.html. */
   ogImage?: string;
+  /** hreflang pairs for translated pages. */
+  alternates?: { lang: string; href: string }[];
+  /** Page language for <html lang>; defaults to "en". */
+  lang?: string;
 }
 
 /** Adds the brand to a title only when the result stays within Google's ~60-65 character title width. */
@@ -672,6 +680,22 @@ for (const m of MODEL_PAGES) {
   const p = `/${m.slug}-ppf`;
   if (!STATIC_META[p]) STATIC_META[p] = { title: m.seoTitle, description: m.seoDescription, canonical: `${BASE_URL}${p}` };
 }
+for (const b of BODY_TYPE_PAGES) {
+  const p = `/${b.slug}-ppf`;
+  if (!STATIC_META[p]) STATIC_META[p] = { title: b.seoTitle, description: b.seoDescription, canonical: `${BASE_URL}${p}` };
+}
+for (const a of AUDIENCE_PAGES) {
+  if (!STATIC_META[a.path]) STATIC_META[a.path] = { title: a.seoTitle, description: a.seoDescription, canonical: `${BASE_URL}${a.path}` };
+}
+for (const c of COMPARISON_PAGES) {
+  if (!STATIC_META[c.path]) STATIC_META[c.path] = { title: c.title, description: c.description, canonical: `${BASE_URL}${c.path}` };
+}
+// Spanish pages, and the hreflang link back from their English twins.
+for (const p of [...ES_PAGES.map((e) => ({ path: e.path, enPath: e.enPath, title: e.title, description: e.description })), { path: ES_PROMO.path, enPath: ES_PROMO.enPath, title: ES_PROMO.title, description: ES_PROMO.description }]) {
+  const alternates = [{ lang: "en", href: p.enPath }, { lang: "es", href: p.path }, { lang: "x-default", href: p.enPath }];
+  STATIC_META[p.path] = { title: p.title, description: p.description, canonical: `${BASE_URL}${p.path}`, lang: "es", alternates };
+  if (STATIC_META[p.enPath]) STATIC_META[p.enPath].alternates = alternates;
+}
 
 /** Static routes that should appear in the sitemap (indexable, non-redirect). */
 export const STATIC_PATHS: string[] = Object.keys(STATIC_META).filter(
@@ -758,6 +782,12 @@ export function injectMetaIntoHtml(html: string, meta: PageMeta): string {
       .replace(/<meta\s+property="og:image:height"\s+content="[^"]*"\s*\/?>\s*/, "")
       .replace(/<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/?>/, `<meta property="og:image:alt" content="${escapeHtml(meta.title)}" />`)
       .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/, `<meta name="twitter:image" content="${escapeHtml(abs)}" />`);
+  }
+
+  if (meta.lang && meta.lang !== "en") result = result.replace(/<html lang="[^"]*"/, `<html lang="${escapeHtml(meta.lang)}"`);
+  if (meta.alternates?.length) {
+    const links = meta.alternates.map((a) => `<link rel="alternate" hreflang="${escapeHtml(a.lang)}" href="${escapeHtml(a.href.startsWith("http") ? a.href : `${BASE_URL}${a.href}`)}" />`).join("\n");
+    result = result.replace("</head>", `${links}\n</head>`);
   }
 
   // Replace <title>

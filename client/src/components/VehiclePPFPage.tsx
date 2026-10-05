@@ -26,7 +26,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const { data: photos } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
   const { data: promo } = trpc.promo.getActive.useQuery();
-  const jobs = withJobSlugs(photos ?? []).filter((p) => brand.photoMatch.test(p.alt)).slice(0, 4);
+  const jobs = withJobSlugs(photos ?? []).filter((p) => (brand.bodyType ? p.bodyType === brand.bodyType : brand.photoMatch.test(p.alt))).slice(0, 4);
   const videos = VIDEOS.filter((v) => brand.videoIds.includes(v.id));
   const path = `/${brand.slug}-ppf`;
   const canonical = `${BASE_URL}${path}`;
