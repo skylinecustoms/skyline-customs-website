@@ -85,6 +85,11 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
   // The deposit policy is shown on every city page, whatever the rotation picked.
   const deposit = shared.find((f) => /deposit/i.test(f.q));
   if (deposit && !faqs.includes(deposit)) faqs.push(deposit);
+  // Tint pages always answer the legal limit for the state, unless the city note already does.
+  if (serviceKey === "tint" && !faqs.some((f) => /legal|law|darkest/i.test(f.q))) {
+    const law = shared.find((f) => /legal tint limit/i.test(f.q));
+    if (law && !faqs.includes(law)) faqs.splice(faqs.length - 1, 0, law);
+  }
   const cards = [
     { title: city.roadsTitle, desc: `${city.roadsDesc} ${svc.roadsBenefit}` },
     ...svc.features,
@@ -335,7 +340,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         </div>
       </section>
 
-      <NearbyAreas city={city.name} service={serviceKey} />
+      <NearbyAreas city={cityName} service={serviceKey} />
 
       {/* Other services in this city */}
       <section className="py-10 bg-[#0A0A0A] border-t border-zinc-800">
@@ -343,7 +348,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-4">More services near {city.name}</p>
           <div className="flex flex-wrap gap-3">
             {cityServices(city).filter((k) => k !== serviceKey).map((k) => (
-              <Link key={k} href={cityPath(k, city.name)} className="border border-zinc-700 hover:border-[#E85D04] text-zinc-300 hover:text-white text-sm px-4 py-2 transition-colors">
+              <Link key={k} href={cityPath(k, cityName)} className="border border-zinc-700 hover:border-[#E85D04] text-zinc-300 hover:text-white text-sm px-4 py-2 transition-colors">
                 {SERVICES[k].label} in {city.name}
               </Link>
             ))}
