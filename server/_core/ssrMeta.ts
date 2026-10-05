@@ -178,8 +178,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/get-a-quote`,
   },
   "/service-areas": {
-    title: `Service Areas | Northern Virginia | ${SITE_NAME}`,
-    description: "Skyline Customs serves all of Northern Virginia including Chantilly, Herndon, Fairfax, Centreville, Reston, Vienna, McLean, and more.",
+    title: "Service Areas | PPF, Ceramic Coating & Tint Across the DMV",
+    description: "Skyline Customs serves Northern Virginia, Maryland, and Washington, DC from its Chantilly shop: Fairfax, Arlington, Alexandria, Bethesda, Rockville, Silver Spring, Frederick, and more. Free quotes.",
     canonical: `${BASE_URL}/service-areas`,
   },
   "/blog": {

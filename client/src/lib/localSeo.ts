@@ -656,6 +656,7 @@ export interface ServiceContent {
   heroHeading: string; // e.g. "PPF NEAR"
   heroText: (c: City) => string;
   whyLabel: (city: string) => string;
+  /** Section heading; "NOVA" is swapped for "DMV" on Maryland and DC pages. */
   whyHeading: string;
   /** Sentence appended to the city road hazard, explaining how this service helps. */
   roadsBenefit: string;

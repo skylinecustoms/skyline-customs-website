@@ -1,7 +1,7 @@
 /*
  * SKYLINE CUSTOMS — Service Areas Hub Page
  * URL: /service-areas
- * Lists all 22 cities with links to each of the 4 service landing pages
+ * Lists every city (Virginia, Maryland, DC) with links to its service landing pages
  */
 
 import { Link } from "wouter";
@@ -35,8 +35,8 @@ export default function ServiceAreas() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Service Areas | PPF, Ceramic Coating & Tint Across Northern Virginia"
-        description="Skyline Custom Shop serves 22 cities across Northern Virginia including Chantilly, Fairfax, Arlington, Alexandria, Woodbridge, Stafford, Fredericksburg, and more. Find your city and book a free quote."
+        title="Service Areas | PPF, Ceramic Coating & Tint Across the DMV"
+        description={`Skyline Customs serves ${CITY_ORDER.length} cities across Northern Virginia, Maryland, and Washington, DC: Chantilly, Fairfax, Arlington, Alexandria, Bethesda, Rockville, Silver Spring, and more. Find your city and book a free quote.`}
         canonical="https://www.skylinecustomshop.com/service-areas"
         jsonLd={[
           {
@@ -85,7 +85,7 @@ export default function ServiceAreas() {
         <div className="container relative z-10 pt-32">
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-4 h-4 text-[#E85D04]" />
-            <span className="text-[#E85D04] text-sm font-bold tracking-widest uppercase">Northern Virginia</span>
+            <span className="text-[#E85D04] text-sm font-bold tracking-widest uppercase">Virginia, Maryland &amp; DC</span>
           </div>
           <div className="max-w-4xl">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Coverage Map</p>
@@ -94,7 +94,7 @@ export default function ServiceAreas() {
               <span className="text-[#E85D04]">AREAS</span>
             </h1>
             <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
-              Skyline Custom Shop serves 22 cities across Northern Virginia and the I-95 corridor — from Chantilly, Sterling, and Ashburn to Tysons, Woodbridge, Stafford, and Fredericksburg. Find your city below and book a free quote.
+              Skyline Customs serves {CITY_ORDER.length} cities across the DMV: Northern Virginia from Chantilly and Ashburn to Woodbridge and Winchester, Washington, DC, and Maryland from Bethesda and Rockville to Frederick and Annapolis. Every job is done at our Chantilly shop. Find your city below and book a free quote.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/get-a-quote"
@@ -119,7 +119,7 @@ export default function ServiceAreas() {
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "22", label: "Cities Served" },
+              { value: String(CITY_ORDER.length), label: "Cities Served" },
               { value: "140+", label: "Happy Customers" },
               { value: "5.0 ★", label: "Google Rating" },
               { value: "3", label: "Services Offered" },
@@ -248,7 +248,7 @@ export default function ServiceAreas() {
             DON'T SEE YOUR CITY?
           </h2>
           <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
-            We serve all of Northern Virginia and the I-95 corridor. Call us or get a free quote — we'll let you know if we can accommodate your location.
+            We serve all of Northern Virginia, Maryland, and Washington, DC. Call us or get a free quote and we will confirm your drive and the install dates.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/get-a-quote"

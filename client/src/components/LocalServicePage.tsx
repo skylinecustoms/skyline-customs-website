@@ -224,7 +224,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         <div className="container">
           <div className="mb-12">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{svc.whyLabel(city.name)}</p>
-            <h2 className="font-['Bebas_Neue',sans-serif] text-5xl text-white">{svc.whyHeading}</h2>
+            <h2 className="font-['Bebas_Neue',sans-serif] text-5xl text-white">{city.state === "VA" ? svc.whyHeading : svc.whyHeading.replace("NOVA", "DMV")}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-zinc-800">
             {cards.map((item, i) => {
