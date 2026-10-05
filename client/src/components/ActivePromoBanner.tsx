@@ -225,7 +225,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
             <div className="grid grid-cols-3 gap-3">
               {[
                 { icon: Shield, label: "STEK Certified", sub: "12-yr warranty" },
-                { icon: Star, label: "5-Star Rated", sub: "140+ reviews" },
+                { icon: Star, label: "5-Star Rated", sub: "700+ reviews, all platforms" },
                 { icon: CheckCircle, label: "Walk & Pay", sub: "Guaranteed" },
               ].map(({ icon: Icon, label, sub }, i) => (
                 <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-3 text-center">

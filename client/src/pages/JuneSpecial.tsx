@@ -868,7 +868,7 @@ export default function JuneSpecial() {
                 </div>
                 <span className="text-zinc-300 text-sm font-semibold">5.0</span>
                 <span className="text-zinc-400 text-sm">&middot;</span>
-                <span className="text-zinc-400 text-sm">140+ Google Reviews</span>
+                <span className="text-zinc-400 text-sm">140+ Google reviews &middot; 700+ five-star reviews across all platforms</span>
               </div>
 
               {giveaway && (
@@ -945,7 +945,7 @@ export default function JuneSpecial() {
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { icon: Lock, label: "Price Locked", sub: "No hidden fees" },
-                  { icon: Star, label: "5-Star Rated", sub: "140+ reviews" },
+                  { icon: Star, label: "5-Star Rated", sub: "700+ reviews, all platforms" },
                   { icon: CheckCircle, label: "STEK Certified", sub: "12-yr warranty" },
                 ].map(({ icon: Icon, label, sub }, i) => (
                   <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-4 text-center">
