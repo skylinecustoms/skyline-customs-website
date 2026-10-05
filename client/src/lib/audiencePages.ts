@@ -1,24 +1,381 @@
-/**
- * Audience PPF pages: military bases and federal workplaces (/ppf-<slug>) and
- * dealer-delivery areas (/new-car-ppf-<slug>). Rendered by components/AudiencePage.tsx.
- */
 export interface AudiencePage {
-  slug: string;
-  path: string;
+  slug: string;        // used for routing: bases -> /ppf-<slug>, dealers -> /new-car-ppf-<slug>
+  path: string;        // the full path, e.g. "/ppf-fort-belvoir" or "/new-car-ppf-tysons"
   kind: "base" | "dealer";
-  name: string;
-  seoTitle: string;
-  seoDescription: string;
+  name: string;        // "Fort Belvoir" / "Tysons dealers"
+  seoTitle: string;    // 50–65 chars, includes "PPF" and "Chantilly, VA" or the place
+  seoDescription: string; // 140–160 chars
   eyebrow: string;
-  h1: string;
-  intro: string[];
-  drive: string;
-  reasons: { title: string; desc: string }[];
-  logistics: { title: string; body: string }[];
-  packages: { pkg: "partial" | "fullFront" | "fullFrontPlus"; note: string }[];
-  faqs: { q: string; a: string }[];
-  nearbyCities: string[];
-  videoIds: string[];
+  h1: string;          // UPPERCASE, short
+  intro: string[];     // 2 paragraphs, 60–110 words each
+  drive: string;       // one sentence: honest drive time and route from that place to the Chantilly shop
+  reasons: { title: string; desc: string }[];   // 4: why this audience's cars need the front end filmed (their roads, parking, schedule)
+  logistics: { title: string; body: string }[]; // 3: drop-off and pickup; timing (delivery week, PCS, deployment, TDY); paying (deposit, payment plans)
+  packages: { pkg: "partial" | "fullFront" | "fullFrontPlus"; note: string }[]; // 3, one per key
+  faqs: { q: string; a: string }[]; // 5, answers 35–70 words, from this audience's point of view
+  nearbyCities: string[]; // 3–5 keys from CITIES in localSeo.ts (e.g. "Lorton", "Springfield", "Alexandria")
+  videoIds: string[];     // 1–2
 }
 
-export const AUDIENCE_PAGES: AudiencePage[] = [];
+export const AUDIENCE_PAGES: AudiencePage[] = [
+  {
+    slug: "fort-belvoir",
+    path: "/ppf-fort-belvoir",
+    kind: "base",
+    name: "Fort Belvoir",
+    seoTitle: "Fort Belvoir PPF | Front-End Film 30 Min Away in Chantilly, VA",
+    seoDescription: "Paint protection film for Fort Belvoir soldiers, civilians, and contractors. Full front STEK film before a PCS or deployment, 30 minutes away in Chantilly, VA.",
+    eyebrow: "Fort Belvoir",
+    h1: "FORT BELVOIR PAINT PROTECTION FILM",
+    intro: [
+      "Fort Belvoir sits on Route 1 between Alexandria and Lorton, and nearly everyone assigned there drives to work. The Fairfax County Parkway cuts straight through the post, Richmond Highway has been under widening for years, and the I-95 run from Woodbridge or Stafford means miles of truck traffic throwing gravel at bumper height. Cars then park in open surface lots for ten hours while sun, pollen, and whatever the sweeper missed land on the paint. Soldiers, civilians, and contractors at Belvoir bring us cars within weeks of a PCS, and the damage on the ones that waited follows the same pattern: lower bumper, hood edge, mirror caps.",
+      "This page is written for the Belvoir commute specifically: which panels take the hits on the Parkway and I-95, how to fit a one-day install around in-processing, a deployment, or TDY, and what the three STEK DYNOshield packages cover. Our shop is in Chantilly, about half an hour up the Parkway, with Mon–Fri hours that line up with a normal duty day. If you already know you want full front, send the year, make, and model through the quote form and we usually answer within the hour during business hours.",
+    ],
+    drive: "From the Fairfax County Parkway side of Fort Belvoir, head north on the Parkway to Route 28 and you reach our Chantilly shop in about 30 minutes; I-95 to I-495 to I-66 takes about the same when the Parkway is backed up at Route 123.",
+    reasons: [
+      { title: "The Parkway and I-95 every day", desc: "The Parkway between Belvoir and Springfield is lined with construction, and I-95 through Lorton and Newington carries constant tractor-trailer traffic. Both throw stones at the bumper and the first foot of the hood for your entire commute." },
+      { title: "Richmond Highway construction", desc: "The Route 1 widening through the Belvoir stretch means lane shifts, milled pavement, and loose aggregate on the road for the foreseeable future. Following a dump truck through it for two miles leaves white dots on a dark hood." },
+      { title: "Open lots, all day, all year", desc: "Parking on post is surface lots with no shade. Ten hours in the sun bakes bird droppings and pollen into clear coat, and the self-healing top coat on the film takes that abuse instead of the paint." },
+      { title: "A new car right after a PCS", desc: "Many Belvoir families buy a car within weeks of arriving, usually from the dealers in Springfield or along Route 1 in Alexandria. Factory-fresh paint with zero chips is the best possible day to film it." },
+    ],
+    logistics: [
+      { title: "Drop off and pick up", body: "Drop the car at 4215 Walney Rd in Chantilly at 9 AM and a full front is finished the same afternoon. If you cannot wait around, a rideshare back toward I-66 is a short hop, or come back for it any time before we close at 6 PM." },
+      { title: "PCS, deployment, TDY", body: "Before a deployment, film the front so the car sits for months without the chips it already has rusting underneath. Arriving on orders, book us for the week you take delivery. If TDY dates move, call (703) 775-4383 and we will reschedule the install around them." },
+      { title: "Deposit and paying over time", body: "A fully refundable 20% deposit holds the install date and comes off the balance. The rest is paid at pickup after you have walked the car under the inspection lights with us. Klarna, Afterpay, and Affirm are available if you would rather spread the cost across the next few paychecks." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Front bumper, the leading 18 inches of the hood, the fender edges, and the mirrors. It covers the panels that take the most stones on I-95 and leaves a film line partway up the hood." },
+      { pkg: "fullFront", note: "Full hood, full bumper, both fenders, mirrors, headlights, and A-pillars with no line anywhere on the hood. This is what we recommend for a daily Belvoir commute, and it is a one-day install." },
+      { pkg: "fullFrontPlus", note: "Rocker panels, door edges, and door cups go on top of the full front coverage. Pick this for a truck or SUV that sees gravel at training areas or tight lots where doors swing open against it." },
+    ],
+    faqs: [
+      { q: "I just got orders to Fort Belvoir and bought a car. When should I film it?", a: "The week you take delivery, before the first drive down I-95. New paint has no chips to hide, so the film goes on invisibly and the self-healing top coat starts working from day one. Send the year, make, model, and delivery date through the quote form and we will hold a day near it." },
+      { q: "I deploy in a few weeks. Is it worth filming a car that will just sit?", a: "Yes, for two reasons. The car still has to get to storage or a family member's driveway, and the chips already in the paint keep rusting while you are gone. Film seals the front end before the long sit, and a ceramic coating on top keeps months of dust and pollen from etching the clear coat." },
+      { q: "Can I drop the car off before PT and pick it up after work?", a: "Our doors open at 9 AM, so a pre-dawn drop is not possible, but a 9 AM drop and a late-afternoon pickup fits a normal duty day with one trip up the Parkway. Full front is usually done the same day. If your day runs long, call (703) 775-4383 and we will work out a pickup time." },
+      { q: "Is there military pricing?", a: "Tell us you are active duty, reserve, or a veteran when you request a quote, and the number you get back will reflect anything that applies. Every quote is free, and we answer most of them within the hour on a business day." },
+      { q: "Will the film hold up to the gravel on post and the Route 1 construction?", a: "This is the job the film was built for. STEK DYNOshield is a thick urethane film that absorbs stones instead of letting them reach the paint, and its top coat heals light scratches in the sun. It carries a 12-year manufacturer warranty against yellowing and peeling. A big rock marks the film rather than the hood." },
+    ],
+    nearbyCities: ["Lorton", "Springfield", "Alexandria", "Woodbridge", "Burke"],
+    videoIds: ["LQ1iXlQpXGc", "ZvVdjXH06ug"],
+  },
+  {
+    slug: "quantico",
+    path: "/ppf-quantico",
+    kind: "base",
+    name: "Quantico",
+    seoTitle: "Quantico PPF | Paint Protection Film for MCBQ Commuters, VA",
+    seoDescription: "STEK paint protection film for Marines, civilians, and contractors at Quantico. Film the front end before I-95, a course start, or a deployment. Chantilly, VA.",
+    eyebrow: "Marine Corps Base Quantico",
+    h1: "QUANTICO PAINT PROTECTION FILM",
+    intro: [
+      "Marine Corps Base Quantico draws its people from Stafford, Dumfries, Woodbridge, and Fredericksburg, which means I-95 twice a day for most of them. That stretch of interstate is express lanes, concrete barriers, and a steady line of tractor-trailers, and the pavement between Route 1 and Russell Road adds its own grit. Students at The Basic School and Officer Candidates School arrive for months at a time, often in a car that is brand new or about to be. The front ends we see from Quantico are peppered the same way every time: lower bumper first, then the hood edge and the mirror caps.",
+      "Below is how the three STEK DYNOshield packages cover a Quantico commuter, how to schedule a one-day install around a course start, a deployment, or TDY, and what the drive to our Chantilly shop looks like. We are off Route 28 near Dulles, about 45 minutes north of the main gate, and we work Mon–Fri 9 AM–6 PM. Marines, civilians, and FBI Academy staff from Quantico have been part of our customer base for years, and they tend to ask the same practical questions, so those are the ones answered here.",
+    ],
+    drive: "Marine Corps Base Quantico to our shop is about 45 minutes: I-95 north to I-66 west and out to Route 28, or Route 1 to the Fairfax County Parkway when the interstate is stacked up through Dumfries.",
+    reasons: [
+      { title: "I-95 through Stafford and Dumfries", desc: "The commute north from Stafford or south from Woodbridge runs between trucks and under years of express-lane construction. Stones come off tires at highway speed and land on the bumper, the hood edge, and the mirrors before you reach the base exit." },
+      { title: "Route 1 and the base roads", desc: "Richmond Highway through Triangle and Dumfries, Russell Road, and the roads out to the ranges are patched, sanded in winter, and shared with training traffic. Gravel from the shoulders ends up on the paint of whatever is following a seven-ton." },
+      { title: "Open lots for a long day", desc: "Parking across the base is open surface lots. A car sitting there through a summer of PT, classes, and range days collects pollen, sap, and bird droppings that etch unprotected clear coat before anyone notices." },
+      { title: "A new car for a new duty station", desc: "Lieutenants at TBS, new agents at the Academy, and families fresh off a PCS buy cars in Stafford, Woodbridge, and Fredericksburg every week. Filming the front before the first I-95 run is the easiest week to do it, because nothing needs touching up first." },
+    ],
+    logistics: [
+      { title: "Drop-off and pickup from Quantico", body: "Leave base after the morning rush and you can be at 4215 Walney Rd by 10 AM; a full front is normally ready that afternoon. The drive back down I-95 after 6 PM is the slowest part of the day, so plenty of customers pair the trip with a day off or a late start." },
+      { title: "Course dates, deployments, TDY", body: "Tell us your report date, your deployment window, or your TDY dates and we will book the install around them. A car being left in Virginia for seven months should be filmed before it sits, not after. Training schedules change, and when yours moves, the install date moves with it." },
+      { title: "Paying for it", body: "A 20% deposit reserves the date and is fully refundable. Klarna, Afterpay, and Affirm let you pay the balance over time instead of all at pickup. If you are active duty, reserve, or a veteran, say so when you request a quote and we will take it from there." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Bumper, leading 18 inches of the hood, fender edges, and mirrors. Good for a sedan that mostly sees Route 1 and base roads, with the understanding that there is a visible film line partway up the hood." },
+      { pkg: "fullFront", note: "The entire hood, bumper, both fenders, mirrors, headlights, and A-pillars. For anyone running I-95 to Quantico every day this is the package we recommend, and it is done in one day." },
+      { pkg: "fullFrontPlus", note: "Everything in full front plus rockers, door edges, and door cups. Right for the lifted trucks and 4Runners that end up on gravel out past the ranges and carry gear bags in and out of the doors." },
+    ],
+    faqs: [
+      { q: "I report to TBS next month. Should I film the car before or after I get there?", a: "Before, if you can. The drive to Quantico is the first long highway run most new cars take, and the film works best on paint that has never been chipped. If you are buying the car locally after you arrive, book us for the same week as delivery and come up I-95 on a free afternoon." },
+      { q: "I live in Stafford. Is the drive to Chantilly worth it?", a: "It is about 45 minutes each way, and the install is one day for full front, so it costs you a day off or a long Saturday-style errand on a weekday. In exchange the car is filmed in a dust-controlled bay with computer-cut STEK patterns and a 12-year manufacturer warranty, which a driveway install cannot match." },
+      { q: "I am deploying for seven months. Does PPF help a car in storage?", a: "It does. Chips that are already in the bumper keep corroding while the car sits, and a stored car still picks up dust, pollen, and the occasional scrape when someone moves it. Film the front before you go and add a ceramic coating over the film and the rest of the paint so it wipes clean when you are back." },
+      { q: "Will the film survive the gravel roads out to the ranges?", a: "Gravel at low speed is the easy case. The film is built to absorb stones thrown at highway speed, and its self-healing top coat closes the light scratches that brush and dust leave behind. Full front extended adds the rockers and door edges, which is where gravel roads actually do their damage." },
+      { q: "Can you do a ceramic coating and tint on the same trip?", a: "Yes, and many Quantico customers do all three at once. Full front film is one day, adding a Gtechniq coating makes it two, and GeoShield ceramic tint takes two to three hours inside that window. Virginia allows 50% on the front sides and 35% behind that on a sedan, which we cut to legally." },
+    ],
+    nearbyCities: ["Stafford", "Woodbridge", "Fredericksburg", "Dale City", "Manassas"],
+    videoIds: ["LQ1iXlQpXGc", "n5mQVftEwfA"],
+  },
+  {
+    slug: "joint-base-andrews",
+    path: "/ppf-joint-base-andrews",
+    kind: "base",
+    name: "Joint Base Andrews",
+    seoTitle: "Joint Base Andrews PPF | STEK Film for Beltway Commuters, MD",
+    seoDescription: "Paint protection film for airmen and civilians at Joint Base Andrews. Full front STEK film for the Beltway commute, installed in Chantilly, VA, 50 minutes away.",
+    eyebrow: "Joint Base Andrews",
+    h1: "JOINT BASE ANDREWS PAINT PROTECTION FILM",
+    intro: [
+      "Joint Base Andrews sits just outside the Beltway in Prince George's County, and getting anywhere from it means I-495, Branch Avenue, or Suitland Parkway. Those three roads have some of the roughest pavement in the region: pothole patches, bridge joints, and a steady line of dump trucks headed for job sites around National Harbor and the District. Airmen and civilians at Andrews also leave cars in open lots for days while crews are on trips. We see the result when they come to Chantilly: sandblasted bumpers, chipped hood edges, and headlights going hazy on cars that are barely two years old.",
+      "This page covers why Andrews cars take the damage they do, how the three STEK DYNOshield packages fit them, and how to make a one-day install work from the Maryland side of the river. Our shop is in Chantilly, VA, about 50 minutes around the Beltway and out I-66, and it is the only place we install, so plan a real trip rather than a lunch break. Because most of these cars stay registered in Maryland, the tint rules that differ from Virginia's are covered in the questions below as well.",
+    ],
+    drive: "From Joint Base Andrews, take I-495 across the Woodrow Wilson Bridge or around the top of the Beltway to I-66 west, then Route 28 north to Walney Road in Chantilly; outside rush hour it is about 50 minutes.",
+    reasons: [
+      { title: "The Beltway in both directions", desc: "Whether you cross the Wilson Bridge or go up through College Park, I-495 is the fastest-moving truck route in the region, and the Springfield interchange and the bridge approaches are perpetually under some kind of work. Stones at 65 mph do the most damage." },
+      { title: "Branch Avenue and Suitland Parkway", desc: "Route 5 and the Parkway are how most of Andrews gets to and from the base. Both are patched concrete and asphalt with crumbling joints, and the gravel that works loose sits in the lane until a tire finds it." },
+      { title: "Cars that sit while crews fly", desc: "Aircrew and maintainers on trips leave cars in open lots for days at a stretch. Sun, bird droppings, and tree pollen have all that time to work on unprotected clear coat, and a film top coat with a ceramic layer over it rinses clean instead." },
+      { title: "Shift work and dark lots", desc: "Flightline hours start before sunrise and end after dark, when a lot is at its emptiest and a careless door or shopping cart goes unnoticed. Door edges and cups are where that shows, which is why full front extended exists." },
+    ],
+    logistics: [
+      { title: "Getting the car to Chantilly", body: "Plan on a 9 AM drop and a late-afternoon pickup for a full front, which means leaving Andrews around 8. A film-and-coating install is two days, so most Maryland customers pair it with a long weekend or a trip and have a spouse or friend handle one leg of the drive." },
+      { title: "PCS, trips, and TDY", body: "Arriving at Andrews on orders with a new car, book the film for the week you take delivery. Heading out on a long trip or a deployment, film it the week before you go so the paint is sealed while it sits. If a tasking changes your dates, the deposit is refundable and the install simply moves." },
+      { title: "The deposit and payment plans", body: "Reserving your date takes a 20% deposit that is fully refundable and counts toward the total. The balance is due after the walk-and-pay inspection under our lights at pickup. Klarna, Afterpay, and Affirm are all accepted if you want to split it up, and anyone active duty, reserve, or a veteran should say so on the quote form." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Bumper, 18 inches of the hood, fender edges, and mirrors. The minimum that makes sense for the Beltway, and the film line partway up the hood is the trade-off for covering less." },
+      { pkg: "fullFront", note: "Whole hood, bumper, both fenders, mirrors, headlights, and A-pillars. On a car that lives on I-495 and Branch Avenue this is the package we recommend, and it fits in one day." },
+      { pkg: "fullFrontPlus", note: "Adds rockers, door edges, and door cups to everything in full front. Worth it for the trucks and large SUVs that get loaded with gear in a dark lot before a trip." },
+    ],
+    faqs: [
+      { q: "Is it worth driving from Maryland to Chantilly for PPF?", a: "People from Andrews, Bowie, and Waldorf make the trip every week, so we think so. The film is STEK DYNOshield with a 12-year manufacturer warranty, the patterns are computer-cut for your exact year and trim, and the install happens in a dust-controlled bay rather than a lot. For a car you will keep for years, 50 minutes each way is time well spent." },
+      { q: "My car is registered in Maryland. Does that change anything?", a: "Not for film; paint protection has no legal limits in either state. It matters for tint. Maryland allows 35% VLT on every window of a passenger car, which is darker than Virginia permits up front, so if you add GeoShield tint on the same visit we cut it to Maryland's limit for a Maryland-registered car." },
+      { q: "I fly a lot. How do I time the install?", a: "Pick a day you know you will be home, because full front is a one-day job and you need to be there for the inspection at pickup. Adding a coating makes it two days. Crew schedules move, so if yours does, the 20% deposit stays refundable and we rebook the install." },
+      { q: "Does film help with the salt and brine on the Beltway in winter?", a: "Yes, mostly by keeping salt out of chips that are already there. Brine finds every break in the clear coat and starts rust under the paint. Film means there are no breaks on the front end, and a Gtechniq coating over the film and the rest of the car makes the winter grime rinse off with a hose." },
+      { q: "Can I get the tint done the same day as the film?", a: "Usually, yes. GeoShield ceramic tint takes two to three hours and happens while the film cures, so a full front plus tint still finishes in one day. It is metal-free, so your phone and toll transponder keep working, and it carries a nationwide lifetime warranty that follows the car to your next duty station." },
+    ],
+    nearbyCities: ["Waldorf", "Bowie", "Washington DC", "Laurel", "Alexandria"],
+    videoIds: ["P2zyuOrWiDA", "LQ1iXlQpXGc"],
+  },
+  {
+    slug: "pentagon",
+    path: "/ppf-pentagon",
+    kind: "base",
+    name: "The Pentagon",
+    seoTitle: "Pentagon PPF | Paint Protection Film for the I-395 Commute",
+    seoDescription: "STEK paint protection film for people who work at the Pentagon. Full front film for the I-395 and I-66 commute, installed in Chantilly, VA, 35 minutes out.",
+    eyebrow: "The Pentagon",
+    h1: "PENTAGON PAINT PROTECTION FILM",
+    intro: [
+      "Nobody who works at the Pentagon has an easy drive. Arlington's own streets are fine; the problem is what feeds them: I-395 from Springfield and Woodbridge, I-66 from Fairfax and Loudoun, the GW Parkway and the 14th Street Bridge from Maryland and the District. Every one of those carries trucks and construction debris at the hours Pentagon staff drive them, and the North and South parking lots hold cars outside for ten to twelve hours while they bake. The front ends we see from the building show it: a sandblasted lower bumper, a chipped hood edge, and mirror caps that look older than the rest of the car.",
+      "If you work in the building or at one of the offices around Pentagon City and Crystal City, this page covers how the three STEK DYNOshield packages map onto a Pentagon commute, how to get the car to Chantilly and back on a workday, and what a new-car owner should do before the first week on I-395. We are about 35 minutes out I-66, off Route 28 in Chantilly, open Mon–Fri 9 AM–6 PM, and every car we film is done in our own bay with 140+ five-star Google reviews behind the work.",
+    ],
+    drive: "The Pentagon to our Chantilly shop is about 35 minutes against traffic: Washington Boulevard to I-66 west and stay on it to Route 28, or I-395 south to the Beltway and I-66 if you are leaving from the south side of the building.",
+    reasons: [
+      { title: "I-395 and the 14th Street Bridge", desc: "The HOV lanes and the bridge approaches are concrete with expansion joints that shed grit, and the general lanes are wall-to-wall trucks heading for the District. A low bumper gets sandblasted here faster than anywhere else in Arlington." },
+      { title: "I-66 inside and outside the Beltway", desc: "Years of widening and tolling work have left I-66 with lane shifts, temporary barriers, and construction entrances that drag gravel onto the road. The commute home to Fairfax or Loudoun collects it on the hood edge." },
+      { title: "North and South Parking", desc: "Acres of open asphalt with nothing to break the wind means grit, pollen, and bird droppings land on the paint all day and get baked in by afternoon. A self-healing film top coat and a ceramic layer over it are what keep that from etching." },
+      { title: "Slug lines and early hours", desc: "A 5 AM slug pickup or a dark lot at 7 PM means nobody is watching the car. Door dings and cart scrapes on the door edges and cups are the common complaint, and the extended package covers exactly those spots." },
+    ],
+    logistics: [
+      { title: "Drop-off on a workday", body: "A 9 AM drop at 4215 Walney Rd in Chantilly means a late start at the building, so most Pentagon customers come on a telework day or stack it with a Friday. Full front is finished the same afternoon; with a coating the car stays with us overnight and is ready the next day." },
+      { title: "PCS to the Pentagon, TDY, deployments", body: "Joint staff arrive on orders and buy cars in Arlington and Alexandria within the first month, which is the right time to film them. If you are headed out on TDY or a deployment, film the car before it sits in a lot or a driveway for the duration. Dates that shift are not a problem; the install moves with your orders." },
+      { title: "Paying and the deposit", body: "Your install date is held by a 20% deposit that is fully refundable and comes off the final bill. You pay the remainder at pickup after walking every filmed panel under our lights. If spreading it out helps, Klarna, Afterpay, and Affirm are offered at checkout, and active duty, reserve, and veterans should mention it on the quote form." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Front bumper, 18 inches up the hood, the front edge of each fender, and the mirror caps. It stops the I-395 sandblasting on the bumper but leaves a visible line on the hood of a dark car." },
+      { pkg: "fullFront", note: "Hood, bumper, both fenders, mirrors, headlights, and A-pillars, one piece on the hood with no seam. Our recommendation for a car that commutes to the Pentagon five days a week, done in a single day." },
+      { pkg: "fullFrontPlus", note: "Full front plus rocker panels, door edges, and door cups. The right choice if the car lives in North Parking or a Pentagon City garage where the doors take the abuse." },
+    ],
+    faqs: [
+      { q: "I work in the building. How do I get the car to you without burning leave?", a: "Most people use a telework day or come in late on a Friday. Drop at 9 AM, grab a rideshare or have a colleague follow you, and the full front is ready by late afternoon. If your schedule allows a two-day window, adding a ceramic coating at the same time saves a second trip out Route 28." },
+      { q: "Does the film matter if I park in North Parking all day?", a: "Parking is where the slow damage happens. Wind-driven grit, pollen, and bird droppings sit on the hood from 7 AM to 6 PM and etch the clear coat by August. The film's self-healing top coat shrugs off the light scratches, and a Gtechniq coating over it keeps the droppings from biting in." },
+      { q: "I just PCSed to the Pentagon and bought a car in Arlington. How soon should I book?", a: "This week. The dealers on Glebe Road and Route 1 in Alexandria will hand you a car with perfect paint, and the first month of I-395 is when that changes. Send the delivery date through the quote form and we will hold a day near it so the film goes on before the first chip." },
+      { q: "Is a ceramic coating worth adding for a car that sits outside?", a: "For a Pentagon car, yes. Gtechniq Crystal Serum Light or Ultra goes over the film and the rest of the paint, so every surface sheds water, pollen, and bird droppings instead of holding them in the sun all day. Washing becomes a rinse, and the gloss on the film gets deeper." },
+      { q: "Can you film a car that already has chips on the bumper?", a: "Yes, with one honest caveat. We touch up small chips so they stay stable and then film over them, but film is clear and does not hide a chip; it stops the next hundred. If the bumper is heavily pitted we will tell you at the inspection that a respray first would give a cleaner result." },
+    ],
+    nearbyCities: ["Arlington", "Alexandria", "Falls Church", "Washington DC", "McLean"],
+    videoIds: ["ZvVdjXH06ug", "P2zyuOrWiDA"],
+  },
+  {
+    slug: "dulles-airport",
+    path: "/ppf-dulles-airport",
+    kind: "base",
+    name: "Dulles Airport",
+    seoTitle: "Dulles Airport PPF | Film for IAD Workers in Chantilly, VA",
+    seoDescription: "Paint protection film for airline, TSA, cargo, and office-park workers at Dulles Airport. Drop the car during a shift, 10 minutes up Route 28 in Chantilly, VA.",
+    eyebrow: "Dulles Airport",
+    h1: "DULLES AIRPORT PAINT PROTECTION FILM",
+    intro: [
+      "Dulles is a city of its own: airline crews, ramp and cargo workers, TSA and CBP officers, and the office parks along Route 28 and the Toll Road that exist because the airport does. Nearly all of them drive and park in open lots a shuttle ride from where they work. Route 28 is a truck route, the Access Road carries fuel tankers and freight haulers, and the roads around the cargo side are shared with everything that keeps the terminals supplied. Add a shift that ends in the dark and a car that sits twelve hours in a windswept lot, and the front end pays for it.",
+      "We are ten minutes down Route 28 at 4215 Walney Rd in Chantilly, close enough to drop the car on the way to a shift. This page covers what the airport commute does to a bumper and hood, how to hand us the keys at the start of a day and get them back at the end, and what the three STEK DYNOshield packages cover. For crew, a two-day film-and-coating install lines up with a two-day trip, and for everyone else a full front fits inside a single shift with time to spare.",
+    ],
+    drive: "From the terminal at Dulles, follow Route 28 south for about 10 minutes to Walney Road in Chantilly; from the cargo side or the employee lots it is roughly the same once you are on 28.",
+    reasons: [
+      { title: "Route 28 and the Access Road", desc: "Route 28 between the airport and I-66 is a four-lane truck corridor with interchanges still being rebuilt, and the Dulles Access Road is tankers and cargo trucks at highway speed. Both throw stones at the bumper on every shift." },
+      { title: "Employee lots and shuttle rides", desc: "The car sits for a full shift in an open lot with nothing between it and the wind off the airfield. Fine grit, jet exhaust fallout, and pollen settle on the hood and get baked in, and the lot is a long shuttle ride from anyone who might notice a door ding." },
+      { title: "Shift work in the dark", desc: "Early departures and late arrivals mean the car is parked and retrieved in the dark, often in the same spot for days during a trip. That is when scrapes on door edges and cups happen and go unnoticed until daylight." },
+      { title: "Cargo trucks and office-park construction", desc: "The freight side of the airport runs on trucks, and the office parks along Route 28 and the Silver Line stations are still being built out. Gravel tracked out of construction entrances onto Route 28 lands on whatever is in the next lane." },
+    ],
+    logistics: [
+      { title: "Drop at the start of a shift, pick up after", body: "We open at 9 AM, so a mid-morning shift start works best: drop the car, take a rideshare the ten minutes up Route 28, and the full front is ready when you clock out. Pickup is any time before 6 PM, and the inspection under lights takes about fifteen minutes." },
+      { title: "Trips, bid schedules, and rotations", body: "Crew on a two-day trip can match it to a two-day film-and-coating install and pick up on the way home. Shift workers on a rotation usually book a day off so they can see the car under the lights before paying. If a trip gets reassigned, call (703) 775-4383 and the date moves." },
+      { title: "Deposit, balance, and payment plans", body: "A refundable 20% deposit locks in the install day and is credited to your total. The balance is settled at pickup once you have walked the car with us. Klarna, Afterpay, and Affirm are available for anyone who wants to spread the cost over the next several pay periods." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Bumper, the first 18 inches of hood, fender edges, and mirrors. Covers the panels Route 28 hits hardest and finishes in half a day, with a film line on the hood that shows on dark paint." },
+      { pkg: "fullFront", note: "Full hood, bumper, fenders, mirrors, headlights, and A-pillars as a single clean install with no hood line. For a car that commutes to the airport every day this is what we recommend, and it fits in one shift." },
+      { pkg: "fullFrontPlus", note: "Adds rockers, door edges, and door cups to the full front. Built for the SUVs and trucks that sit in the employee lots for days at a time and get loaded with bags in the dark." },
+    ],
+    faqs: [
+      { q: "I work a 5 AM shift. Can I drop the car before work?", a: "Not that early; our bay opens at 9 AM. The better fit is a day you start mid-morning or a day off, since a full front drops at 9 and is ready by late afternoon. Plenty of Dulles employees book the install for a scheduled day off and run errands in Chantilly while it is done." },
+      { q: "Which package makes sense for a car that sits in the employee lot?", a: "Full front, and consider the extended version if you drive an SUV or truck. The lot does slow damage from grit and sun, which the film's self-healing top coat handles, while Route 28 does the fast damage to the bumper and hood edge, which is what full front is for. Extended adds the door edges that get scraped in the dark." },
+      { q: "I fly a two-day trip. Can the install line up with it?", a: "Yes. Full front film with a Gtechniq ceramic coating on top is a two-day job, so dropping the car the morning you leave and picking it up the afternoon you land works well. Give us the trip dates through the quote form and we will confirm the pickup time before you go." },
+      { q: "Does PPF protect against the grit that drifts off the airfield?", a: "It does. The fine particles that settle on cars near the runways cause swirl marks when they are wiped or washed, and the STEK top coat heals those light scratches when the car warms up in the sun. A ceramic coating over the film makes the grit rinse off instead of needing to be rubbed." },
+      { q: "Can I get tint done during a shift too?", a: "GeoShield ceramic tint takes two to three hours, so it fits easily inside a shift, with or without film on the same day. It is metal-free, so radios, phones, and your employee badge reader are unaffected. For a Virginia-registered sedan we cut to 50% on the front sides and 35% behind." },
+    ],
+    nearbyCities: ["Sterling", "Herndon", "Ashburn", "Chantilly", "Reston"],
+    videoIds: ["LQ1iXlQpXGc", "n5mQVftEwfA"],
+  },
+  {
+    slug: "tysons",
+    path: "/new-car-ppf-tysons",
+    kind: "dealer",
+    name: "Tysons dealers",
+    seoTitle: "New Car PPF for Tysons Dealer Deliveries | Chantilly, VA Shop",
+    seoDescription: "Picking up a new car on Route 7 or Route 123 in Tysons or Vienna? Book STEK paint protection film for delivery week at our Chantilly, VA shop, 25 minutes away.",
+    eyebrow: "Tysons and Vienna dealers",
+    h1: "NEW-CAR PPF FOR TYSONS DELIVERIES",
+    intro: [
+      "The Route 7 and Route 123 corridor through Tysons and Vienna is where much of Northern Virginia buys its German, Japanese, and electric cars, and the first drive home from any of those lots is a stone test. Route 7 is a six-lane commercial strip with constant lane work, Route 123 funnels into the Beltway and the Toll Road, and I-66 is the way home for everyone in Fairfax and Loudoun. A new car can take its first chip before the temporary tag is a day old. Filming the front end during delivery week is the one chance to seal paint that has never been hit.",
+      "This page is for someone picking up a car in Tysons this week. It covers how to line up the install with your delivery date, how a dealer's add-on protection package differs from a specialist film install, what to ask the salesperson before you sign, and what each of the three STEK DYNOshield packages covers on a new car. Our shop is 25 minutes west in Chantilly, off Route 28 near Dulles, and a new-car full front is a one-day install that we can usually fit into the same week you take the keys.",
+    ],
+    drive: "From the Route 7 and Route 123 dealers in Tysons and Vienna, go west on Route 7 to Route 28 south, or take the Toll Road to Route 28, and you reach our Chantilly shop in about 25 minutes.",
+    reasons: [
+      { title: "Route 7 on the way out of the lot", desc: "Leesburg Pike through Tysons is lined with construction, delivery trucks, and buses, and the pavement between Route 123 and the Beltway is patched in a dozen places. The first mile of ownership is already throwing grit at the bumper." },
+      { title: "The Toll Road and I-66 home", desc: "Whichever way you leave Tysons, you end up on a 65 mph road behind trucks. Stones off their tires land on the lower bumper, the leading edge of the hood, and the mirror caps, and factory paint on a new car is thinner than most buyers expect." },
+      { title: "Tysons garages and valet lots", desc: "The parking around Tysons Corner Center and the office towers is tight, with narrow spaces and concrete columns. Door edges, door cups, and rocker panels pick up scuffs there within months, which is what the extended package covers." },
+      { title: "Delivery-week paint is perfect paint", desc: "A car fresh off the truck has no chips, no swirls, and no wax or sealant to strip. Film bonds best to that surface, and every week you wait adds something that has to be corrected before the film can go on." },
+    ],
+    logistics: [
+      { title: "Book for the week you take delivery", body: "Send us the year, make, model, and the delivery date the dealer gave you, and we will hold a day that week. Many customers pick up in the afternoon and bring the car to Chantilly the next morning at 9 AM, and the full front is ready by late afternoon the same day." },
+      { title: "What the dealer offers versus what we install", body: "Dealer protection packages vary: some are a paint sealant or chemical treatment with a warranty, some are a pre-cut partial film applied by a third party, and most are rolled into the finance contract. Ask what the product is, who installs it, and what the warranty covers. We install STEK DYNOshield only, computer-cut for your exact trim, with edges wrapped and a 12-year manufacturer warranty." },
+      { title: "Paying for it outside the loan", body: "An add-on at the dealer is financed with the car at the loan's rate. Our install is paid directly: a fully refundable 20% deposit holds the date, the balance is paid at pickup after the inspection under lights, and Klarna, Afterpay, or Affirm can split that balance if you prefer." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Bumper, the hood's leading 18 inches, both fender edges, and the mirror caps. Covers the panels that take a new car's first chips, with a film line partway up the hood that is visible on dark colors." },
+      { pkg: "fullFront", note: "Full hood, bumper, both fenders, mirrors, headlights, and A-pillars with no seam on the hood. This is the package we recommend for a new car leaving Tysons, and it is done in one day." },
+      { pkg: "fullFrontPlus", note: "Full front coverage with the rockers, door edges, and door cups added. The sensible choice for a car that will live in a Tysons garage or carry kids who open doors against concrete." },
+    ],
+    faqs: [
+      { q: "The dealer offered a protection package. Should I take it?", a: "Ask three questions before you decide: what the product actually is, who applies it, and what the warranty excludes. Some packages are a sealant rather than film, and some are film applied by a subcontractor off site. If the answer is a named film with a manufacturer warranty and wrapped edges, compare it fairly; if not, you know what you are comparing." },
+      { q: "What should I tell the salesperson before I pick up?", a: "Ask them to hand-wash the car or leave it unwashed rather than run it through a brush wash, to skip any dealer-applied sealant or film if you are bringing it to us, and to leave the front plate bracket in the trunk so we can film the bumper first and mount the plate afterward. Also confirm the delivery date so we can hold your install day." },
+      { q: "Can I drive straight from the dealer to your shop?", a: "Yes, and many customers do. Tysons to Chantilly is about 25 minutes by Route 7 or the Toll Road. If your delivery appointment is in the morning, let us know and we will try to take the car the same afternoon; if it is later in the day, the next morning at 9 AM is the usual plan." },
+      { q: "Will film affect the new-car warranty or a lease return?", a: "Film does not change the paint underneath, and it is removed cleanly at lease end by a professional, leaving factory paint in better shape than the unprotected panels around it. Leased cars from Tysons dealers come through our bay constantly for that reason; the return inspection sees paint with no chips." },
+      { q: "The dealer already applied a sealant. Can you still film the car?", a: "Yes. Every install starts with a decontamination wash and an alcohol wipe that strips sealants, wax, and polish oils from the panels being filmed so the adhesive bonds to bare clear coat. The sealant on the rest of the car is unaffected, and a ceramic coating can go over everything afterward." },
+    ],
+    nearbyCities: ["Tysons", "Vienna", "McLean", "Falls Church", "Oakton"],
+    videoIds: ["ZvVdjXH06ug", "P2zyuOrWiDA"],
+  },
+  {
+    slug: "dulles-sterling",
+    path: "/new-car-ppf-dulles-sterling",
+    kind: "dealer",
+    name: "Dulles and Sterling dealers",
+    seoTitle: "New Car PPF Near Sterling and Dulles Dealers | Chantilly, VA",
+    seoDescription: "Taking delivery on the Route 28 or Route 7 dealer rows in Sterling or Dulles? STEK paint protection film the same week, ten minutes away in Chantilly, VA.",
+    eyebrow: "Dulles and Sterling dealers",
+    h1: "NEW-CAR PPF FOR DULLES AND STERLING DELIVERIES",
+    intro: [
+      "The dealer rows along Route 28 and Route 7 in Sterling and Dulles sell a bit of everything, from mainstream sedans and trucks to luxury brands and the Tesla delivery center on the Sterling side. They also share the roads with the airport's cargo trucks and the construction that never finishes along Route 28 and Route 606. A car delivered on Route 7 and driven home to Ashburn on Route 28 is behind a dump truck before the tank is half empty. Those are the chips we see on cars that waited a month, and the ones we prevent on cars that came the same week.",
+      "If you are collecting a new car in Sterling or Dulles this week, this page explains how to book the film for delivery week, how the drive from the dealer to our Chantilly shop works, how dealer protection add-ons differ from a specialist film install, and what each STEK DYNOshield package covers. We are about ten minutes south on Route 28 at 4215 Walney Rd, so a same-day install right after pickup is realistic here in a way it is not from farther away.",
+    ],
+    drive: "The dealer rows along Route 28 and Route 7 in Sterling and Dulles are about 10 minutes from our shop: take Route 28 south past the airport and turn off at Walney Road in Chantilly.",
+    reasons: [
+      { title: "Route 28 past the airport", desc: "Between Route 7 and I-66, Route 28 carries airport freight, construction haulers, and commuters at highway speed, with interchanges that have been under rebuild for years. It is the first road most Sterling deliveries take, and it chips a bumper fast." },
+      { title: "Route 7 and the Toll Road", desc: "Leesburg Pike through Sterling is a wide commercial strip with gravel at every construction entrance, and the Toll Road is the fast way to Reston and Tysons. Both put the new hood and mirrors in the spray from the car ahead." },
+      { title: "Loudoun's new neighborhoods", desc: "Brambleton, One Loudoun, and the subdivisions off Route 606 are still being built, which means trucks tracking mud and stone onto the roads you take home every night. Rockers and door edges catch what the bumper misses." },
+      { title: "Fresh paint, no prep needed", desc: "A car that comes to us the day after delivery needs no correction; the paint is as clean as it will ever be. Film applied over it is invisible, and the self-healing top coat starts protecting before the first wash." },
+    ],
+    logistics: [
+      { title: "Same week, often same day", body: "Because we are ten minutes away, a morning delivery in Sterling can turn into an afternoon drop at 4215 Walney Rd, and a full front is finished the next day. Give us the delivery date and time and we will hold the slot that fits." },
+      { title: "Dealer add-ons, explained plainly", body: "The protection package in a Sterling finance office might be a sealant, a windshield treatment, or a partial film applied by an outside vendor, and the warranty paperwork tells you which. There is nothing wrong with asking. Our install is STEK DYNOshield, computer-cut for the exact year and trim, edges wrapped, never cut on the car, with a 12-year manufacturer warranty." },
+      { title: "How you pay", body: "A 20% deposit reserves the install and is fully refundable; it is applied to the total at pickup. You settle the balance after walking the car under our lights, and Klarna, Afterpay, and Affirm are there if you would rather not pay it all at once right after buying a car." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Front bumper, 18 inches of hood, fender edges, and mirror caps. Takes the brunt of Route 28 on a budget, with a visible film line on the hood that most people on dark paint end up wishing they had avoided." },
+      { pkg: "fullFront", note: "Whole hood, bumper, both fenders, mirrors, headlights, and A-pillars, no line. For a new car leaving Sterling this is what we recommend; drop it in the morning and it is ready that afternoon." },
+      { pkg: "fullFrontPlus", note: "Adds rocker panels, door edges, and door cups to the full front. The right call for trucks and SUVs headed to the new subdivisions off Route 606 and Route 50 where construction traffic is constant." },
+    ],
+    faqs: [
+      { q: "Can I bring the car to you the same day I pick it up?", a: "Often, yes, because the drive is ten minutes. If your delivery is in the morning, tell us the time and we will try to take the car that afternoon. If it is late in the day, bring it the next morning at 9 AM and the full front is done by late afternoon." },
+      { q: "I am taking delivery of a Tesla in Sterling. Anything different?", a: "Tesla paint is soft and thin, and the delivery center is a few minutes from us, so Teslas are the most common new car in our bay. Film is cut around every camera and sensor, and Autopilot is unaffected. Full front is a one-day install, and most Tesla owners add a ceramic coating on the second day." },
+      { q: "What should I say to the salesperson about the add-on film?", a: "Say you have a specialist appointment booked and ask them to leave the car unprotected: no sealant, no dealer-applied film, and ideally no brush wash before delivery. Ask them to leave the front plate bracket off so we can film the bumper first. If they push the package, ask for the warranty terms in writing and compare." },
+      { q: "Is a dealer film package the same thing as what you install?", a: "Sometimes it is a film, sometimes it is not, and the warranty document is how you tell. Even when it is film, the questions are which brand, whether it is computer-cut for your trim, whether the edges are wrapped, and who you call in year six. We answer all four the same way for every car: STEK DYNOshield, yes, yes, and us." },
+      { q: "Can you film a new car that still has transport film and dealer stickers?", a: "Yes. We remove the transport protection and any dealer decals, strip the adhesive residue, and do the decontamination wash and alcohol wipe before any film goes on. The only thing we ask is that the car not be run through a brush wash first, because that adds swirls we would then have to polish out." },
+    ],
+    nearbyCities: ["Sterling", "Ashburn", "Herndon", "Leesburg", "South Riding"],
+    videoIds: ["LQ1iXlQpXGc", "P2zyuOrWiDA"],
+  },
+  {
+    slug: "fairfax-chantilly",
+    path: "/new-car-ppf-fairfax-chantilly",
+    kind: "dealer",
+    name: "Fairfax and Chantilly dealers",
+    seoTitle: "New Car PPF for Route 50 and Fair Oaks Dealers | Chantilly, VA",
+    seoDescription: "Buying a new car on Route 50 or at Fair Oaks? Book STEK paint protection film for delivery week at our Chantilly, VA shop, 10 to 15 minutes from the dealer lot.",
+    eyebrow: "Fairfax and Chantilly dealers",
+    h1: "NEW-CAR PPF FOR FAIRFAX AND CHANTILLY DELIVERIES",
+    intro: [
+      "Route 50 from Fair Oaks out to Chantilly is the longest dealer strip in Fairfax County, with mainstream and luxury franchises on both sides of the highway and more around the Fair Oaks interchange with I-66 and the Fairfax County Parkway. It is also a heavy truck road, with gravel at every construction entrance and a steady stream of landscaping trailers and dump trucks. A new car bought here takes its first stones on the way out of the lot, and the hood edge and bumper on the cars that wait a season to see us prove it. The fix is to film the front before the first commute.",
+      "This is the page for anyone taking delivery on Route 50 or at Fair Oaks this week. Our shop is in Chantilly too, at 4215 Walney Rd off Route 28, so the drive is ten to fifteen minutes and a same-week install is easy to arrange. Below is how to time it, what to ask the finance office about their protection package before you sign, how a specialist install differs, and what each of the three STEK DYNOshield packages covers on a car that has never seen a highway.",
+    ],
+    drive: "From the Route 50 and Fair Oaks dealers, drive west on Route 50 to Route 28 north and follow it to Walney Road; depending on where you start it takes 10 to 15 minutes to reach our Chantilly shop.",
+    reasons: [
+      { title: "Route 50 itself", desc: "Lee Jackson Memorial Highway between Fair Oaks and Chantilly is six lanes of commuters, delivery trucks, and landscaping trailers, with construction entrances tracking gravel into the right lane. The bumper of a car bought here is hit before it is registered." },
+      { title: "I-66 and the Parkway from Fair Oaks", desc: "The Fair Oaks interchange puts you straight onto I-66 or the Fairfax County Parkway, both of which have seen years of widening and carry trucks at 65 mph. Stones at that speed land on the hood edge and mirrors." },
+      { title: "Fair Oaks and Fairfax Corner parking", desc: "The mall and shopping center lots around Fair Oaks are where new cars collect their first door dings and cart scrapes. Door edges and cups are the usual casualties, and the extended package exists for cars that spend weekends there." },
+      { title: "The shortest window to perfect paint", desc: "A car driven ten minutes from the dealer to us arrives with no chips, no swirls, and nothing to correct. Film over factory-fresh paint is the ideal case, and in Chantilly the dealers are close enough that this is the normal case rather than the exception." },
+    ],
+    logistics: [
+      { title: "Drop-off and pickup across town", body: "With the dealers this close, most customers bring the car the morning after delivery at 9 AM and pick it up the same afternoon. If your delivery is early in the day, let us know and the car can often come in the same afternoon for a next-day pickup." },
+      { title: "Delivery week and what to ask the finance office", body: "Before you sign, ask what the protection package consists of, who applies it, and what the warranty excludes; the answer is often a sealant or a partial film installed by a vendor rather than the dealer. Then tell the salesperson you have a film appointment booked and to deliver the car unwashed or hand-washed. Give us the date and we hold a day that week." },
+      { title: "Deposit and payment plans", body: "Reserving your day takes a 20% deposit, fully refundable, that comes off the total. The rest is paid after you inspect the car with us under the lights at pickup. If you have just signed a car loan and would rather spread this out, Klarna, Afterpay, and Affirm are available." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Bumper, the first 18 inches of the hood, fender edges, and mirrors, in about half a day. It handles Route 50's bumper hits and leaves a film line partway up the hood that shows on anything darker than silver." },
+      { pkg: "fullFront", note: "Full hood, bumper, both fenders, mirrors, headlights, and A-pillars with no line on the hood. The package we recommend for a new car bought on Route 50, and a one-day install." },
+      { pkg: "fullFrontPlus", note: "Full front plus the rockers, door edges, and door cups. For the SUVs and trucks that will spend weekends in Fair Oaks parking lots and weekdays on the Parkway." },
+    ],
+    faqs: [
+      { q: "You are in Chantilly and so is the dealer. Can you do it the same day I pick up?", a: "If your delivery is in the morning and the schedule has room, yes; tell us the appointment time when you request the quote and we will try. Otherwise the next morning at 9 AM is the standard plan, with a full front ready by late afternoon. Either way the car sees ten minutes of road before film goes on." },
+      { q: "The finance office said their film has a lifetime warranty. How does that compare?", a: "Ask what the lifetime warranty covers and excludes, and who honors it. STEK DYNOshield carries a 12-year manufacturer warranty against yellowing, cracking, peeling, and delamination, backed by the film maker rather than a dealer group, and we are the shop that installed it if anything ever needs a look." },
+      { q: "What do I tell the salesperson so the car is ready for film?", a: "Three things: no brush wash before delivery, no dealer-applied sealant or film, and leave the front license plate bracket off so we can film the bumper first and mount it afterward. If they have already applied a sealant, do not worry; we strip it from the panels we film during the decontamination wash." },
+      { q: "I am buying a truck. Which package?", a: "Full front extended. Trucks ride high, so the hood and bumper face the airstream directly, and the rockers and door edges take the gravel kicked up by their own front tires. Extended covers all of it, and on a truck the install is one to two days depending on the size of the panels." },
+      { q: "Does PPF change the look of a brand-new car?", a: "On a clean install, no. DYNOshield is optically clear with no texture, so the only visible change is a slightly deeper gloss. Edges are wrapped under the hood lip and into the fender gaps rather than cut on the panel face, which is the detail that separates an invisible install from one you can find." },
+    ],
+    nearbyCities: ["Fairfax", "Chantilly", "Centreville", "Oakton", "Burke"],
+    videoIds: ["n5mQVftEwfA", "LQ1iXlQpXGc"],
+  },
+  {
+    slug: "rockville-pike",
+    path: "/new-car-ppf-rockville-pike",
+    kind: "dealer",
+    name: "Rockville Pike dealers",
+    seoTitle: "New Car PPF for Rockville Pike Deliveries | Chantilly, VA Shop",
+    seoDescription: "Picking up a new car on Rockville Pike? Book STEK paint protection film for delivery week at our Chantilly, VA shop, about 35 minutes via I-270 and I-495.",
+    eyebrow: "Rockville Pike dealers",
+    h1: "NEW-CAR PPF FOR ROCKVILLE PIKE DELIVERIES",
+    intro: [
+      "Rockville Pike is Maryland's dealer row, with franchise after franchise along Route 355 from Bethesda up through Rockville and Gaithersburg, covering nearly every brand sold in the region. The drive home from any of them is I-270, the Beltway, or the Pike itself, and all three are rough on new paint. I-270 is a truck route with lane work that never ends, I-495 crosses the American Legion Bridge in a cloud of concrete dust, and Route 355 is stop-and-go between construction sites in North Bethesda and Rockville Town Center. A car that waits a month to be filmed usually arrives with its first chips already in the bumper.",
+      "This page is for Maryland buyers picking up on the Pike this week who are willing to cross the river for a specialist install. Our shop is in Chantilly, VA, about 35 minutes by I-270 and I-495 to the Toll Road, and everything we do happens in that one bay. Below is how to time the install with your delivery date, how dealer protection add-ons differ from what we install, what to tell your salesperson, and what each STEK DYNOshield package covers. Because the car will be registered in Maryland, the tint rules that differ from Virginia's are addressed too.",
+    ],
+    drive: "From Rockville Pike, take I-270 south to I-495, cross the American Legion Bridge into Virginia, then follow the Toll Road or Route 7 west to Route 28 south and exit at Walney Road; outside rush hour it is about 35 minutes.",
+    reasons: [
+      { title: "I-270 and the Beltway", desc: "I-270 between Gaithersburg and the Beltway is a truck corridor with ongoing lane work, and the American Legion Bridge approaches have been a construction zone for years. The new car's bumper and hood edge catch all of it on the first trip home." },
+      { title: "Route 355 through Rockville and Bethesda", desc: "The Pike is stop-and-go past high-rise construction in North Bethesda and Rockville, with crane trucks and concrete mixers pulling out of job sites into traffic. Grit on a crowded six-lane road finds the lower bumper and the mirrors." },
+      { title: "Montgomery County garages", desc: "Parking in Bethesda, Rockville Town Square, and the Metro garages along the Red Line is tight and concrete. Door edges, door cups, and rocker panels pick up scuffs in the first year, which is why the extended package covers them." },
+      { title: "Maryland winters and brine", desc: "The county sprays brine ahead of every storm, and salt finds its way into any chip in the clear coat and starts rust under the paint. Film on the front end means there are no chips for it to find, and a coating makes the winter film rinse off." },
+    ],
+    logistics: [
+      { title: "Making the trip from Maryland", body: "Plan a 9 AM drop at 4215 Walney Rd in Chantilly and a pickup before 6 PM for a full front. Most Pike customers take delivery one day and drive down the next morning against the Beltway rush. A film-and-coating install is two days, so pair it with a weekday off or a Friday and have someone handle one leg." },
+      { title: "Delivery week and the dealer's package", body: "The protection package offered on Rockville Pike is usually a sealant or a vendor-applied partial film bundled into the finance contract; ask what it is, who applies it, and what the warranty excludes before deciding. If you are bringing the car to us, tell the salesperson to skip it and to deliver the car hand-washed or unwashed. Send us the delivery date and we will hold a day that week." },
+      { title: "Deposit, balance, and splitting it up", body: "A fully refundable 20% deposit reserves your date and is credited at pickup. After you have walked every filmed panel under our lights, the balance is due, and Klarna, Afterpay, and Affirm are available for anyone who just signed a car loan and would rather spread this out." },
+    ],
+    packages: [
+      { pkg: "partial", note: "Front bumper, the hood from its leading edge back 18 inches, fender edges, and mirrors. It covers what I-270 hits hardest, in about half a day, with a film line on the hood that is visible on the dark colors most Pike buyers choose." },
+      { pkg: "fullFront", note: "Full hood, bumper, both fenders, mirrors, headlights, and A-pillars as one seamless install. The package we recommend for a car that will live on I-270 and the Beltway, finished in one day." },
+      { pkg: "fullFrontPlus", note: "Takes the full front package and adds the rockers, door edges, and door cups. For SUVs and trucks that park in Bethesda garages and spend winters on brined Montgomery County roads." },
+    ],
+    faqs: [
+      { q: "Is it worth driving from Rockville to Virginia for PPF?", a: "For a car you plan to keep, we think so, and a steady stream of Bethesda, Rockville, and Potomac customers agrees. You get STEK DYNOshield with a 12-year manufacturer warranty, patterns computer-cut for your exact trim, wrapped edges, and an install in a dust-controlled bay. The round trip is about 70 minutes outside rush hour." },
+      { q: "The dealer's protection package is already in my contract. Can I remove it?", a: "Ask the finance office before you sign; add-ons can be removed from the contract at that point, and after signing it depends on the dealer's policy. Either way we can still film the car. If a sealant was already applied, the decontamination wash and alcohol wipe strip it from the panels we film." },
+      { q: "What should I tell the salesperson on the Pike before delivery?", a: "That you have a film appointment booked in Virginia, so no dealer-applied sealant or film, no brush wash before delivery, and leave the front plate bracket off so we can film the bumper first and mount the plate over the film. Maryland requires a front plate, so the bracket goes on at the end." },
+      { q: "My car will be registered in Maryland. Does that change the film or the tint?", a: "Film is the same in both states; there are no rules on it. Tint is where the law differs: Maryland allows 35% VLT on all windows of a passenger car, so if you add GeoShield ceramic tint on the same visit, we cut to Maryland's limit for a Maryland-registered car. It takes two to three hours alongside the film." },
+      { q: "Can you do the film the same day as my delivery?", a: "Not usually, because the drive is 35 minutes and most Pike deliveries happen in the afternoon. The normal plan is a 9 AM drop the next morning and a late-afternoon pickup. If your delivery appointment is first thing in the morning, mention it on the quote form and we will see what the schedule allows." },
+    ],
+    nearbyCities: ["Rockville", "Bethesda", "Gaithersburg", "Potomac", "Germantown"],
+    videoIds: ["ZvVdjXH06ug", "P2zyuOrWiDA"],
+  },
+];
