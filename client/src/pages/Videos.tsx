@@ -82,6 +82,22 @@ export default function Videos() {
               <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-3">{cat.heading}</h2>
               <p className="text-zinc-400 max-w-2xl mb-10">{cat.intro}</p>
               <VideoCarousel videos={videosByCategory(key)} reels={reelsByCategory(key)} preview autoAdvanceMs={10_000} />
+              {/* What each video covers, as text: readable without sound and indexable. */}
+              <div className="mt-10 border-t border-zinc-800 pt-8">
+                <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-4">What these videos cover</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2">
+                  {videosByCategory(key).filter((v) => v.summary).map((v) => (
+                    <details key={v.id} className="group border-b border-zinc-900 py-3">
+                      <summary className="cursor-pointer list-none flex items-start justify-between gap-4 text-white text-sm font-semibold">
+                        <span>{v.title}</span>
+                        <span className="text-[#E85D04] text-xs shrink-0 group-open:hidden">Read</span>
+                        <span className="text-[#E85D04] text-xs shrink-0 hidden group-open:inline">Close</span>
+                      </summary>
+                      <p className="text-zinc-400 text-sm leading-relaxed mt-2">{v.summary}</p>
+                    </details>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
         );
