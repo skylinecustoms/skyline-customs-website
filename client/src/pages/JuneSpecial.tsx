@@ -906,7 +906,7 @@ export default function JuneSpecial() {
               <div className="border border-[#E85D04]/40 bg-[#E85D04]/5 p-6 md:p-8 relative overflow-hidden">
                 {freeValue > 0 && (
                   <div className="absolute top-0 right-0 bg-[#E85D04] text-black font-display text-xs tracking-widest px-3 py-1.5">
-                    YOU SAVE {fmt(freeValue)}
+                    FREE CERAMIC COATING
                   </div>
                 )}
                 <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-3">Package price</p>
@@ -1075,7 +1075,7 @@ export default function JuneSpecial() {
                   {freeValue > 0 && <span className="font-mono-brand text-zinc-400 text-2xl line-through">{fmt(fullPrice)}</span>}
                   <span className="font-display text-[#E85D04] text-6xl">{fmt(Number(price) || 0)}</span>
                 </div>
-                <p className="text-zinc-400 text-sm mb-4">{freeValue > 0 ? `You save ${fmt(freeValue)} off the full package price.` : "Everything included. No add-ons."}</p>
+                <p className="text-zinc-400 text-sm mb-4">{freeValue > 0 ? `${fmt(fullPrice)} of work for ${fmt(Number(price) || 0)}. The ceramic coating is included at no charge.` : "Everything included. No add-ons."}</p>
                 <div className="flex items-center gap-2 text-zinc-400 text-xs">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
                   Price locked for {endDate ? `all bookings before ${endDate}` : "all slots this month"}
@@ -1312,7 +1312,7 @@ export default function JuneSpecial() {
                   <p className="font-display text-3xl md:text-4xl text-white leading-none">{fmt(Number(price) || 0)}</p>
                 </div>
                 <div className="p-5 md:p-6 text-center">
-                  <p className="text-zinc-400 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">{freeItems.map((f) => f.name.replace(/full[- ]car\s*/i, "")).join(" + ")}</p>
+                  <p className="text-zinc-400 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">{freeItems.map((f) => f.name.replace(/full[- ]car\s*/i, "")).join(" + ")} value, free</p>
                   <p className="font-display text-3xl md:text-4xl text-white leading-none">+ {fmt(freeValue)}</p>
                 </div>
                 <div className="p-5 md:p-6 text-center">
@@ -1322,7 +1322,7 @@ export default function JuneSpecial() {
                 <div className="p-5 md:p-6 text-center bg-[#E85D04]">
                   <p className="text-black/70 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">You pay</p>
                   <p className="font-display text-3xl md:text-4xl text-black leading-none">{fmt(Number(price) || 0)}</p>
-                  <p className="text-black/80 text-xs font-bold mt-1">You save {fmt(freeValue)}</p>
+                  <p className="text-black/80 text-xs font-bold mt-1">Ceramic coating included</p>
                 </div>
               </div>
             </div>

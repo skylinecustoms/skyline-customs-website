@@ -211,7 +211,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
                 <span className="font-display text-[#E85D04] text-5xl">{fmt(Number(price) || 0)}</span>
               </div>
               <p className="text-zinc-400 text-sm">
-                {freeValue > 0 ? `You save ${fmt(freeValue)} in included services.` : "Everything included. No add-ons."}
+                {freeValue > 0 ? "Ceramic coating on the whole car included at no charge." : "Everything included. No add-ons."}
               </p>
               <p className="text-white text-sm font-semibold mt-2">Pay over time with Klarna, Afterpay, or Affirm.</p>
               <p className="flex items-center gap-2 text-xs mt-4">
