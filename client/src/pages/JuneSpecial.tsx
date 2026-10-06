@@ -61,9 +61,11 @@ function SlotCard({
 }) {
   return (
     <div id={`slot-${slotNumber}`} className="border border-zinc-800 bg-[#0D0D0D] overflow-hidden group hover:border-[#E85D04]/50 transition-colors">
-      <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden">
+      <div className="relative aspect-[4/5] bg-zinc-900 overflow-hidden">
         {photoUrl ? (
           <img
+            loading="lazy"
+            decoding="async"
             src={photoUrl}
             alt={`${carDescription} -- Skyline Customs ${promoTitle}`}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -77,7 +79,7 @@ function SlotCard({
         <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
           IN THE DRAWING
         </div>
-        <div className="absolute top-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
+        <div className="absolute bottom-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
           <CheckCircle className="w-3 h-3" /> JOB DONE
         </div>
       </div>

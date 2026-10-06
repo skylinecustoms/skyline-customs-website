@@ -153,6 +153,41 @@ try {
     );
   }
   console.log(`[seed] promos: ${promoAdded} added, ${promoSkipped} already present`);
+
+  // --- Promo slots (unique by promoId + photoUrl). Lets finished cars be added
+  // from this file instead of the Telegram bot; an existing slot's name and car
+  // line are refreshed from the file, so a customer name can be fixed here too. ---
+  let slotAdded = 0, slotUpdated = 0;
+  for (const pr of promos) {
+    if (!Array.isArray(pr.slots) || pr.slots.length === 0) continue;
+    let promoId = null, totalSlots = Number(pr.totalSlots ?? 21), existing = [];
+    if (conn) {
+      const [rows] = await conn.execute("SELECT id, totalSlots FROM promos WHERE slug = ? LIMIT 1", [pr.slug]);
+      if (rows.length === 0) continue;
+      promoId = rows[0].id; totalSlots = Number(rows[0].totalSlots ?? totalSlots);
+      [existing] = await conn.execute("SELECT id, slotNumber, photoUrl, customerName, carDescription FROM promoSlots WHERE promoId = ? ORDER BY slotNumber", [promoId]);
+    }
+    let next = existing.reduce((m, r) => Math.max(m, Number(r.slotNumber)), 0) + 1;
+    for (const sl of pr.slots) {
+      const row = existing.find((r) => r.photoUrl === sl.photoUrl);
+      if (row) {
+        if (row.customerName === sl.customerName && row.carDescription === sl.carDescription) continue;
+        slotUpdated++;
+        if (DRY) { console.log(`[seed] would update slot ${row.slotNumber} of ${pr.slug}: ${sl.customerName}`); continue; }
+        await conn.execute("UPDATE promoSlots SET customerName = ?, carDescription = ? WHERE id = ?", [sl.customerName, sl.carDescription, row.id]);
+        continue;
+      }
+      if (next > totalSlots) { console.warn(`[seed] ${pr.slug}: all ${totalSlots} slots filled, skipping ${sl.customerName}`); continue; }
+      slotAdded++;
+      if (DRY) { console.log(`[seed] would insert slot ${next} of ${pr.slug}: ${sl.customerName} -> ${sl.photoUrl}`); next++; continue; }
+      await conn.execute(
+        "INSERT INTO promoSlots (promoId, slotNumber, customerName, carDescription, photoUrl) VALUES (?, ?, ?, ?, ?)",
+        [promoId, next, sl.customerName, sl.carDescription, sl.photoUrl ?? null]
+      );
+      next++;
+    }
+  }
+  console.log(`[seed] promo slots: ${slotAdded} added, ${slotUpdated} updated`);
 } catch (err) {
   console.error("[seed] FAILED (site will still start):", err?.message ?? err);
 } finally {

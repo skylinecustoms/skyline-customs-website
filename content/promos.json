@@ -49,6 +49,33 @@
       }
     ],
     "active": 1,
-    "sync": true
+    "sync": true,
+    "slots": [
+      {
+        "customerName": "Ford Mustang GT California Special",
+        "carDescription": "Vapor Blue convertible · Full front STEK DYNOshield PPF + free full-car ceramic coating",
+        "photoUrl": "/images/promo/fall-2026/ford-mustang-gt-california-special-convertible-full-front-ppf-chantilly-va.jpg"
+      },
+      {
+        "customerName": "Toyota 4Runner Trailhunter",
+        "carDescription": "Everest green, new off the lot · Full front STEK DYNOshield PPF + free full-car ceramic coating",
+        "photoUrl": "/images/promo/fall-2026/toyota-4runner-trailhunter-full-front-ppf-chantilly-va.jpg"
+      },
+      {
+        "customerName": "Range Rover",
+        "carDescription": "Fuji White on black wheels · Full front STEK DYNOshield PPF + free full-car ceramic coating",
+        "photoUrl": "/images/promo/fall-2026/range-rover-full-front-ppf-chantilly-va.jpg"
+      },
+      {
+        "customerName": "Corvette C8 Z06",
+        "carDescription": "Sea Wolf Gray with stripes, Z07 aero · Full front STEK DYNOshield PPF + free full-car ceramic coating",
+        "photoUrl": "/images/promo/fall-2026/corvette-c8-z06-full-front-ppf-chantilly-va.jpg"
+      },
+      {
+        "customerName": "BMW M850i Coupe",
+        "carDescription": "Mineral White, tan interior · Full front STEK DYNOshield PPF + free full-car ceramic coating",
+        "photoUrl": "/images/promo/fall-2026/bmw-m850i-full-front-ppf-chantilly-va.jpg"
+      }
+    ]
   }
 ]
