@@ -985,6 +985,40 @@ export default function JuneSpecial() {
       )}
 
       {/* ================================================================
+          WHO'S IN THE DRAWING (right under the offer, before the pitch)
+      ================================================================ */}
+      {giveaway && filledSlots.length > 0 && (
+        <section id="drawing" className="py-14 md:py-20 bg-[#0A0A0A] border-b border-zinc-900 scroll-mt-24">
+          <div className="container max-w-6xl">
+            <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+              <div>
+                <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Real customers, real cars</p>
+                <h2 className="font-display text-4xl md:text-5xl text-white">{giveaway.entriesHeading}</h2>
+                <p className="text-zinc-400 mt-3 text-sm max-w-2xl">Every car here finished its {title} and is in the drawing for free full body PPF. Spots are limited, so the list stays short.</p>
+              </div>
+              {!soldOut && (
+                <a href={quoteUrl} data-cta="promo-claim" className={`${BTN_PRIMARY} shrink-0 w-full md:w-auto`}>
+                  Add your car <ArrowRight className="w-5 h-5" />
+                </a>
+              )}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {filledSlots.map((slot) => (
+                <SlotCard
+                  key={slot.slotNumber}
+                  slotNumber={slot.slotNumber}
+                  customerName={slot.customerName}
+                  carDescription={slot.carDescription}
+                  photoUrl={slot.photoUrl}
+                  promoTitle={title}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ================================================================
           THE PROBLEM
       ================================================================ */}
       <section className="py-16 md:py-24 bg-[#0D0D0D]">
@@ -1154,7 +1188,7 @@ export default function JuneSpecial() {
                 <ul className="space-y-3 text-sm text-zinc-300">
                   {[
                     "Finish a Fall Special job and your entry is automatic. Nothing to sign up for.",
-                    "Your car and first name go up in the drawing below, so you can see who you're up against.",
+                    "Your car and first name go up at the top of this page, so you can see who you're up against.",
                     `We draw one winner on ${giveaway.drawingDate}, announce it on Instagram, and call you.`,
                   ].map((line) => (
                     <li key={line} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{line}</li>
@@ -1175,31 +1209,15 @@ export default function JuneSpecial() {
               </div>
             </div>
 
-            <div className="mb-8">
-              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Real customers, real cars</p>
-              <h3 className="font-display text-4xl md:text-5xl text-white">{giveaway.entriesHeading}</h3>
-              <p className="text-zinc-400 mt-3 text-sm max-w-2xl">
-                {filledSlots.length > 0
-                  ? "Every car here finished its Fall Special and is in the drawing. Spots are limited, so the list stays short."
-                  : "The first finished cars of the season go up here, with the owner in front of the car. Book early and you're first in the drawing."}
-              </p>
-            </div>
-            {filledSlots.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {filledSlots.map((slot) => (
-                  <SlotCard
-                    key={slot.slotNumber}
-                    slotNumber={slot.slotNumber}
-                    customerName={slot.customerName}
-                    carDescription={slot.carDescription}
-                    photoUrl={slot.photoUrl}
-                    promoTitle={title}
-                  />
-                ))}
+            {filledSlots.length === 0 && (
+              <div className="mb-8">
+                <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Real customers, real cars</p>
+                <h3 className="font-display text-4xl md:text-5xl text-white">{giveaway.entriesHeading}</h3>
+                <p className="text-zinc-400 mt-3 text-sm max-w-2xl">The first finished cars of the season go up at the top of this page, with the owner in front of the car. Book early and you're first in the drawing.</p>
               </div>
             )}
 
-            <details className="mt-12 border border-zinc-800 bg-[#0A0A0A] group">
+            <details className="border border-zinc-800 bg-[#0A0A0A] group">
               <summary className="cursor-pointer list-none px-6 py-4 flex items-center justify-between text-zinc-300 text-sm font-bold tracking-widest uppercase">
                 {giveaway.name} official rules
                 <ChevronDown className="w-4 h-4 text-[#E85D04] transition-transform group-open:rotate-180" />
