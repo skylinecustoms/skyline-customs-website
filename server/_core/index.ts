@@ -9,6 +9,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { buildSitemap } from "./sitemap";
+import { buildRssFeed } from "./rss";
 import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
 import { handleTelegramWebhook } from "../telegramWebhook";
@@ -173,6 +174,7 @@ async function startServer() {
         instagram: has("INSTAGRAM_ACCESS_TOKEN"),
         stripe: has("STRIPE_SECRET_KEY"),
         stripeWebhook: has("STRIPE_WEBHOOK_SECRET"),
+        googleIndexing: has("GOOGLE_INDEXING_SA_JSON"),
       },
     });
   });
@@ -187,6 +189,16 @@ async function startServer() {
   // Video sitemap for the embedded YouTube Shorts
   app.get("/video-sitemap.xml", (_req, res) => {
     res.set({ "Content-Type": "application/xml", "Cache-Control": "public, max-age=86400" }).send(buildVideoSitemap());
+  });
+  // RSS feed of blog posts (also at /feed and /feed.xml for readers that guess)
+  app.get(["/rss.xml", "/feed", "/feed.xml", "/blog/rss.xml"], async (_req, res) => {
+    try {
+      const xml = await buildRssFeed();
+      res.set({ "Content-Type": "application/rss+xml; charset=utf-8", "Cache-Control": "public, max-age=900" }).send(xml);
+    } catch (err) {
+      console.error("[rss] failed to build:", err);
+      res.status(500).send("feed unavailable");
+    }
   });
   // Sitemap generated from routes + database (registered before static files so it wins)
   app.get("/sitemap.xml", async (_req, res) => {

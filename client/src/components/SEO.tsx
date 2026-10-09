@@ -17,6 +17,8 @@ interface SEOProps {
   alternates?: { lang: string; href: string }[];
   /** Page language for <html lang>; defaults to "en". */
   lang?: string;
+  /** Open Graph type: "article" for blog posts, "website" otherwise. */
+  ogType?: "website" | "article";
 }
 
 const SITE_NAME = "Skyline Customs";
@@ -26,7 +28,7 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/images/blog-hero-window-tint-laws-2026_1c3
 // Social/JSON-LD images must be absolute URLs; accept site-relative paths too.
 export const absoluteUrl = (u: string) => (u.startsWith("http") ? u : `${BASE_URL}${u.startsWith("/") ? "" : "/"}${u}`);
 
-export default function SEO({ title, description, canonical, ogImage, jsonLd, alternates, lang = "en" }: SEOProps) {
+export default function SEO({ title, description, canonical, ogImage, jsonLd, alternates, lang = "en", ogType = "website" }: SEOProps) {
   // Google shows about 60 characters of a title. Add the brand only when it fits;
   // long titles stand on their own (Google appends the site name in results anyway).
   const fullTitle = title.includes("Skyline") || title.length > 47 ? title : `${title} | ${SITE_NAME}`;
@@ -69,7 +71,7 @@ export default function SEO({ title, description, canonical, ogImage, jsonLd, al
     setMeta('meta[property="og:description"]', 'property="og:description"', description);
     setMeta('meta[property="og:url"]', 'property="og:url"', canonicalUrl);
     setMeta('meta[property="og:image"]', 'property="og:image"', imageUrl);
-    setMeta('meta[property="og:type"]', 'property="og:type"', "website");
+    setMeta('meta[property="og:type"]', 'property="og:type"', ogType);
     setMeta('meta[property="og:site_name"]', 'property="og:site_name"', SITE_NAME);
 
     // Twitter Card
@@ -89,7 +91,7 @@ export default function SEO({ title, description, canonical, ogImage, jsonLd, al
 
     // GA4 page_view (deduped per URL inside trackPageView).
     trackPageView(fullTitle);
-  }, [fullTitle, description, canonicalUrl, imageUrl]);
+  }, [fullTitle, description, canonicalUrl, imageUrl, ogType]);
 
   // JSON-LD is rendered inline so it is present in the server-rendered HTML that
   // crawlers fetch (Google reads structured data anywhere in the document).

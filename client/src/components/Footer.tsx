@@ -77,6 +77,7 @@ export default function Footer() {
                 { label: "En español", href: "/es/ppf" },
                 { label: "All Services", href: "/services" },
                 { label: "Videos", href: "/videos" },
+                { label: "Blog", href: "/blog" },
                 { label: "FAQ", href: "/faq" },
                 { label: "Reviews", href: "/reviews" },
                 { label: "Service Areas", href: "/service-areas" },

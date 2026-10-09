@@ -51,7 +51,7 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
   try {
     const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[] } = {};
     // The blog index and every post list the other posts: render the list so crawlers see the links.
-    if (/^\/blog(\/|$)/.test(urlPath)) preload.blogList = await getAllBlogPosts().catch(() => undefined);
+    if (/^\/blog(\/|$)/.test(urlPath) || urlPath === "/") preload.blogList = await getAllBlogPosts().catch(() => undefined);
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
     if (/^\/gallery(\/|$)|^\/services\/ppf$|-ppf$|^\/ppf-/.test(urlPath)) preload.gallery = await getGalleryRows().catch(() => undefined);
     if (urlPath === "/promo" || urlPath === "/" || urlPath.startsWith("/es/") || /^\/(ppf|ceramic-coating|window-tinting)-[a-z-]+-(va|md|dc)$/.test(urlPath)) {

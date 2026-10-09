@@ -173,7 +173,8 @@ export default function BlogPost() {
         description={post.excerpt}
         canonical={`https://www.skylinecustomshop.com/blog/${post.slug}`}
         ogImage={post.heroImage}
-        jsonLd={{
+        ogType="article"
+        jsonLd={[{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           "headline": post.title,
@@ -205,7 +206,15 @@ export default function BlogPost() {
             "@type": "WebPage",
             "@id": `https://www.skylinecustomshop.com/blog/${post.slug}`
           }
-        }}
+        }, {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.skylinecustomshop.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.skylinecustomshop.com/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://www.skylinecustomshop.com/blog/${post.slug}` },
+          ],
+        }]}
       />
       <Navbar />
       <main>

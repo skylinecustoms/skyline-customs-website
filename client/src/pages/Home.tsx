@@ -288,6 +288,44 @@ function RecentCarsSection() {
 }
 
 // ---- This Month's Special mid-page banner ----------------------------------
+// ---- Latest from the blog (server-rendered: the homepage links to every new post) ----
+function LatestFromBlog() {
+  const { data: posts } = trpc.blog.list.useQuery();
+  const latest = (posts ?? []).slice(0, 3);
+  if (latest.length === 0) return null;
+  return (
+    <section className="py-24 bg-[oklch(0.10_0.005_285)] border-t border-[oklch(0.18_0.006_285)]" aria-labelledby="blog-heading">
+      <div className="container max-w-6xl">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-8 bg-brand-orange" />
+              <span className="text-brand-orange text-xs font-bold tracking-[0.3em] uppercase">Straight answers</span>
+            </div>
+            <h2 id="blog-heading" className="font-display text-5xl md:text-6xl text-white tracking-tight">FROM THE BLOG</h2>
+            <p className="text-[oklch(0.66_0.01_285)] mt-3 max-w-xl">One question a DMV driver actually types into Google, answered by the people who install the film.</p>
+          </div>
+          <Link href="/blog" className="inline-flex items-center gap-2 text-brand-orange font-bold tracking-widest uppercase text-sm hover:underline underline-offset-4 shrink-0">All posts <ArrowRight className="w-4 h-4" /></Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {latest.map((post) => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="group block border border-[oklch(0.18_0.006_285)] bg-[oklch(0.12_0.005_285)] hover:border-brand-orange/60 transition-colors">
+              <div className="aspect-[16/10] overflow-hidden bg-zinc-900">
+                <img src={post.heroImage} alt={post.heroImageAlt} loading="lazy" decoding="async" width={640} height={400} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="p-5">
+                <p className="text-[oklch(0.60_0.008_285)] text-xs tracking-wide uppercase mb-2">{post.date} · {post.readTime}</p>
+                <h3 className="text-white font-semibold leading-snug mb-2 group-hover:text-brand-orange transition-colors">{post.title}</h3>
+                <p className="text-[oklch(0.66_0.01_285)] text-sm leading-relaxed line-clamp-3">{post.excerpt}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ThisMonthsSpecialBanner() {
   const { data: promo } = trpc.promo.getActive.useQuery();
   if (!promo) return null;
@@ -565,6 +603,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <LatestFromBlog />
 
       {/* ── FAQ ──────────────────────────────────────────────────────────────── */}
       <section className="py-32 bg-[oklch(0.12_0.005_285)] border-t border-[oklch(0.18_0.006_285)]">

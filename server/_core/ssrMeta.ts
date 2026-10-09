@@ -43,6 +43,11 @@ export interface PageMeta {
   alternates?: { lang: string; href: string }[];
   /** Page language for <html lang>; defaults to "en". */
   lang?: string;
+  /** Open Graph type; blog posts are "article", everything else stays "website". */
+  ogType?: "website" | "article";
+  /** ISO dates for article:published_time / article:modified_time. */
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 /** Adds the brand to a title only when the result stays within Google's ~60-65 character title width. */
@@ -630,6 +635,9 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
           title: blogPosts.title,
           excerpt: blogPosts.excerpt,
           heroImage: blogPosts.heroImage,
+          date: blogPosts.date,
+          createdAt: blogPosts.createdAt,
+          updatedAt: blogPosts.updatedAt,
         })
         .from(blogPosts)
         .where(and(eq(blogPosts.slug, slug), eq(blogPosts.status, "published")))
@@ -637,12 +645,16 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
 
       if (posts.length > 0) {
         const post = posts[0];
+        const published = Number.isNaN(Date.parse(post.date)) ? post.createdAt : new Date(post.date);
         return {
           title: withBrand(post.title),
           description: post.excerpt ?? `Read this article from Skyline Customs in Chantilly, VA.`,
           canonical: `${BASE_URL}/blog/${slug}`,
           preloadImage: post.heroImage ?? undefined,
           ogImage: post.heroImage ?? undefined,
+          ogType: "article",
+          publishedTime: published.toISOString(),
+          modifiedTime: (post.updatedAt > published ? post.updatedAt : published).toISOString(),
         };
       }
     } catch (e) {
@@ -656,6 +668,8 @@ export async function resolveMetaForPath(urlPath: string): Promise<PageMeta> {
         canonical: `${BASE_URL}/blog/${slug}`,
         preloadImage: staticPost.heroImage,
         ogImage: staticPost.heroImage,
+        ogType: "article",
+        ...(Number.isNaN(Date.parse(staticPost.date)) ? {} : { publishedTime: new Date(staticPost.date).toISOString(), modifiedTime: new Date(staticPost.date).toISOString() }),
       };
     }
   }
@@ -783,6 +797,15 @@ export function injectMetaIntoHtml(html: string, meta: PageMeta): string {
       .replace(/<meta\s+property="og:image:height"\s+content="[^"]*"\s*\/?>\s*/, "")
       .replace(/<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/?>/, `<meta property="og:image:alt" content="${escapeHtml(meta.title)}" />`)
       .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/, `<meta name="twitter:image" content="${escapeHtml(abs)}" />`);
+  }
+
+  if (meta.ogType === "article") {
+    const articleTags = [
+      meta.publishedTime ? `<meta property="article:published_time" content="${escapeHtml(meta.publishedTime)}" />` : "",
+      meta.modifiedTime ? `<meta property="article:modified_time" content="${escapeHtml(meta.modifiedTime)}" />` : "",
+      `<meta property="article:publisher" content="https://www.instagram.com/skylinecustomshop" />`,
+    ].filter(Boolean).join("\n");
+    result = result.replace(/<meta\s+property="og:type"\s+content="[^"]*"\s*\/?>/, `<meta property="og:type" content="article" />\n${articleTags}`);
   }
 
   if (meta.lang && meta.lang !== "en") result = result.replace(/<html lang="[^"]*"/, `<html lang="${escapeHtml(meta.lang)}"`);

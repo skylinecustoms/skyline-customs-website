@@ -13,6 +13,7 @@ import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
 import mysql from "mysql2/promise";
+import { notifySearchEngines } from "./lib/search-ping.mjs";
 
 const DRY = process.argv.includes("--dry-run");
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
@@ -69,16 +70,9 @@ try {
     await conn.execute(`INSERT INTO blogPosts (${cols.join(", ")}) VALUES (${cols.map(() => "?").join(", ")})`, vals);
   }
   console.log(`[seed] blog posts: ${blogAdded} added, ${blogSkipped} already present`);
-  // Tell IndexNow search engines (Bing, DuckDuckGo, ...) about new or changed posts.
+  // Tell search engines about new or changed posts: IndexNow always, Google when configured.
   if (changedUrls.length && !DRY) {
-    try {
-      const KEY = "38576f4b734896647704c96e87d44956";
-      const res = await fetch("https://api.indexnow.org/indexnow", {
-        method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" },
-        body: JSON.stringify({ host: "www.skylinecustomshop.com", key: KEY, keyLocation: `https://www.skylinecustomshop.com/${KEY}.txt`, urlList: [...changedUrls, "https://www.skylinecustomshop.com/blog", "https://www.skylinecustomshop.com/sitemap.xml"] }),
-      });
-      console.log(`[seed] IndexNow: HTTP ${res.status} for ${changedUrls.length} post url(s)`);
-    } catch (err) { console.warn("[seed] IndexNow ping failed:", err.message); }
+    await notifySearchEngines([...changedUrls, "https://www.skylinecustomshop.com/blog", "https://www.skylinecustomshop.com/sitemap.xml"], (m) => console.log(m.replace("[search]", "[seed]")));
   }
 
   // --- Gallery photos (unique by photoUrl) ---
