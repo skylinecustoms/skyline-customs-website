@@ -11,6 +11,7 @@ import { serveStatic, setupVite } from "./vite";
 import { buildSitemap } from "./sitemap";
 import { buildRssFeed } from "./rss";
 import { startIndexingScheduler, lastIndexingSweep } from "../searchIndexing";
+import { describeKeyEnv } from "../../scripts/lib/search-ping.mjs";
 import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
 import { handleTelegramWebhook } from "../telegramWebhook";
@@ -178,6 +179,7 @@ async function startServer() {
         googleIndexing: has("GOOGLE_INDEXING_SA_JSON"),
       },
       searchIndexing: lastIndexingSweep(),
+      googleIndexingKey: has("GOOGLE_INDEXING_SA_JSON") ? describeKeyEnv() : null,
     });
   });
   // tRPC API

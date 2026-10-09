@@ -6,3 +6,4 @@ export function googleIndexingConfigured(): boolean;
 export function pingGoogleIndexing(urls: string[]): Promise<{ url: string; status: number; detail: string }[] | null>;
 export function notifySearchEngines(urls: string[], log?: (m: string) => void): Promise<void>;
 export function parseServiceAccount(raw: string): { client_email: string; private_key: string } | null;
+export function describeKeyEnv(): { length: number; startsWith: string; endsWith: string; hasClientEmail: boolean; hasBotEmail: boolean; hasBeginMarker: boolean; hasEndMarker: boolean; realNewlines: number; parses: boolean };

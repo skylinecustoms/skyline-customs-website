@@ -80,6 +80,23 @@ export function parseServiceAccount(raw) {
   return { client_email: email, private_key: pem };
 }
 
+/** Shape of the stored key for the health endpoint: sizes and markers only, never content. */
+export function describeKeyEnv() {
+  const raw = process.env.GOOGLE_INDEXING_SA_JSON ?? "";
+  const t = raw.trim();
+  return {
+    length: raw.length,
+    startsWith: t.slice(0, 1),
+    endsWith: t.slice(-1),
+    hasClientEmail: t.includes("client_email"),
+    hasBotEmail: /iam\.gserviceaccount\.com/.test(t),
+    hasBeginMarker: t.includes("BEGIN PRIVATE KEY"),
+    hasEndMarker: t.includes("END PRIVATE KEY"),
+    realNewlines: (raw.match(/\n/g) ?? []).length,
+    parses: Boolean(parseServiceAccount(raw)),
+  };
+}
+
 /** Publishes URL_UPDATED notifications. Returns per-URL HTTP statuses. */
 export async function pingGoogleIndexing(urls) {
   const raw = (process.env.GOOGLE_INDEXING_SA_JSON ?? "").trim();
