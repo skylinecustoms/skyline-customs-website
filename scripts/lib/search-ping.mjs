@@ -52,12 +52,40 @@ async function googleAccessToken(sa) {
   return json.access_token;
 }
 
+/**
+ * Reads the service-account key from GOOGLE_INDEXING_SA_JSON. Accepts the JSON
+ * as downloaded, pretty-printed, wrapped in quotes, with escaped quotes, base64
+ * encoded, or with the \n inside the private key turned into real newlines by
+ * whatever pasted it. Only client_email and private_key are needed.
+ */
+export function parseServiceAccount(raw) {
+  let text = String(raw ?? "").trim();
+  if (!text) return null;
+  if (!text.includes("{") && /^[A-Za-z0-9+/=\s]+$/.test(text)) {
+    try { text = Buffer.from(text, "base64").toString("utf8").trim(); } catch { /* not base64 */ }
+  }
+  if ((text.startsWith("'") && text.endsWith("'")) || (text.startsWith('"') && text.endsWith('"'))) text = text.slice(1, -1).trim();
+  for (const candidate of [text, text.replace(/\\"/g, '"')]) {
+    try {
+      const j = JSON.parse(candidate);
+      if (j && j.client_email && j.private_key) return { client_email: j.client_email, private_key: j.private_key };
+    } catch { /* try the next form */ }
+  }
+  // Last resort: pull the two fields out of whatever shape the text is in.
+  const email = text.match(/[a-z0-9-]+@[a-z0-9-]+\.iam\.gserviceaccount\.com/i)?.[0];
+  const body = text.match(/-----BEGIN PRIVATE KEY-----([\s\S]*?)-----END PRIVATE KEY-----/)?.[1];
+  if (!email || !body) return null;
+  const b64 = body.replace(/\\n/g, "").replace(/\s+/g, "");
+  const pem = `-----BEGIN PRIVATE KEY-----\n${b64.match(/.{1,64}/g).join("\n")}\n-----END PRIVATE KEY-----\n`;
+  return { client_email: email, private_key: pem };
+}
+
 /** Publishes URL_UPDATED notifications. Returns per-URL HTTP statuses. */
 export async function pingGoogleIndexing(urls) {
   const raw = (process.env.GOOGLE_INDEXING_SA_JSON ?? "").trim();
   if (!raw) return null;
-  let sa;
-  try { sa = JSON.parse(raw); } catch { throw new Error("GOOGLE_INDEXING_SA_JSON is not valid JSON"); }
+  const sa = parseServiceAccount(raw);
+  if (!sa) throw new Error("GOOGLE_INDEXING_SA_JSON could not be read: it needs the client_email and the private_key from the downloaded key file");
   const token = await googleAccessToken(sa);
   const out = [];
   for (const u of [...new Set(urls.map(absolute))]) {

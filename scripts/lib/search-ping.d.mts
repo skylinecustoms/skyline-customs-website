@@ -5,3 +5,4 @@ export function pingIndexNow(urls: string[]): Promise<{ status: number; count: n
 export function googleIndexingConfigured(): boolean;
 export function pingGoogleIndexing(urls: string[]): Promise<{ url: string; status: number; detail: string }[] | null>;
 export function notifySearchEngines(urls: string[], log?: (m: string) => void): Promise<void>;
+export function parseServiceAccount(raw: string): { client_email: string; private_key: string } | null;
