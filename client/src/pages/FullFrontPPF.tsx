@@ -4,7 +4,7 @@
  * a table of contents, the coverage diagram, FAQ, reviews, and links to every
  * city and model PPF page so the guide is the hub of the PPF cluster.
  */
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle, ChevronDown, Phone, Shield } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -13,37 +13,14 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Testimonials from "@/components/Testimonials";
 import CoverageDiagram from "@/components/CoverageDiagram";
-import { FULL_FRONT_GUIDE, type GuideBlock } from "@/lib/fullFrontGuide";
+import { FULL_FRONT_GUIDE } from "@/lib/fullFrontGuide";
+import { GuideBlockView, renderInline } from "@/components/GuideBlocks";
 import { PPF_PACKAGES } from "@/lib/ppf";
 import { MODEL_PAGES } from "@/lib/modelPages";
 import { CITIES, CITY_ORDER, cityPath, cityServices } from "@/lib/localSeo";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const PATH = "/full-front-ppf";
-
-function renderInline(text: string) {
-  const parts: React.ReactNode[] = [];
-  const re = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*/g;
-  let last = 0; let m: RegExpExecArray | null; let k = 0;
-  while ((m = re.exec(text)) !== null) {
-    if (m.index > last) parts.push(text.slice(last, m.index));
-    if (m[1] !== undefined) parts.push(<Link key={k++} href={m[2]} className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">{m[1]}</Link>);
-    else parts.push(<strong key={k++} className="text-white font-semibold">{m[3]}</strong>);
-    last = m.index + m[0].length;
-  }
-  if (last < text.length) parts.push(text.slice(last));
-  return parts;
-}
-
-function Block({ b }: { b: GuideBlock }) {
-  switch (b.type) {
-    case "h3": return <h3 className="font-['Bebas_Neue',sans-serif] text-2xl md:text-3xl text-white mt-8 mb-3 tracking-wide">{b.text}</h3>;
-    case "p": return <p className="text-zinc-300 leading-relaxed mb-5">{renderInline(b.text)}</p>;
-    case "quote": return <blockquote className="border-l-4 border-[#E85D04] pl-5 my-7 text-white text-lg leading-relaxed italic">{renderInline(b.text)}</blockquote>;
-    case "ul": return <ul className="space-y-2 mb-6">{b.items.map((it) => <li key={it.slice(0, 40)} className="flex items-start gap-3 text-zinc-300 leading-relaxed"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-1.5 shrink-0" /><span>{renderInline(it)}</span></li>)}</ul>;
-    case "ol": return <ol className="space-y-3 mb-6 list-none counter-reset">{b.items.map((it, i) => <li key={it.slice(0, 40)} className="flex items-start gap-4 text-zinc-300 leading-relaxed"><span className="font-display text-2xl text-[#E85D04] leading-none mt-0.5 w-8 shrink-0">{String(i + 1).padStart(2, "0")}</span><span>{renderInline(it)}</span></li>)}</ol>;
-  }
-}
 
 /** Plain text of the guide for the Article schema (links stripped). */
 const plain = (t: string) => t.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\*\*/g, "");
@@ -138,7 +115,7 @@ export default function FullFrontPPF() {
                 <section key={s.id} id={s.id} className="scroll-mt-28 mb-14">
                   <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">{String(i + 1).padStart(2, "0")}</p>
                   <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-5 leading-none">{s.heading}</h2>
-                  {s.blocks.map((b, j) => <Block key={j} b={b} />)}
+                  {s.blocks.map((b, j) => <GuideBlockView key={j} b={b} />)}
                 </section>
               ))}
             </article>

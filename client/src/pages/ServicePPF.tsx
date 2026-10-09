@@ -23,9 +23,14 @@ import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS, videoObject } from "@/lib/videos";
 import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES } from "@/lib/ppf";
 import { PPF_QUESTIONS, PPF_QUESTIONS_COVERED_ON_SERVICE_PAGE } from "@/lib/ppfQuestions";
+import { FULL_FRONT_GUIDE } from "@/lib/fullFrontGuide";
+import { GuideBlocks } from "@/components/GuideBlocks";
+
+const VS_FULL_BODY = FULL_FRONT_GUIDE.sections.find((x) => x.id === "full-front-vs-full-body");
+const VS_FULL_BODY_FAQ = FULL_FRONT_GUIDE.faqs.find((f) => /full body/i.test(f.q));
 
 /** The page's own FAQ plus the questions Google asks about PPF, minus the ones the FAQ already covers. */
-const PPF_PAGE_FAQS = [...PPF_FAQS, ...PPF_QUESTIONS.filter((x) => !PPF_QUESTIONS_COVERED_ON_SERVICE_PAGE.has(x.id)).map((x) => ({ q: x.q, a: x.a }))];
+const PPF_PAGE_FAQS = [...PPF_FAQS, ...(VS_FULL_BODY_FAQ ? [VS_FULL_BODY_FAQ] : []), ...PPF_QUESTIONS.filter((x) => !PPF_QUESTIONS_COVERED_ON_SERVICE_PAGE.has(x.id)).map((x) => ({ q: x.q, a: x.a }))];
 import { CITY_ORDER } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
@@ -230,6 +235,17 @@ export default function ServicePPF() {
       </section>
 
       {/* How quotes work */}
+      {VS_FULL_BODY && (
+        <section className="py-24 bg-[#0D0D0D] border-t border-zinc-800" id="full-front-vs-full-body">
+          <div className="container max-w-3xl">
+            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The question we get most</p>
+            <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white leading-none mb-8">FULL FRONT VS FULL BODY</h2>
+            <GuideBlocks blocks={VS_FULL_BODY.blocks} />
+            <Link href="/full-front-ppf" className="inline-flex items-center gap-2 mt-2 text-[#E85D04] font-bold tracking-widest uppercase text-sm hover:underline underline-offset-4">Read the complete full front guide <ArrowRight className="w-4 h-4" /></Link>
+          </div>
+        </section>
+      )}
+
       <section className="py-24 bg-[#0D0D0D] border-t border-zinc-800" id="pricing">
         <div className="container max-w-5xl">
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">PPF cost</p>
