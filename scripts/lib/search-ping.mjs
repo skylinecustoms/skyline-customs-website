@@ -14,6 +14,8 @@ import { createSign } from "node:crypto";
 
 export const HOST = "www.skylinecustomshop.com";
 export const INDEXNOW_KEY = "38576f4b734896647704c96e87d44956";
+/** The indexing service account for this site (public identifier, not a secret). */
+export const DEFAULT_CLIENT_EMAIL = "indexing-bot@skyline-customs-website.iam.gserviceaccount.com";
 
 export const absolute = (p) => (p.startsWith("http") ? p : `https://${HOST}${p.startsWith("/") ? "" : "/"}${p}`);
 
@@ -71,13 +73,22 @@ export function parseServiceAccount(raw) {
       if (j && j.client_email && j.private_key) return { client_email: j.client_email, private_key: j.private_key };
     } catch { /* try the next form */ }
   }
-  // Last resort: pull the two fields out of whatever shape the text is in.
-  const email = text.match(/[a-z0-9-]+@[a-z0-9-]+\.iam\.gserviceaccount\.com/i)?.[0];
-  const body = text.match(/-----BEGIN PRIVATE KEY-----([\s\S]*?)-----END PRIVATE KEY-----/)?.[1];
-  if (!email || !body) return null;
+  // Last resort: pull the two fields out of whatever shape the text is in. The
+  // email may also come from GOOGLE_INDEXING_CLIENT_EMAIL, or default to the
+  // project's bot, for a paste that only carried the key body.
+  const email = text.match(/[a-z0-9-]+@[a-z0-9-]+\.iam\.gserviceaccount\.com/i)?.[0]
+    ?? (process.env.GOOGLE_INDEXING_CLIENT_EMAIL ?? "").trim()
+    ?? "";
+  let body = text.match(/-----BEGIN PRIVATE KEY-----([\s\S]*?)-----END PRIVATE KEY-----/)?.[1];
+  if (!body) {
+    // Just the base64 between the markers (with literal \n or real newlines).
+    const bare = text.replace(/\\n/g, "").replace(/\s+/g, "");
+    if (/^[A-Za-z0-9+/]{1200,}={0,2}$/.test(bare)) body = bare;
+  }
+  if (!body) return null;
   const b64 = body.replace(/\\n/g, "").replace(/\s+/g, "");
   const pem = `-----BEGIN PRIVATE KEY-----\n${b64.match(/.{1,64}/g).join("\n")}\n-----END PRIVATE KEY-----\n`;
-  return { client_email: email, private_key: pem };
+  return { client_email: email || DEFAULT_CLIENT_EMAIL, private_key: pem };
 }
 
 /** Shape of the stored key for the health endpoint: sizes and markers only, never content. */
