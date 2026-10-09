@@ -93,6 +93,7 @@ async function startServer() {
     "/portfolio": "/gallery",
     "/our-work": "/gallery",
     "/photos": "/gallery",
+    "/blog/full-front-vs-full-body-ppf-what-to-cover": "/blog/full-front-vs-full-body-ppf-why-full-front-wins",
     "/blogs": "/blog",
     "/news": "/blog",
     "/articles": "/blog",
