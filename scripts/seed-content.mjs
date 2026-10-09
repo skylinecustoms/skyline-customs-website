@@ -38,9 +38,10 @@ try {
   if (!DRY) conn = await mysql.createConnection(url);
 
   // --- Blog posts (unique by slug) ---
-  let blogAdded = 0, blogSkipped = 0;
+  let blogAdded = 0, blogSkipped = 0, blogUpdated = 0;
   const changedUrls = [];
-  for (const p of blogPosts) {
+  const errors = [];
+  for (const p of blogPosts) try {
     let exists = false;
     if (conn) {
       const [rows] = await conn.execute("SELECT id, updatedAt FROM blogPosts WHERE slug = ? LIMIT 1", [p.slug]);
@@ -55,7 +56,7 @@ try {
         );
         console.log(`[seed] updated blog post: ${p.slug}`);
         changedUrls.push(`https://www.skylinecustomshop.com/blog/${p.slug}`);
-        blogSkipped++; continue;
+        blogUpdated++; continue;
       }
     }
     if (exists) { blogSkipped++; continue; }
@@ -68,8 +69,20 @@ try {
     if (p.id != null) { cols.unshift("id"); vals.unshift(Number(p.id)); } // omit id -> autoincrement
     changedUrls.push(`https://www.skylinecustomshop.com/blog/${p.slug}`);
     await conn.execute(`INSERT INTO blogPosts (${cols.join(", ")}) VALUES (${cols.map(() => "?").join(", ")})`, vals);
+  } catch (err) {
+    errors.push(`${p.slug}: ${err?.message ?? err}`);
+    console.error(`[seed] blog post ${p.slug} failed:`, err?.message ?? err);
   }
-  console.log(`[seed] blog posts: ${blogAdded} added, ${blogSkipped} already present`);
+  console.log(`[seed] blog posts: ${blogAdded} added, ${blogUpdated} updated, ${blogSkipped} already present, ${errors.length} failed`);
+  // Leave a record the site can show on /api/health, since Railway's seed log is not easy to reach.
+  if (conn) {
+    try {
+      const value = JSON.stringify({ at: new Date().toISOString(), blogAdded, blogUpdated, blogSkipped, errors: errors.slice(0, 10) });
+      const [ex] = await conn.execute("SELECT id FROM siteSettings WHERE `key` = ? LIMIT 1", ["seed:last-run"]);
+      if (ex.length) await conn.execute("UPDATE siteSettings SET value = ? WHERE `key` = ?", [value, "seed:last-run"]);
+      else await conn.execute("INSERT INTO siteSettings (`key`, value) VALUES (?, ?)", ["seed:last-run", value]);
+    } catch (err) { console.warn("[seed] could not record run:", err?.message ?? err); }
+  }
   // Ping IndexNow for new or changed posts. Google is handled by the server's daily
   // indexing sweep (server/searchIndexing.ts), which runs shortly after this deploy boots.
   if (changedUrls.length && !DRY) {

@@ -13,6 +13,9 @@ import { buildRssFeed } from "./rss";
 import { startIndexingScheduler, lastIndexingSweep } from "../searchIndexing";
 import { startWeeklyReportScheduler } from "../weeklyReport";
 import { getGoogleListing } from "../googleReviews";
+import { getDb } from "../db";
+import { blogPosts, siteSettings } from "../../drizzle/schema";
+import { eq } from "drizzle-orm";
 import { describeKeyEnv } from "../../scripts/lib/search-ping.mjs";
 import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
@@ -167,8 +170,22 @@ async function startServer() {
   app.get("/api/health", async (req, res) => {
     const has = (k: string) => Boolean((process.env[k] ?? "").trim());
     const listing = req.query.listing ? await getGoogleListing() : undefined;
+    let seed: unknown = undefined, blog: unknown = undefined;
+    try {
+      const db = await getDb();
+      if (db) {
+        const row = await db.select({ value: siteSettings.value }).from(siteSettings).where(eq(siteSettings.key, "seed:last-run")).limit(1);
+        seed = row[0] ? JSON.parse(row[0].value) : null;
+        if (typeof req.query.blog === "string") {
+          const rows = await db.select({ id: blogPosts.id, slug: blogPosts.slug, status: blogPosts.status, updatedAt: blogPosts.updatedAt }).from(blogPosts).where(eq(blogPosts.slug, req.query.blog)).limit(1);
+          blog = rows[0] ?? null;
+        }
+      }
+    } catch (err) { seed = { error: (err as Error).message }; }
     res.json({
       ...(listing !== undefined ? { googleListing: listing } : {}),
+      seed,
+      ...(blog !== undefined ? { blog } : {}),
       ok: true,
       startedAt,
       uptimeSec: Math.round(process.uptime()),
