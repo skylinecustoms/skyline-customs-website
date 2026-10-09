@@ -10,6 +10,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { buildSitemap } from "./sitemap";
 import { buildRssFeed } from "./rss";
+import { startIndexingScheduler, lastIndexingSweep } from "../searchIndexing";
 import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
 import { handleTelegramWebhook } from "../telegramWebhook";
@@ -176,6 +177,7 @@ async function startServer() {
         stripeWebhook: has("STRIPE_WEBHOOK_SECRET"),
         googleIndexing: has("GOOGLE_INDEXING_SA_JSON"),
       },
+      searchIndexing: lastIndexingSweep(),
     });
   });
   // tRPC API
@@ -227,6 +229,7 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    startIndexingScheduler();
   });
 }
 

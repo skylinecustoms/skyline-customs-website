@@ -13,7 +13,7 @@ import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
 import mysql from "mysql2/promise";
-import { notifySearchEngines } from "./lib/search-ping.mjs";
+import { pingIndexNow } from "./lib/search-ping.mjs";
 
 const DRY = process.argv.includes("--dry-run");
 const CONTENT_DIR = path.resolve(process.cwd(), "content");
@@ -70,9 +70,13 @@ try {
     await conn.execute(`INSERT INTO blogPosts (${cols.join(", ")}) VALUES (${cols.map(() => "?").join(", ")})`, vals);
   }
   console.log(`[seed] blog posts: ${blogAdded} added, ${blogSkipped} already present`);
-  // Tell search engines about new or changed posts: IndexNow always, Google when configured.
+  // Ping IndexNow for new or changed posts. Google is handled by the server's daily
+  // indexing sweep (server/searchIndexing.ts), which runs shortly after this deploy boots.
   if (changedUrls.length && !DRY) {
-    await notifySearchEngines([...changedUrls, "https://www.skylinecustomshop.com/blog", "https://www.skylinecustomshop.com/sitemap.xml"], (m) => console.log(m.replace("[search]", "[seed]")));
+    try {
+      const r = await pingIndexNow([...changedUrls, "https://www.skylinecustomshop.com/blog", "https://www.skylinecustomshop.com/sitemap.xml"]);
+      console.log(`[seed] IndexNow: HTTP ${r.status} for ${r.count} url(s)`);
+    } catch (err) { console.warn("[seed] IndexNow ping failed:", err.message); }
   }
 
   // --- Gallery photos (unique by photoUrl) ---
