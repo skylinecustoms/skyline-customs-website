@@ -66,6 +66,31 @@ export const FULL_FRONT_GUIDE = {
       ],
     },
     {
+      id: "full-front-vs-full-body",
+      heading: "Full front vs full body: why we steer most drivers to full front",
+      blocks: [
+        { type: "p", text: "Full body PPF covers every painted panel: doors, quarter panels, roof, trunk, rear bumper, all of it. It is the most protection you can put on a car, and for a few cars it is the right call. For the daily drivers that fill most of our bay, full front is the smarter buy. Here is the thinking behind that, from a shop that installs both." },
+        { type: "h3", text: "Where the damage actually lands" },
+        { type: "p", text: "Rock chips come from stones thrown by the tires ahead of you, so they hit the surfaces that face forward: hood, bumper, fenders, mirrors, headlights. Doors and quarter panels sit behind the front wheels and in the shadow of the mirrors, so they see a fraction of the strikes. What doors collect instead is parking-lot damage, door dings and shopping-cart scrapes, and no film stops a dent. Rear bumpers get scuffed by curbs and bumper-to-bumper parking in Arlington and DC, which is a repaint either way. When we inspect cars at pickup and again a year later, nearly every impact mark on a commuter is on the front end. Full front puts the film exactly where the hits are." },
+        { type: "h3", text: "Diminishing returns on the back half" },
+        { type: "ul", items: [
+          "Full body uses several times the film and labor of full front, for panels that take a small share of the impacts. The protection per panel on the back half is real, but the protection per dollar is nowhere near the front.",
+          "Every added panel is another set of edges, relief cuts, and trim pieces to work around: door handles, badges, fuel door, window trim. Done well they disappear. They are still edges you are paying for on panels that rarely get hit.",
+          "Nothing about full front is wasted if you want more later. The film matches, the patterns exist for every panel, and we add rockers, door edges, or whole doors to a full front car all the time.",
+          "A car with full front PPF and a Gtechniq ceramic coating over everything is protected from stones where stones land and easy to wash everywhere else. That combination is what most of our customers drive away with.",
+        ] },
+        { type: "h3", text: "When full body is the right call" },
+        { type: "ul", items: [
+          "A car that sees gravel roads, track days, or a long unpaved driveway every week, where stones hit the sides and rear too.",
+          "Soft or exotic paint on a car you plan to keep for a decade and want to stay flawless on every panel.",
+          "A matte or satin factory finish, where a single scratch cannot be polished out, so film on every panel is the only way to keep it uniform.",
+          "You simply want everything covered and the budget is not the deciding factor. We do these, we do them well, and once a season we give one away: every completed [Fall Special](/promo) full front job is entered to win a full body install.",
+        ] },
+        { type: "quote", text: "Film goes where the stones go. On a commuter that is the front, and the front is where your money works hardest." },
+        { type: "p", text: "Our advice: start with full front. If the car and the way you drive it call for more, add it. If you are weighing the three front packages against each other rather than against full body, the [partial vs full front comparison](/partial-front-vs-full-front-ppf) walks through where the lines fall." },
+      ],
+    },
+    {
       id: "the-film",
       heading: "The film: STEK DYNOshield",
       blocks: [
@@ -179,6 +204,7 @@ export const FULL_FRONT_GUIDE = {
     },
   ] as GuideSection[],
   faqs: [
+    { q: "Should I get full front or full body PPF?", a: "Full front for almost every daily driver. Rock chips land on the hood, bumper, fenders, mirrors, and headlights, which is exactly what full front covers; doors and rear panels take a small share of the impacts and mostly collect dings that no film stops. Full body makes sense for gravel and track use, soft or exotic paint you want flawless everywhere, or matte finishes. You can always add panels to a full front car later." },
     { q: "What does full front PPF cover?", a: "Full front PPF covers the full hood, the front bumper, both front fenders, the mirror caps, the headlights, and the A-pillars: every surface that faces forward at highway speed. It does not include doors, rockers, or the roof. Full front extended adds rocker panels, door edges, and door cups. Partial front covers only the bumper, the leading 18 inches of the hood, fender edges, and mirrors." },
     { q: "How much does full front PPF cost?", a: "It depends on the vehicle and the package. Full front uses similar material on most cars, so the biggest variables are body size, gloss or matte film, and whether you add a ceramic coating or extend coverage to the rockers and doors. Send us the year, make, and model through the free quote form and we reply with an exact price, usually within the hour." },
     { q: "How long does a full front PPF install take?", a: "One day at our Chantilly shop. Drop off in the morning and pick up that afternoon after a walk-around under high-intensity lights. Every install starts with a decontamination wash and a paint inspection. Adding a Gtechniq ceramic coating over the film usually makes it a two-day job, and full front extended takes one to two days." },
