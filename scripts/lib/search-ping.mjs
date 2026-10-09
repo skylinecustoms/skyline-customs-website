@@ -37,10 +37,10 @@ function b64url(input) {
 }
 
 /** OAuth2 access token for the service account (JWT bearer grant, no SDK). */
-async function googleAccessToken(sa) {
+async function googleAccessToken(sa, scope = "https://www.googleapis.com/auth/indexing") {
   const now = Math.floor(Date.now() / 1000);
   const header = b64url(JSON.stringify({ alg: "RS256", typ: "JWT" }));
-  const claims = b64url(JSON.stringify({ iss: sa.client_email, scope: "https://www.googleapis.com/auth/indexing", aud: "https://oauth2.googleapis.com/token", iat: now, exp: now + 3600 }));
+  const claims = b64url(JSON.stringify({ iss: sa.client_email, scope, aud: "https://oauth2.googleapis.com/token", iat: now, exp: now + 3600 }));
   const signer = createSign("RSA-SHA256");
   signer.update(`${header}.${claims}`);
   const sig = signer.sign(sa.private_key, "base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -89,6 +89,13 @@ export function parseServiceAccount(raw) {
   const b64 = body.replace(/\\n/g, "").replace(/\s+/g, "");
   const pem = `-----BEGIN PRIVATE KEY-----\n${b64.match(/.{1,64}/g).join("\n")}\n-----END PRIVATE KEY-----\n`;
   return { client_email: email || DEFAULT_CLIENT_EMAIL, private_key: pem };
+}
+
+/** Access token for any Google API scope using the key in GOOGLE_INDEXING_SA_JSON; null when not configured. */
+export async function googleToken(scopes) {
+  const sa = parseServiceAccount(process.env.GOOGLE_INDEXING_SA_JSON ?? "");
+  if (!sa) return null;
+  return googleAccessToken(sa, Array.isArray(scopes) ? scopes.join(" ") : scopes);
 }
 
 /** Shape of the stored key for the health endpoint: sizes and markers only, never content. */

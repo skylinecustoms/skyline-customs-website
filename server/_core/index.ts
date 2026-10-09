@@ -11,6 +11,7 @@ import { serveStatic, setupVite } from "./vite";
 import { buildSitemap } from "./sitemap";
 import { buildRssFeed } from "./rss";
 import { startIndexingScheduler, lastIndexingSweep } from "../searchIndexing";
+import { startWeeklyReportScheduler } from "../weeklyReport";
 import { describeKeyEnv } from "../../scripts/lib/search-ping.mjs";
 import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
@@ -232,6 +233,7 @@ async function startServer() {
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
     startIndexingScheduler();
+    startWeeklyReportScheduler();
   });
 }
 

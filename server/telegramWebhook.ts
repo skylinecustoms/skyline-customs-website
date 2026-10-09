@@ -41,6 +41,7 @@ import { eq, desc } from "drizzle-orm";
 import { ENV } from "./_core/env";
 import { storagePut } from "./storage";
 import { notifyPpfLeadsSlotClaimed } from "./ghl";
+import { buildWeeklyReport } from "./weeklyReport";
 import fs from "fs";
 import path from "path";
 
@@ -1039,6 +1040,14 @@ export async function handleTelegramWebhook(req: Request, res: Response) {
     }
 
     await sendMessage(chatId, "Usage:\n/gallery add [category] -- [car] (+ photo)\n/gallery list\n/gallery remove [id]");
+    return;
+  }
+
+  // -- /report: the weekly SEO and lead report, right now --------------------
+  if (effectiveText.startsWith("/report")) {
+    await sendMessage(chatId, "⏳ Pulling Search Console and Analytics...");
+    try { await sendMessage(chatId, await buildWeeklyReport()); }
+    catch (err) { await sendMessage(chatId, `❌ Report failed: ${err instanceof Error ? err.message : String(err)}`); }
     return;
   }
 
