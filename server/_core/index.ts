@@ -12,6 +12,7 @@ import { buildSitemap } from "./sitemap";
 import { buildRssFeed } from "./rss";
 import { startIndexingScheduler, lastIndexingSweep } from "../searchIndexing";
 import { startWeeklyReportScheduler } from "../weeklyReport";
+import { getGoogleListing } from "../googleReviews";
 import { describeKeyEnv } from "../../scripts/lib/search-ping.mjs";
 import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
@@ -162,9 +163,11 @@ async function startServer() {
   registerDepositRoutes(app);
   // Health: which optional integrations this deployment has credentials for (booleans only, never values).
   const startedAt = new Date().toISOString();
-  app.get("/api/health", (_req, res) => {
+  app.get("/api/health", async (req, res) => {
     const has = (k: string) => Boolean((process.env[k] ?? "").trim());
+    const listing = req.query.listing ? await getGoogleListing() : undefined;
     res.json({
+      ...(listing !== undefined ? { googleListing: listing } : {}),
       ok: true,
       startedAt,
       uptimeSec: Math.round(process.uptime()),

@@ -11,6 +11,18 @@ export interface GoogleReviewSummary { rating: number; total: number; reviews: G
 const TTL_MS = 6 * 60 * 60 * 1000;
 let cache: { at: number; data: GoogleReviewSummary | null } | null = null;
 
+/** The listing's name, website, phone and address as Google currently has them (health diagnostic, not cached). */
+export async function getGoogleListing(): Promise<{ name?: string; website?: string; phone?: string; address?: string; status: string } | null> {
+  if (!ENV.googlePlacesApiKey) return null;
+  try {
+    const r = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(ENV.googlePlaceId)}&fields=name,website,formatted_phone_number,formatted_address&key=${ENV.googlePlacesApiKey}`);
+    const j = (await r.json()) as { status: string; result?: { name?: string; website?: string; formatted_phone_number?: string; formatted_address?: string } };
+    return { status: j.status, name: j.result?.name, website: j.result?.website, phone: j.result?.formatted_phone_number, address: j.result?.formatted_address };
+  } catch (err) {
+    return { status: (err as Error).message };
+  }
+}
+
 export async function getGoogleReviews(): Promise<GoogleReviewSummary | null> {
   if (!ENV.googlePlacesApiKey) return null;
   if (cache && Date.now() - cache.at < TTL_MS) return cache.data;
