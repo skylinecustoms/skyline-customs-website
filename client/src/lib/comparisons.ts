@@ -148,8 +148,8 @@ export const STEK_VS_XPEL: ComparisonData = {
 
 export const PARTIAL_VS_FULL_FRONT: ComparisonData = {
   path: "/partial-front-vs-full-front-ppf",
-  title: "Partial Front vs Full Front PPF: Which Coverage Do You Need?",
-  description: "Partial front, full front, and full front extended PPF compared: what each covers, where the hood line falls, chip exposure on I-66 and Route 28, and leases.",
+  title: "What Does Full Front PPF Cover? Partial vs Full Front Compared",
+  description: "What full front PPF covers (hood, bumper, fenders, mirrors, headlights, A-pillars) vs partial front and extended, where the hood line falls, and which fits how you drive.",
   eyebrow: "PPF coverage compared",
   h1: "PARTIAL FRONT VS FULL FRONT PPF: WHERE SHOULD THE FILM STOP?",
   intro: "Every paint protection film quote comes down to one question: how far up the car does the film go? A partial front covers the bumper and the leading edge of the hood. A full front covers the panels that face the airstream at highway speed. Full front extended adds the rockers and door edges that take parking-lot abuse. We install all three in Chantilly, and we recommend full front to most daily drivers. This page explains why, and when the other two are the smarter call.",

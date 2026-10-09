@@ -22,6 +22,10 @@ import Testimonials from "@/components/Testimonials";
 import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS, videoObject } from "@/lib/videos";
 import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES } from "@/lib/ppf";
+import { PPF_QUESTIONS, PPF_QUESTIONS_COVERED_ON_SERVICE_PAGE } from "@/lib/ppfQuestions";
+
+/** The page's own FAQ plus the questions Google asks about PPF, minus the ones the FAQ already covers. */
+const PPF_PAGE_FAQS = [...PPF_FAQS, ...PPF_QUESTIONS.filter((x) => !PPF_QUESTIONS_COVERED_ON_SERVICE_PAGE.has(x.id)).map((x) => ({ q: x.q, a: x.a }))];
 import { CITY_ORDER } from "@/lib/localSeo";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
@@ -95,7 +99,7 @@ export default function ServicePPF() {
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            "mainEntity": PPF_FAQS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+            "mainEntity": PPF_PAGE_FAQS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
           },
           {
             "@context": "https://schema.org",
@@ -359,7 +363,7 @@ export default function ServicePPF() {
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">PPF FAQ</h2>
           </div>
           <div className="space-y-px">
-            {PPF_FAQS.map((faq, i) => (
+            {PPF_PAGE_FAQS.map((faq, i) => (
               <div key={faq.q} className="border-b border-zinc-800">
                 <button type="button" onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i} className="w-full flex items-center justify-between py-6 text-left group">
                   <span className="font-['Bebas_Neue',sans-serif] text-xl text-white group-hover:text-[#E85D04] transition-colors pr-4">{faq.q}</span>

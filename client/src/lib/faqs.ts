@@ -3,6 +3,8 @@
  * FAQPage structured data so answers can appear directly in Google results.
  */
 
+import { PPF_QUESTIONS } from "./ppfQuestions";
+
 export interface FaqItem { q: string; a: string }
 export interface FaqGroup { key: string; label: string; heading: string; intro: string; href?: string; hrefLabel?: string; items: FaqItem[] }
 
@@ -74,6 +76,15 @@ export const FAQ_GROUPS: FaqGroup[] = [
       { q: "Do you tint the windshield?", a: "Yes — legal windshield strips and ceramic windshield film that rejects heat and UV without darkening your forward view beyond legal limits." },
       { q: "Does ceramic tint block phone, GPS, or toll transponder signals?", a: "No. GeoShield ceramic film is metal-free, so cell, GPS, satellite radio, and E-ZPass signals pass through normally." },
     ],
+  },
+  {
+    key: "ppf-google",
+    label: "PPF: What People Ask",
+    heading: "WHAT PEOPLE ASK GOOGLE ABOUT PPF",
+    intro: "The questions Google shows next to \"PPF near me\", answered by the people who install the film.",
+    href: "/services/ppf",
+    hrefLabel: "Full front PPF",
+    items: PPF_QUESTIONS.map((x) => ({ q: x.q, a: x.a })),
   },
 ];
 

@@ -8,6 +8,7 @@
  */
 
 import { Link } from "wouter";
+import { PPF_QUESTIONS } from "@/lib/ppfQuestions";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
@@ -85,6 +86,12 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
   // The deposit policy is shown on every city page, whatever the rotation picked.
   const deposit = shared.find((f) => /deposit/i.test(f.q));
   if (deposit && !faqs.includes(deposit)) faqs.push(deposit);
+  // PPF pages also carry three of the questions Google shows for "ppf near me", a different three per city.
+  if (serviceKey === "ppf") {
+    const pool = PPF_QUESTIONS.filter((x) => !faqs.some((f) => f.q === x.q));
+    const off = (hash(cityName) * 7 + 3) % pool.length;
+    for (const x of [0, 1, 2].map((i) => pool[(off + i) % pool.length])) faqs.splice(faqs.length - 1, 0, { q: x.q, a: x.a });
+  }
   // Tint pages always answer the legal limit for the state, unless the city note already does.
   if (serviceKey === "tint" && !faqs.some((f) => /legal|law|darkest/i.test(f.q))) {
     const law = shared.find((f) => /legal tint limit/i.test(f.q));
