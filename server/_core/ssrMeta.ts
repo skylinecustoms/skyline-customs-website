@@ -20,6 +20,7 @@ import { AUDIENCE_PAGES } from "../../client/src/lib/audiencePages";
 import { ES_PAGES, ES_PROMO } from "../../client/src/lib/es";
 import { COMPARISON_PAGES } from "../../client/src/lib/comparisons";
 import { BODY_TYPE_PAGES } from "../../client/src/lib/bodyTypePages";
+import { FULL_FRONT_GUIDE } from "../../client/src/lib/fullFrontGuide";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -701,6 +702,7 @@ for (const b of BODY_TYPE_PAGES) {
 for (const a of AUDIENCE_PAGES) {
   if (!STATIC_META[a.path]) STATIC_META[a.path] = { title: a.seoTitle, description: a.seoDescription, canonical: `${BASE_URL}${a.path}` };
 }
+STATIC_META["/full-front-ppf"] = { title: FULL_FRONT_GUIDE.title, description: FULL_FRONT_GUIDE.description, canonical: `${BASE_URL}/full-front-ppf`, ogImage: "/images/toyota-4runner-trailhunter-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg", ogType: "article" };
 STATIC_META["/fleet-ppf"] = { title: "Fleet PPF, Tint & Ceramic Coating in Northern Virginia | Skyline Customs", description: "Paint protection film, window tint, and ceramic coating for fleets, dealerships, and company vehicles across Virginia, Maryland, and DC. Standing schedules, one invoice, one warranty file. Per-unit pricing in one business day.", canonical: `${BASE_URL}/fleet-ppf` };
 for (const c of COMPARISON_PAGES) {
   if (!STATIC_META[c.path]) STATIC_META[c.path] = { title: c.title, description: c.description, canonical: `${BASE_URL}${c.path}` };

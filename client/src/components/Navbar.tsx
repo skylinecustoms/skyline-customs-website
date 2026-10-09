@@ -18,6 +18,7 @@ const navLinks = [
 
 const serviceLinks = [
   { href: "/services/ppf", label: "Full Front PPF" },
+  { href: "/full-front-ppf", label: "Full Front PPF Guide" },
   { href: "/services/ceramic-coating", label: "Ceramic Coating" },
   { href: "/services/window-tinting", label: "Window Tinting" },
   { href: "/ppf-cost", label: "PPF Cost Guide" },

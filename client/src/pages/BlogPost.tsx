@@ -314,8 +314,9 @@ export default function BlogPost() {
                 </h4>
                 <ul className="space-y-2">
                   {[
-                    { label: "Ceramic Coating", href: "https://www.skylinecustomshop.com/services/ceramic-coating" },
+                    { label: "Full Front PPF Guide", href: "https://www.skylinecustomshop.com/full-front-ppf" },
                     { label: "Paint Protection Film", href: "https://www.skylinecustomshop.com/services/ppf" },
+                    { label: "Ceramic Coating", href: "https://www.skylinecustomshop.com/services/ceramic-coating" },
                     { label: "Window Tinting", href: "https://www.skylinecustomshop.com/services/window-tinting" },
                   ].map((s) => (
                     <li key={s.label}>

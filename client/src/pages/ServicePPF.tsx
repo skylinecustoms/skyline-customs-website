@@ -200,7 +200,7 @@ export default function ServicePPF() {
           <div className="mb-16">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Coverage Options</p>
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">CHOOSE YOUR PROTECTION</h2>
-            <p className="text-zinc-400 mt-4 max-w-2xl">Three packages, one film. Tell us your vehicle and we quote the exact price, usually within the hour.</p>
+            <p className="text-zinc-400 mt-4 max-w-2xl">Three packages, one film. Tell us your vehicle and we quote the exact price, usually within the hour. New to this? Read the <Link href="/full-front-ppf" className="text-[#E85D04] underline underline-offset-2">complete full front PPF guide</Link>: every panel, the film, the install day, and what to expect at year ten.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {PPF_PACKAGES.map((pkg) => (

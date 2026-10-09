@@ -76,6 +76,7 @@ const AudiencePage = lazy(() => import("./components/AudiencePage"));
 const SpanishServicePage = lazy(() => import("./components/SpanishServicePage"));
 const EsPromo = lazy(() => import("./pages/EsPromo"));
 const FleetPPF = lazy(() => import("./pages/FleetPPF"));
+const FullFrontPPF = lazy(() => import("./pages/FullFrontPPF"));
 const ComparisonPageLazy = lazy(() => import("./components/ComparisonPage"));
 const VehiclePPFPageLazy = lazy(() => import("./components/VehiclePPFPage"));
 
@@ -113,6 +114,7 @@ function Router() {
       ))}
       <Route path={"/es/promo"} component={EsPromo} />
       <Route path={"/fleet-ppf"} component={FleetPPF} />
+      <Route path={"/full-front-ppf"} component={FullFrontPPF} />
       <Route path={"/es"}><Redirect to="/es/ppf" /></Route>
       <Route path={"/bmw-ppf"} component={BmwPPF} />
       <Route path={"/porsche-ppf"} component={PorschePPF} />

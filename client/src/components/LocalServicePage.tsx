@@ -347,6 +347,19 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         </div>
       </section>
 
+      {serviceKey === "ppf" && (
+        <section className="py-10 bg-[#0D0D0D] border-t border-zinc-800">
+          <div className="container max-w-5xl flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+            <div>
+              <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Before you book</p>
+              <p className="text-white text-lg font-semibold">Read the complete full front PPF guide</p>
+              <p className="text-zinc-400 text-sm mt-1">Every panel it covers, the STEK film, the install day step by step, and what the film looks like at year ten.</p>
+            </div>
+            <Link href="/full-front-ppf" className="md:ml-auto shrink-0 inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-black font-bold tracking-widest uppercase px-6 py-3 transition-colors">Full front PPF guide <ArrowRight className="w-4 h-4" /></Link>
+          </div>
+        </section>
+      )}
+
       <NearbyAreas city={cityName} service={serviceKey} />
 
       {/* Other services in this city */}
