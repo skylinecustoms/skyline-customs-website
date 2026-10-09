@@ -86,6 +86,38 @@ function renderSection(section: BlogSection, idx: number) {
   }
 }
 
+/** Sidebar card. Reads the active promo so every post sends readers to the deal page. */
+function PromoCtaCard() {
+  const { data: promo } = trpc.promo.getActive.useQuery();
+  const price = Number(String(promo?.price ?? "").replace(/[^0-9.]/g, "")) || 0;
+  const title = promo?.title ?? "";
+  const live = Boolean(promo?.title);
+  return (
+    <div className="bg-[#e85d04] p-6">
+      <p className="text-black/70 text-xs font-bold tracking-[0.3em] uppercase mb-2">{live ? "This month's special" : "Free quote"}</p>
+      <h3
+        className="text-white text-xl font-bold mb-2"
+        style={{ fontFamily: "'Oswald', sans-serif", textTransform: "uppercase" }}
+      >
+        {live ? `${title}: Full Front PPF + Free Ceramic Coating` : "Get a Free Quote"}
+      </h3>
+      <p className="text-white/85 text-sm mb-5 leading-relaxed">
+        {live
+          ? `STEK DYNOshield full front PPF with the 12-year warranty${price > 0 ? ` for $${price.toLocaleString("en-US")}` : ""}, and we ceramic coat the whole car free. Limited spots${promo?.endDate ? `, ends ${promo.endDate}` : ""}.`
+          : "Tell us the year, make, and model and we reply with an exact price, usually within the hour."}
+      </p>
+      <Link
+        href={live ? "/promo" : "/get-a-quote"}
+        data-cta="blog-sidebar"
+        className="block bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-5 py-3 text-center hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200"
+        style={{ fontFamily: "'Oswald', sans-serif" }}
+      >
+        {live ? "GET A QUOTE ON THE SPECIAL" : "GET A FREE QUOTE"}
+      </Link>
+    </div>
+  );
+}
+
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
 
@@ -269,25 +301,8 @@ export default function BlogPost() {
           {/* Sticky Sidebar */}
           <aside className="lg:w-72 flex-shrink-0">
             <div className="lg:sticky lg:top-24 space-y-6">
-              {/* CTA Card */}
-              <div className="bg-[#e85d04] p-6">
-                <h3
-                  className="text-white text-xl font-bold mb-2"
-                  style={{ fontFamily: "'Oswald', sans-serif", textTransform: "uppercase" }}
-                >
-                  Protect Your Vehicle Today
-                </h3>
-                <p className="text-white/85 text-sm mb-5 leading-relaxed">
-                  Get a free consultation from Northern Virginia's trusted auto protection specialists.
-                </p>
-                <a
-                  href="https://www.skylinecustomshop.com/get-a-quote"
-                  className="block bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-5 py-3 text-center hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200"
-                  style={{ fontFamily: "'Oswald', sans-serif" }}
-                >
-                  GET A FREE QUOTE
-                </a>
-              </div>
+              {/* CTA Card: this month's special when one is running, otherwise the quote form */}
+              <PromoCtaCard />
 
               {/* Services */}
               <div className="bg-[#111] border border-white/10 p-6">
