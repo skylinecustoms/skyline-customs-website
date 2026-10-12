@@ -15,6 +15,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import CeramicPromoBanner from "@/components/CeramicPromoBanner";
 import ExitPrompt from "@/components/ExitPrompt";
 import { endOfMonth } from "@/pages/CeramicPromo";
+import { timeLeftLabel } from "@/pages/JuneSpecial";
 import { useState, useEffect } from "react";
 import { ChevronDown, Droplets, Sparkles, Shield, Sun, Clock, Award, CheckCircle, ArrowRight, Zap } from "lucide-react";
 import { Link } from "wouter";
@@ -250,7 +251,7 @@ export default function ServiceCeramic() {
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10"
           style={{ background: "radial-gradient(ellipse at top right, #E85D04, transparent 70%)" }}
         />
-        <div className="container relative z-10 pt-32">
+        <div className="container relative z-10 pt-24 lg:pt-32">
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Ceramic Coating" }]} />
           <div className="flex items-center gap-3 mb-4">
             <Link href="/services" className="text-[#E85D04] text-sm font-medium tracking-widest uppercase hover:text-white transition-colors">Services</Link>
@@ -288,13 +289,13 @@ export default function ServiceCeramic() {
             </div>
 
             {/* This month's special, the same price card as the special's own page */}
-            <aside className="lg:col-span-5 relative bg-gradient-to-br from-[#1a0f05] to-[#0D0D0D] border-2 border-[#E85D04]/70 p-6 md:p-8" aria-label="This month's ceramic coating special">
+            <aside className="lg:col-span-5 order-first lg:order-none relative bg-gradient-to-br from-[#1a0f05] to-[#0D0D0D] border-2 border-[#E85D04]/70 p-6 md:p-8" aria-label="This month's ceramic coating special">
               <span className="absolute -top-px -right-px bg-[#E85D04] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Free glass + wheels</span>
               <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">This month only</p>
               <p className="font-['Bebas_Neue',sans-serif] text-6xl md:text-7xl text-[#E85D04] leading-none mb-2">$995</p>
               <p className="text-white font-semibold text-base md:text-lg leading-snug mb-1">Full System X ceramic coating + free glass and wheel coating</p>
-              <p className="text-zinc-400 text-sm mb-4">Everything included. No add-ons. Price locked through {endOfMonth()}.</p>
-              <ul className="space-y-2 mb-6 text-sm text-zinc-200">
+              <p className="text-zinc-400 text-sm mb-4">Everything included. No add-ons. 6-year registered warranty. Price locked through {endOfMonth()}.</p>
+              <ul className="hidden sm:block space-y-2 mb-6 text-sm text-zinc-200">
                 {[
                   "System X ceramic on every painted panel, 6-year registered warranty",
                   "Glass coating on the windshield and every window at no charge",
@@ -469,6 +470,16 @@ export default function ServiceCeramic() {
       <ServiceCityLinks service="ceramic" />
       <Footer />
       <ExitPrompt promoTitle="Ceramic Special" promoTag="ceramic-special-promo" service="Ceramic Coating" />
+
+      {/* Phones: the special's button stays on screen while reading, as on the special's own page */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#0A0A0A] border-t border-zinc-800 p-3 flex items-center gap-3 shadow-2xl">
+        <div className="flex-1 min-w-0 leading-tight">
+          <p className="text-[11px] font-bold"><span className="text-white">$995</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">Glass + wheels free</span></p>
+          <p className="text-zinc-400 text-[11px] mt-0.5">System X ceramic special{timeLeftLabel(endOfMonth()) ? ` · ${timeLeftLabel(endOfMonth())}` : ""}</p>
+        </div>
+        <Link href="/promo-ceramic" data-cta="ceramic-sticky" className="shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base tracking-widest px-4 py-3 hover:bg-orange-600 transition-colors">LOCK IN SLOT</Link>
+      </div>
+      <div className="h-16 md:hidden" aria-hidden="true" />
     </div>
   );
 }
