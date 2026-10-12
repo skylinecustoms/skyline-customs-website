@@ -141,8 +141,8 @@ export default function ServiceTint() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Window Tinting | Chantilly VA"
-        description="Premium ceramic window tinting in Chantilly, VA. Heat-rejecting, UV-blocking, Virginia-legal, signal-safe ceramic film with a lifetime warranty."
+        title="Ceramic Window Tinting in Chantilly, VA | Northern Virginia Tint Shop"
+        description="Ceramic window tint near you: GeoShield Pro Nano Ceramic, Virginia-legal shades, nationwide lifetime warranty, 2 to 4 hour installs in Chantilly, VA. Drivers from Fairfax, Loudoun, and Prince William. Free quotes."
         canonical="https://www.skylinecustomshop.com/services/window-tinting"
         jsonLd={[
           {

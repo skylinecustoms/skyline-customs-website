@@ -275,8 +275,19 @@ export default function ServiceCeramic() {
         </div>
       </section>
 
-      {/* Orange divider */}
-      <div className="h-1 bg-[#E85D04]" />
+      {/* Ceramic special: shown only here, links to its own landing page */}
+      <section className="bg-[#E85D04] text-black">
+        <div className="container py-5 md:py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+          <div className="flex items-center gap-4">
+            <Sparkles className="w-10 h-10 shrink-0" strokeWidth={1.75} />
+            <div>
+              <p className="font-display text-3xl md:text-4xl leading-none tracking-wide">$995 CERAMIC COATING, GLASS + WHEELS FREE</p>
+              <p className="text-black/80 text-sm md:text-base mt-1">System X, 9H, 6-year transferable warranty. Limited install slots this month.</p>
+            </div>
+          </div>
+          <Link href="/promo-ceramic" data-cta="ceramic-promo-banner" className="md:ml-auto shrink-0 inline-flex items-center justify-center gap-2 bg-black text-white font-display text-xl tracking-[0.1em] uppercase px-7 py-4 hover:bg-zinc-900 transition-colors">See the special <ArrowRight className="w-5 h-5" /></Link>
+        </div>
+      </section>
 
       {/* Benefits */}
       <section className="py-24 bg-[#0D0D0D]">

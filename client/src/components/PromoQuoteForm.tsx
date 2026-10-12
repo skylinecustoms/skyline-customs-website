@@ -16,13 +16,21 @@ interface Props {
   promoSlug: string;
   /** What the deal includes, e.g. "Full Front PPF + Free Ceramic Coating"; goes into the prefilled message. */
   dealDescription: string;
+  /** CRM service for the lead; drives the service tag. Defaults to PPF. */
+  service?: "PPF" | "Ceramic Coating" | "Tints";
+  /** Button text and the line under it. */
+  buttonLabel?: string;
+  footnote?: string;
+  /** The deposit button only applies to the PPF promo. */
+  showDeposit?: boolean;
 }
 
 /** Same tag rule as the quote page: "September Special" -> "september-special-promo". */
 export const promoTagFor = (title: string, slug: string) =>
   title ? `${title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}-promo` : `${slug}-promo`;
 
-export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription }: Props) {
+export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription, service = "PPF", buttonLabel = "YES! PROTECT MY PAINT", footnote, showDeposit = true }: Props) {
+  const leadService = service === "Ceramic Coating" ? "ceramic" : service === "Tints" ? "tint" : "ppf";
   // Same note the quote page prefilled from promo links, so the CRM note and text read the same.
   const promoNote = `I'm interested in the ${promoTitle} — ${dealDescription}. Please contact me to claim my spot.`;
   const [form, setForm] = useState({ firstName: "", lastName: "", phone: "", email: "", year: "", make: "", model: "", message: promoNote });
@@ -30,14 +38,14 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [contactId, setContactId] = useState<string | null>(null);
-  usePartialLead("promo", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service: "PPF", promoTag: promoTagFor(promoTitle, promoSlug) }, submitted);
+  usePartialLead("promo", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service, promoTag: promoTagFor(promoTitle, promoSlug) }, submitted);
 
   const submit = trpc.contact.submit.useMutation({
     onSuccess: (r) => {
       setContactId(r?.contactId ?? null);
       setSubmitted(true);
       setErrorMsg("");
-      trackLead("quote_form", "ppf");
+      trackLead("quote_form", leadService);
     },
     onError: (err) => {
       setErrorMsg("Something went wrong. Please call us at (703) 775-4383 or try again.");
@@ -60,7 +68,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
       year: form.year || undefined,
       make: form.make || undefined,
       model: form.model || undefined,
-      service: "PPF",
+      service,
       message: form.message.trim() || promoNote,
       promoTag: promoTagFor(promoTitle, promoSlug),
       formId: "promo",
@@ -79,7 +87,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
         <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto">
           We have your request for the {promoTitle || "special"}. Expect a call or text from the shop, usually within the hour during business hours, with your exact price and open install dates.
         </p>
-        <DepositButton contactId={contactId} firstName={form.firstName} lastName={form.lastName} email={form.email} phone={form.phone} promoTitle={promoTitle || "Special"} vehicle={[form.year, form.make, form.model].filter(Boolean).join(" ")} />
+        {showDeposit && <DepositButton contactId={contactId} firstName={form.firstName} lastName={form.lastName} email={form.email} phone={form.phone} promoTitle={promoTitle || "Special"} vehicle={[form.year, form.make, form.model].filter(Boolean).join(" ")} />}
         <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] font-bold tracking-widest uppercase text-sm underline underline-offset-2 decoration-1 hover:decoration-2">
           <Phone className="w-4 h-4" /> Or call (703) 775-4383
         </a>
@@ -148,10 +156,10 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription 
         disabled={submit.isPending || !agreed}
         className="w-full bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {submit.isPending ? "SENDING..." : "YES! PROTECT MY PAINT"}
+        {submit.isPending ? "SENDING..." : buttonLabel}
         {!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
-      <p className="text-center text-zinc-400 text-xs tracking-wide">No catch. Just flawless paint, guaranteed 12 years. Nothing to pay now: a fully refundable 20% deposit locks your date only after you approve your exact quote. Pay over time with Klarna, Afterpay, or Affirm.</p>
+      <p className="text-center text-zinc-400 text-xs tracking-wide">{footnote ?? "No catch. Just flawless paint, guaranteed 12 years. Nothing to pay now: a fully refundable 20% deposit locks your date only after you approve your exact quote. Pay over time with Klarna, Afterpay, or Affirm."}</p>
     </form>
   );
 }

@@ -92,8 +92,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/services/ceramic-coating`,
   },
   "/services/window-tinting": {
-    title: `Window Tinting Services | ${SITE_NAME}`,
-    description: "Professional window tinting in Chantilly, VA. Ceramic, carbon, and dyed films. Virginia-legal tint. 5.0 stars on Google. Free quotes.",
+    title: "Ceramic Window Tinting in Chantilly, VA | Northern Virginia Tint Shop",
+    description: "Ceramic window tint near you: GeoShield Pro Nano Ceramic, Virginia-legal shades, nationwide lifetime warranty, 2 to 4 hour installs in Chantilly, VA. Drivers from Fairfax, Loudoun, and Prince William. Free quotes.",
     canonical: `${BASE_URL}/services/window-tinting`,
   },
   "/reviews": {
@@ -703,6 +703,7 @@ for (const a of AUDIENCE_PAGES) {
   if (!STATIC_META[a.path]) STATIC_META[a.path] = { title: a.seoTitle, description: a.seoDescription, canonical: `${BASE_URL}${a.path}` };
 }
 STATIC_META["/full-front-ppf"] = { title: FULL_FRONT_GUIDE.title, description: FULL_FRONT_GUIDE.description, canonical: `${BASE_URL}/full-front-ppf`, ogImage: "/images/toyota-4runner-trailhunter-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg", ogType: "article" };
+STATIC_META["/promo-ceramic"] = { title: "$995 Ceramic Coating Special in Chantilly, VA | Glass + Wheels Free", description: "System X ceramic coating for $995 with free glass coating and free wheel coating. 9H hardness, SGS lab certified, 6-year transferable warranty. Limited install slots this month at Skyline Customs, Chantilly, VA.", canonical: `${BASE_URL}/promo-ceramic`, ogImage: "/images/ceramic_1_53c9aefc.webp", preloadImage: "/images/ceramic_1_53c9aefc.webp" };
 STATIC_META["/fleet-ppf"] = { title: "Fleet PPF, Tint & Ceramic Coating in Northern Virginia | Skyline Customs", description: "Paint protection film, window tint, and ceramic coating for fleets, dealerships, and company vehicles across Virginia, Maryland, and DC. Standing schedules, one invoice, one warranty file. Per-unit pricing in one business day.", canonical: `${BASE_URL}/fleet-ppf` };
 for (const c of COMPARISON_PAGES) {
   if (!STATIC_META[c.path]) STATIC_META[c.path] = { title: c.title, description: c.description, canonical: `${BASE_URL}${c.path}` };

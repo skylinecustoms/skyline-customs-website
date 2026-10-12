@@ -270,7 +270,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           <div className="container max-w-4xl">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">{svc.short} in {city.name}</p>
             <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-5">{note.heading.toUpperCase()}</h2>
-            <p className="text-zinc-300 leading-relaxed text-lg">{note.body}</p>
+            {note.body.split(/\n\n+/).map((para) => <p key={para.slice(0, 40)} className="text-zinc-300 leading-relaxed text-lg mb-4">{para}</p>)}
             <p className="text-zinc-400 text-sm mt-5">
               Every {svc.short.toLowerCase()} job is done at our shop, 4215 Walney Rd Suite 1A &amp; B, Chantilly, VA 20151. <Link href={svc.serviceHref} className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">See the full {svc.short.toLowerCase()} page</Link> for packages and process.
             </p>
