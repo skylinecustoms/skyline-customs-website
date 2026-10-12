@@ -1,9 +1,11 @@
+import { Fragment } from "react";
 import { Link } from "wouter";
 import { ArrowRight, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { BookingService } from "@/components/BookingModal";
 import SEO from "@/components/SEO";
+import CeramicPromoBanner from "@/components/CeramicPromoBanner";
 
 const TINT_IMAGE = "/images/tint_bmw_m2_847caa83.webp";
 const CERAMIC_IMAGE = "/images/ceramic_1_53c9aefc.webp";
@@ -111,8 +113,8 @@ export default function Services() {
 
       {/* Services */}
       {services.map((service, idx) => (
+        <Fragment key={service.id}>
         <section
-          key={service.id}
           id={service.id}
           className={`py-20 ${idx % 2 === 0 ? "bg-[oklch(0.10_0.005_285)]" : "bg-[oklch(0.12_0.005_285)]"}`}
         >
@@ -177,6 +179,8 @@ export default function Services() {
             </div>
           </div>
         </section>
+        {service.id === "ceramic" && <CeramicPromoBanner cta="ceramic-promo-banner-services" />}
+        </Fragment>
       ))}
 
       {/* Which service */}

@@ -15,6 +15,8 @@ import { isValidPhone, leadCapturedThisSession, markLeadCaptured } from "@/lib/p
 interface Props {
   promoTitle: string;
   promoTag: string;
+  /** Service the lead is filed under; the PPF promo is the default. */
+  service?: "PPF" | "Ceramic Coating" | "Tints";
   /** Section id to leave alone: no prompt while it is in view. */
   formSectionId?: string;
 }
@@ -29,7 +31,7 @@ function rememberShown(): void {
   try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch { /* private mode */ }
 }
 
-export default function ExitPrompt({ promoTitle, promoTag, formSectionId = "claim" }: Props) {
+export default function ExitPrompt({ promoTitle, promoTag, service = "PPF", formSectionId = "claim" }: Props) {
   const [open, setOpen] = useState(false);
   const [done, setDone] = useState(false);
   const [name, setName] = useState("");
@@ -89,7 +91,7 @@ export default function ExitPrompt({ promoTitle, promoTag, formSectionId = "clai
     if (name.trim().length < 2) { setErr("Your first name, please."); return; }
     if (!isValidPhone(phone)) { setErr("That phone number does not look right."); return; }
     const journey = await leadJourney();
-    submit.mutate({ firstName: name.trim(), phone: phone.trim(), service: "PPF", promoTag, formId: "exit", page: window.location.pathname, journey });
+    submit.mutate({ firstName: name.trim(), phone: phone.trim(), service, promoTag, formId: "exit", page: window.location.pathname, journey });
   };
 
   return (

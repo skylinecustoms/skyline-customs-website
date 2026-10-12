@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import NearbyAreas from "@/components/NearbyAreas";
+import CeramicPromoBanner from "@/components/CeramicPromoBanner";
 import ActivePromoBanner from "@/components/ActivePromoBanner";
 import { Shield, MapPin, Phone, Star, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -222,7 +223,8 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         </div>
       </section>
 
-      <div className="h-1 bg-[#E85D04]" />
+      {/* Ceramic city pages carry the ceramic special in the same spot as the ceramic service page. */}
+      {serviceKey === "ceramic" ? <CeramicPromoBanner cta="ceramic-promo-banner-city" /> : <div className="h-1 bg-[#E85D04]" />}
 
       <CityPhoto cityName={cityName} cityLabel={cityLabel(city)} service={serviceKey} />
 

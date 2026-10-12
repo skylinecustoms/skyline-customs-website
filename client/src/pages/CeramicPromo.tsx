@@ -102,7 +102,7 @@ export default function CeramicPromo() {
           { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": FAQS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) },
         ]}
       />
-      <ExitPrompt promoTitle={PROMO_TITLE} promoTag={PROMO_TAG} />
+      <ExitPrompt promoTitle={PROMO_TITLE} promoTag={PROMO_TAG} service="Ceramic Coating" />
       <Navbar hidePromoStrip />
 
       {/* ================================================================
