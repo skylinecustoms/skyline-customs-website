@@ -14,8 +14,9 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CeramicPromoBanner from "@/components/CeramicPromoBanner";
 import ExitPrompt from "@/components/ExitPrompt";
+import { endOfMonth } from "@/pages/CeramicPromo";
 import { useState, useEffect } from "react";
-import { ChevronDown, Droplets, Sparkles, Shield, Sun, Clock, Award, CheckCircle, ArrowRight } from "lucide-react";
+import { ChevronDown, Droplets, Sparkles, Shield, Sun, Clock, Award, CheckCircle, ArrowRight, Zap } from "lucide-react";
 import { Link } from "wouter";
 
 const benefits = [
@@ -241,7 +242,7 @@ export default function ServiceCeramic() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-end pb-16 overflow-hidden">
+      <section className="relative flex items-end pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#0d0d14] to-[#0a0a1a]" />
         <div className="absolute inset-0 opacity-5"
           style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 40px, #E85D04 40px, #E85D04 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, #E85D04 40px, #E85D04 41px)" }}
@@ -256,29 +257,61 @@ export default function ServiceCeramic() {
             <span className="text-zinc-400">/</span>
             <span className="text-zinc-400 text-sm tracking-widest uppercase">Ceramic Coating</span>
           </div>
-          <div className="max-w-4xl">
-            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">02 — Coating</p>
-            <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-6">
-              CERAMIC<br />
-              <span className="text-[#E85D04]">COATING</span>
-            </h1>
-            <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
-              A permanent paint defense system — not a wax, not a sealant. Professionally applied ceramic coating that bonds to your paint at a molecular level and lasts years.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/get-a-quote?service=ceramic"
-                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
-              >
-                GET A QUOTE <ArrowRight className="w-4 h-4" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+            <div className="lg:col-span-7">
+              <Link href="/promo-ceramic" data-cta="ceramic-hero-pill" className="inline-flex items-center gap-2 bg-[#E85D04] text-black text-xs font-bold tracking-[0.2em] uppercase px-3 py-1.5 mb-4 hover:bg-orange-500 transition-colors">
+                <Zap className="w-3.5 h-3.5 fill-current" /> This month: $995 special, glass + wheels free
               </Link>
+              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">02 — Coating</p>
+              <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-6">
+                CERAMIC<br />
+                <span className="text-[#E85D04]">COATING</span>
+              </h1>
+              <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
+                A permanent paint defense system — not a wax, not a sealant. Professionally applied ceramic coating that bonds to your paint at a molecular level and lasts years.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/promo-ceramic"
+                  data-cta="ceramic-hero-special"
+                  className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
+                >
+                  SEE THE $995 SPECIAL <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/get-a-quote?service=ceramic"
+                  className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
+                >
+                  GET A QUOTE
+                </Link>
+              </div>
             </div>
+
+            {/* This month's special, the same price card as the special's own page */}
+            <aside className="lg:col-span-5 relative bg-gradient-to-br from-[#1a0f05] to-[#0D0D0D] border-2 border-[#E85D04]/70 p-6 md:p-8" aria-label="This month's ceramic coating special">
+              <span className="absolute -top-px -right-px bg-[#E85D04] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Free glass + wheels</span>
+              <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">This month only</p>
+              <p className="font-['Bebas_Neue',sans-serif] text-6xl md:text-7xl text-[#E85D04] leading-none mb-2">$995</p>
+              <p className="text-white font-semibold text-base md:text-lg leading-snug mb-1">Full System X ceramic coating + free glass and wheel coating</p>
+              <p className="text-zinc-400 text-sm mb-4">Everything included. No add-ons. Price locked through {endOfMonth()}.</p>
+              <ul className="space-y-2 mb-6 text-sm text-zinc-200">
+                {[
+                  "System X ceramic on every painted panel, 6-year registered warranty",
+                  "Glass coating on the windshield and every window at no charge",
+                  "Wheel coating on all four wheels at no charge",
+                  "Walk-and-pay: inspect every panel before you pay the balance",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{t}</li>
+                ))}
+              </ul>
+              <Link href="/promo-ceramic" data-cta="ceramic-hero-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
+                Lock in my slot <ArrowRight className="w-5 h-5" />
+              </Link>
+              <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">Limited slots this month</span> · Ends {endOfMonth()}</p>
+            </aside>
           </div>
         </div>
       </section>
-
-      {/* Ceramic special, links to its own landing page */}
-      <CeramicPromoBanner />
 
       {/* Benefits */}
       <section className="py-24 bg-[#0D0D0D]">
@@ -374,6 +407,9 @@ export default function ServiceCeramic() {
       </section>
 
       {/* FAQ */}
+      {/* Reminder of the special after the tiers and process */}
+      <CeramicPromoBanner cta="ceramic-promo-banner-mid" />
+
       <section className="py-24 bg-[#0A0A0A]">
         <div className="container max-w-3xl">
           <div className="mb-16">
@@ -408,9 +444,16 @@ export default function ServiceCeramic() {
             GIVE YOUR PAINT PERMANENT DEFENSE
           </h2>
           <p className="text-orange-100 text-lg mb-10 max-w-xl mx-auto">
-            Request a free quote and we'll recommend the right coating tier for your vehicle, budget, and lifestyle.
+            This month, the full System X coating is $995 with the glass and wheel coating included. Lock in a slot, or request a quote and we'll recommend the right tier for your car.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/promo-ceramic"
+              data-cta="ceramic-final-special"
+              className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
+            >
+              LOCK IN THE $995 SPECIAL <ArrowRight className="w-4 h-4" />
+            </Link>
             <Link
               href="/get-a-quote?service=ceramic"
               className="bg-white text-[#E85D04] hover:bg-zinc-100 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"

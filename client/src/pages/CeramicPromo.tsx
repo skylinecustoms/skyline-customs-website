@@ -32,7 +32,7 @@ const PROMO_TAG = "ceramic-special-promo";
 const DEAL = `${PRICE_TXT} System X ceramic coating with free glass coating and free wheel coating`;
 
 /** The special runs through the end of the current month. */
-function endOfMonth(): string {
+export function endOfMonth(): string {
   const d = new Date();
   const last = new Date(d.getFullYear(), d.getMonth() + 1, 0);
   return last.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
