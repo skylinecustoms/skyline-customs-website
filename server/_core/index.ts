@@ -170,12 +170,14 @@ async function startServer() {
   app.get("/api/health", async (req, res) => {
     const has = (k: string) => Boolean((process.env[k] ?? "").trim());
     const listing = req.query.listing ? await getGoogleListing() : undefined;
-    let seed: unknown = undefined, blog: unknown = undefined;
+    let seed: unknown = undefined, blog: unknown = undefined, weeklyReportSentAt: string | null | undefined = undefined;
     try {
       const db = await getDb();
       if (db) {
         const row = await db.select({ value: siteSettings.value }).from(siteSettings).where(eq(siteSettings.key, "seed:last-run")).limit(1);
         seed = row[0] ? JSON.parse(row[0].value) : null;
+        const sent = await db.select({ value: siteSettings.value }).from(siteSettings).where(eq(siteSettings.key, "report:weekly-last-sent")).limit(1);
+        weeklyReportSentAt = sent[0]?.value ?? null;
         if (typeof req.query.blog === "string") {
           const rows = await db.select({ id: blogPosts.id, slug: blogPosts.slug, status: blogPosts.status, updatedAt: blogPosts.updatedAt }).from(blogPosts).where(eq(blogPosts.slug, req.query.blog)).limit(1);
           blog = rows[0] ?? null;
@@ -185,6 +187,7 @@ async function startServer() {
     res.json({
       ...(listing !== undefined ? { googleListing: listing } : {}),
       seed,
+      weeklyReportSentAt,
       ...(blog !== undefined ? { blog } : {}),
       ok: true,
       startedAt,
