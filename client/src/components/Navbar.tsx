@@ -16,10 +16,10 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-const serviceLinks = [
+const serviceLinks: { href: string; label: string; promo?: boolean }[] = [
   { href: "/services/ppf", label: "Full Front PPF" },
   { href: "/full-front-ppf", label: "Full Front PPF Guide" },
-  { href: "/services/ceramic-coating", label: "Ceramic Coating" },
+  { href: "/services/ceramic-coating", label: "Ceramic Coating", promo: true },
   { href: "/services/window-tinting", label: "Window Tinting" },
   { href: "/ppf-cost", label: "PPF Cost Guide" },
   { href: "/tesla-ppf", label: "Tesla PPF" },
@@ -147,11 +147,12 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
                           key={sl.href}
                           href={sl.href}
                           onClick={() => setServicesOpen(false)}
-                          className={`block px-4 py-3 text-sm font-display tracking-wide transition-colors hover:bg-[#1a0a00] hover:text-[#E85D04] ${
+                          className={`flex items-center justify-between gap-3 px-4 py-3 text-sm font-display tracking-wide transition-colors hover:bg-[#1a0a00] hover:text-[#E85D04] ${
                             location === sl.href ? "text-[#E85D04] bg-[#1a0a00]" : "text-zinc-300"
                           }`}
                         >
                           {sl.label}
+                          {sl.promo && <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-black bg-[#E85D04] px-1.5 py-0.5 rounded-sm"><Zap size={10} className="fill-current" /> Special</span>}
                         </Link>
                       ))}
                     </div>
@@ -275,11 +276,12 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
                       <Link
                         key={sl.href}
                         href={sl.href}
-                        className={`font-display text-base tracking-wide ${
+                        className={`font-display text-base tracking-wide flex items-center gap-2 ${
                           location === sl.href ? "text-[#E85D04]" : "text-zinc-400 hover:text-zinc-300"
                         }`}
                       >
                         {sl.label}
+                        {sl.promo && <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-black bg-[#E85D04] px-1.5 py-0.5 rounded-sm"><Zap size={10} className="fill-current" /> Special</span>}
                       </Link>
                     ))}
                   </div>
