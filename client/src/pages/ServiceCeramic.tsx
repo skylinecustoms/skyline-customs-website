@@ -156,6 +156,15 @@ const packages = [
 
 export default function ServiceCeramic() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // The sticky bar steps aside while the hero card's own button is on screen.
+  const [heroCtaVisible, setHeroCtaVisible] = useState(true);
+  useEffect(() => {
+    const el = document.getElementById("ceramic-hero-cta");
+    if (!el || typeof IntersectionObserver === "undefined") { setHeroCtaVisible(false); return; }
+    const io = new IntersectionObserver(([entry]) => setHeroCtaVisible(entry.isIntersecting), { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Facebook Pixel: ViewContent event when visitor lands on Ceramic Coating service page
   useEffect(() => {
@@ -251,7 +260,7 @@ export default function ServiceCeramic() {
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10"
           style={{ background: "radial-gradient(ellipse at top right, #E85D04, transparent 70%)" }}
         />
-        <div className="container relative z-10 pt-24 lg:pt-32">
+        <div className="container relative z-10 pt-24">
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Ceramic Coating" }]} />
           <div className="flex items-center gap-3 mb-4">
             <Link href="/services" className="text-[#E85D04] text-sm font-medium tracking-widest uppercase hover:text-white transition-colors">Services</Link>
@@ -305,7 +314,7 @@ export default function ServiceCeramic() {
                   <li key={t} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{t}</li>
                 ))}
               </ul>
-              <Link href="/promo-ceramic" data-cta="ceramic-hero-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
+              <Link href="/promo-ceramic" id="ceramic-hero-cta" data-cta="ceramic-hero-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
                 Lock in my slot <ArrowRight className="w-5 h-5" />
               </Link>
               <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">Limited slots this month</span> · Ends {endOfMonth()}</p>
@@ -471,15 +480,18 @@ export default function ServiceCeramic() {
       <Footer />
       <ExitPrompt promoTitle="Ceramic Special" promoTag="ceramic-special-promo" service="Ceramic Coating" />
 
-      {/* Phones: the special's button stays on screen while reading, as on the special's own page */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#0A0A0A] border-t border-zinc-800 p-3 flex items-center gap-3 shadow-2xl">
-        <div className="flex-1 min-w-0 leading-tight">
-          <p className="text-[11px] font-bold"><span className="text-white">$995</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">Glass + wheels free</span></p>
-          <p className="text-zinc-400 text-[11px] mt-0.5">System X ceramic special{timeLeftLabel(endOfMonth()) ? ` · ${timeLeftLabel(endOfMonth())}` : ""}</p>
+      {/* The special's button stays on screen while reading, on every screen size; it steps aside while the hero card's button is in view */}
+      <div className={`fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A] border-t border-zinc-800 shadow-2xl transition-transform duration-300 ${heroCtaVisible ? "translate-y-full" : "translate-y-0"}`} aria-hidden={heroCtaVisible}>
+        <div className="container max-w-6xl p-3 md:py-3 flex items-center gap-3 md:gap-6">
+          <div className="flex-1 min-w-0 leading-tight">
+            <p className="text-[11px] md:text-sm font-bold"><span className="text-white">$995</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">Glass + wheels free</span><span className="hidden md:inline text-zinc-300 font-normal"> · Full System X ceramic coating, 6-year registered warranty</span></p>
+            <p className="text-zinc-400 text-[11px] md:text-xs mt-0.5">System X ceramic special{timeLeftLabel(endOfMonth()) ? ` · ${timeLeftLabel(endOfMonth())}` : ""}<span className="hidden md:inline"> · Limited slots this month</span></p>
+          </div>
+          <a href="tel:+17037754383" className="hidden md:inline-flex items-center gap-2 text-zinc-300 hover:text-white text-sm font-semibold whitespace-nowrap">(703) 775-4383</a>
+          <Link href="/promo-ceramic" data-cta="ceramic-sticky" tabIndex={heroCtaVisible ? -1 : 0} className="shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base md:text-xl tracking-widest px-4 md:px-8 py-3 hover:bg-orange-600 transition-colors whitespace-nowrap">LOCK IN <span className="hidden md:inline">MY </span>SLOT</Link>
         </div>
-        <Link href="/promo-ceramic" data-cta="ceramic-sticky" className="shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base tracking-widest px-4 py-3 hover:bg-orange-600 transition-colors">LOCK IN SLOT</Link>
       </div>
-      <div className="h-16 md:hidden" aria-hidden="true" />
+      <div className="h-16" aria-hidden="true" />
     </div>
   );
 }
