@@ -144,7 +144,7 @@ function BeforeAfterSlider({ beforeSrc, afterSrc, label }: { beforeSrc: string; 
 
 // ---- Review Snippet ---------------------------------------------------------
 // ---- FAQ Accordion -----------------------------------------------------------
-interface FaqItem { q: string; a: string }
+export interface FaqItem { q: string; a: string }
 
 /** FAQ copy follows the active promo: price, what is included free, and whether paint correction is part of it. */
 function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: boolean, giveaway?: PromoGiveaway): FaqItem[] {
@@ -220,7 +220,7 @@ function buildFaq(price: string, freeItems: IncludedService[], hasCorrection: bo
   return items;
 }
 
-function FaqAccordion({ items }: { items: FaqItem[] }) {
+export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="divide-y divide-zinc-800 border border-zinc-800">
@@ -248,7 +248,7 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
 
 // ---- Countdown Timer --------------------------------------------------------
 /** "31 days left" / "Last day" for tight spaces like the mobile bar. */
-function timeLeftLabel(endDate: string): string {
+export function timeLeftLabel(endDate: string): string {
   const target = new Date(endDate.replace(/(\d+)(st|nd|rd|th)\b/gi, "$1"));
   if (isNaN(target.getTime())) return "";
   target.setHours(23, 59, 59, 999);
@@ -258,7 +258,7 @@ function timeLeftLabel(endDate: string): string {
   return `${days} days left`;
 }
 
-function CountdownTimer({ endDate }: { endDate: string }) {
+export function CountdownTimer({ endDate }: { endDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [expired, setExpired] = useState(false);
 
