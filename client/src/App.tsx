@@ -151,7 +151,7 @@ function Router() {
 
       {/* City × service local SEO landing pages (VA, MD, DC), generated from lib/localSeo.ts */}
       {CITY_ORDER.flatMap((city) =>
-        cityServices(CITIES[city]).map((svc) => (
+        cityServices(CITIES[city]).filter(() => !CITIES[city].isHome).map((svc) => (
           <Route key={cityPath(svc, city)} path={cityPath(svc, city)}>
             {() => <LocalServicePage city={city} service={svc} />}
           </Route>

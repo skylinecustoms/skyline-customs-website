@@ -30,9 +30,9 @@ const BRAND_PAGES: Record<NonNullable<Job["brandSlug"]>, { name: string; href: s
 };
 
 const SERVICE_PAGES: { match: RegExp; label: string; href: string; city: string }[] = [
-  { match: /ppf|paint protection/i, label: "Paint Protection Film", href: "/services/ppf", city: "/ppf-chantilly-va" },
-  { match: /ceramic coat/i, label: "Ceramic Coating", href: "/services/ceramic-coating", city: "/ceramic-coating-chantilly-va" },
-  { match: /tint/i, label: "Window Tinting", href: "/services/window-tinting", city: "/window-tinting-chantilly-va" },
+  { match: /ppf|paint protection/i, label: "Paint Protection Film", href: "/services/ppf", city: "/full-front-ppf" },
+  { match: /ceramic coat/i, label: "Ceramic Coating", href: "/services/ceramic-coating", city: "/ceramic-coating-vs-wax" },
+  { match: /tint/i, label: "Window Tinting", href: "/services/window-tinting", city: "/ceramic-vs-carbon-vs-dyed-tint" },
 ];
 
 const BODY_COPY: Record<Job["bodyType"], { why: string; tip: string }> = {
@@ -260,6 +260,7 @@ export default function GalleryJob() {
               {!note && <p className="text-zinc-400 text-sm border-l-2 border-[#E85D04] pl-4 mb-8">{copy.tip}</p>}
 
               <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">HOW THE INSTALL WENT</h3>
+              {note?.process && <p className="text-zinc-300 leading-relaxed mb-5">{note.process}</p>}
               <ol className="space-y-3 text-zinc-300 text-sm">
                 <li><span className="text-[#E85D04] font-bold mr-2">01</span>Two-bucket wash, iron decontamination, and clay bar so nothing is trapped under the film.</li>
                 {hasPpf && <li><span className="text-[#E85D04] font-bold mr-2">02</span>Computer-cut STEK patterns for the {job.car}, with edges wrapped or tucked where the panel allows so there is no visible edge.</li>}
@@ -295,8 +296,8 @@ export default function GalleryJob() {
                 </Link>
               )}
               <Link href={primaryService.city} className="border border-zinc-800 bg-[#111] p-5 hover:border-[#E85D04] transition-colors">
-                <p className="text-white font-bold">{primaryService.label} in Chantilly</p>
-                <p className="text-zinc-400 text-xs mt-1">Our home shop page</p>
+                <p className="text-white font-bold">{primaryService.label} guide</p>
+                <p className="text-zinc-400 text-xs mt-1">What to know before you book</p>
               </Link>
             </div>
           </div>

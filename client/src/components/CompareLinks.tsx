@@ -6,6 +6,8 @@ import { ArrowRight } from "lucide-react";
 
 const LINKS = [
   { href: "/ppf-vs-ceramic-coating", label: "PPF vs ceramic coating", sub: "Chips vs gloss: which one you actually need" },
+  { href: "/partial-front-vs-full-front-ppf", label: "Partial front vs full front PPF", sub: "Why the film line on the hood is the whole argument" },
+  { href: "/stek-vs-xpel-ppf", label: "STEK vs XPEL PPF", sub: "Why we install STEK DYNOshield, side by side" },
   { href: "/ceramic-vs-carbon-vs-dyed-tint", label: "Ceramic vs carbon vs dyed tint", sub: "Heat rejection, fading, price, and Virginia law" },
 ];
 

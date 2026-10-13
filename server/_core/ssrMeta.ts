@@ -182,7 +182,7 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/about`,
   },
   "/contact": {
-    title: `Contact Us | ${SITE_NAME}`,
+    title: "Contact Skyline Customs | PPF, Ceramic & Tint in Chantilly, VA · (703) 775-4383",
     description: "Contact Skyline Customs in Chantilly, VA. Call (703) 775-4383 or get a free quote online. Serving all of Northern Virginia.",
     canonical: `${BASE_URL}/contact`,
   },
@@ -192,8 +192,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/get-a-quote`,
   },
   "/service-areas": {
-    title: "Service Areas | PPF, Ceramic Coating & Tint Across the DMV",
-    description: "Skyline Customs serves Northern Virginia, Maryland, and Washington, DC from its Chantilly shop: Fairfax, Arlington, Alexandria, Bethesda, Rockville, Silver Spring, Frederick, and more. Free quotes.",
+    title: "Full Front PPF Across Northern Virginia | Fairfax, Loudoun & Prince William",
+    description: "One Chantilly shop for full front PPF, ceramic coating, and ceramic tint across Northern Virginia: Fairfax, Loudoun, Prince William, Arlington, Alexandria, Stafford, plus DC and Maryland. Drive times, dealer delivery, and every city page.",
     canonical: `${BASE_URL}/service-areas`,
   },
   "/blog": {
@@ -205,22 +205,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `Pricing | ${SITE_NAME}`,
     description: "Transparent pricing for PPF, ceramic coating, window tinting at Skyline Customs in Chantilly, VA.",
     canonical: `${BASE_URL}/pricing`,
-  },
-  // ===== CHANTILLY VA =====
-  "/ppf-chantilly-va": {
-    title: `Full Front PPF Chantilly VA | Paint Protection Film Near Me`,
-    description: "Full front paint protection film for Chantilly, VA drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.",
-    canonical: `${BASE_URL}/ppf-chantilly-va`,
-  },
-  "/ceramic-coating-chantilly-va": {
-    title: `Ceramic Coating Chantilly VA | Car Detailing Near Me | ${SITE_NAME}`,
-    description: "Ceramic coating at our Chantilly, VA shop on Walney Rd. Gtechniq 5-year and 7-year coatings with paint correction, hydrophobic gloss, and UV defense. Free quotes.",
-    canonical: `${BASE_URL}/ceramic-coating-chantilly-va`,
-  },
-  "/window-tinting-chantilly-va": {
-    title: `Window Tinting Chantilly VA | Car Tinting Near Me | ${SITE_NAME}`,
-    description: "Ceramic window tint at our Chantilly, VA shop on Walney Rd. Computer-cut film, metered for Virginia tint law, lifetime film warranty. Free quotes, same-day appointments.",
-    canonical: `${BASE_URL}/window-tinting-chantilly-va`,
   },
   // ===== CENTREVILLE VA =====
   "/ppf-centreville-va": {
@@ -690,6 +674,13 @@ for (const name of Object.keys(CITIES)) {
     const p = cityPath(k, name);
     if (!STATIC_META[p]) STATIC_META[p] = { title: SERVICES[k].seoTitle(c), description: SERVICES[k].seoDescription(c), canonical: `${BASE_URL}${p}` };
   }
+}
+// Tint city pages: one title pattern everywhere, built from the search data (people search "ceramic tint <city>").
+for (const name of Object.keys(CITIES)) {
+  const c = CITIES[name];
+  if (c.isHome || !cityServices(c).includes("tint")) continue;
+  const p = cityPath("tint", name);
+  if (STATIC_META[p]) STATIC_META[p].title = SERVICES.tint.seoTitle(c);
 }
 for (const m of MODEL_PAGES) {
   const p = `/${m.slug}-ppf`;

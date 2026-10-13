@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin, Instagram, Youtube } from "lucide-react";
-import { CITY_ORDER, cityPath } from "@/lib/localSeo";
+import { CITIES, CITY_ORDER, cityPath } from "@/lib/localSeo";
 
 export default function Footer() {
   return (
@@ -103,7 +103,7 @@ export default function Footer() {
               AREAS WE SERVE
             </h3>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
-              {CITY_ORDER.map((city) => (
+              {CITY_ORDER.filter((city) => !CITIES[city]?.isHome).map((city) => (
                 <li key={city}>
                   <Link
                     href={cityPath("ppf", city)}

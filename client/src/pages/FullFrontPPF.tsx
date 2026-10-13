@@ -13,6 +13,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Testimonials from "@/components/Testimonials";
 import CoverageDiagram from "@/components/CoverageDiagram";
+import CompareLinks from "@/components/CompareLinks";
 import { FULL_FRONT_GUIDE } from "@/lib/fullFrontGuide";
 import { GuideBlockView, renderInline } from "@/components/GuideBlocks";
 import { PPF_PACKAGES } from "@/lib/ppf";
@@ -161,6 +162,8 @@ export default function FullFrontPPF() {
         </section>
 
         {/* CTA */}
+        <CompareLinks />
+
         <section className="py-20 bg-[#E85D04] text-black">
           <div className="container max-w-4xl text-center">
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl mb-4">READY FOR FULL FRONT PPF?</h2>

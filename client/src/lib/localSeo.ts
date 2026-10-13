@@ -756,7 +756,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     serviceHref: "/services/window-tinting",
     quoteParam: "tint",
     badges: ["5.0 ★ Google Rating", "Free Quotes", "Lifetime Warranty", "Ceramic Film Available"],
-    seoTitle: (c) => `Window Tinting ${c.name} ${c.state} | Car Tint Near Me`,
+    seoTitle: (c) => `Ceramic Window Tint in ${cityLabel(c)} | Legal Shades, Lifetime Warranty`,
     seoDescription: (c) =>
       `Ceramic window tinting near ${cityLabel(c)}. GeoShield Pro Nano Ceramic film with 99% UV and up to 83% heat rejection, ${c.state === "DC" ? "DC" : STATE_NAMES[c.state]}-legal shades, and a nationwide lifetime warranty. Free quotes.`,
     heroLabel: "Window Tinting",
@@ -786,4 +786,5 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
   },
 };
 
-export const cityPath = (service: ServiceKey, cityName: string) => `/${SERVICES[service].slugPrefix}-${CITIES[cityName].slug}`;
+/** The shop's own city has no separate page: its "city page" is the service page itself. */
+export const cityPath = (service: ServiceKey, cityName: string) => CITIES[cityName].isHome ? SERVICES[service].serviceHref : `/${SERVICES[service].slugPrefix}-${CITIES[cityName].slug}`;

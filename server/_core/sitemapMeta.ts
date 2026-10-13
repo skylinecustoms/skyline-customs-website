@@ -16,7 +16,7 @@ export const SITEMAP_META: Record<string, { lastmod: string; changefreq: string;
   "/blog/window-tinting-near-me-chantilly-va": { lastmod: "2026-04-23", changefreq: "monthly", priority: "0.8" },
   "/blog/virginia-window-tint-laws-2026": { lastmod: "2026-10-12", changefreq: "monthly", priority: "0.8" },
   "/blog/spring-ceramic-coating-northern-virginia": { lastmod: "2026-03-02", changefreq: "monthly", priority: "0.8" },
-  "/blog/ppf-paint-protection-film-northern-virginia": { lastmod: "2026-03-05", changefreq: "monthly", priority: "0.8" },
+  "/blog/ppf-paint-protection-film-northern-virginia": { lastmod: "2026-10-13", changefreq: "monthly", priority: "0.8" },
   "/blog/how-long-does-ppf-last-northern-virginia": { lastmod: "2026-04-27", changefreq: "monthly", priority: "0.8" },
   "/blog/ppf-vs-ceramic-coating-chantilly-va": { lastmod: "2026-04-30", changefreq: "monthly", priority: "0.8" },
   "/blog/self-healing-ppf-northern-virginia": { lastmod: "2026-05-04", changefreq: "monthly", priority: "0.8" },

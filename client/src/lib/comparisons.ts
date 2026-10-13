@@ -94,7 +94,7 @@ export const TINT_COMPARISON: ComparisonData = {
     { label: "Tint FAQ", href: "/faq" },
     { label: "Videos", href: "/videos" },
     { label: "Get a Quote", href: "/get-a-quote" },
-    { label: "Chantilly window tinting", href: "/window-tinting-chantilly-va" },
+    { label: "Window tinting in Chantilly", href: "/services/window-tinting" },
   ],
 };
 

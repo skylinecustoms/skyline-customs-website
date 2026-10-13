@@ -466,7 +466,7 @@ export default function ServiceTint() {
         </div>
       </section>
 
-      <LocalBanner localHref="/window-tinting-chantilly-va" serviceName="Window Tinting" />
+      <LocalBanner localHref="/service-areas" serviceName="Window Tinting" />
       <CompareLinks />
       <ServiceCityLinks service="tint" />
       <Footer />

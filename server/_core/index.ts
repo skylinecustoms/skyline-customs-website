@@ -54,6 +54,12 @@ async function startServer() {
   // Server-side 301 redirects for legacy/dead URLs — registered FIRST so they fire on ALL hosts
   // (before the canonical redirect, so /home on non-www also gets a clean 301 to https://www.../)
   const legacyRedirects: Record<string, string> = {
+    // The shop is in Chantilly: its city pages competed with the service pages for the same searches.
+    "/ppf-chantilly-va": "/services/ppf",
+    "/ceramic-coating-chantilly-va": "/services/ceramic-coating",
+    "/window-tinting-chantilly-va": "/services/window-tinting",
+    // Giveaway rules link that went out on social media.
+    "/october-rules": "/promo#giveaway",
     "/disconnected": "/",
     "/booking-page": "/get-a-quote",
     "/home": "/",

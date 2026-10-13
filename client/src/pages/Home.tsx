@@ -10,6 +10,7 @@ import Testimonials from "@/components/Testimonials";
 import ActivePromoBanner from "@/components/ActivePromoBanner";
 import BrandMarquee from "@/components/BrandMarquee";
 import CompareLinks from "@/components/CompareLinks";
+import VehicleLinks from "@/components/VehicleLinks";
 import { SUPPLIERS, VEHICLE_MAKES } from "@shared/brands";
 const VideoSection = lazy(() => import("@/components/VideoSection"));
 const InstagramSection = lazy(() => import("@/components/InstagramSection"));
@@ -605,6 +606,7 @@ export default function Home() {
         </div>
       </section>
 
+      <VehicleLinks />
       <CompareLinks />
 
       <LatestFromBlog />

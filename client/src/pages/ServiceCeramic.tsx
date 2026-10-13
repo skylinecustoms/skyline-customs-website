@@ -474,7 +474,7 @@ export default function ServiceCeramic() {
         </div>
       </section>
 
-      <LocalBanner localHref="/ceramic-coating-chantilly-va" serviceName="Ceramic Coating" />
+      <LocalBanner localHref="/service-areas" serviceName="Ceramic Coating" />
       <CompareLinks />
       <ServiceCityLinks service="ceramic" />
       <Footer />

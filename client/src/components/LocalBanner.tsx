@@ -57,7 +57,7 @@ export default function LocalBanner({ localHref, serviceName }: LocalBannerProps
               href={localHref}
               className="inline-flex items-center gap-2 bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase text-sm px-6 py-3 transition-all duration-200 hover:scale-105 whitespace-nowrap"
             >
-              {serviceName} in Chantilly, VA
+              {serviceName} across Northern Virginia
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

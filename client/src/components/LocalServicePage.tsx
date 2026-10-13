@@ -15,6 +15,8 @@ import Testimonials from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import NearbyAreas from "@/components/NearbyAreas";
 import CeramicPromoBanner from "@/components/CeramicPromoBanner";
+import VehicleLinks from "@/components/VehicleLinks";
+import TintInstallBlock from "@/components/TintInstallBlock";
 import ActivePromoBanner from "@/components/ActivePromoBanner";
 import { Shield, MapPin, Phone, Star, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -266,6 +268,9 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         </div>
       </section>
 
+      {/* Tint pages: the film, the legal shades for this state, and the packages */}
+      {serviceKey === "tint" && <TintInstallBlock city={city} />}
+
       {/* Service-specific notes for this city: written per city and per service */}
       {note && (
         <section className="py-16 bg-[#0D0D0D] border-t border-zinc-800">
@@ -361,6 +366,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           </div>
         </section>
       )}
+      {serviceKey === "ppf" && <VehicleLinks />}
 
       <NearbyAreas city={cityName} service={serviceKey} />
 

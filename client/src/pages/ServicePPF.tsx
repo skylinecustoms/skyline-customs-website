@@ -411,7 +411,7 @@ export default function ServicePPF() {
         </div>
       </section>
 
-      <LocalBanner localHref="/ppf-chantilly-va" serviceName="PPF" />
+      <LocalBanner localHref="/service-areas" serviceName="PPF" />
 
       {/* Tesla owners */}
       <section className="py-12 bg-[#0A0A0A] border-t border-zinc-800">
