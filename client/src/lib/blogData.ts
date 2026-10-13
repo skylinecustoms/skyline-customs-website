@@ -18,9 +18,11 @@ export interface BlogPost {
   content: BlogSection[];
 }
 
+export interface BlogTable { caption?: string; headers: string[]; rows: string[][] }
+export interface BlogCta { eyebrow?: string; heading: string; body: string; href: string; label: string }
 export interface BlogSection {
-  type: "h2" | "h3" | "p" | "ul" | "ol" | "blockquote";
-  content: string | string[];
+  type: "h2" | "h3" | "p" | "ul" | "ol" | "blockquote" | "table" | "cta";
+  content: string | string[] | BlogTable | BlogCta;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -75,7 +77,7 @@ export const blogPosts: BlogPost[] = [
     title: "Virginia Tint Laws 2026: 50% Front, 35% Rear, What Gets a Ticket",
     excerpt: "Virginia tint law for 2026: front side windows 50% VLT, rear windows 35% on sedans, darker allowed on SUV rear glass, 20% reflectivity cap, medical exemptions, and fines.",
     date: "March 23, 2026",
-    updated: "October 12, 2026",
+    updated: "October 13, 2026",
     readTime: "5 min read",
     category: "Window Tinting",
     heroImage: "/images/tint_2_9df4da50.webp",
@@ -83,6 +85,18 @@ export const blogPosts: BlogPost[] = [
     content: [
       { type: "p", content: "If you are getting your windows tinted in Northern Virginia, know the rules before you book. Virginia sets specific limits on how dark and how reflective your tint can be. Get it wrong and you are looking at a fix-it ticket, a fine, and a failed state safety inspection." },
       { type: "p", content: "At Skyline Custom Shop in Chantilly, VA, we tint cars, SUVs, and trucks every week and meter every one before it leaves. Here is everything you need to know about Virginia's 2026 window tint regulations, in plain English." },
+      { type: "table", content: {
+        caption: "Virginia window tint law, 2026: minimum VLT by window",
+        headers: ["Window", "Sedans", "SUVs, trucks, vans"],
+        rows: [
+          ["Windshield", "Non-reflective strip above the AS-1 line (top 5 inches)", "Same"],
+          ["Front side windows", "More than 50% VLT", "More than 50% VLT"],
+          ["Rear side windows", "More than 35% VLT", "Any darkness"],
+          ["Rear window", "More than 35% VLT", "Any darkness"],
+          ["Reflectivity", "20% or less", "20% or less"],
+          ["Medical exemption", "DMV certificate; darker front windows allowed", "Same"],
+        ],
+      } },
       { type: "h2", content: "What Is VLT and Why Does It Matter?" },
       { type: "p", content: "VLT stands for Visible Light Transmission: the percentage of light that passes through your window glass and film combined. A higher VLT is a lighter tint, a lower VLT is darker. Virginia sets a minimum VLT for each window on your vehicle, and going below it is a traffic violation. The word \"combined\" matters, because your factory glass already blocks some light before any film goes on." },
       { type: "h2", content: "Virginia Window Tint Laws by Window (2026)" },
@@ -95,6 +109,13 @@ export const blogPosts: BlogPost[] = [
       { type: "p", content: "Yes. Virginia allows medical exemptions for drivers with conditions that require reduced sun exposure, such as lupus, porphyria, or severe photosensitivity. The exemption comes from the Virginia DMV with a doctor's authorization, and it permits darker tint on the front side windows. You must keep the exemption certificate in the vehicle. If you have one, bring it to your appointment and we will install to the exempted limits." },
       { type: "h2", content: "What Happens If Your Tint Is Too Dark?" },
       { type: "p", content: "Illegal tint in Virginia usually results in a fix-it ticket: you have a set number of days to remove the film and get the correction signed off. Fines vary by jurisdiction and go up for repeat offenses. The bigger cost is the annual safety inspection, which your vehicle will fail with illegal tint, plus the price of stripping film and paying for a second install." },
+      { type: "cta", content: {
+        eyebrow: "Legal shade, metered before you leave",
+        heading: "Get a ceramic tint quote",
+        body: "Tell us your year, make, and model. We send the exact price for the rear package, front doors, full car, or windshield, usually within the hour, and every shade we install passes Virginia inspection.",
+        href: "/get-a-quote?service=tint",
+        label: "Get a tint quote",
+      } },
       { type: "h2", content: "Why Ceramic Tint Is the Smart Choice Under Virginia Law" },
       { type: "p", content: "The legal limits are about darkness, not heat rejection. That is why ceramic film is the upgrade we recommend: a legal 50% ceramic film on the front windows rejects far more heat than an illegal 20% dyed film, and it blocks 99% of UV. You get the comfort without the ticket. Our [ceramic vs. carbon vs. dyed tint comparison](/ceramic-vs-carbon-vs-dyed-tint) breaks down the differences, and the [window tinting service page](/services/window-tinting) lists the film options we install." },
       { type: "h2", content: "Where to Get Legal Ceramic Tint in Northern Virginia" },

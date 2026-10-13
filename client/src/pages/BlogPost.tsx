@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import SEO, { absoluteUrl } from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AuthorBox from "@/components/AuthorBox";
-import { getBlogPost, blogPosts as staticPosts, type BlogSection } from "@/lib/blogData";
+import { getBlogPost, blogPosts as staticPosts, type BlogSection, type BlogTable, type BlogCta } from "@/lib/blogData";
 import { trpc } from "@/lib/trpc";
 
 /** Render inline [text](/path) links and **bold** inside blog text. Everything else stays plain text. */
@@ -81,6 +81,39 @@ function renderSection(section: BlogSection, idx: number) {
           ))}
         </ol>
       );
+    case "table": {
+      const t = section.content as BlogTable;
+      return (
+        <div key={idx} className="my-8 overflow-x-auto border border-zinc-800">
+          <table className="w-full text-sm text-left">
+            {t.caption && <caption className="text-left text-[#E85D04] text-xs font-bold tracking-[0.2em] uppercase px-4 py-3 bg-[#111]">{t.caption}</caption>}
+            <thead>
+              <tr className="bg-[#111] text-zinc-400 text-xs uppercase tracking-wider">
+                {t.headers.map((h) => <th key={h} scope="col" className="px-4 py-3 font-semibold">{h}</th>)}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800">
+              {t.rows.map((r, i) => (
+                <tr key={i} className="odd:bg-[#0D0D0D] even:bg-[#0A0A0A]">
+                  {r.map((c, j) => j === 0 ? <th key={j} scope="row" className="px-4 py-3 text-white font-semibold whitespace-nowrap">{c}</th> : <td key={j} className="px-4 py-3 text-zinc-300">{c}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    case "cta": {
+      const c = section.content as BlogCta;
+      return (
+        <aside key={idx} className="my-10 bg-[#e85d04] p-6 md:p-8">
+          {c.eyebrow && <p className="text-black/70 text-xs font-bold tracking-[0.3em] uppercase mb-2">{c.eyebrow}</p>}
+          <p className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "'Oswald', sans-serif", textTransform: "uppercase" }}>{c.heading}</p>
+          <p className="text-white/85 text-sm mb-5 leading-relaxed max-w-2xl">{c.body}</p>
+          <Link href={c.href} data-cta="blog-inline" className="inline-block bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-6 py-3 hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200" style={{ fontFamily: "'Oswald', sans-serif" }}>{c.label}</Link>
+        </aside>
+      );
+    }
     default:
       return null;
   }
@@ -135,6 +168,21 @@ export default function BlogPost() {
     }
     return staticPost ?? null;
   }, [dbPost, staticPost]);
+
+  // FAQ schema from the post itself: every h3 under a "Frequently Asked Questions" heading, with the paragraph that follows it.
+  const faqSchema = useMemo(() => {
+    const out: { q: string; a: string }[] = [];
+    const blocks = post?.content ?? [];
+    let inFaq = false;
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.type === "h2") { inFaq = /frequently asked|faq|questions/i.test(String(b.content)); continue; }
+      if (inFaq && b.type === "h3" && blocks[i + 1]?.type === "p") {
+        out.push({ q: String(b.content), a: String(blocks[i + 1].content).replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") });
+      }
+    }
+    return out;
+  }, [post]);
 
   // Related posts: database posts and static posts, same category first, so every
   // article links to others (crawlers follow these links to the newer posts).
@@ -234,7 +282,12 @@ export default function BlogPost() {
             { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.skylinecustomshop.com/blog" },
             { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://www.skylinecustomshop.com/blog/${post.slug}` },
           ],
-        }]}
+        },
+        ...(faqSchema.length > 0 ? [{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqSchema.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+        }] : [])]}
       />
       <Navbar />
       <main>

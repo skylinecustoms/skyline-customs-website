@@ -14,7 +14,7 @@ export const SITEMAP_META: Record<string, { lastmod: string; changefreq: string;
   "/services/window-tinting": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/blog": { lastmod: "2026-04-27", changefreq: "weekly", priority: "0.8" },
   "/blog/window-tinting-near-me-chantilly-va": { lastmod: "2026-04-23", changefreq: "monthly", priority: "0.8" },
-  "/blog/virginia-window-tint-laws-2026": { lastmod: "2026-10-12", changefreq: "monthly", priority: "0.8" },
+  "/blog/virginia-window-tint-laws-2026": { lastmod: "2026-10-13", changefreq: "monthly", priority: "0.8" },
   "/blog/spring-ceramic-coating-northern-virginia": { lastmod: "2026-03-02", changefreq: "monthly", priority: "0.8" },
   "/blog/ppf-paint-protection-film-northern-virginia": { lastmod: "2026-10-13", changefreq: "monthly", priority: "0.8" },
   "/blog/how-long-does-ppf-last-northern-virginia": { lastmod: "2026-04-27", changefreq: "monthly", priority: "0.8" },

@@ -18,6 +18,9 @@ import VehicleLinks from "@/components/VehicleLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ExitPrompt from "@/components/ExitPrompt";
+import { promoTagFor } from "@/components/PromoQuoteForm";
+import { timeLeftLabel } from "@/pages/JuneSpecial";
 import Testimonials from "@/components/Testimonials";
 import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS, videoObject } from "@/lib/videos";
@@ -62,6 +65,25 @@ export default function ServicePPF() {
   const { data: photos } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
   const { data: promo } = trpc.promo.getActive.useQuery();
   const jobs = withJobSlugs(photos ?? []).filter((p) => /ppf/i.test(p.alt)).slice(0, 8);
+
+  // This month's special, for the hero card and the sticky bar. Nothing renders until the promo has loaded.
+  const promoPrice = Number(String(promo?.price ?? "").replace(/[^0-9.]/g, "")) || 0;
+  const promoPriceTxt = promoPrice ? `$${promoPrice.toLocaleString("en-US")}` : "";
+  const promoRemaining = (promo?.totalSlots ?? 21) - (promo?.slots?.length ?? 0);
+  const promoLive = Boolean(promo?.title && promoPrice && promoRemaining > 0);
+  let promoIncluded: { name: string; isFree: boolean }[] = [];
+  if (promo?.includedServices) {
+    try { promoIncluded = (JSON.parse(promo.includedServices) as { name: string; isFree: boolean }[]).filter((i) => i?.name); } catch { promoIncluded = []; }
+  }
+  // The sticky bar steps aside while the hero's own button is on screen.
+  const [heroCtaVisible, setHeroCtaVisible] = useState(true);
+  useEffect(() => {
+    const el = document.getElementById("ppf-hero-cta");
+    if (!el || typeof IntersectionObserver === "undefined") { setHeroCtaVisible(false); return; }
+    const io = new IntersectionObserver(([entry]) => setHeroCtaVisible(entry.isIntersecting), { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [promoLive]);
   const videos = VIDEOS.filter((v) => v.service === "ppf");
 
   // Facebook Pixel: ViewContent event when visitor lands on PPF service page
@@ -123,18 +145,24 @@ export default function ServicePPF() {
           },
         ]}
       />
-      <Navbar />
+      <Navbar hidePromoStrip />
 
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-end pb-16 overflow-hidden">
+      <section className="relative flex items-end pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#111] to-[#1a0a00]" />
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 40px, #E85D04 40px, #E85D04 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, #E85D04 40px, #E85D04 41px)" }} />
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10" style={{ background: "radial-gradient(ellipse at top right, #E85D04, transparent 70%)" }} />
-        <div className="container relative z-10 pt-32">
+        <div className="container relative z-10 pt-24">
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Paint Protection Film" }]} />
-          <div className="max-w-4xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          <div className="lg:col-span-7">
+            {promoLive && (
+              <Link href="/promo" data-cta="ppf-hero-pill" className="inline-flex items-center gap-2 bg-[#E85D04] text-black text-xs font-bold tracking-[0.2em] uppercase px-3 py-1.5 mb-4 hover:bg-orange-500 transition-colors">
+                <Zap className="w-3.5 h-3.5 fill-current" /> This month: {promo!.title}, {promoPriceTxt}
+              </Link>
+            )}
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Chantilly, VA · Serving all of Northern Virginia</p>
-            <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-4">
+            <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-7xl xl:text-8xl leading-none text-white mb-4">
               FULL FRONT<br />
               <span className="text-[#E85D04]">PAINT PROTECTION</span><br />
               FILM
@@ -148,13 +176,49 @@ export default function ServicePPF() {
               ))}
             </div>
             <div className="flex flex-wrap gap-4">
-              <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
-                GET A PPF QUOTE <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a href="#packages" className="text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-4 py-4 inline-flex items-center gap-2">
-                SEE PACKAGES <ChevronDown className="w-4 h-4" />
-              </a>
+              {promoLive ? (
+                <>
+                  <Link href="/promo" data-cta="ppf-hero-special" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+                    SEE THE {promoPriceTxt} SPECIAL <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link href="/get-a-quote?service=ppf" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2">
+                    GET A PPF QUOTE
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/get-a-quote?service=ppf" id="ppf-hero-cta" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+                    GET A PPF QUOTE <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <a href="#packages" className="text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-4 py-4 inline-flex items-center gap-2">
+                    SEE PACKAGES <ChevronDown className="w-4 h-4" />
+                  </a>
+                </>
+              )}
             </div>
+          </div>
+
+          {/* This month's special: the same card as the home page and the promo page, from the database */}
+          {promoLive && (
+            <aside className="lg:col-span-5 order-first lg:order-none relative bg-gradient-to-br from-[#1a0f05] to-[#0D0D0D] border-2 border-[#E85D04]/70 p-6 md:p-8" aria-label="This month's PPF special">
+              {promoIncluded.some((i) => i.isFree) && <span className="absolute -top-px -right-px bg-[#E85D04] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Free extras included</span>}
+              <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">This month only</p>
+              <p className="font-['Bebas_Neue',sans-serif] text-6xl md:text-7xl text-[#E85D04] leading-none mb-2">{promoPriceTxt}</p>
+              <p className="text-white font-semibold text-base md:text-lg leading-snug mb-1">{promo!.title}</p>
+              <p className="text-zinc-400 text-sm mb-4">Everything included. No add-ons.{promo!.endDate ? ` Price locked through ${promo!.endDate}.` : ""}</p>
+              {promoIncluded.length > 0 && (
+                <ul className="hidden sm:block space-y-2 mb-6 text-sm text-zinc-200">
+                  {promoIncluded.map((i) => (
+                    <li key={i.name} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" /><span>{i.name}{i.isFree && <span className="ml-2 text-emerald-400 font-bold text-xs uppercase tracking-wide">Free</span>}</span></li>
+                  ))}
+                </ul>
+              )}
+              <Link href="/promo" id="ppf-hero-cta" data-cta="ppf-hero-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors mt-2">
+                Claim my spot <ArrowRight className="w-5 h-5" />
+              </Link>
+              <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">{promoRemaining} spots left</span>{promo!.endDate ? ` · Ends ${promo!.endDate}` : ""}</p>
+            </aside>
+          )}
           </div>
         </div>
       </section>
@@ -450,6 +514,24 @@ export default function ServicePPF() {
 
       <ServiceCityLinks service="ppf" />
       <Footer />
+      {promoLive && <ExitPrompt promoTitle={promo!.title ?? ""} promoTag={promoTagFor(promo!.title ?? "", promo!.slug ?? "promo")} />}
+
+      {/* The special's button stays on screen while reading, on every screen size; it steps aside while the hero button is in view */}
+      {promoLive && (
+        <>
+          <div className={`fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A] border-t border-zinc-800 shadow-2xl transition-transform duration-300 ${heroCtaVisible ? "translate-y-full" : "translate-y-0"}`} aria-hidden={heroCtaVisible}>
+            <div className="container max-w-6xl p-3 md:py-3 flex items-center gap-3 md:gap-6">
+              <div className="flex-1 min-w-0 leading-tight">
+                <p className="text-[11px] md:text-sm font-bold truncate"><span className="text-white">{promoPriceTxt}</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">{promo!.title}</span></p>
+                <p className="text-zinc-400 text-[11px] md:text-xs mt-0.5 truncate">{promoRemaining} spots left{promo!.endDate && timeLeftLabel(promo!.endDate) ? ` · ${timeLeftLabel(promo!.endDate)}` : ""}<span className="hidden md:inline"> · STEK DYNOshield, 12-year warranty</span></p>
+              </div>
+              <a href="tel:+17037754383" className="hidden md:inline-flex items-center gap-2 text-zinc-300 hover:text-white text-sm font-semibold whitespace-nowrap">(703) 775-4383</a>
+              <Link href="/promo" data-cta="ppf-sticky" tabIndex={heroCtaVisible ? -1 : 0} className="shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base md:text-xl tracking-widest px-4 md:px-8 py-3 hover:bg-orange-600 transition-colors whitespace-nowrap">CLAIM <span className="hidden md:inline">MY </span>SPOT</Link>
+            </div>
+          </div>
+          <div className="h-16" aria-hidden="true" />
+        </>
+      )}
     </div>
   );
 }

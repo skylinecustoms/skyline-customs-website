@@ -514,7 +514,11 @@ export default function Home() {
               <Link key={service.number} href={service.href}>
                 <div className="group relative bg-[oklch(0.10_0.005_285)] overflow-hidden cursor-pointer h-[400px]">
                   <img loading="lazy" decoding="async"
-                    src={service.image}
+                    src={service.image.replace(/^\/images\/([^/]+)\.webp$/, "/images/w/$1-960.webp")}
+                    srcSet={`${service.image.replace(/^\/images\/([^/]+)\.webp$/, "/images/w/$1-480.webp")} 480w, ${service.image.replace(/^\/images\/([^/]+)\.webp$/, "/images/w/$1-960.webp")} 960w`}
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    width="960"
+                    height="640"
                     alt={service.imageAlt}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
