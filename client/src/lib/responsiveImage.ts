@@ -4,21 +4,31 @@
  * variants (new bot uploads) fall back to the plain JPEG.
  */
 import manifest from "@shared/imageVariants.json";
+import webpManifest from "@shared/webpVariants.json";
 
-const VARIANTS = manifest as Record<string, { width: number; height: number; widths: number[] }>;
+type Variant = { width: number; height: number; widths: number[] };
+const VARIANTS = manifest as Record<string, Variant>;
+/** Site WebP photos (service cards, package tiles) resized into /images/w as well. */
+const WEBP_VARIANTS = webpManifest as Record<string, Variant>;
+
+function lookup(photoUrl: string): { name: string; v: Variant } | undefined {
+  const jpg = photoUrl.match(/^\/images\/([^/]+)\.jpe?g$/i);
+  if (jpg && VARIANTS[jpg[1]]) return { name: jpg[1], v: VARIANTS[jpg[1]] };
+  const webp = photoUrl.match(/^\/images\/([^/]+)\.webp$/i);
+  if (webp && WEBP_VARIANTS[webp[1]]) return { name: webp[1], v: WEBP_VARIANTS[webp[1]] };
+  return undefined;
+}
 
 export function responsiveImage(photoUrl: string): { srcSet?: string; width?: number; height?: number } {
-  const m = photoUrl.match(/^\/images\/([^/]+)\.jpe?g$/i);
-  const v = m ? VARIANTS[m[1]] : undefined;
-  if (!v) return {};
-  return { srcSet: v.widths.map((w) => `/images/w/${m![1]}-${w}.webp ${w}w`).join(", "), width: v.width, height: v.height };
+  const hit = lookup(photoUrl);
+  if (!hit) return {};
+  return { srcSet: hit.v.widths.map((w) => `/images/w/${hit.name}-${w}.webp ${w}w`).join(", "), width: hit.v.width, height: hit.v.height };
 }
 
 /** Largest WebP variant at or above the given width, for preloads and og:image. */
 export function variantUrl(photoUrl: string, minWidth: number): string | undefined {
-  const m = photoUrl.match(/^\/images\/([^/]+)\.jpe?g$/i);
-  const v = m ? VARIANTS[m[1]] : undefined;
-  if (!v) return undefined;
-  const w = v.widths.find((x) => x >= minWidth) ?? v.widths[v.widths.length - 1];
-  return `/images/w/${m![1]}-${w}.webp`;
+  const hit = lookup(photoUrl);
+  if (!hit) return undefined;
+  const w = hit.v.widths.find((x) => x >= minWidth) ?? hit.v.widths[hit.v.widths.length - 1];
+  return `/images/w/${hit.name}-${w}.webp`;
 }

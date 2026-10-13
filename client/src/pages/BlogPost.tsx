@@ -356,6 +356,7 @@ export default function BlogPost() {
                 <ul className="space-y-2">
                   {[
                     { label: "Full Front PPF Guide", href: "https://www.skylinecustomshop.com/full-front-ppf" },
+                    { label: "Ceramic Coating Guide", href: "https://www.skylinecustomshop.com/ceramic-coating-guide" },
                     { label: "Paint Protection Film", href: "https://www.skylinecustomshop.com/services/ppf" },
                     { label: "Ceramic Coating", href: "https://www.skylinecustomshop.com/services/ceramic-coating" },
                     { label: "Window Tinting", href: "https://www.skylinecustomshop.com/services/window-tinting" },

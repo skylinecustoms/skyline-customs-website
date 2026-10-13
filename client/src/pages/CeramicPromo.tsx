@@ -16,6 +16,7 @@ import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
 import PromoQuoteForm from "@/components/PromoQuoteForm";
 import ExitPrompt from "@/components/ExitPrompt";
+import LeadPulse from "@/components/LeadPulse";
 import { CountdownTimer, FaqAccordion, timeLeftLabel } from "@/pages/JuneSpecial";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
@@ -159,6 +160,7 @@ export default function CeramicPromo() {
                   <span className="font-bold text-emerald-400">Limited slots this month</span>
                   <span className="text-zinc-400">&middot; Ends {endDate}</span>
                 </p>
+                <LeadPulse className="mt-2" />
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {[
@@ -187,7 +189,7 @@ export default function CeramicPromo() {
             <Sparkles className="w-10 h-10 shrink-0" strokeWidth={1.75} />
             <div>
               <p className="font-display text-3xl md:text-4xl leading-none tracking-wide">GLASS + WHEELS FREE WITH EVERY COATING</p>
-              <p className="text-black/80 text-sm md:text-base mt-1">Book the {PRICE_TXT} System X coating this month and the windshield, windows, and all four wheels are coated at no charge.</p>
+              <p className="text-black/90 text-sm md:text-base mt-1">Book the {PRICE_TXT} System X coating this month and the windshield, windows, and all four wheels are coated at no charge.</p>
             </div>
           </div>
           <a href="#included" className={`${BTN_ON_ORANGE} md:ml-auto shrink-0`}>See what's included <ArrowRight className="w-5 h-5" /></a>
@@ -442,7 +444,7 @@ export default function CeramicPromo() {
         <div className="container max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 bg-black/20 text-white text-xs font-bold tracking-[0.3em] uppercase px-4 py-2 mb-6"><Clock className="w-3 h-3" /> Limited slots this month</div>
           <h2 className="font-display text-5xl md:text-7xl text-white mb-4 leading-none">DON&apos;T MISS THIS</h2>
-          <p className="text-orange-100 text-lg mb-4 max-w-xl mx-auto">{PRICE_TXT} for the full System X ceramic coating, with the glass and wheels done free. The offer ends when the last slot is booked or on {endDate}, whichever comes first.</p>
+          <p className="text-black/90 text-lg mb-4 max-w-xl mx-auto">{PRICE_TXT} for the full System X ceramic coating, with the glass and wheels done free. The offer ends when the last slot is booked or on {endDate}, whichever comes first.</p>
           <p className="text-orange-200/70 text-sm mb-10">Skyline Customs &mdash; Chantilly, VA &middot; {PHONE}</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href={quoteUrl} data-cta="ceramic-promo-claim" className={BTN_ON_ORANGE}>LOCK IN YOUR SLOT <ArrowRight className="w-5 h-5" /></a>
@@ -457,7 +459,7 @@ export default function CeramicPromo() {
       {/* ================================================================
           STICKY MOBILE CTA BAR
       ================================================================ */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#0A0A0A] border-t border-zinc-800 p-3 flex items-center gap-3 shadow-2xl">
+      <div data-sticky-bar className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#0A0A0A] border-t border-zinc-800 p-3 flex items-center gap-3 shadow-2xl">
         <div className="flex-1 min-w-0 leading-tight">
           <p className="text-[11px] font-bold"><span className="text-white">{PRICE_TXT}</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">Glass + wheels free</span></p>
           <p className="text-zinc-400 text-[11px] mt-0.5">System X ceramic special{timeLeftLabel(endDate) ? ` · ${timeLeftLabel(endDate)}` : ""}</p>

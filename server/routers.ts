@@ -10,6 +10,7 @@ import { getGoogleReviews } from "./googleReviews";
 import { getInstagramFeed } from "./instagram";
 import { getGalleryRows } from "./galleryJobs";
 import { siteSettings, galleryPhotos } from "../drizzle/schema";
+import { getLeadPulse, recordLead } from "./leadPulse";
 import { eq, asc } from "drizzle-orm";
 
 const GHL_API_KEY = process.env.GHL_API_KEY ?? "";
@@ -418,6 +419,7 @@ Guidelines:
         })
       )
       .mutation(async ({ input }) => {
+        void recordLead();
         // Build custom fields array for GHL
         const customFields: { id: string; field_value: string }[] = [];
         if (input.make) customFields.push({ id: GHL_FIELD_MAKE, field_value: input.make });
@@ -600,6 +602,7 @@ Guidelines:
       .mutation(async ({ input }) => {
         const digits = input.phone.replace(/\D/g, "");
         if (digits.length < 10) return { success: false as const, reason: "phone" };
+        void recordLead();
         const serviceTag = serviceTagFor(input.service);
         const source = input.formId === "exit" ? "Website Exit Prompt (text me the price)" : `Website ${input.formId} form (not submitted)`;
         const tags = [GHL_PARTIAL_TAG, `website-${input.formId}-partial`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : [])];
@@ -645,6 +648,8 @@ Guidelines:
         );
         return { success: true as const, contactId, crm: contactId ? "ok" : "failed", telegram: telegram.results };
       }),
+    /** Today's quote-request count and minutes since the last one, for the promo pages. */
+    pulse: publicProcedure.query(async () => getLeadPulse()),
   }),
 
   site: router({

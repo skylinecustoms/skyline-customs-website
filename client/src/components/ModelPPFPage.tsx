@@ -217,7 +217,7 @@ export default function ModelPPFPage({ model }: { model: ModelPage }) {
         <section className="py-20 bg-[#E85D04] text-black">
           <div className="container max-w-4xl text-center">
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl leading-none mb-4">PROTECT YOUR {model.name.replace(`${model.make} `, "").toUpperCase()} THIS WEEK</h2>
-            <p className="text-black/80 text-lg mb-8">Tell us the year and trim. Written quote the same business day, film on in one day at our Chantilly shop.</p>
+            <p className="text-black/90 text-lg mb-8">Tell us the year and trim. Written quote the same business day, film on in one day at our Chantilly shop.</p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link href={quoteHref} className="bg-black text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-zinc-900 transition-colors">Get a free quote <ArrowRight className="w-4 h-4" /></Link>
               <a href="tel:+17037754383" className="border-2 border-black text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-black hover:text-white transition-colors"><Phone className="w-4 h-4" /> Call the shop</a>

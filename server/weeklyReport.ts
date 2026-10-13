@@ -38,9 +38,9 @@ function mergeByPath(rows: GscRow[]): { path: string; clicks: number; impression
   return Array.from(m.values()).sort((a, b) => b.clicks - a.clicks || b.impressions - a.impressions);
 }
 
-interface GscRow { keys?: string[]; clicks: number; impressions: number; ctr: number; position: number }
+export interface GscRow { keys?: string[]; clicks: number; impressions: number; ctr: number; position: number }
 
-async function gsc(token: string, body: Record<string, unknown>): Promise<GscRow[]> {
+export async function gsc(token: string, body: Record<string, unknown>): Promise<GscRow[]> {
   const r = await fetch(`https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(SITE)}/searchAnalytics/query`, {
     method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body),
   });

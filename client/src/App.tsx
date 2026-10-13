@@ -8,6 +8,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { X } from "lucide-react";
 import { installEngagementTracking, pageViewSent, trackPageView } from "@/lib/analytics";
+import TextUsButton from "@/components/TextUsButton";
 import { CITIES, CITY_ORDER, cityPath, cityServices } from "@/lib/localSeo";
 import { MODEL_PAGES } from "@/lib/modelPages";
 import { AUDIENCE_PAGES } from "@/lib/audiencePages";
@@ -77,6 +78,7 @@ const SpanishServicePage = lazy(() => import("./components/SpanishServicePage"))
 const EsPromo = lazy(() => import("./pages/EsPromo"));
 const FleetPPF = lazy(() => import("./pages/FleetPPF"));
 const FullFrontPPF = lazy(() => import("./pages/FullFrontPPF"));
+const CeramicGuide = lazy(() => import("./pages/CeramicGuide"));
 const CeramicPromo = lazy(() => import("./pages/CeramicPromo"));
 const ComparisonPageLazy = lazy(() => import("./components/ComparisonPage"));
 const VehiclePPFPageLazy = lazy(() => import("./components/VehiclePPFPage"));
@@ -116,6 +118,7 @@ function Router() {
       <Route path={"/es/promo"} component={EsPromo} />
       <Route path={"/fleet-ppf"} component={FleetPPF} />
       <Route path={"/full-front-ppf"} component={FullFrontPPF} />
+      <Route path={"/ceramic-coating-guide"} component={CeramicGuide} />
       <Route path={"/promo-ceramic"} component={CeramicPromo} />
       <Route path={"/es"}><Redirect to="/es/ppf" /></Route>
       <Route path={"/bmw-ppf"} component={BmwPPF} />
@@ -213,6 +216,7 @@ function AppContent() {
       <Suspense fallback={<div className="min-h-screen bg-[#0A0A0A]" />}>
         <Router />
       </Suspense>
+      <TextUsButton />
       {isOpen && <Suspense fallback={null}><BookingModal isOpen={isOpen} service={service} onClose={closeBooking} /></Suspense>}
     </>
   );

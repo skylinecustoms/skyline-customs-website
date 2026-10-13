@@ -12,6 +12,7 @@ import Testimonials from "@/components/Testimonials";
 import QuoteFormEs from "@/components/QuoteFormEs";
 import { ES_PAGES, ES_UI, type EsServicePage } from "@/lib/es";
 import { trpc } from "@/lib/trpc";
+import { EsPpfPromoCard, EsCeramicPromoCard } from "@/components/EsPromoCards";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const ICONS = [Shield, Droplets, Sun, Wrench];
@@ -20,7 +21,6 @@ const SERVICE_NAME = { ppf: "Paint Protection Film", ceramic: "Ceramic Coating",
 
 export default function SpanishServicePage({ data }: { data: EsServicePage }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const { data: promo } = trpc.promo.getActive.useQuery();
   const canonical = `${BASE_URL}${data.path}`;
   const others = ES_PAGES.filter((p) => p.path !== data.path);
 
@@ -72,15 +72,9 @@ export default function SpanishServicePage({ data }: { data: EsServicePage }) {
           </div>
         </section>
 
-        {/* Promo strip for Spanish readers */}
-        {promo?.title && data.service === "ppf" && (
-          <section className="bg-[#E85D04] text-black">
-            <div className="container max-w-5xl py-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-              <p className="font-display text-xl tracking-wide">{promo.title}: {ES_UI.nav.promo}</p>
-              <Link href="/es/promo" className="md:ml-auto inline-flex items-center gap-2 bg-black text-white font-display text-base tracking-widest uppercase px-5 py-2.5 hover:bg-zinc-900 transition-colors">{ES_UI.nav.promo} <ArrowRight className="w-4 h-4" /></Link>
-            </div>
-          </section>
-        )}
+        {/* This month's specials, in Spanish, pointing at the form on this page */}
+        {data.service === "ppf" && <EsPpfPromoCard />}
+        {data.service === "ceramic" && <EsCeramicPromoCard />}
 
         {/* Benefits */}
         <section className="py-16 bg-[#0D0D0D] border-t border-zinc-800">

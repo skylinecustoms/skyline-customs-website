@@ -167,7 +167,7 @@ export default function FullFrontPPF() {
         <section className="py-20 bg-[#E85D04] text-black">
           <div className="container max-w-4xl text-center">
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl mb-4">READY FOR FULL FRONT PPF?</h2>
-            <p className="text-black/80 text-lg mb-8 max-w-2xl mx-auto">Send the year, make, and model and how you drive. You get an exact price, usually within the hour, and a fully refundable 20% deposit holds your day.</p>
+            <p className="text-black/90 text-lg mb-8 max-w-2xl mx-auto">Send the year, make, and model and how you drive. You get an exact price, usually within the hour, and a fully refundable 20% deposit holds your day.</p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link href="/get-a-quote?service=ppf" data-cta="guide-quote-bottom" className="bg-black text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-zinc-900 transition-colors">Get a free quote <ArrowRight className="w-4 h-4" /></Link>
               <Link href="/promo" className="border-2 border-black text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-black/10 transition-colors">This month's special</Link>

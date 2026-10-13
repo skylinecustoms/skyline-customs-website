@@ -407,7 +407,7 @@ export default function JuneSpecial() {
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white mb-4">
             DON'T MISS THIS
           </h2>
-          <p className="text-orange-100 text-lg mb-10 max-w-xl mx-auto">
+          <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">
             Full Front PPF + Paint Correction + Ceramic Coating for $2,400. This deal disappears when the last slot is claimed.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

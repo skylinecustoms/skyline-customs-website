@@ -328,17 +328,17 @@ export default function ServiceAreas() {
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">
             DON'T SEE YOUR CITY?
           </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">
             We serve all of Northern Virginia, Maryland, and Washington, DC. Call us or get a free quote and we will confirm your drive and the install dates.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/get-a-quote"
-              className="bg-white hover:bg-zinc-100 text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
             <a href="tel:+17037754383"
-              className="border-2 border-white hover:bg-white/10 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               <Phone className="w-4 h-4" /> CALL NOW
             </a>

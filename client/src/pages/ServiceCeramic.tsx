@@ -14,7 +14,9 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CeramicPromoBanner from "@/components/CeramicPromoBanner";
 import ExitPrompt from "@/components/ExitPrompt";
+import LeadPulse from "@/components/LeadPulse";
 import { endOfMonth } from "@/pages/CeramicPromo";
+import { responsiveImage } from "@/lib/responsiveImage";
 import { timeLeftLabel } from "@/pages/JuneSpecial";
 import { useState, useEffect } from "react";
 import { ChevronDown, Droplets, Sparkles, Shield, Sun, Clock, Award, CheckCircle, ArrowRight, Zap } from "lucide-react";
@@ -250,6 +252,7 @@ export default function ServiceCeramic() {
         ]}
       />
       <Navbar />
+      <main>
 
       {/* Hero */}
       <section className="relative flex items-end pb-16 overflow-hidden">
@@ -318,6 +321,8 @@ export default function ServiceCeramic() {
                 Lock in my slot <ArrowRight className="w-5 h-5" />
               </Link>
               <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">Limited slots this month</span> · Ends {endOfMonth()}</p>
+              <LeadPulse className="mt-2" />
+              <p className="text-zinc-500 text-xs mt-3 text-center">New to coatings? <Link href="/ceramic-coating-guide" className="text-[#E85D04] underline underline-offset-2">Read the complete ceramic coating guide</Link>.</p>
             </aside>
           </div>
         </div>
@@ -367,6 +372,8 @@ export default function ServiceCeramic() {
                 )}
                 <img loading="lazy" decoding="async"
                   src={pkg.image}
+                  srcSet={responsiveImage(pkg.image).srcSet}
+                  sizes="(min-width: 768px) 50vw, 100vw"
                   alt={pkg.imageAlt}
                   className="w-full h-48 object-cover"
                 />
@@ -384,7 +391,7 @@ export default function ServiceCeramic() {
                   </ul>
                   <Link
                     href="/get-a-quote?service=ceramic"
-                    className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-black hover:text-[#E85D04]"}`}
+                    className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-white hover:text-[#E85D04]"}`}
                   >
                     GET A QUOTE
                   </Link>
@@ -407,7 +414,7 @@ export default function ServiceCeramic() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
             {process.map((step, i) => (
               <div key={i} className="bg-[#0D0D0D] p-8 hover:bg-[#111] transition-colors">
-                <span className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04] opacity-40 block mb-4">{step.num}</span>
+                <span className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04]/70 block mb-4" aria-hidden="true">{step.num}</span>
                 <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">{step.title}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{step.desc}</p>
               </div>
@@ -453,7 +460,7 @@ export default function ServiceCeramic() {
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white mb-4">
             GIVE YOUR PAINT PERMANENT DEFENSE
           </h2>
-          <p className="text-orange-100 text-lg mb-10 max-w-xl mx-auto">
+          <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">
             This month, the full System X coating is $995 with the glass and wheel coating included. Lock in a slot, or request a quote and we'll recommend the right tier for your car.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -466,7 +473,7 @@ export default function ServiceCeramic() {
             </Link>
             <Link
               href="/get-a-quote?service=ceramic"
-              className="bg-white text-[#E85D04] hover:bg-zinc-100 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
+              className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
               GET A QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
@@ -477,11 +484,12 @@ export default function ServiceCeramic() {
       <LocalBanner localHref="/service-areas" serviceName="Ceramic Coating" />
       <CompareLinks />
       <ServiceCityLinks service="ceramic" />
+      </main>
       <Footer />
       <ExitPrompt promoTitle="Ceramic Special" promoTag="ceramic-special-promo" service="Ceramic Coating" />
 
       {/* The special's button stays on screen while reading, on every screen size; it steps aside while the hero card's button is in view */}
-      <div className={`fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A] border-t border-zinc-800 shadow-2xl transition-transform duration-300 ${heroCtaVisible ? "translate-y-full" : "translate-y-0"}`} aria-hidden={heroCtaVisible}>
+      <div data-sticky-bar className={`fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A] border-t border-zinc-800 shadow-2xl transition-transform duration-300 ${heroCtaVisible ? "translate-y-full" : "translate-y-0"}`} aria-hidden={heroCtaVisible}>
         <div className="container max-w-6xl p-3 md:py-3 flex items-center gap-3 md:gap-6">
           <div className="flex-1 min-w-0 leading-tight">
             <p className="text-[11px] md:text-sm font-bold"><span className="text-white">$995</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">Glass + wheels free</span><span className="hidden md:inline text-zinc-300 font-normal"> · Full System X ceramic coating, 6-year registered warranty</span></p>

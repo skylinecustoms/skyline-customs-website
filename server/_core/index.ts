@@ -173,6 +173,13 @@ async function startServer() {
   registerDepositRoutes(app);
   // Health: which optional integrations this deployment has credentials for (booleans only, never values).
   const startedAt = new Date().toISOString();
+  // Blog topic candidates from Search Console for the weekly writing routine (robots.txt disallows /api).
+  app.get("/api/seo/topics", async (req, res) => {
+    const { getSeoTopics } = await import("../seoTopics");
+    res.setHeader("Cache-Control", "no-store");
+    res.json(await getSeoTopics(req.query.refresh === "1"));
+  });
+
   app.get("/api/health", async (req, res) => {
     const has = (k: string) => Boolean((process.env[k] ?? "").trim());
     const listing = req.query.listing ? await getGoogleListing() : undefined;

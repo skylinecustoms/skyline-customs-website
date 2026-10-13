@@ -20,6 +20,7 @@ const serviceLinks: { href: string; label: string; promo?: boolean }[] = [
   { href: "/services/ppf", label: "Full Front PPF" },
   { href: "/full-front-ppf", label: "Full Front PPF Guide" },
   { href: "/services/ceramic-coating", label: "Ceramic Coating", promo: true },
+  { href: "/ceramic-coating-guide", label: "Ceramic Coating Guide" },
   { href: "/services/window-tinting", label: "Window Tinting" },
   { href: "/ppf-cost", label: "PPF Cost Guide" },
   { href: "/tesla-ppf", label: "Tesla PPF" },

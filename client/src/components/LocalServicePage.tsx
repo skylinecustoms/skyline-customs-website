@@ -338,15 +338,15 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">
             {svc.ctaHeading}
           </h2>
-          <p className="text-white text-lg mb-8 max-w-xl mx-auto">{svc.ctaText(city)}</p>
+          <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">{svc.ctaText(city)}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href={`/get-a-quote?service=${svc.quoteParam}`}
-              className="bg-white hover:bg-zinc-100 text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
             <a href="tel:+17037754383"
-              className="border-2 border-white hover:bg-white/10 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               <Phone className="w-4 h-4" /> CALL NOW
             </a>
@@ -367,6 +367,18 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
         </section>
       )}
       {serviceKey === "ppf" && <VehicleLinks />}
+      {serviceKey === "ceramic" && (
+        <section className="py-10 bg-[#0D0D0D] border-t border-zinc-800">
+          <div className="container max-w-5xl flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+            <div>
+              <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Before you book</p>
+              <p className="text-white text-lg font-semibold">Read the complete ceramic coating guide</p>
+              <p className="text-zinc-400 text-sm mt-1">What a coating does and does not do, why the paint is corrected first, the install day, and how long it lasts around here.</p>
+            </div>
+            <Link href="/ceramic-coating-guide" className="md:ml-auto shrink-0 inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-black font-bold tracking-widest uppercase px-6 py-3 transition-colors">Ceramic coating guide <ArrowRight className="w-4 h-4" /></Link>
+          </div>
+        </section>
+      )}
 
       <NearbyAreas city={cityName} service={serviceKey} />
 

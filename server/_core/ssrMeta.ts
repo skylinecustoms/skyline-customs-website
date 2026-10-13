@@ -21,6 +21,7 @@ import { ES_PAGES, ES_PROMO } from "../../client/src/lib/es";
 import { COMPARISON_PAGES } from "../../client/src/lib/comparisons";
 import { BODY_TYPE_PAGES } from "../../client/src/lib/bodyTypePages";
 import { FULL_FRONT_GUIDE } from "../../client/src/lib/fullFrontGuide";
+import { CERAMIC_GUIDE } from "../../client/src/lib/ceramicGuide";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const SITE_NAME = "Skyline Customs";
@@ -693,6 +694,7 @@ for (const b of BODY_TYPE_PAGES) {
 for (const a of AUDIENCE_PAGES) {
   if (!STATIC_META[a.path]) STATIC_META[a.path] = { title: a.seoTitle, description: a.seoDescription, canonical: `${BASE_URL}${a.path}` };
 }
+STATIC_META["/ceramic-coating-guide"] = { title: CERAMIC_GUIDE.title, description: CERAMIC_GUIDE.description, canonical: `${BASE_URL}/ceramic-coating-guide`, ogImage: "/images/ceramic_1_53c9aefc.webp", ogType: "article" };
 STATIC_META["/full-front-ppf"] = { title: FULL_FRONT_GUIDE.title, description: FULL_FRONT_GUIDE.description, canonical: `${BASE_URL}/full-front-ppf`, ogImage: "/images/toyota-4runner-trailhunter-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg", ogType: "article" };
 STATIC_META["/promo-ceramic"] = { title: "$995 Ceramic Coating Special in Chantilly, VA | Glass + Wheels Free", description: "System X ceramic coating for $995 with free glass coating and free wheel coating. 9H hardness, SGS lab certified, 6-year transferable warranty. Limited install slots this month at Skyline Customs, Chantilly, VA.", canonical: `${BASE_URL}/promo-ceramic`, ogImage: "/images/ceramic_1_53c9aefc.webp", preloadImage: "/images/ceramic_1_53c9aefc.webp" };
 STATIC_META["/fleet-ppf"] = { title: "Fleet PPF, Tint & Ceramic Coating in Northern Virginia | Skyline Customs", description: "Paint protection film, window tint, and ceramic coating for fleets, dealerships, and company vehicles across Virginia, Maryland, and DC. Standing schedules, one invoice, one warranty file. Per-unit pricing in one business day.", canonical: `${BASE_URL}/fleet-ppf` };

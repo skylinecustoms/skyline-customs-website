@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import PromoQuoteForm, { promoTagFor } from "@/components/PromoQuoteForm";
 import ExitPrompt from "@/components/ExitPrompt";
+import LeadPulse from "@/components/LeadPulse";
 import DepositBanner from "@/components/DepositBanner";
 import ReviewWall from "@/components/ReviewWall";
 import VideoCarousel from "@/components/VideoCarousel";
@@ -943,6 +944,7 @@ export default function JuneSpecial() {
                   <span className={`font-bold ${soldOut ? "text-red-400" : "text-emerald-400"}`}>{soldOut ? "Sold out this month" : "Limited spots"}</span>
                   {endDate && <span className="text-zinc-400">&middot; Ends {endDate}</span>}
                 </p>
+                <LeadPulse className="mt-2" />
               </div>
 
               {/* Trust signals */}
@@ -974,7 +976,7 @@ export default function JuneSpecial() {
               <Gift className="w-10 h-10 shrink-0" strokeWidth={1.75} />
               <div>
                 <p className="font-display text-3xl md:text-4xl leading-none tracking-wide">WIN FULL BODY PPF</p>
-                <p className="text-black/80 text-sm md:text-base mt-1">Every completed {title} job is entered. One winner drawn {giveaway.drawingDate}.</p>
+                <p className="text-black/90 text-sm md:text-base mt-1">Every completed {title} job is entered. One winner drawn {giveaway.drawingDate}.</p>
               </div>
             </div>
             <a href="#giveaway" className={`${BTN_ON_ORANGE} md:ml-auto shrink-0`}>
@@ -1204,7 +1206,7 @@ export default function JuneSpecial() {
                 <Gift className="absolute -right-6 -bottom-6 w-40 h-40 text-black/10" strokeWidth={1} />
                 <p className="text-xs font-bold tracking-[0.3em] uppercase mb-3 text-black/70">The prize</p>
                 <p className="font-display text-5xl leading-none mb-4">FULL BODY PPF,<br />ON US</p>
-                <p className="text-black/80 text-sm leading-relaxed mb-5 relative">Every painted panel wrapped in self-healing STEK DYNOshield with the 12-year warranty. Same film, same walk-and-pay inspection, no invoice.</p>
+                <p className="text-black/90 text-sm leading-relaxed mb-5 relative">Every painted panel wrapped in self-healing STEK DYNOshield with the 12-year warranty. Same film, same walk-and-pay inspection, no invoice.</p>
                 <p className="text-black/70 text-xs font-bold tracking-wide uppercase relative">One winner · Drawing {giveaway.drawingDate} · Rules below</p>
               </div>
             </div>
@@ -1344,7 +1346,7 @@ export default function JuneSpecial() {
                 <div className="p-5 md:p-6 text-center bg-[#E85D04]">
                   <p className="text-black/70 text-[11px] font-bold tracking-[0.25em] uppercase mb-2">You pay</p>
                   <p className="font-display text-3xl md:text-4xl text-black leading-none">{fmt(Number(price) || 0)}</p>
-                  <p className="text-black/80 text-xs font-bold mt-1">Ceramic coating included</p>
+                  <p className="text-black/90 text-xs font-bold mt-1">Ceramic coating included</p>
                 </div>
               </div>
             </div>
@@ -1571,7 +1573,7 @@ export default function JuneSpecial() {
           <h2 className="font-display text-5xl md:text-7xl text-white mb-4 leading-none">
             DON&apos;T MISS THIS
           </h2>
-          <p className="text-orange-100 text-lg mb-4 max-w-xl mx-auto">
+          <p className="text-black/90 text-lg mb-4 max-w-xl mx-auto">
             {tagline || `Starting at $${price}. This deal disappears when the last slot is claimed.`}
           </p>
           {giveaway && (
@@ -1605,7 +1607,7 @@ export default function JuneSpecial() {
       {/* ================================================================
           STICKY MOBILE CTA BAR (only on mobile, hides on md+)
       ================================================================ */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#0A0A0A] border-t border-zinc-800 p-3 flex items-center gap-3 shadow-2xl">
+      <div data-sticky-bar className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#0A0A0A] border-t border-zinc-800 p-3 flex items-center gap-3 shadow-2xl">
         <div className="flex-1 min-w-0">
           {soldOut ? (
             <p className="text-red-400 text-xs font-bold tracking-wide uppercase truncate">All slots filled</p>

@@ -12,6 +12,7 @@ import BrandMarquee from "@/components/BrandMarquee";
 import CompareLinks from "@/components/CompareLinks";
 import VehicleLinks from "@/components/VehicleLinks";
 import { SUPPLIERS, VEHICLE_MAKES } from "@shared/brands";
+import { responsiveImage, variantUrl } from "@/lib/responsiveImage";
 const VideoSection = lazy(() => import("@/components/VideoSection"));
 const InstagramSection = lazy(() => import("@/components/InstagramSection"));
 
@@ -514,8 +515,8 @@ export default function Home() {
               <Link key={service.number} href={service.href}>
                 <div className="group relative bg-[oklch(0.10_0.005_285)] overflow-hidden cursor-pointer h-[400px]">
                   <img loading="lazy" decoding="async"
-                    src={service.image.replace(/^\/images\/([^/]+)\.webp$/, "/images/w/$1-960.webp")}
-                    srcSet={`${service.image.replace(/^\/images\/([^/]+)\.webp$/, "/images/w/$1-480.webp")} 480w, ${service.image.replace(/^\/images\/([^/]+)\.webp$/, "/images/w/$1-960.webp")} 960w`}
+                    src={variantUrl(service.image, 960) ?? service.image}
+                    srcSet={responsiveImage(service.image).srcSet}
                     sizes="(min-width: 768px) 33vw, 100vw"
                     width="960"
                     height="640"
@@ -524,7 +525,7 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.05_0.005_285)] via-[oklch(0.05_0.005_285)]/60 to-transparent" />
                   <div className="absolute inset-0 p-8 flex flex-col justify-between">
-                    <span className="font-display text-6xl text-white/10 leading-none">{service.number}</span>
+                    <span aria-hidden="true" className="font-display text-6xl text-zinc-500 leading-none">{service.number}</span>
                     <div>
                       <p className="text-brand-orange text-xs font-bold tracking-[0.3em] uppercase mb-2">{service.subtitle}</p>
                       <h3 className="font-display text-3xl text-white tracking-wide mb-3">{service.title}</h3>
@@ -600,7 +601,7 @@ export default function Home() {
                   <div className="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 flex items-center justify-center shrink-0">
                     <Icon className="w-5 h-5 text-brand-orange" />
                   </div>
-                  <span className="font-display text-5xl text-white/10 leading-none">{step}</span>
+                  <span aria-hidden="true" className="font-display text-5xl text-zinc-500 leading-none">{step}</span>
                 </div>
                 <h3 className="font-display text-2xl text-white tracking-wide mb-3">{title}</h3>
                 <p className="text-[oklch(0.60_0.008_285)] text-sm leading-relaxed">{desc}</p>
@@ -635,7 +636,7 @@ export default function Home() {
           <h2 className="font-display text-5xl md:text-7xl text-white leading-none mb-6 tracking-tight">
             READY TO<br />PROTECT YOUR CAR?
           </h2>
-          <p className="text-black/80 text-lg md:text-xl mb-10 max-w-xl mx-auto">
+          <p className="text-black/90 text-lg md:text-xl mb-10 max-w-xl mx-auto">
             Full front PPF, ceramic coating, or tint: an exact quote in under 2 minutes, usually back within the hour. No commitment.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -99,8 +99,8 @@ export default function Reviews() {
       <section className="py-20 bg-[#E85D04]">
         <div className="container max-w-3xl text-center">
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">READY TO JOIN THEM?</h2>
-          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">Get a free quote and see why Chantilly drivers keep coming back.</p>
-          <Link href="/get-a-quote" className="bg-white hover:bg-zinc-100 text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
+          <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">Get a free quote and see why Chantilly drivers keep coming back.</p>
+          <Link href="/get-a-quote" className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
             GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

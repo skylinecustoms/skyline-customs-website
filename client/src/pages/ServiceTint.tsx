@@ -11,6 +11,7 @@ import ServiceCityLinks from "@/components/ServiceCityLinks";
 import CompareLinks from "@/components/CompareLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
+import { responsiveImage } from "@/lib/responsiveImage";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useState, useEffect } from "react";
 import { ChevronDown, Thermometer, Eye, Shield, Sun, Lock, Zap, CheckCircle, ArrowRight } from "lucide-react";
@@ -210,6 +211,7 @@ export default function ServiceTint() {
         ]}
       />
       <Navbar />
+      <main>
 
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-end pb-16 overflow-hidden">
@@ -320,7 +322,7 @@ export default function ServiceTint() {
                     MOST POPULAR
                   </div>
                 )}
-                <img loading="lazy" decoding="async" src={pkg.image} alt={pkg.imageAlt} className="w-full h-44 object-cover" />
+                <img loading="lazy" decoding="async" src={pkg.image} srcSet={responsiveImage(pkg.image).srcSet} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" alt={pkg.imageAlt} className="w-full h-44 object-cover" />
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-1">{pkg.name}</h3>
                   <p className="text-zinc-400 text-xs uppercase tracking-widest mb-4">{pkg.desc}</p>
@@ -335,7 +337,7 @@ export default function ServiceTint() {
                   <Link
                     href="/get-a-quote?service=tint"
                     className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${
-                      pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-black hover:text-[#E85D04]"
+                      pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-white hover:text-[#E85D04]"
                     }`}
                   >
                     GET A QUOTE
@@ -409,7 +411,7 @@ export default function ServiceTint() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
             {process.map((step, i) => (
               <div key={i} className="bg-[#0D0D0D] p-8 hover:bg-[#111] transition-colors">
-                <span className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04] opacity-40 block mb-4">{step.num}</span>
+                <span className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04]/70 block mb-4" aria-hidden="true">{step.num}</span>
                 <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">{step.title}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{step.desc}</p>
               </div>
@@ -452,13 +454,13 @@ export default function ServiceTint() {
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white mb-4">
             STAY COOL. DRIVE PROTECTED.
           </h2>
-          <p className="text-orange-100 text-lg mb-10 max-w-xl mx-auto">
+          <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">
             Request a free quote and we'll help you choose the right tint level for your vehicle, lifestyle, and Virginia's legal requirements.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/get-a-quote?service=tint"
-              className="bg-white text-[#E85D04] hover:bg-zinc-100 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
+              className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
               GET A QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
@@ -469,6 +471,7 @@ export default function ServiceTint() {
       <LocalBanner localHref="/service-areas" serviceName="Window Tinting" />
       <CompareLinks />
       <ServiceCityLinks service="tint" />
+      </main>
       <Footer />
     </div>
   );

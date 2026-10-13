@@ -19,6 +19,7 @@ import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExitPrompt from "@/components/ExitPrompt";
+import LeadPulse from "@/components/LeadPulse";
 import { promoTagFor } from "@/components/PromoQuoteForm";
 import { timeLeftLabel } from "@/pages/JuneSpecial";
 import Testimonials from "@/components/Testimonials";
@@ -217,6 +218,7 @@ export default function ServicePPF() {
                 Claim my spot <ArrowRight className="w-5 h-5" />
               </Link>
               <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">{promoRemaining} spots left</span>{promo!.endDate ? ` · Ends ${promo!.endDate}` : ""}</p>
+              <LeadPulse className="mt-2" />
             </aside>
           )}
           </div>
@@ -276,7 +278,7 @@ export default function ServicePPF() {
               <div key={pkg.key} className={`relative border flex flex-col ${pkg.featured ? "border-[#E85D04] bg-[#1a0a00]" : "border-zinc-800 bg-[#0D0D0D] hover:border-zinc-600"} transition-colors`}>
                 {pkg.featured && <div className="absolute -top-3 left-6 bg-[#E85D04] text-black text-xs font-bold tracking-widest uppercase px-3 py-1 z-10">MOST POPULAR</div>}
                 <div className="w-full overflow-hidden">
-                  <img loading="lazy" decoding="async" src={pkg.image} alt={`${pkg.name} PPF coverage diagram on a Tesla Model Y at Skyline Customs, Chantilly VA`} width={640} height={360} className="w-full h-48 object-cover object-center" />
+                  <img loading="lazy" decoding="async" src={pkg.image} srcSet={responsiveImage(pkg.image).srcSet} sizes="(min-width: 1024px) 33vw, 100vw" alt={`${pkg.name} PPF coverage diagram on a Tesla Model Y at Skyline Customs, Chantilly VA`} width={640} height={360} className="w-full h-48 object-cover object-center" />
                 </div>
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-1">{pkg.name}</h3>
@@ -288,7 +290,7 @@ export default function ServicePPF() {
                   </ul>
                   <p className="text-zinc-400 text-xs mb-1">{pkg.bestFor}</p>
                   <p className="text-zinc-400 text-xs mb-5">Install time: {pkg.installTime}</p>
-                  <Link href={`/get-a-quote?service=ppf&package=${pkg.key}`} className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-black"}`}>
+                  <Link href={`/get-a-quote?service=ppf&package=${pkg.key}`} className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-white"}`}>
                     GET A QUOTE
                   </Link>
                 </div>
@@ -426,7 +428,7 @@ export default function ServicePPF() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
             {process.map((step) => (
               <div key={step.num} className="bg-[#0A0A0A] p-8 hover:bg-[#111] transition-colors">
-                <span className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04] opacity-40 block mb-4">{step.num}</span>
+                <span aria-hidden="true" className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04]/70 block mb-4">{step.num}</span>
                 <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">{step.title}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{step.desc}</p>
               </div>
@@ -463,12 +465,12 @@ export default function ServicePPF() {
       <section className="py-24 bg-[#E85D04]">
         <div className="container text-center">
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white mb-4">PROTECT IT BEFORE THE FIRST CHIP</h2>
-          <p className="text-white text-lg mb-10 max-w-xl mx-auto">Send us the year, make, and model. We reply with exact pricing, usually within the hour, and book you into the bay.</p>
+          <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">Send us the year, make, and model. We reply with exact pricing, usually within the hour, and book you into the bay.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/get-a-quote?service=ppf" className="bg-white text-[#E85D04] hover:bg-zinc-100 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+            <Link href="/get-a-quote?service=ppf" className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
               GET MY PPF QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
-            <a href="tel:+17037754383" className="border-2 border-white text-white hover:bg-white hover:text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 inline-flex items-center gap-2">
+            <a href="tel:+17037754383" className="border-2 border-black/70 text-black hover:bg-black hover:text-white font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 inline-flex items-center gap-2">
               <Phone className="w-4 h-4" /> CALL (703) 775-4383
             </a>
           </div>
@@ -519,7 +521,7 @@ export default function ServicePPF() {
       {/* The special's button stays on screen while reading, on every screen size; it steps aside while the hero button is in view */}
       {promoLive && (
         <>
-          <div className={`fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A] border-t border-zinc-800 shadow-2xl transition-transform duration-300 ${heroCtaVisible ? "translate-y-full" : "translate-y-0"}`} aria-hidden={heroCtaVisible}>
+          <div data-sticky-bar className={`fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A] border-t border-zinc-800 shadow-2xl transition-transform duration-300 ${heroCtaVisible ? "translate-y-full" : "translate-y-0"}`} aria-hidden={heroCtaVisible}>
             <div className="container max-w-6xl p-3 md:py-3 flex items-center gap-3 md:gap-6">
               <div className="flex-1 min-w-0 leading-tight">
                 <p className="text-[11px] md:text-sm font-bold truncate"><span className="text-white">{promoPriceTxt}</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">{promo!.title}</span></p>
