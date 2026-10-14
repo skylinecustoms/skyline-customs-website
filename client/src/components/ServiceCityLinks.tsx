@@ -6,7 +6,7 @@
 
 import { Link } from "wouter";
 import { MapPin } from "lucide-react";
-import { CITIES, CITY_ORDER, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
+import { CITIES, CITY_ORDER, SERVICES, cityPath, cityServices, type ServiceKey } from "@/lib/localSeo";
 
 export default function ServiceCityLinks({ service }: { service: ServiceKey }) {
   const label = SERVICES[service].label;
@@ -24,13 +24,14 @@ export default function ServiceCityLinks({ service }: { service: ServiceKey }) {
           All work is done at our Chantilly shop off Route 28, an easy drive from anywhere in NOVA. Pick your city for local details, drive times, and FAQs.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-zinc-800">
-          {CITY_ORDER.filter((city) => !CITIES[city]?.isHome).map((city) => (
+          {/* Only cities that have a page for this service (a 404 link otherwise), each with its own state. */}
+          {CITY_ORDER.filter((city) => !CITIES[city]?.isHome && cityServices(CITIES[city]).includes(service)).map((city) => (
             <Link
               key={city}
               href={cityPath(service, city)}
               className="bg-[#0D0D0D] hover:bg-[#111] px-4 py-3 text-sm text-zinc-300 hover:text-[#E85D04] transition-colors"
             >
-              {label} in {city}, VA
+              {label} in {city}, {CITIES[city].state}
             </Link>
           ))}
         </div>
