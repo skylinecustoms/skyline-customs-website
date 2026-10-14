@@ -285,7 +285,7 @@ export default function ServiceAreas() {
               <div className="space-y-3 mb-8">
                 {[
                   { label: "Phone", value: "(703) 775-4383", href: "tel:+17037754383" },
-                  { label: "Hours", value: "Mon–Sat: 8am–6pm" },
+                  { label: "Hours", value: "Mon–Fri: 9AM – 6PM" },
                   { label: "Address", value: "4215 Walney Rd Suite 1A & B, Chantilly, VA 20151" },
                 ].map((item) => (
                   <div key={item.label} className="flex gap-3 text-sm">
