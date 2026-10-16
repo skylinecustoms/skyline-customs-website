@@ -23,7 +23,7 @@ interface SEOProps {
 
 const SITE_NAME = "Skyline Customs";
 const BASE_URL = "https://www.skylinecustomshop.com";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/images/blog-hero-window-tint-laws-2026_1c3e77bb.webp`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/images/og-full-front-ppf.jpg`;
 
 // Social/JSON-LD images must be absolute URLs; accept site-relative paths too.
 export const absoluteUrl = (u: string) => (u.startsWith("http") ? u : `${BASE_URL}${u.startsWith("/") ? "" : "/"}${u}`);
