@@ -58,8 +58,8 @@ async function startServer() {
     "/ppf-chantilly-va": "/services/ppf",
     "/ceramic-coating-chantilly-va": "/services/ceramic-coating",
     "/window-tinting-chantilly-va": "/services/window-tinting",
-    // Giveaway rules link that went out on social media.
-    "/october-rules": "/promo#giveaway",
+    // Giveaway rules link that went out on social media (the giveaway has ended).
+    "/october-rules": "/promo",
     "/disconnected": "/",
     "/booking-page": "/get-a-quote",
     "/home": "/",

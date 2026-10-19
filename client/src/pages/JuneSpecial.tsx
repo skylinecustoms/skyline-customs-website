@@ -77,8 +77,8 @@ function SlotCard({
             <span className="text-zinc-700 text-xs tracking-widest uppercase">Photo coming soon</span>
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
-          IN THE DRAWING
+        <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1 uppercase">
+          {promoTitle}
         </div>
         <div className="absolute bottom-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
           <CheckCircle className="w-3 h-3" /> JOB DONE
@@ -987,16 +987,16 @@ export default function JuneSpecial() {
       )}
 
       {/* ================================================================
-          WHO'S IN THE DRAWING (right under the offer, before the pitch)
+          WHO GOT THE PROMO DONE (right under the offer, before the pitch)
       ================================================================ */}
-      {giveaway && filledSlots.length > 0 && (
-        <section id="drawing" className="py-14 md:py-20 bg-[#0A0A0A] border-b border-zinc-900 scroll-mt-24">
+      {filledSlots.length > 0 && (
+        <section id="customers" className="py-14 md:py-20 bg-[#0A0A0A] border-b border-zinc-900 scroll-mt-24">
           <div className="container max-w-6xl">
             <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
                 <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Real customers, real cars</p>
-                <h2 className="font-display text-4xl md:text-5xl text-white">{giveaway.entriesHeading}</h2>
-                <p className="text-zinc-400 mt-3 text-sm max-w-2xl">Every car here finished its {title} and is in the drawing for free full body PPF. Spots are limited, so the list stays short.</p>
+                <h2 className="font-display text-4xl md:text-5xl text-white">WHO GOT THE PROMO DONE</h2>
+                <p className="text-zinc-400 mt-3 text-sm max-w-2xl">Every car here finished its {title} this month: full front STEK DYNOshield PPF with the free ceramic coating on the whole car. Spots are limited, so the list stays short.</p>
               </div>
               {!soldOut && (
                 <a href={quoteUrl} data-cta="promo-claim" className={`${BTN_PRIMARY} shrink-0 w-full md:w-auto`}>
@@ -1173,7 +1173,7 @@ export default function JuneSpecial() {
       </section>
 
       {/* ================================================================
-          GIVEAWAY (from lib/promoExtras.ts) + who's in the drawing
+          GIVEAWAY (only when lib/promoExtras.ts defines one for the promo)
       ================================================================ */}
       {giveaway && (
         <section id="giveaway" className="py-16 md:py-24 bg-[#0A0A0A] scroll-mt-24">

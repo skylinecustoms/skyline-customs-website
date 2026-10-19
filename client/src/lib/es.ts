@@ -29,7 +29,7 @@ export interface EsPromo {
   path: "/es/promo"; enPath: "/promo";
   title: string; description: string; eyebrow: string; h1: string[]; // two lines
   sub: string; bullets: string[]; // 4 lines: what you get
-  giveaway: { heading: string; body: string; rules: string[] }; // rules: Spanish versions of the 8 rules in client/src/lib/promoExtras.ts
+  giveaway?: { heading: string; body: string; rules: string[] }; // only when client/src/lib/promoExtras.ts defines a giveaway for the promo
   cta: string; formHeading: string; formIntro: string;
   faqs: { q: string; a: string }[]; // 5
 }
@@ -209,29 +209,15 @@ export const ES_PROMO: EsPromo = {
   path: "/es/promo",
   enPath: "/promo",
   title: "Especial de Otoño: PPF Frontal Completo + Cerámico Gratis | Chantilly, VA",
-  description: "Del 1 al 31 de octubre de 2026: PPF frontal completo STEK DYNOshield con recubrimiento cerámico gratis en todo el carro y una entrada al sorteo de otoño. Cupos limitados.",
+  description: "Del 1 al 31 de octubre de 2026: PPF frontal completo STEK DYNOshield con recubrimiento cerámico gratis en todo el carro. Cupos limitados.",
   eyebrow: "Especial de otoño · 1 al 31 de octubre de 2026",
   h1: ["PPF FRONTAL COMPLETO", "+ CERÁMICO GRATIS EN TODO EL CARRO"],
-  sub: "Reserve la película de protección frontal completa STEK DYNOshield durante octubre y aplicamos un recubrimiento cerámico en toda la carrocería sin costo adicional. Además, cada trabajo terminado entra en nuestro sorteo de otoño. Los cupos son limitados.",
+  sub: "Reserve la película de protección frontal completa STEK DYNOshield durante octubre y aplicamos un recubrimiento cerámico en toda la carrocería sin costo adicional. Los cupos son limitados.",
   bullets: [
     "PPF frontal completo STEK DYNOshield: capó, bumper, guardafangos, espejos, faros y pilares A, con garantía de 12 años.",
     "Recubrimiento cerámico gratis en cada panel pintado del carro, no solo en el frente.",
     "Lavado de descontaminación completo e inspección panel por panel bajo luces antes de pagar el saldo.",
-    "Una entrada al sorteo de otoño por cada trabajo del especial terminado y pagado en octubre.",
   ],
-  giveaway: {
-    heading: "SORTEO DE OTOÑO",
-    body: "Reserve el Especial de Otoño, termine su instalación y ya está participando. El premio es una instalación de PPF de carrocería completa en STEK DYNOshield para el carro del ganador, sin costo. El ganador se anuncia el 1 de noviembre de 2026.",
-    rules: [
-      "Cada trabajo del Especial de Otoño terminado y pagado en su totalidad entre el 1 y el 31 de octubre de 2026 recibe una entrada.",
-      "Se elige un ganador el 1 de noviembre de 2026, se anuncia en nuestro Instagram y se le contacta por teléfono y correo electrónico.",
-      "El premio es una instalación de PPF de carrocería completa en STEK DYNOshield en el vehículo del ganador. Valor aproximado al público: $8,500, según el tamaño del vehículo y el número de paneles. No tiene valor en efectivo y no se puede transferir ni cambiar.",
-      "No es necesario comprar. Para participar sin reservar, escriba a info@skylinecustomshop.com con el asunto \"Fall Giveaway\" e incluya su nombre, teléfono y vehículo antes del 31 de octubre de 2026. Una entrada gratuita por persona.",
-      "Abierto a residentes legales de Virginia, Maryland y el Distrito de Columbia mayores de 18 años. Nulo donde esté prohibido.",
-      "Patrocinador: Skyline Customs, 4215 Walney Rd Suite 1A & B, Chantilly, VA 20151. Las probabilidades de ganar dependen del número de entradas recibidas. El ganador debe responder dentro de los 7 días siguientes a la notificación o se elegirá otro ganador.",
-      "Esta promoción no está patrocinada, respaldada ni administrada por Meta, Facebook o Instagram, ni tiene relación con ellos.",
-    ],
-  },
   cta: "RESERVE SU CUPO DE OCTUBRE",
   formHeading: "APARTE SU CUPO",
   formIntro: "Complete el formulario y le enviamos su cotización exacta con las fechas disponibles de octubre. Sin compromiso: el depósito reembolsable se paga solo cuando usted apruebe la cotización.",
@@ -240,6 +226,5 @@ export const ES_PROMO: EsPromo = {
     { q: "¿Cuánto tiempo tardan en entregar el carro?", a: "La película frontal completa normalmente toma un día. Como el especial incluye el recubrimiento cerámico en todo el carro, cuente con dos días en el taller. Por eso tomamos un número limitado de carros en octubre: cada vehículo recibe el mismo nivel de atención y nadie sale apurado." },
     { q: "¿Puedo agregar más cobertura que el frontal completo?", a: "Sí. El especial cubre el paquete frontal completo. Si quiere agregar los estribos, los bordes de las puertas y las copas de las manijas, que forman nuestro paquete frontal completo extendido, lo cotizamos por separado al reservar. Muchos clientes agregan al menos los estribos." },
     { q: "¿Hay depósito y puedo pagar a plazos?", a: "Después de aprobar su cotización, un depósito del 20 por ciento reserva su fecha de octubre y se descuenta del total. Es totalmente reembolsable en cualquier momento. El saldo se paga al recoger el carro, después de la inspección bajo luces. Aceptamos Klarna, Afterpay y Affirm para dividir el pago; la aprobación depende del proveedor." },
-    { q: "¿Tengo que reservar para participar en el sorteo?", a: "No. Cada trabajo del especial terminado en octubre recibe una entrada, pero también puede participar gratis sin reservar: envíe un correo a info@skylinecustomshop.com con el asunto \"Fall Giveaway\", su nombre, teléfono y vehículo antes del 31 de octubre de 2026. Una entrada gratuita por persona. Las reglas completas están en esta página." },
   ],
 };

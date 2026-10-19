@@ -84,7 +84,7 @@ export const FULL_FRONT_GUIDE = {
           "A car that sees gravel roads, track days, or a long unpaved driveway every week, where stones hit the sides and rear too.",
           "Soft or exotic paint on a car you plan to keep for a decade and want to stay flawless on every panel.",
           "A matte or satin factory finish, where a single scratch cannot be polished out, so film on every panel is the only way to keep it uniform.",
-          "You simply want everything covered and the budget is not the deciding factor. We do these, we do them well, and once a season we give one away: every completed [Fall Special](/promo) full front job is entered to win a full body install.",
+          "You simply want everything covered and the budget is not the deciding factor. We do these, and we do them well. Start with the [Fall Special](/promo) full front and we quote the rest of the car at the same visit.",
         ] },
         { type: "quote", text: "Film goes where the stones go. On a commuter that is the front, and the front is where your money works hardest." },
         { type: "p", text: "Our advice: start with full front. If the car and the way you drive it call for more, add it. If you are weighing the three front packages against each other rather than against full body, the [partial vs full front comparison](/partial-front-vs-full-front-ppf) walks through where the lines fall." },

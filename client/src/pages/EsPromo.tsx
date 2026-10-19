@@ -65,7 +65,7 @@ export default function EsPromo() {
                 <p className="text-zinc-300 text-lg leading-relaxed max-w-lg mb-7">{ES_PROMO.sub}</p>
                 <a href="#cotizar" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase px-8 py-5 hover:bg-orange-600 transition-colors">{ES_PROMO.cta} <ArrowRight className="w-5 h-5" /></a>
                 <p className="text-zinc-400 text-xs tracking-wide mt-3">{ES_UI.common.deposit} {ES_UI.common.payPlans}</p>
-                {giveaway && (
+                {giveaway && ES_PROMO.giveaway && (
                   <a href="#sorteo" className="mt-7 flex items-center gap-4 border border-[#E85D04]/50 bg-[#E85D04]/10 text-white px-5 py-4 max-w-lg hover:bg-[#E85D04]/20 transition-colors">
                     <Gift className="w-8 h-8 shrink-0 text-[#E85D04]" strokeWidth={1.75} />
                     <span>
@@ -95,7 +95,7 @@ export default function EsPromo() {
         </section>
 
         {/* Giveaway */}
-        {giveaway && (
+        {giveaway && ES_PROMO.giveaway && (
           <section id="sorteo" className="py-16 bg-[#0D0D0D] border-t border-zinc-800 scroll-mt-24">
             <div className="container max-w-5xl">
               <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-4">{ES_PROMO.giveaway.heading}</h2>

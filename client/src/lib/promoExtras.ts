@@ -34,21 +34,7 @@ export interface PromoExtras {
 
 export const PROMO_EXTRAS: Record<string, PromoExtras> = {
   "fall-2026": {
-    giveaway: {
-      name: "Fall Giveaway",
-      prize: "A full body PPF install on the winner's car, every painted panel, at no charge.",
-      entriesHeading: "WHO'S IN THE DRAWING",
-      drawingDate: "November 1, 2026",
-      rules: [
-        "Every Fall Special job completed and paid in full between October 1 and October 31, 2026 earns one entry.",
-        "One winner is drawn on November 1, 2026, announced on our Instagram, and contacted by phone and email.",
-        "The prize is a full body PPF install on the winner's vehicle in STEK DYNOshield. Approximate retail value: $8,500, varying with the vehicle's size and panel count. It has no cash value and cannot be transferred or exchanged.",
-        "No purchase necessary. To enter without booking, email info@skylinecustomshop.com with the subject \"Fall Giveaway\" and your name, phone number, and vehicle before October 31, 2026. One free entry per person.",
-        "Open to legal residents of Virginia, Maryland, and the District of Columbia who are 18 or older. Void where prohibited.",
-        "Sponsor: Skyline Customs, 4215 Walney Rd Suite 1A & B, Chantilly, VA 20151. Odds of winning depend on the number of entries received. The winner must respond within 7 days of notification or an alternate winner is drawn.",
-        "This promotion is not sponsored, endorsed or administered by, or associated with Meta, Facebook or Instagram.",
-      ],
-    },
+    // No giveaway this season: the finished-car grid runs on its own (see JuneSpecial.tsx).
     // heroVideo: { youtubeId: "XXXXXXXXXXX", caption: "Watch this first (90 seconds)" },
   },
 };
