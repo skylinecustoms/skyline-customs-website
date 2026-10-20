@@ -217,11 +217,21 @@ function WeDidItAgainBannerHome() {
 }
 
 // ---- Recent Cars Social Proof Section ------------------------------------
-/** Starts the hero reel only after the page has loaded, so the 1.3 MB video never delays first paint. */
+/**
+ * Starts the hero reel only after the page has loaded, so the 1.3 MB video never
+ * delays first paint. On phones (narrow viewports), on a data-saver connection,
+ * and for visitors who prefer reduced motion, the reel is never attached at all:
+ * the poster stays as a still, which keeps the mobile home page a 1.3 MB lighter
+ * download and the hero image the largest contentful paint.
+ */
 function HeroReel() {
   useEffect(() => {
     const v = document.getElementById("hero-reel") as HTMLVideoElement | null;
     if (!v) return;
+    const phone = window.matchMedia("(max-width: 767px)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
+    if (phone || reducedMotion || saveData) return;
     const start = () => {
       if (v.src) return;
       v.src = "/images/hero-reel_web.mp4";
@@ -426,7 +436,7 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background video */}
         <div className="absolute inset-0">
-          {/* Background reel plays on every device, phones included (poster shows while it loads). */}
+          {/* Background reel plays on tablets and desktops; phones show the poster as a still (see HeroReel). */}
           <video
             id="hero-reel"
             muted
@@ -438,7 +448,7 @@ export default function Home() {
             aria-label="Skyline Custom Shop technicians applying paint protection film and window tinting in Chantilly, VA"
             className="w-full h-full object-cover"
           >
-            {/* The mp4 is attached after the load event (see HeroReel) so the poster is the LCP on every device. */}
+            {/* The mp4 is attached after the load event on md+ screens only (see HeroReel) so the poster is the LCP on every device. */}
           </video>
           <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.005_285)]/92 via-[oklch(0.08_0.005_285)]/65 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.005_285)] via-transparent to-transparent" />

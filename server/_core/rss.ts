@@ -3,9 +3,26 @@
  * and Bing both use feeds to discover new URLs quickly, and the <link
  * rel="alternate"> in index.html points crawlers here.
  */
+import fs from "fs";
+import path from "path";
 import { getAllBlogPosts } from "../db";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
+const PUBLIC_DIR = path.resolve(import.meta.dirname, "public");
+
+/**
+ * The image a feed consumer should use. Google Business Profile posts (built from
+ * this feed by the Itachi bot) reject WebP, so a hero stored as .webp is swapped
+ * for its .jpg twin when one exists in client/public/images.
+ */
+function feedImage(heroImage: string): string {
+  if (heroImage.startsWith("http")) return heroImage;
+  if (heroImage.endsWith(".webp")) {
+    const jpg = heroImage.replace(/\.webp$/, ".jpg");
+    if (fs.existsSync(path.join(PUBLIC_DIR, jpg))) return `${BASE_URL}${jpg}`;
+  }
+  return `${BASE_URL}${heroImage}`;
+}
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 type Block = { type: string; content: string | string[] };
@@ -35,7 +52,7 @@ export async function buildRssFeed(): Promise<string> {
   const items = posts.map((p) => {
     const url = `${BASE_URL}/blog/${p.slug}`;
     const published = Number.isNaN(Date.parse(p.date)) ? new Date(p.createdAt) : new Date(p.date);
-    const image = p.heroImage.startsWith("http") ? p.heroImage : `${BASE_URL}${p.heroImage}`;
+    const image = feedImage(p.heroImage);
     return `    <item>
       <title>${esc(p.title)}</title>
       <link>${url}</link>
