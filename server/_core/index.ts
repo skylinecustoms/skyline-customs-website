@@ -180,6 +180,15 @@ async function startServer() {
     res.json(await getSeoTopics(req.query.refresh === "1"));
   });
 
+  // GA4 behavior: landing pages, devices, where leads happen, form funnel, hours, cities.
+  app.get("/api/seo/behavior", async (req, res) => {
+    const { getBehavior } = await import("../seoBehavior");
+    res.setHeader("Cache-Control", "no-store");
+    const days = Math.min(90, Math.max(7, Number(req.query.days) || 28));
+    try { res.json(await getBehavior(req.query.refresh === "1", days)); }
+    catch (err) { res.status(502).json({ error: (err as Error).message }); }
+  });
+
   app.get("/api/health", async (req, res) => {
     const has = (k: string) => Boolean((process.env[k] ?? "").trim());
     const listing = req.query.listing ? await getGoogleListing() : undefined;

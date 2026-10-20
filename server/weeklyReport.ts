@@ -48,11 +48,11 @@ export async function gsc(token: string, body: Record<string, unknown>): Promise
   return ((await r.json()) as { rows?: GscRow[] }).rows ?? [];
 }
 
-async function ga4(token: string, body: Record<string, unknown>): Promise<{ dimensionValues: { value: string }[]; metricValues: { value: string }[] }[]> {
+export async function ga4(token: string, body: Record<string, unknown>): Promise<{ dimensionValues: { value: string }[]; metricValues: { value: string }[] }[]> {
   const r = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${GA4_PROPERTY}:runReport`, {
     method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body),
   });
-  if (!r.ok) throw new Error(`Analytics ${r.status}`);
+  if (!r.ok) throw new Error(`Analytics ${r.status}: ${(await r.text()).slice(0, 300)}`);
   return ((await r.json()) as { rows?: { dimensionValues: { value: string }[]; metricValues: { value: string }[] }[] }).rows ?? [];
 }
 
