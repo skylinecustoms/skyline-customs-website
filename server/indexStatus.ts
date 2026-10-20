@@ -17,7 +17,7 @@ const KEY = "seo:index-status";
 const TTL_MS = 12 * 60 * 60 * 1000;
 const SITE = "sc-domain:skylinecustomshop.com";
 const SCOPES = ["https://www.googleapis.com/auth/webmasters.readonly"];
-const CONCURRENCY = 4;
+const CONCURRENCY = 8;
 
 export interface UrlIndexStatus {
   url: string;
@@ -53,10 +53,16 @@ async function readCache(): Promise<IndexStatusReport | null> {
   try { return rows[0]?.value ? (JSON.parse(rows[0].value) as IndexStatusReport) : null; } catch { return null; }
 }
 
+/** Last full result, kept in memory because the settings column cannot hold every URL's detail. */
+let lastReport: IndexStatusReport | null = null;
+
 async function writeCache(v: IndexStatusReport) {
+  lastReport = v;
   const db = await getDb();
   if (!db) return;
-  const value = JSON.stringify(v);
+  // The column holds about 64 KB: store the summary and the problem lists, not every indexed URL.
+  const value = JSON.stringify({ ...v, urls: [] });
+  if (value.length > 60_000) { console.warn("[index-status] summary too large to cache, kept in memory only"); return; }
   const existing = await db.select({ id: siteSettings.id }).from(siteSettings).where(eq(siteSettings.key, KEY)).limit(1);
   if (existing.length) await db.update(siteSettings).set({ value }).where(eq(siteSettings.key, KEY));
   else await db.insert(siteSettings).values({ key: KEY, value });
@@ -97,10 +103,10 @@ export type IndexStatusAnswer = IndexStatusReport | { status: "running"; started
 
 export async function getIndexStatus(force = false): Promise<IndexStatusAnswer> {
   if (job) return { status: "running", startedAt: job.startedAt, done: job.done, total: job.total };
-  const cached = force ? null : await readCache();
+  const cached = force ? null : (lastReport ?? (await readCache()));
   if (cached && Date.now() - Date.parse(cached.generatedAt) < TTL_MS) return cached;
   const started = { startedAt: new Date().toISOString(), done: 0, total: 0 };
-  const promise = runInspection(started).finally(() => { job = null; });
+  const promise = runInspection(started).catch((err) => { console.error("[index-status] failed:", err); throw err; }).finally(() => { job = null; });
   job = { ...started, promise };
   // Let the caller see progress; the result lands in the cache when the pass completes.
   return { status: "running", ...started };
