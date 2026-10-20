@@ -3,9 +3,11 @@
  *
  * Once a visitor has typed a first name and a valid phone number, the fields
  * are sent to contact.partial (tagged website-partial in the CRM) so the shop
- * can text them even if they never press submit. Fires once per form, after a
- * short pause in typing, and again on page close via a keepalive request if
- * the pause never came. The full submit later upgrades the same contact.
+ * can text them even if they never press submit. It only fires when the form
+ * is actually abandoned: the visitor leaves the page without submitting
+ * (keepalive request on pagehide) or goes quiet on the form for IDLE_MS with
+ * no submit. A visitor who fills the form in one go never touches the partial
+ * path, so the CRM's partial-lead workflow only sees real abandoners.
  */
 import { useEffect, useRef } from "react";
 import { trpc } from "@/lib/trpc";
@@ -24,6 +26,8 @@ export interface PartialFields {
 }
 
 const SESSION_KEY = "sc-lead-captured";
+/** No typing and no submit for this long counts as abandoning the form. */
+const IDLE_MS = 90_000;
 
 export const phoneDigits = (s: string) => s.replace(/\D/g, "");
 export const isValidPhone = (s: string) => { const d = phoneDigits(s); return d.length === 10 || (d.length === 11 && d.startsWith("1")); };
@@ -59,23 +63,24 @@ export function usePartialLead(formId: PartialFormId, fields: PartialFields, sub
   latest.current = fields;
   const mutation = trpc.contact.partial.useMutation();
 
-  // Debounced send once name + phone are usable.
+  // Idle on the form: the timer restarts on every keystroke, so it only fires
+  // when name + phone are usable and nothing has happened for IDLE_MS.
   useEffect(() => {
     if (sent.current || submitted) return;
     const ready = fields.firstName.trim().length >= 2 && isValidPhone(fields.phone);
     if (!ready) return;
     const t = window.setTimeout(async () => {
-      if (sent.current || latest.current !== fields) return;
+      if (sent.current || submitted || latest.current !== fields) return;
       sent.current = true;
       markLeadCaptured();
       const journey = await leadJourney();
       mutation.mutate({ ...cleanFields(fields), formId, page: window.location.pathname, journey });
-      track("lead_partial", { form_id: formId, service: fields.service ?? "" });
-    }, 2500);
+      track("lead_partial", { form_id: formId, service: fields.service ?? "", reason: "idle" });
+    }, IDLE_MS);
     return () => window.clearTimeout(t);
-  }, [fields.firstName, fields.phone, fields.email, fields.lastName, submitted]);
+  }, [fields.firstName, fields.phone, fields.email, fields.lastName, fields.service, submitted]);
 
-  // Page closing before the pause elapsed: send what we have with keepalive.
+  // Leaving the page without submitting: send what we have with keepalive.
   useEffect(() => {
     const onHide = () => {
       if (sent.current || submitted) return;
@@ -90,11 +95,13 @@ export function usePartialLead(formId: PartialFormId, fields: PartialFields, sub
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ json: { ...cleanFields(f), formId, page: window.location.pathname } }),
         }).catch(() => {});
+        track("lead_partial", { form_id: formId, service: f.service ?? "", reason: "left" });
       } catch { /* ignore */ }
     };
     window.addEventListener("pagehide", onHide);
     return () => window.removeEventListener("pagehide", onHide);
   }, [formId, submitted]);
 
+  // The real lead is in: nothing partial goes out after this.
   useEffect(() => { if (submitted) { sent.current = true; markLeadCaptured(); } }, [submitted]);
 }

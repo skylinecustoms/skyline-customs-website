@@ -21,6 +21,7 @@ import { ES_PAGES, ES_PROMO } from "../../client/src/lib/es";
 import { COMPARISON_PAGES } from "../../client/src/lib/comparisons";
 import { BODY_TYPE_PAGES } from "../../client/src/lib/bodyTypePages";
 import { FULL_FRONT_GUIDE } from "../../client/src/lib/fullFrontGuide";
+import { EXOTIC_CERAMIC } from "../../client/src/lib/exoticCeramic";
 import { CERAMIC_GUIDE } from "../../client/src/lib/ceramicGuide";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
@@ -78,8 +79,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/services`,
   },
   "/services/ppf": {
-    title: "Full Front PPF in Chantilly, VA | Paint Protection Film | STEK",
-    description: "Full front paint protection film in Chantilly, VA: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. Partial and extended options. Free quotes.",
+    title: "Full Front PPF in Chantilly, VA | Paint Protection Film Near You | STEK",
+    description: "Full front paint protection film near you in Chantilly, VA: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 140+ five-star reviews. Partial and extended options. Free quotes.",
     canonical: `${BASE_URL}/services/ppf`,
   },
   "/ppf-cost": {
@@ -88,8 +89,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/ppf-cost`,
   },
   "/services/ceramic-coating": {
-    title: `Ceramic Coating Services | ${SITE_NAME}`,
-    description: "Professional ceramic coating in Chantilly, VA. Nano-ceramic protection, hydrophobic barrier, UV defense. 5.0 stars on Google. Free quotes.",
+    title: "Ceramic Coating in Chantilly, VA | Northern Virginia's Top-Rated Coating Shop",
+    description: "Professional ceramic coating near you in Chantilly, VA: paint correction first, then Gtechniq Crystal Serum Light (5-year) or Ultra (7-year). 140+ five-star Google reviews. Drivers from Fairfax, Loudoun, and Prince William. Free quotes.",
     canonical: `${BASE_URL}/services/ceramic-coating`,
   },
   "/services/window-tinting": {
@@ -694,6 +695,7 @@ for (const b of BODY_TYPE_PAGES) {
 for (const a of AUDIENCE_PAGES) {
   if (!STATIC_META[a.path]) STATIC_META[a.path] = { title: a.seoTitle, description: a.seoDescription, canonical: `${BASE_URL}${a.path}` };
 }
+STATIC_META["/exotic-car-ceramic-coating"] = { title: EXOTIC_CERAMIC.title, description: EXOTIC_CERAMIC.description, canonical: `${BASE_URL}/exotic-car-ceramic-coating`, ogImage: EXOTIC_CERAMIC.hero };
 STATIC_META["/ceramic-coating-guide"] = { title: CERAMIC_GUIDE.title, description: CERAMIC_GUIDE.description, canonical: `${BASE_URL}/ceramic-coating-guide`, ogImage: "/images/ceramic_1_53c9aefc.webp", ogType: "article" };
 STATIC_META["/full-front-ppf"] = { title: FULL_FRONT_GUIDE.title, description: FULL_FRONT_GUIDE.description, canonical: `${BASE_URL}/full-front-ppf`, ogImage: "/images/toyota-4runner-trailhunter-2026-full-front-ppf-ceramic-coating-chantilly-va.jpg", ogType: "article" };
 STATIC_META["/promo-ceramic"] = { title: "$995 Ceramic Coating Special in Chantilly, VA | Glass + Wheels Free", description: "System X ceramic coating for $995 with free glass coating and free wheel coating. 9H hardness, SGS lab certified, 6-year transferable warranty. Limited install slots this month at Skyline Customs, Chantilly, VA.", canonical: `${BASE_URL}/promo-ceramic`, ogImage: "/images/ceramic_1_53c9aefc.webp", preloadImage: "/images/ceramic_1_53c9aefc.webp" };

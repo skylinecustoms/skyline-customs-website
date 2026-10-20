@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
 import CompareLinks from "@/components/CompareLinks";
+import NearMeBlock from "@/components/NearMeBlock";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import { responsiveImage } from "@/lib/responsiveImage";
@@ -86,7 +87,7 @@ const process = [
 const faqs = [
   {
     q: "What are Virginia's window tint laws?",
-    a: "In Virginia, front side windows must allow more than 50% light transmission (VLT). Rear side windows and the rear window can be any darkness. We ensure all installations are compliant with state law.",
+    a: "In Virginia, front side windows must allow more than 50% light transmission (VLT) on every vehicle. On a sedan, the rear side windows and back glass must be 35% or lighter; on an SUV, truck, or van, any darkness is legal behind the front doors. Windshields may only carry a strip above the AS-1 line, and nothing may be more than 20% reflective. Every install we do is metered and legal.",
   },
   {
     q: "What is ceramic tint vs. regular tint?",
@@ -384,7 +385,7 @@ export default function ServiceTint() {
 
           {/* Shade Selector */}
           <div>
-            <p className="text-zinc-400 text-xs uppercase tracking-widest mb-4">Available Shades — Virginia front windows must be 50%+ VLT</p>
+            <p className="text-zinc-400 text-xs uppercase tracking-widest mb-4">Available Shades — Virginia front windows must be 50%+ VLT (<Link href="/blog/virginia-window-tint-laws-2026" className="text-[#E85D04] underline underline-offset-2">full 2026 tint law guide</Link>)</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
               {shades.map((s, i) => (
                 <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-4 text-center hover:border-zinc-600 transition-colors">
@@ -445,6 +446,10 @@ export default function ServiceTint() {
               </div>
             ))}
           </div>
+          <p className="text-zinc-400 text-sm mt-8">
+            Want the full rules, including SUV rear glass, 5% limo tint, medical exemptions, and fines? Read{" "}
+            <Link href="/blog/virginia-window-tint-laws-2026" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">Legal Tint in VA: the 2026 Virginia window tint laws</Link>.
+          </p>
         </div>
       </section>
 
@@ -469,6 +474,7 @@ export default function ServiceTint() {
       </section>
 
       <LocalBanner localHref="/service-areas" serviceName="Window Tinting" />
+      <NearMeBlock service="tint" />
       <CompareLinks />
       <ServiceCityLinks service="tint" />
       </main>

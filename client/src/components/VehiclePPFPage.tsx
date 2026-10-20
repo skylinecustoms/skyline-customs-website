@@ -114,7 +114,10 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
               <div key={m.name} className="bg-[#0D0D0D] p-6 hover:bg-[#111] transition-colors flex flex-col">
                 <h3 className="text-white font-semibold text-lg">{m.name}</h3>
                 <p className="text-zinc-400 text-sm mt-1 flex-1">{m.note}</p>
-                <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}&model=${encodeURIComponent(m.name)}`} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white mt-4">Quote my {m.name} →</Link>
+                <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4">
+                  <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}&model=${encodeURIComponent(m.name)}`} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white">Quote my {m.name} →</Link>
+                  {m.href && <Link href={m.href} className="text-zinc-400 text-xs font-bold tracking-widest uppercase hover:text-white underline underline-offset-2 decoration-1">Model guide</Link>}
+                </div>
               </div>
             ))}
           </div>

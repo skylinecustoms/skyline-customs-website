@@ -14,6 +14,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
 import CompareLinks from "@/components/CompareLinks";
+import NearMeBlock from "@/components/NearMeBlock";
 import VehicleLinks from "@/components/VehicleLinks";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
@@ -97,8 +98,8 @@ export default function ServicePPF() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Full Front PPF in Chantilly, VA | Paint Protection Film | STEK"
-        description="Full front paint protection film in Chantilly, VA: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. Partial and extended options. Free quotes."
+        title="Full Front PPF in Chantilly, VA | Paint Protection Film Near You | STEK"
+        description="Full front paint protection film near you in Chantilly, VA: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 140+ five-star reviews. Partial and extended options. Free quotes."
         canonical={`${BASE_URL}/services/ppf`}
         jsonLd={[
           {
@@ -494,6 +495,7 @@ export default function ServicePPF() {
       </section>
 
       <VehicleLinks />
+      <NearMeBlock service="ppf" />
       <CompareLinks />
 
       {/* PPF reading */}

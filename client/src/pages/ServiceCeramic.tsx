@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
 import CompareLinks from "@/components/CompareLinks";
+import NearMeBlock from "@/components/NearMeBlock";
 import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -183,8 +184,8 @@ export default function ServiceCeramic() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Ceramic Coating | Chantilly VA"
-        description="Professional ceramic coating in Chantilly, VA. 2, 5, and 7-year packages with a Lifetime Craftsmanship Warranty. Book a free consultation today."
+        title="Ceramic Coating in Chantilly, VA | Northern Virginia's Top-Rated Coating Shop"
+        description="Professional ceramic coating near you in Chantilly, VA: paint correction first, then Gtechniq Crystal Serum Light (5-year) or Ultra (7-year). 140+ five-star Google reviews. Drivers from Fairfax, Loudoun, and Prince William. Free quotes."
         canonical="https://www.skylinecustomshop.com/services/ceramic-coating"
         jsonLd={[
           {
@@ -322,7 +323,7 @@ export default function ServiceCeramic() {
               </Link>
               <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">Limited slots this month</span> · Ends {endOfMonth()}</p>
               <LeadPulse className="mt-2" />
-              <p className="text-zinc-500 text-xs mt-3 text-center">New to coatings? <Link href="/ceramic-coating-guide" className="text-[#E85D04] underline underline-offset-2">Read the complete ceramic coating guide</Link>.</p>
+              <p className="text-zinc-500 text-xs mt-3 text-center">New to coatings? <Link href="/ceramic-coating-guide" className="text-[#E85D04] underline underline-offset-2">Read the complete ceramic coating guide</Link>. Exotic or luxury car? <Link href="/exotic-car-ceramic-coating" className="text-[#E85D04] underline underline-offset-2">See how we coat them</Link>.</p>
             </aside>
           </div>
         </div>
@@ -482,6 +483,7 @@ export default function ServiceCeramic() {
       </section>
 
       <LocalBanner localHref="/service-areas" serviceName="Ceramic Coating" />
+      <NearMeBlock service="ceramic" />
       <CompareLinks />
       <ServiceCityLinks service="ceramic" />
       </main>

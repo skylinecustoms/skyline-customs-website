@@ -65,6 +65,7 @@ export default function Footer() {
                 { label: "Full Front PPF", href: "/services/ppf" },
                 { label: "Full Front PPF Guide", href: "/full-front-ppf" },
                 { label: "Ceramic Coating Guide", href: "/ceramic-coating-guide" },
+                { label: "Exotic & Luxury Ceramic Coating", href: "/exotic-car-ceramic-coating" },
                 { label: "PPF Cost Guide", href: "/ppf-cost" },
                 { label: "Tesla PPF", href: "/tesla-ppf" },
                 { label: "PPF vs Ceramic Coating", href: "/ppf-vs-ceramic-coating" },

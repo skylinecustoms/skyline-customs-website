@@ -12,6 +12,7 @@
  *   generate_lead        * quote form, contact form, promo waitlist, or AI assistant hand-off
  *   form_error             a lead form submit failed
  *   phone_call           * tap on a tel: link
+ *   sms_click            * tap on an sms: link (the floating "text us" button, the promo pages)
  *   email_click            tap on a mailto: link
  *   get_directions         tap on a Google Maps link
  *   booking_open           booking modal opened
@@ -298,6 +299,7 @@ export function installEngagementTracking() {
       const href = a.getAttribute("href") ?? "";
       const base = { link_text: clean(a.textContent) || clean(a.getAttribute("aria-label")), cta_location: locationOf(a) };
       if (href.startsWith("tel:")) { track("phone_call", { phone_number: href.replace("tel:", ""), ...base }); return; }
+      if (href.startsWith("sms:")) { track("sms_click", { phone_number: href.replace("sms:", "").split("?")[0], ...base }); return; }
       if (href.startsWith("mailto:")) { track("email_click", base); return; }
       if (/maps\.google\.|google\.com\/maps|maps\.app\.goo|\/maps\?/.test(href)) { track("get_directions", base); return; }
       if (/^\/get-a-quote(\?|$)/.test(href) || a.dataset.cta) {

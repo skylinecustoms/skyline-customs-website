@@ -79,6 +79,7 @@ const EsPromo = lazy(() => import("./pages/EsPromo"));
 const FleetPPF = lazy(() => import("./pages/FleetPPF"));
 const FullFrontPPF = lazy(() => import("./pages/FullFrontPPF"));
 const CeramicGuide = lazy(() => import("./pages/CeramicGuide"));
+const ExoticCeramic = lazy(() => import("./pages/ExoticCeramic"));
 const CeramicPromo = lazy(() => import("./pages/CeramicPromo"));
 const ComparisonPageLazy = lazy(() => import("./components/ComparisonPage"));
 const VehiclePPFPageLazy = lazy(() => import("./components/VehiclePPFPage"));
@@ -119,6 +120,7 @@ function Router() {
       <Route path={"/fleet-ppf"} component={FleetPPF} />
       <Route path={"/full-front-ppf"} component={FullFrontPPF} />
       <Route path={"/ceramic-coating-guide"} component={CeramicGuide} />
+      <Route path={"/exotic-car-ceramic-coating"} component={ExoticCeramic} />
       <Route path={"/promo-ceramic"} component={CeramicPromo} />
       <Route path={"/es"}><Redirect to="/es/ppf" /></Route>
       <Route path={"/bmw-ppf"} component={BmwPPF} />

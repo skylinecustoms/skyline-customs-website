@@ -18,7 +18,7 @@ export interface VehicleBrand {
   bodyType?: "truck" | "suv" | "sports" | "ev" | "sedan";
   /** YouTube IDs from lib/videos.ts relevant to this brand */
   videoIds: string[];
-  models: { name: string; cls: VehicleClass; note: string }[];
+  models: { name: string; cls: VehicleClass; note: string; /** Model page, when one exists (/bmw-x5-ppf). */ href?: string }[];
   reasons: { title: string; desc: string }[];
   faqs: { q: string; a: string }[];
 }
@@ -38,12 +38,13 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     photoMatch: /bmw/i,
     videoIds: ["ZvVdjXH06ug"],
     models: [
-      { name: "3 Series / M3", cls: "sedan", note: "Low nose and wide kidney grille surround chip first." },
+      { name: "3 Series / M340i / M3", cls: "sedan", note: "Low nose and wide kidney grille surround chip first.", href: "/bmw-m340i-ppf" },
       { name: "5 Series / M5", cls: "sedan", note: "Long hood collects highway debris on the Toll Road." },
-      { name: "4 Series / M4", cls: "sedan", note: "Aggressive front bumper edges and splitters." },
+      { name: "4 Series / M4 / 8 Series", cls: "sedan", note: "Aggressive front bumper edges and splitters; the M850i's wide lower intakes sandblast first." },
       { name: "X3 / X4", cls: "suv", note: "Tall front end takes hits square on." },
-      { name: "X5 / X6 / X7", cls: "suv", note: "Big hood, big mirrors, big targets." },
-      { name: "iX / i4 / i5", cls: "suv", note: "Protect the paint and the resale on a new EV." },
+      { name: "X5 / X6 / X7", cls: "suv", note: "Big hood, big mirrors, big targets.", href: "/bmw-x5-ppf" },
+      { name: "iX / i4 / i5", cls: "suv", note: "Protect the paint and the resale on a new EV.", href: "/bmw-ix-ppf" },
+      { name: "Z4", cls: "sedan", note: "Long clamshell hood and a low splitter on a weekend car that still sees I-66." },
     ],
     reasons: [
       { title: "M-Specific Patterns", desc: "Computer-cut patterns for M bumpers, splitters, and mirror caps, not generic templates trimmed on the car." },
@@ -52,6 +53,9 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
     ],
     faqs: [
       { q: "Does PPF affect BMW's warranty?", a: "No. Paint protection film is a removable product that does not alter the vehicle or its paint. It has no effect on BMW's new-vehicle or paint warranty." },
+      { q: "Which BMWs do you film most often in Northern Virginia?", a: "The M340i, X5, iX, and M850i lead, followed by the X3, 5 Series, and M3 and M4. Every one gets a computer-cut STEK DYNOshield pattern for its exact bumper, grille surround, and mirror caps, so there is no hand-trimming on the paint." },
+      { q: "Should I film the kidney grille surround and the headlights?", a: "Yes, both are in every full front package. The grille surround on current 3, 4, and X models is the first panel to show chips, and the headlights on an M car are expensive; the film covers them in the same self-healing layer as the hood and bumper." },
+      { q: "I lease my BMW. Is PPF still worth it?", a: "Often more so. The film takes the chips for the lease term and peels off cleanly at turn-in, so the car goes back with factory paint and no excess-wear charge for a sandblasted bumper. Most lease customers choose full front for that reason." },
       { q: "Can you protect frozen or matte BMW paint?", a: "Yes. We use stealth (matte) STEK film that preserves the satin look of BMW Individual frozen colors while adding the same self-healing protection." },
       { q: "How much does BMW PPF cost?", a: "Pricing depends on the vehicle and how much you cover, and we confirm every number at an in-person inspection. Send us the year, make, model, and the coverage you want through the free quote form and we reply with an exact price, usually within the hour." },
       shared.install, shared.warranty, shared.ceramic,
