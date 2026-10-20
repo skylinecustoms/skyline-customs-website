@@ -90,20 +90,37 @@ async function inspect(token: string, url: string, lastmod: string): Promise<Url
   }
 }
 
-export async function getIndexStatus(force = false): Promise<IndexStatusReport> {
+/** The inspection runs in the background: a full pass takes a few minutes, longer than the edge keeps a request open. */
+let job: { startedAt: string; done: number; total: number; promise: Promise<IndexStatusReport> } | null = null;
+
+export type IndexStatusAnswer = IndexStatusReport | { status: "running"; startedAt: string; done: number; total: number };
+
+export async function getIndexStatus(force = false): Promise<IndexStatusAnswer> {
+  if (job) return { status: "running", startedAt: job.startedAt, done: job.done, total: job.total };
   const cached = force ? null : await readCache();
   if (cached && Date.now() - Date.parse(cached.generatedAt) < TTL_MS) return cached;
+  const started = { startedAt: new Date().toISOString(), done: 0, total: 0 };
+  const promise = runInspection(started).finally(() => { job = null; });
+  job = { ...started, promise };
+  // Let the caller see progress; the result lands in the cache when the pass completes.
+  return { status: "running", ...started };
+}
 
+async function runInspection(progress: { done: number; total: number }): Promise<IndexStatusReport> {
   const token = await googleToken(SCOPES);
   if (!token) return { generatedAt: new Date().toISOString(), total: 0, byState: [], notIndexed: [], canonicalMismatch: [], urls: [], note: "Google key not configured (GOOGLE_INDEXING_SA_JSON)." };
 
   const entries = await sitemapEntries();
+  progress.total = entries.length;
+  if (job) job.total = entries.length;
   const urls: UrlIndexStatus[] = new Array(entries.length);
   let next = 0;
   await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
     while (next < entries.length) {
       const i = next++;
       urls[i] = await inspect(token, entries[i].url, entries[i].lastmod);
+      progress.done++;
+      if (job) job.done = progress.done;
     }
   }));
 
