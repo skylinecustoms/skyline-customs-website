@@ -38,6 +38,22 @@ function escapeXml(s: string): string {
 
 const LASTMOD_KEY = "sitemapLastmod";
 type LastmodEntry = { hash: string; lastmod: string };
+
+/**
+ * The part of a rendered page that counts as content for lastmod. Script blocks
+ * (hashed asset names, the dehydrated query state with its fetch timestamps),
+ * stylesheet links, and preload hints change with every build or request; if
+ * they were hashed, every page would get today's date after every deploy, the
+ * daily push would re-send the whole site, and Google would learn to ignore
+ * the sitemap's dates.
+ */
+function contentOnly(html: string): string {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/<link\b[^>]*\/assets\/[^>]*>/gi, "")
+    .replace(/\/assets\/[A-Za-z0-9_.-]+/g, "/assets/x")
+    .replace(/\s+/g, " ");
+}
 let lastmodCache: { at: number; map: Map<string, string> } | null = null;
 
 async function pageLastmods(paths: string[]): Promise<Map<string, string>> {
@@ -59,7 +75,7 @@ async function pageLastmods(paths: string[]): Promise<Map<string, string>> {
   for (const path of paths) {
     const html = await renderPage(path);
     if (!html) { map.set(path, stored[path]?.lastmod ?? SITEMAP_META[path]?.lastmod ?? SITE_UPDATED); continue; }
-    const hash = createHash("sha1").update(html).digest("hex");
+    const hash = createHash("sha1").update(contentOnly(html)).digest("hex");
     const prev = stored[path];
     if (!prev) {
       // First time we hash this page: it is being tracked from today.

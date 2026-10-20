@@ -34,7 +34,6 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription,
   // Same note the quote page prefilled from promo links, so the CRM note and text read the same.
   const promoNote = `I'm interested in the ${promoTitle} — ${dealDescription}. Please contact me to claim my spot.`;
   const [form, setForm] = useState({ firstName: "", lastName: "", phone: "", email: "", year: "", make: "", model: "", message: promoNote });
-  const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [contactId, setContactId] = useState<string | null>(null);
@@ -58,7 +57,6 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription,
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
-    if (!agreed) { setErrorMsg("Please agree to the Terms of Service before submitting."); return; }
     const journey = await leadJourney();
     submit.mutate({
       firstName: form.firstName,
@@ -119,8 +117,8 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription,
       </div>
       <div className="grid grid-cols-3 gap-5">
         <div>
-          <label className={label}>Year *</label>
-          <input type="number" required min={1950} max={2030} value={form.year} onChange={set("year")} className={input} placeholder="2024" />
+          <label className={label}>Year</label>
+          <input type="number" min={1950} max={2030} value={form.year} onChange={set("year")} className={input} placeholder="2024" />
         </div>
         <div>
           <label className={label}>Make *</label>
@@ -137,23 +135,17 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription,
         <textarea rows={3} value={form.message} onChange={set("message")} className={input} placeholder={promoNote} />
       </div>
 
-      <label className={`flex items-start gap-3 cursor-pointer p-2 border transition-colors ${agreed ? "border-[#E85D04]/40 bg-[#E85D04]/5" : "border-zinc-700"}`}>
-        <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 w-4 h-4 accent-[#E85D04] shrink-0 cursor-pointer" />
-        <span className="text-xs text-zinc-400 leading-relaxed">
-          <span className="text-red-400 font-bold mr-1">*</span>
-          I have read and agree to Skyline Customs'{" "}
-          <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2" onClick={(e) => e.stopPropagation()}>
-            Terms of Service &amp; Warranty Policy
-          </a>
-          , including the aftercare guidelines and warranty terms.
-        </span>
-      </label>
+      <p className="text-xs text-zinc-500 leading-relaxed">
+        By requesting a quote you agree to Skyline Customs'{" "}
+        <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">Terms of Service &amp; Warranty Policy</a>.
+        Nothing is booked and nothing is charged until you approve your quote.
+      </p>
 
       {errorMsg && <p className="text-red-400 text-sm">{errorMsg}</p>}
 
       <button
         type="submit"
-        disabled={submit.isPending || !agreed}
+        disabled={submit.isPending}
         className="w-full bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {submit.isPending ? "SENDING..." : buttonLabel}

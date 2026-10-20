@@ -11,7 +11,7 @@ import { eq } from "drizzle-orm";
 import { getDb } from "./db";
 import { siteSettings } from "../drizzle/schema";
 import { googleToken } from "../scripts/lib/search-ping.mjs";
-import { sitemapEntries } from "./searchIndexing";
+import { sitemapEntries, runIndexingSweep } from "./searchIndexing";
 
 const KEY = "seo:index-status";
 const TTL_MS = 12 * 60 * 60 * 1000;
@@ -55,6 +55,29 @@ async function readCache(): Promise<IndexStatusReport | null> {
 
 /** Last full result, kept in memory because the settings column cannot hold every URL's detail. */
 let lastReport: IndexStatusReport | null = null;
+
+/** Sitemap URLs the last inspection found not indexed (excluding intended duplicates), for the daily push. */
+export function notIndexedUrls(): string[] {
+  const r = lastReport ?? cachedAtBoot;
+  if (!r) return [];
+  return r.notIndexed.filter((u) => !u.error && !/^Duplicate/.test(u.coverageState)).map((u) => u.url);
+}
+let cachedAtBoot: IndexStatusReport | null = null;
+
+/** Inspect every page once a day, then push whatever Google has not indexed. */
+export function startIndexStatusScheduler() {
+  if (!process.env.DATABASE_URL) return;
+  void readCache().then((c) => { cachedAtBoot = c; });
+  const run = async () => {
+    try {
+      const answer = await getIndexStatus(false);
+      if ("status" in answer && job) await job.promise;
+      await runIndexingSweep({ max: 60 });
+    } catch (err) { console.warn("[index-status] daily pass failed:", (err as Error).message); }
+  };
+  setTimeout(() => { void run(); }, 6 * 60 * 1000).unref();
+  setInterval(() => { void run(); }, 24 * 60 * 60 * 1000).unref();
+}
 
 async function writeCache(v: IndexStatusReport) {
   lastReport = v;

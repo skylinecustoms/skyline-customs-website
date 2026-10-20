@@ -219,8 +219,16 @@ function debugMode(): boolean {
   }
 }
 
+/** True for automated browsers: ad-preview renderers, link scanners, headless crawlers. */
+function isAutomated(): boolean {
+  try {
+    if (navigator.webdriver) return true;
+    return /bot|crawl|spider|headless|preview|scan|lighthouse|facebookexternalhit|slurp|duckduck|yandex|petalbot|semrush|ahrefs|mj12|dataprovider/i.test(navigator.userAgent);
+  } catch { return false; }
+}
+
 export function track(event: string, params: Record<string, unknown> = {}) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined" || isAutomated()) return;
   try {
     const path = window.location.pathname;
     window.gtag?.("event", event, {
