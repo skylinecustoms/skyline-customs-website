@@ -180,6 +180,14 @@ async function startServer() {
     res.json(await getSeoTopics(req.query.refresh === "1"));
   });
 
+  // Google index status of every sitemap URL (URL Inspection API, cached 12 h; ?refresh=1 re-inspects).
+  app.get("/api/seo/index-status", async (req, res) => {
+    const { getIndexStatus } = await import("../indexStatus");
+    res.setHeader("Cache-Control", "no-store");
+    try { res.json(await getIndexStatus(req.query.refresh === "1")); }
+    catch (err) { res.status(502).json({ error: (err as Error).message }); }
+  });
+
   // GA4 behavior: landing pages, devices, where leads happen, form funnel, hours, cities.
   app.get("/api/seo/behavior", async (req, res) => {
     const { getBehavior } = await import("../seoBehavior");
