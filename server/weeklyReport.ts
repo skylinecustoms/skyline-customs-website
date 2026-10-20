@@ -57,6 +57,16 @@ async function ga4(token: string, body: Record<string, unknown>): Promise<{ dime
 }
 
 /** Builds the Telegram HTML message. Each section degrades on its own if a source fails. */
+/** The GA4 key events, in the order they appear in the report. Keep in step with client/src/lib/analytics.ts. */
+const LEAD_EVENTS = [
+  { name: "phone_call", label: "Phone calls" },
+  { name: "sms_click", label: "Text messages" },
+  { name: "generate_lead", label: "Form leads" },
+  { name: "lead_partial", label: "Abandoned forms saved" },
+  { name: "get_directions", label: "Directions taps" },
+  { name: "booking_service_select", label: "Booking calendar opens" },
+];
+
 export async function buildWeeklyReport(): Promise<string> {
   const token = await googleToken(SCOPES);
   const lines: string[] = [];
@@ -100,6 +110,28 @@ export async function buildWeeklyReport(): Promise<string> {
       const top = Array.from(cur.entries()).sort((a, b) => b[1][1] - a[1][1] || b[1][0] - a[1][0]).slice(0, 6);
       lines.push(...top.map(([ch, [s, k]]) => `• ${esc(ch)} — ${plural(s, "session")}, ${plural(k, "lead")}`));
     } catch (err) { lines.push("", `Analytics: ${(err as Error).message}`); }
+
+    // --- Leads by action (the GA4 key events, this week vs last) ---
+    try {
+      const rows = await ga4(token, {
+        dateRanges: [{ startDate: "7daysAgo", endDate: "yesterday" }, { startDate: "14daysAgo", endDate: "8daysAgo" }],
+        dimensions: [{ name: "eventName" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: { filter: { fieldName: "eventName", inListFilter: { values: LEAD_EVENTS.map((e) => e.name) } } },
+        limit: 50,
+      });
+      const cur = new Map<string, number>(), prev = new Map<string, number>();
+      for (const r of rows) {
+        const range = r.dimensionValues[1]?.value ?? "date_range_0";
+        (range === "date_range_0" ? cur : prev).set(r.dimensionValues[0].value, Number(r.metricValues[0].value));
+      }
+      const total = (m: Map<string, number>) => Array.from(m.values()).reduce((a, b) => a + b, 0);
+      lines.push("", "<b>Leads by action (GA4)</b>", `Total: <b>${n(total(cur))}</b> (${pct(total(cur), total(prev))} vs prior week)`);
+      for (const e of LEAD_EVENTS) {
+        const c = cur.get(e.name) ?? 0, p = prev.get(e.name) ?? 0;
+        if (c || p) lines.push(`• ${e.label}: <b>${n(c)}</b>${p ? ` (was ${n(p)})` : " (new)"}`);
+      }
+    } catch (err) { lines.push("", `Lead events: ${(err as Error).message}`); }
   }
 
   // --- Indexing sweep ---
