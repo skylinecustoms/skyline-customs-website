@@ -440,21 +440,25 @@ export default function Home() {
           <div className="hero-glow md:hidden" aria-hidden="true">
             <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 28px, #E85D04 28px, #E85D04 29px)" }} />
           </div>
-          <img
-            src="/images/hero-still-landscape.jpg"
-            alt="Black Corvette C8 Z06 with full front paint protection film in the Skyline Customs bay in Chantilly, VA"
-            width={1600}
-            height={900}
-            decoding="async"
-            className="hidden md:block absolute inset-0 w-full h-full object-cover"
-          />
+          {/* <picture> on purpose: React would otherwise emit a preload for the still on every device, and the
+              phone branch falls through to a 1x1 so no image is downloaded there at all. */}
+          <picture>
+            <source media="(min-width: 768px)" srcSet="/images/hero-still-landscape.jpg" />
+            <img
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              alt="Black Corvette C8 Z06 with full front paint protection film in the Skyline Customs bay in Chantilly, VA"
+              width={1600}
+              height={900}
+              decoding="async"
+              className="hidden md:block absolute inset-0 w-full h-full object-cover"
+            />
+          </picture>
           <video
             id="hero-reel"
             muted
             loop
             playsInline
             preload="none"
-            poster="/images/hero-still-landscape.jpg"
             title="Skyline Custom Shop — PPF, Ceramic Coating & Window Tinting in Chantilly, VA"
             aria-label="Skyline Custom Shop technicians applying paint protection film and window tinting in Chantilly, VA"
             className="hidden md:block absolute inset-0 w-full h-full object-cover"
