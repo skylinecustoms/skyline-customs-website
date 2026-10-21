@@ -389,3 +389,40 @@
   .marquee { overflow-x: auto; }
   .marquee-track { animation: none; }
 }
+
+/* Home hero on phones: a slow-moving orange glow instead of a photo or the reel.
+   Two blurred radial blobs drift on transform only (cheap on the GPU, nothing to download). */
+@keyframes hero-glow-a {
+  0%   { transform: translate3d(-18%, -10%, 0) scale(1); }
+  50%  { transform: translate3d(22%, 18%, 0) scale(1.25); }
+  100% { transform: translate3d(-18%, -10%, 0) scale(1); }
+}
+@keyframes hero-glow-b {
+  0%   { transform: translate3d(20%, 30%, 0) scale(1.1); }
+  50%  { transform: translate3d(-15%, -12%, 0) scale(0.9); }
+  100% { transform: translate3d(20%, 30%, 0) scale(1.1); }
+}
+.hero-glow { position: absolute; inset: 0; overflow: hidden; background: #0a0a0a; }
+.hero-glow::before,
+.hero-glow::after {
+  content: "";
+  position: absolute;
+  width: 120vw;
+  height: 120vw;
+  border-radius: 9999px;
+  filter: blur(60px);
+  will-change: transform;
+}
+.hero-glow::before {
+  left: -30vw; top: -20vw;
+  background: radial-gradient(circle at center, rgba(232, 93, 4, 0.9) 0%, rgba(232, 93, 4, 0.35) 35%, transparent 65%);
+  animation: hero-glow-a 18s ease-in-out infinite;
+}
+.hero-glow::after {
+  right: -40vw; bottom: -30vw;
+  background: radial-gradient(circle at center, rgba(255, 140, 40, 0.75) 0%, rgba(232, 93, 4, 0.28) 40%, transparent 65%);
+  animation: hero-glow-b 24s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow::before, .hero-glow::after { animation: none; }
+}

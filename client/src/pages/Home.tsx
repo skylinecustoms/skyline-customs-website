@@ -436,20 +436,18 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background video */}
         <div className="absolute inset-0">
-          {/* The still is the largest contentful paint on every device: a real customer car in our bay, a portrait
-              crop on phones and a landscape crop on larger screens. The reel sits on top on md+ only (see HeroReel). */}
-          <picture>
-            <source media="(max-width: 767px)" srcSet="/images/hero-still-portrait.jpg" />
-            <img
-              src="/images/hero-still-landscape.jpg"
-              alt="Black Corvette C8 Z06 with full front paint protection film in the Skyline Customs bay in Chantilly, VA"
-              width={1600}
-              height={900}
-              fetchPriority="high"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover object-[center_85%] md:object-center"
-            />
-          </picture>
+          {/* Phones: a slow orange glow (CSS only, nothing to download). md+: the Corvette still under the reel. */}
+          <div className="hero-glow md:hidden" aria-hidden="true">
+            <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 28px, #E85D04 28px, #E85D04 29px)" }} />
+          </div>
+          <img
+            src="/images/hero-still-landscape.jpg"
+            alt="Black Corvette C8 Z06 with full front paint protection film in the Skyline Customs bay in Chantilly, VA"
+            width={1600}
+            height={900}
+            decoding="async"
+            className="hidden md:block absolute inset-0 w-full h-full object-cover"
+          />
           <video
             id="hero-reel"
             muted
@@ -463,10 +461,10 @@ export default function Home() {
           >
             {/* The mp4 is attached after the load event on md+ screens only (see HeroReel). */}
           </video>
-          <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.005_285)]/92 via-[oklch(0.08_0.005_285)]/65 to-transparent" />
-          {/* Phones: fade the bay ceiling at the top so the car's hood and headlights carry the frame under the headline. */}
-          <div className="md:hidden absolute inset-0 bg-gradient-to-b from-[oklch(0.08_0.005_285)] via-[oklch(0.08_0.005_285)]/30 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.005_285)] via-transparent to-transparent" />
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.005_285)]/92 via-[oklch(0.08_0.005_285)]/65 to-transparent" />
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.005_285)] via-transparent to-transparent" />
+          {/* Phones: only a soft fade into the next section, so the glow stays visible behind the headline. */}
+          <div className="md:hidden absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[oklch(0.08_0.005_285)] to-transparent" />
         </div>
 
         <div className="relative z-10 container max-w-6xl py-32">

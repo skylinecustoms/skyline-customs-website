@@ -70,8 +70,6 @@ export const STATIC_META: Record<string, PageMeta> = {
     title: `${SITE_NAME} | Full Front PPF, Ceramic & Tint in Chantilly, VA`,
     description: "Northern Virginia's full front PPF specialists. STEK DYNOshield, 12-year warranty, 140+ five-star reviews in Chantilly, VA. See this month's special and get a free quote.",
     canonical: `${BASE_URL}/`,
-    preloadImage: "/images/hero-still-portrait.jpg",
-    preloadMedia: "(max-width: 767px)",
   },
   "/services": {
     title: `Services | Full Front PPF, Ceramic & Tint | ${SITE_NAME}`,
