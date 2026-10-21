@@ -263,10 +263,20 @@ export function trackPageView(title?: string) {
 /** True when a page_view has already gone out for the current URL. */
 export const pageViewSent = () => typeof window !== "undefined" && lastPageKey === window.location.pathname + window.location.search;
 
+// Google Ads conversion actions (account 447-118-6397). Leads only count when the visitor came from an ad.
+const ADS_LEAD_FORM = "AW-18260622045/xKsxCN2KhKQdEN31q4NE";
+const ADS_PHONE_TAP = "AW-18260622045/SIW4COCKhKQdEN31q4NE";
+
+function adsConversion(sendTo: string) {
+  if (typeof window === "undefined" || isAutomated()) return;
+  try { window.gtag?.("event", "conversion", { send_to: sendTo }); } catch { /* ignore */ }
+}
+
 export type LeadMethod = "quote_form" | "contact_form" | "ai_assistant" | "promo_waitlist";
 
 export function trackLead(method: LeadMethod, service?: string) {
   track("generate_lead", { method, lead_service: service || "unspecified", currency: "USD", value: 0 });
+  adsConversion(ADS_LEAD_FORM);
   try {
     window.fbq?.("track", "Lead", { content_name: service || "Quote Request", content_category: "Auto Protection" });
   } catch {
@@ -306,8 +316,8 @@ export function installEngagementTracking() {
     if (a) {
       const href = a.getAttribute("href") ?? "";
       const base = { link_text: clean(a.textContent) || clean(a.getAttribute("aria-label")), cta_location: locationOf(a) };
-      if (href.startsWith("tel:")) { track("phone_call", { phone_number: href.replace("tel:", ""), ...base }); return; }
-      if (href.startsWith("sms:")) { track("sms_click", { phone_number: href.replace("sms:", "").split("?")[0], ...base }); return; }
+      if (href.startsWith("tel:")) { track("phone_call", { phone_number: href.replace("tel:", ""), ...base }); adsConversion(ADS_PHONE_TAP); return; }
+      if (href.startsWith("sms:")) { track("sms_click", { phone_number: href.replace("sms:", "").split("?")[0], ...base }); adsConversion(ADS_PHONE_TAP); return; }
       if (href.startsWith("mailto:")) { track("email_click", base); return; }
       if (/maps\.google\.|google\.com\/maps|maps\.app\.goo|\/maps\?/.test(href)) { track("get_directions", base); return; }
       if (/^\/get-a-quote(\?|$)/.test(href) || a.dataset.cta) {

@@ -161,6 +161,11 @@ type GhlDuplicateError = {
  *     If that also returns 400 duplicate → use the second contactId from meta (just return it, no further update needed).
  *  3. Return the final contactId.
  */
+// Leads whose website visit started from a Google ad click (gclid in the landing URL) get this tag,
+// so Google Ads leads can be told apart from Meta and organic website leads in GHL.
+const GOOGLE_ADS_TAG = "google-ads-lead";
+const fromGoogleAds = (j: { utm?: Record<string, string> } | undefined) => !!j?.utm?.gclid;
+
 /** Human-readable "what they did on the site before this form" block for the CRM note. */
 function journeyNote(j: {
   gaClientId?: string; landing: string; referrer: string; utm?: Record<string, string>; secondsOnSite: number; steps: { path: string; secondsIn: number }[];
@@ -176,6 +181,7 @@ function journeyNote(j: {
     `Source: ${source}\n` +
     `Landed on: ${j.landing}\n` +
     lines.join("\n") +
+    (j.utm?.gclid ? `\nGoogle Ads click id (gclid): ${j.utm.gclid}` : "") +
     (j.gaClientId ? `\nGA4 client id: ${j.gaClientId}` : "")
   );
 }
@@ -432,7 +438,7 @@ Guidelines:
         const source = form === "quote" ? "Website Quote Form" : form === "promo" ? `Website Promo Form${input.promoTag ? ` — ${input.promoTag}` : ""}` : form === "fleet" ? "Website Fleet Form" : "Website Contact Form";
         // Promo submissions carry a prefilled note that names the free ceramic coating, so only the button counts there.
         const svcTags = serviceTagsFor(input.service, input.promoTag ? "" : input.message);
-        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...(form === "fleet" ? ["fleet-lead"] : []), ...svcTags.tags, ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : [])];
+        const ghlTags = [GHL_NOTIFY_TAG, `website-${form}`, ...(form === "fleet" ? ["fleet-lead"] : []), ...svcTags.tags, ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : []), ...(fromGoogleAds(input.journey) ? [GOOGLE_ADS_TAG] : [])];
 
         const contactPayload: Record<string, unknown> = {
           firstName: input.firstName,
@@ -477,7 +483,7 @@ Guidelines:
           ? `\nCame from: ${escapeHtml(input.journey.utm?.utm_source ? `${input.journey.utm.utm_source}${input.journey.utm.utm_medium ? ` / ${input.journey.utm.utm_medium}` : ""}` : input.journey.referrer ? input.journey.referrer.replace(/^https?:\/\/(www\.)?/, "").split("/")[0] : "direct")} · landed on ${escapeHtml(input.journey.landing)} · ${input.journey.steps.length} page${input.journey.steps.length === 1 ? "" : "s"}`
           : "";
         const telegram = await notifyOwners(
-          `<b>${form === "fleet" ? "🚚 FLEET lead" : "🚗 New website lead"} (${escapeHtml(source)})</b>\n` +
+          `<b>${fromGoogleAds(input.journey) ? "🔎 GOOGLE AD · " : ""}${form === "fleet" ? "🚚 FLEET lead" : "🚗 New website lead"} (${escapeHtml(source)})</b>\n` +
           `<b>${escapeHtml(input.firstName)} ${escapeHtml(input.lastName)}</b>` +
           (contactPhone ? `\n📞 ${escapeHtml(contactPhone)}` : "") +
           `\n✉️ ${escapeHtml(input.email)}` +
@@ -531,7 +537,7 @@ Guidelines:
             : input.promoTag
             ? `PROMO QUOTE REQUEST — ${input.promoTag.replace(/-/g, " ").toUpperCase()}`
             : `QUOTE REQUEST`;
-          const noteBody = `${noteHeader} — ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}\n` +
+          const noteBody = `${fromGoogleAds(input.journey) ? "GOOGLE ADS LEAD — " : ""}${noteHeader} — ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}\n` +
             `Customer: ${input.firstName} ${input.lastName}\n` +
             `Email: ${input.email}\n` +
             (input.phone ? `Phone: ${input.phone}\n` : "") +
@@ -605,7 +611,7 @@ Guidelines:
         void recordLead();
         const serviceTag = serviceTagFor(input.service);
         const source = input.formId === "exit" ? "Website Exit Prompt (text me the price)" : `Website ${input.formId} form (not submitted)`;
-        const tags = [GHL_PARTIAL_TAG, `website-${input.formId}-partial`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : [])];
+        const tags = [GHL_PARTIAL_TAG, `website-${input.formId}-partial`, ...(serviceTag ? [serviceTag] : []), ...(input.promoTag ? [input.promoTag] : []), ...(input.language === "es" ? ["spanish-speaker"] : []), ...(fromGoogleAds(input.journey) ? [GOOGLE_ADS_TAG] : [])];
         const payload: Record<string, unknown> = {
           firstName: input.firstName.trim(),
           lastName: (input.lastName ?? "").trim() || undefined,
