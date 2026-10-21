@@ -29,6 +29,8 @@ import { reelsByCategory } from "@/lib/instagramPosts";
 import { promoExtrasFor, type PromoGiveaway } from "@/lib/promoExtras";
 import { Link } from "wouter";
 import { toast } from "sonner";
+import RockChipDemo from "@/components/demos/RockChipDemo";
+import WaterDemo from "@/components/demos/WaterDemo";
 import {
   Shield, Sparkles, Zap, CheckCircle, ArrowRight, Clock,
   Star, Lock, ChevronDown, AlertTriangle, Eye, Wrench, Layers, Mail, Phone, Car, Gift
@@ -1278,6 +1280,15 @@ export default function JuneSpecial() {
             </div>
           </div>
 
+          {/* The free ceramic coating, up close: drag the water off */}
+          {hasCeramic && (
+            <div className="border border-zinc-800 bg-[#0A0A0A] p-6 md:p-10 mb-10 md:mb-12">
+              <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-2">Included: ceramic coating</p>
+              <h3 className="font-display text-4xl md:text-5xl text-white leading-none mb-6">TRY THE COATING YOURSELF</h3>
+              <WaterDemo compact />
+            </div>
+          )}
+
           {/* Photo cards */}
           <div className={`grid grid-cols-1 gap-5 ${hasCorrection && hasCeramic ? "md:grid-cols-3" : hasCorrection || hasCeramic ? "md:grid-cols-2" : "md:grid-cols-1 max-w-2xl mx-auto"}`}>
             {[
@@ -1483,6 +1494,15 @@ export default function JuneSpecial() {
               {soldOut ? "Join the waitlist" : "Claim my spot"} <ArrowRight className="w-5 h-5" />
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          ROCK CHIP TEST: what the film saves you, right before the form
+      ================================================================ */}
+      <section className="py-16 md:py-24 bg-[#0D0D0D] border-t border-zinc-900">
+        <div className="container max-w-6xl">
+          <RockChipDemo eyebrow="What the film saves you" cta={{ href: "#claim", label: soldOut ? "Join the waitlist" : "Claim my spot" }} />
         </div>
       </section>
 

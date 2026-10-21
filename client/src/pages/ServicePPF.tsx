@@ -24,6 +24,8 @@ import LeadPulse from "@/components/LeadPulse";
 import { promoTagFor } from "@/components/PromoQuoteForm";
 import { timeLeftLabel } from "@/pages/JuneSpecial";
 import Testimonials from "@/components/Testimonials";
+import RockChipDemo from "@/components/demos/RockChipDemo";
+import SelfHealDemo from "@/components/demos/SelfHealDemo";
 import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS, videoObject } from "@/lib/videos";
 import { PPF_PACKAGES, PPF_FAQS, VEHICLE_CLASSES } from "@/lib/ppf";
@@ -247,6 +249,11 @@ export default function ServicePPF() {
         </div>
       </section>
 
+      {/* Interactive: throw rocks at the car, with and without film */}
+      <section className="py-20 bg-[#0D0D0D] border-t border-zinc-900" id="rock-chip-test">
+        <div className="container"><RockChipDemo /></div>
+      </section>
+
       {/* Benefits */}
       <section className="py-24 bg-[#0D0D0D]">
         <div className="container">
@@ -264,6 +271,11 @@ export default function ServicePPF() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Interactive: scratch the film, add heat, watch it heal */}
+      <section className="py-20 bg-[#0A0A0A] border-t border-zinc-900" id="self-healing">
+        <div className="container"><SelfHealDemo /></div>
       </section>
 
       {/* Packages */}

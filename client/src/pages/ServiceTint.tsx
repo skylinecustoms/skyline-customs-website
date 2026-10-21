@@ -17,6 +17,8 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { useState, useEffect } from "react";
 import { ChevronDown, Thermometer, Eye, Shield, Sun, Lock, Zap, CheckCircle, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
+import TintShadeDemo from "@/components/demos/TintShadeDemo";
+import HeatDemo from "@/components/demos/HeatDemo";
 
 const benefits = [
   {
@@ -275,6 +277,11 @@ export default function ServiceTint() {
         </div>
       </section>
 
+      {/* Interactive: thermal view, no film vs regular vs ceramic */}
+      <section className="py-20 bg-[#0A0A0A] border-t border-zinc-900" id="heat-rejection">
+        <div className="container"><HeatDemo /></div>
+      </section>
+
       {/* Packages */}
       <section className="py-24 bg-[#0A0A0A]">
         <div className="container">
@@ -400,8 +407,13 @@ export default function ServiceTint() {
         </div>
       </section>
 
+      {/* Interactive: pick a shade, see it from outside and inside, day and night */}
+      <section className="py-20 bg-[#0D0D0D] border-t border-zinc-900" id="shade-picker">
+        <div className="container"><TintShadeDemo /></div>
+      </section>
+
       {/* Process */}
-      <section className="py-24 bg-[#0D0D0D]">
+      <section className="py-24 bg-[#0D0D0D] border-t border-zinc-900">
         <div className="container">
           <div className="mb-16">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Skyline Process</p>
