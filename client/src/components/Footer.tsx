@@ -179,6 +179,9 @@ export default function Footer() {
             <Link href="/terms-of-service" className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
               Terms of Service
             </Link>
+            <a href="https://www.runonsystems.com" className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
+              Website by Run On Systems
+            </a>
           </div>
         </div>
       </div>
