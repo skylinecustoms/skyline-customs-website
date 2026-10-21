@@ -436,21 +436,36 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background video */}
         <div className="absolute inset-0">
-          {/* Background reel plays on tablets and desktops; phones show the poster as a still (see HeroReel). */}
+          {/* The still is the largest contentful paint on every device: a real customer car in our bay, a portrait
+              crop on phones and a landscape crop on larger screens. The reel sits on top on md+ only (see HeroReel). */}
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/images/hero-still-portrait.jpg" />
+            <img
+              src="/images/hero-still-landscape.jpg"
+              alt="Black Corvette C8 Z06 with full front paint protection film in the Skyline Customs bay in Chantilly, VA"
+              width={1600}
+              height={900}
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover object-[center_85%] md:object-center"
+            />
+          </picture>
           <video
             id="hero-reel"
             muted
             loop
             playsInline
             preload="none"
-            poster="/images/hero-poster_702747e9.webp"
+            poster="/images/hero-still-landscape.jpg"
             title="Skyline Custom Shop — PPF, Ceramic Coating & Window Tinting in Chantilly, VA"
             aria-label="Skyline Custom Shop technicians applying paint protection film and window tinting in Chantilly, VA"
-            className="w-full h-full object-cover"
+            className="hidden md:block absolute inset-0 w-full h-full object-cover"
           >
-            {/* The mp4 is attached after the load event on md+ screens only (see HeroReel) so the poster is the LCP on every device. */}
+            {/* The mp4 is attached after the load event on md+ screens only (see HeroReel). */}
           </video>
           <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.005_285)]/92 via-[oklch(0.08_0.005_285)]/65 to-transparent" />
+          {/* Phones: fade the bay ceiling at the top so the car's hood and headlights carry the frame under the headline. */}
+          <div className="md:hidden absolute inset-0 bg-gradient-to-b from-[oklch(0.08_0.005_285)] via-[oklch(0.08_0.005_285)]/30 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.005_285)] via-transparent to-transparent" />
         </div>
 
