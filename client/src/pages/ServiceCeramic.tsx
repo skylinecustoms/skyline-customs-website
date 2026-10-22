@@ -7,6 +7,8 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WaterDemo from "@/components/demos/WaterDemo";
+import YearsOfSunDemo from "@/components/demos/YearsOfSunDemo";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
 import CompareLinks from "@/components/CompareLinks";
 import NearMeBlock from "@/components/NearMeBlock";
@@ -350,6 +352,11 @@ export default function ServiceCeramic() {
         </div>
       </section>
 
+      {/* Interactive: coated vs bare paint, drag the water off */}
+      <section className="py-20 bg-[#0A0A0A] border-t border-zinc-900" id="water-beading">
+        <div className="container"><WaterDemo /></div>
+      </section>
+
       {/* Packages */}
       <section className="py-24 bg-[#0A0A0A]">
         <div className="container">
@@ -422,6 +429,11 @@ export default function ServiceCeramic() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Interactive: seven years of sun, protected vs unprotected */}
+      <section className="py-20 bg-[#0A0A0A] border-t border-zinc-900" id="years-of-sun">
+        <div className="container"><YearsOfSunDemo /></div>
       </section>
 
       {/* FAQ */}

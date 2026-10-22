@@ -12,6 +12,7 @@ import { Link } from "wouter";
 import { AlertTriangle, ArrowRight, CheckCircle, Clock, Droplets, Eye, Layers, Lock, MessageSquare, Phone, Shield, Sparkles, Star, Sun, Wrench } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WaterDemo from "@/components/demos/WaterDemo";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
 import PromoQuoteForm from "@/components/PromoQuoteForm";
@@ -360,6 +361,17 @@ export default function CeramicPromo() {
             ))}
           </div>
           <div className="mt-8 text-center"><p className="text-zinc-400 text-sm">Total time in the shop: <strong className="text-white">1 day</strong> &middot; Keep it dry for 7 days after</p></div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          TRY THE COATING: drag the water off coated vs bare paint
+      ================================================================ */}
+      <section className="py-16 md:py-24 bg-[#0D0D0D] border-t border-zinc-900" id="try-it">
+        <div className="container max-w-6xl">
+          <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">See it for yourself</p>
+          <h2 className="font-display text-5xl md:text-6xl text-white mb-8">TRY THE COATING YOURSELF</h2>
+          <WaterDemo compact />
         </div>
       </section>
 
