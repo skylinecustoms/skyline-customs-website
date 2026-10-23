@@ -74,10 +74,10 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "virginia-window-tint-laws-2026",
-    title: "Legal Tint in VA (2026): Virginia Window Tint Laws, Is 5% Legal, and Fines",
-    excerpt: "What tint is legal in Virginia in 2026: 50% VLT on front side windows, 35% on a sedan's rear windows, any darkness behind the front doors on SUVs and trucks, 20% reflectivity cap, medical exemptions, and what a ticket costs.",
+    title: "Virginia Tint Laws 2026: Legal Tint in VA and Is 5% Legal?",
+    excerpt: "Legal tint in VA for 2026: 50% on front side windows, 35% on a sedan's rear glass, and any darkness behind the front doors of SUVs and trucks, 5% included.",
     date: "March 23, 2026",
-    updated: "October 20, 2026",
+    updated: "October 23, 2026",
     readTime: "5 min read",
     category: "Window Tinting",
     heroImage: "/images/tint_2_9df4da50.webp",
