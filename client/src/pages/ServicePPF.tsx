@@ -10,6 +10,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { ChevronDown, Shield, Zap, Eye, Droplets, Sun, Award, CheckCircle, ArrowRight, Phone } from "lucide-react";
+import OneIdea from "@/components/OneIdea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
@@ -254,24 +255,8 @@ export default function ServicePPF() {
         <div className="container"><RockChipDemo /></div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-24 bg-[#0D0D0D]">
-        <div className="container">
-          <div className="mb-16">
-            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Why PPF</p>
-            <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">BUILT TO TAKE THE HIT</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
-            {benefits.map((b, i) => (
-              <div key={i} className="bg-[#0D0D0D] p-8 hover:bg-[#111] transition-colors group">
-                <b.icon className="w-8 h-8 text-[#E85D04] mb-4 group-hover:scale-110 transition-transform" />
-                <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">{b.title}</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Benefits: one idea per screen on large screens */}
+      <OneIdea eyebrow="Why PPF" heading="BUILT TO TAKE THE HIT" items={benefits} />
 
       {/* Interactive: scratch the film, add heat, watch it heal */}
       <section className="py-20 bg-[#0A0A0A] border-t border-zinc-900" id="self-healing">
@@ -286,10 +271,10 @@ export default function ServicePPF() {
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">CHOOSE YOUR PROTECTION</h2>
             <p className="text-zinc-400 mt-4 max-w-2xl">Three packages, one film. Tell us your vehicle and we quote the exact price, usually within the hour. New to this? Read the <Link href="/full-front-ppf" className="text-[#E85D04] underline underline-offset-2">complete full front PPF guide</Link>: every panel, the film, the install day, and what to expect at year ten.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {PPF_PACKAGES.map((pkg) => (
-              <div key={pkg.key} className={`relative border flex flex-col ${pkg.featured ? "border-[#E85D04] bg-[#1a0a00]" : "border-zinc-800 bg-[#0D0D0D] hover:border-zinc-600"} transition-colors`}>
-                {pkg.featured && <div className="absolute -top-3 left-6 bg-[#E85D04] text-black text-xs font-bold tracking-widest uppercase px-3 py-1 z-10">MOST POPULAR</div>}
+              <div key={pkg.key} className={`squircle overflow-hidden relative border flex flex-col ${pkg.featured ? "border-[#E85D04] bg-[#1a0a00]" : "border-zinc-800 bg-[#0D0D0D] hover:border-zinc-600"} transition-colors`}>
+                {pkg.featured && <div className="absolute top-4 left-4 rounded-full bg-[#E85D04] text-black text-xs font-bold tracking-widest uppercase px-3 py-1 z-10 shadow-lg">MOST POPULAR</div>}
                 <div className="w-full overflow-hidden">
                   <img loading="lazy" decoding="async" src={pkg.image} srcSet={responsiveImage(pkg.image).srcSet} sizes="(min-width: 1024px) 33vw, 100vw" alt={`${pkg.name} PPF coverage diagram on a Tesla Model Y at Skyline Customs, Chantilly VA`} width={640} height={360} className="w-full h-48 object-cover object-center" />
                 </div>
@@ -336,9 +321,9 @@ export default function ServicePPF() {
               <Link href="/promo" className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white whitespace-nowrap">Details →</Link>
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-800">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {VEHICLE_CLASSES.map((c) => (
-              <div key={c.key} className="bg-[#0D0D0D] p-6">
+              <div key={c.key} className="squircle border border-zinc-800 bg-[#111] p-6">
                 <h3 className="text-white font-bold">{c.label}</h3>
                 <p className="text-zinc-400 text-xs mt-1">{c.examples}</p>
                 <ul className="mt-4 space-y-1">
@@ -374,7 +359,7 @@ export default function ServicePPF() {
                   { title: "Optical Clarity", desc: "No orange peel, no haze, and no yellowing over the life of the film." },
                   { title: "12-Year Warranty", desc: "Manufacturer-backed against yellowing, cracking, peeling, and delamination." },
                 ].map((feat) => (
-                  <div key={feat.title} className="border border-zinc-800 bg-[#0D0D0D] p-4">
+                  <div key={feat.title} className="squircle border border-zinc-800 bg-[#0D0D0D] p-5">
                     <p className="text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-1">{feat.title}</p>
                     <p className="text-zinc-400 text-sm leading-relaxed">{feat.desc}</p>
                   </div>
@@ -382,7 +367,7 @@ export default function ServicePPF() {
               </div>
             </div>
             <div className="relative">
-              <div className="border border-zinc-800 bg-[#0D0D0D] p-10 flex flex-col items-center justify-center text-center min-h-[400px]">
+              <div className="squircle border border-zinc-800 bg-[#0D0D0D] p-10 flex flex-col items-center justify-center text-center min-h-[400px]">
                 <div className="w-20 h-1 bg-[#E85D04] mb-8" />
                 <p className="font-['Bebas_Neue',sans-serif] text-8xl text-white leading-none mb-2">12</p>
                 <p className="font-['Bebas_Neue',sans-serif] text-3xl text-[#E85D04] tracking-widest mb-6">YEAR WARRANTY</p>
@@ -438,9 +423,9 @@ export default function ServicePPF() {
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Skyline Process</p>
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">HOW WE INSTALL PPF</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {process.map((step) => (
-              <div key={step.num} className="bg-[#0A0A0A] p-8 hover:bg-[#111] transition-colors">
+              <div key={step.num} className="squircle border border-zinc-800 bg-[#0A0A0A] p-8 hover:bg-[#111] hover:border-zinc-700 transition-colors">
                 <span aria-hidden="true" className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04]/70 block mb-4">{step.num}</span>
                 <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">{step.title}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{step.desc}</p>

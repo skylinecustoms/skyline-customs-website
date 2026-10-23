@@ -5,6 +5,7 @@
  * URL: /services/ceramic-coating
  */
 
+import OneIdea from "@/components/OneIdea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WaterDemo from "@/components/demos/WaterDemo";
@@ -331,26 +332,8 @@ export default function ServiceCeramic() {
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-24 bg-[#0D0D0D]">
-        <div className="container">
-          <div className="mb-16">
-            <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Why Ceramic</p>
-            <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white">
-              PERMANENT PAINT DEFENSE
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
-            {benefits.map((b, i) => (
-              <div key={i} className="bg-[#0D0D0D] p-8 hover:bg-[#111] transition-colors group">
-                <b.icon className="w-8 h-8 text-[#E85D04] mb-4 group-hover:scale-110 transition-transform" />
-                <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">{b.title}</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Benefits: one idea per screen on large screens */}
+      <OneIdea eyebrow="Why Ceramic" heading="PERMANENT PAINT DEFENSE" items={benefits} />
 
       {/* Interactive: coated vs bare paint, drag the water off */}
       <section className="py-20 bg-[#0A0A0A] border-t border-zinc-900" id="water-beading">
@@ -419,9 +402,9 @@ export default function ServiceCeramic() {
               HOW WE DO IT
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {process.map((step, i) => (
-              <div key={i} className="bg-[#0D0D0D] p-8 hover:bg-[#111] transition-colors">
+              <div key={i} className="squircle border border-zinc-800 bg-[#0D0D0D] p-8 hover:bg-[#111] hover:border-zinc-700 transition-colors">
                 <span className="font-['Bebas_Neue',sans-serif] text-5xl text-[#E85D04]/70 block mb-4" aria-hidden="true">{step.num}</span>
                 <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-white mb-3">{step.title}</h3>
                 <p className="text-zinc-400 text-sm leading-relaxed">{step.desc}</p>

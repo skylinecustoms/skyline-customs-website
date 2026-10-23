@@ -231,7 +231,7 @@ export default function GetAQuote() {
       {/* Form Section */}
       <section id="quote-form-section" className="py-16 bg-[#0D0D0D]">
         <div className="container max-w-3xl">
-          <div className="bg-[#111] border border-zinc-800 p-8 md:p-10">
+          <div className="squircle bg-[#111] border border-zinc-800 p-8 md:p-10">
             {submitted ? (
               <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
                 <div className="w-16 h-16 bg-[#E85D04] flex items-center justify-center mb-6">

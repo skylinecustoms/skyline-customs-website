@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, Star, ChevronDown, Phone, ClipboardList, Wrench, Shield, CheckCircle, Clock, Zap } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import HeroCursorGlow from "@/components/HeroCursorGlow";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { BookingService } from "@/components/BookingModal";
@@ -273,7 +274,7 @@ function RecentCarsSection() {
           {slots.map((slot) => (
             <div
               key={slot.id}
-              className="border border-zinc-800 bg-[#0D0D0D] overflow-hidden group hover:border-[#E85D04]/50 transition-colors"
+              className="squircle border border-zinc-800 bg-[#0D0D0D] overflow-hidden group hover:border-[#E85D04]/50 transition-colors"
             >
               <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden">
                 <img loading="lazy" decoding="async"
@@ -471,6 +472,8 @@ export default function Home() {
           <div className="md:hidden absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[oklch(0.08_0.005_285)] to-transparent" />
         </div>
 
+        <HeroCursorGlow />
+
         <div className="relative z-10 container max-w-6xl py-32">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
@@ -541,10 +544,10 @@ export default function Home() {
             <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">OUR SERVICES</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[oklch(0.18_0.006_285)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {services.map((service) => (
               <Link key={service.number} href={service.href}>
-                <div className="group relative bg-[oklch(0.10_0.005_285)] overflow-hidden cursor-pointer h-[400px]">
+                <div className="squircle group relative bg-[oklch(0.10_0.005_285)] border border-[oklch(0.18_0.006_285)] overflow-hidden cursor-pointer h-[400px] hover:border-brand-orange/50 transition-colors">
                   <img loading="lazy" decoding="async"
                     src={variantUrl(service.image, 960) ?? service.image}
                     srcSet={responsiveImage(service.image).srcSet}
@@ -588,14 +591,14 @@ export default function Home() {
       {/* ── TRUST SIGNALS ────────────────────────────────────────────────────── */}
       <section className="py-24 bg-[oklch(0.12_0.005_285)] border-y border-[oklch(0.18_0.006_285)]">
         <div className="container max-w-6xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[oklch(0.18_0.006_285)]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
               { icon: Star, label: "140+", sub: "5-Star Reviews" },
               { icon: Shield, label: "12-Year", sub: "PPF Warranty" },
               { icon: Wrench, label: "1,000+", sub: "Vehicles Protected" },
               { icon: CheckCircle, label: "STEK", sub: "Certified Installer" },
             ].map(({ icon: Icon, label, sub }, i) => (
-              <div key={i} className="bg-[oklch(0.12_0.005_285)] p-8 flex flex-col items-center text-center gap-3">
+              <div key={i} className="squircle bg-[oklch(0.10_0.005_285)] border border-[oklch(0.18_0.006_285)] p-8 flex flex-col items-center text-center gap-3">
                 <Icon className="w-6 h-6 text-brand-orange" />
                 <div>
                   <p className="font-display text-3xl text-white tracking-wide">{label}</p>
@@ -621,15 +624,15 @@ export default function Home() {
             <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">THE PROCESS</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[oklch(0.18_0.006_285)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { icon: ClipboardList, step: "01", title: "Get a Quote", desc: "Fill out our quick form with your vehicle info and desired services. We'll respond with a custom quote within 24 hours." },
               { icon: Wrench, step: "02", title: "Schedule Install", desc: "Pick a date that works for you. Most jobs are completed same-day in our controlled-environment facility in Chantilly." },
               { icon: Shield, step: "03", title: "Drive Protected", desc: "Leave with a fully protected vehicle and our Lifetime Craftsmanship Warranty. We stand behind every install." },
             ].map(({ icon: Icon, step, title, desc }, i) => (
-              <div key={i} className="bg-[oklch(0.10_0.005_285)] p-10">
+              <div key={i} className="squircle bg-[oklch(0.12_0.005_285)] border border-[oklch(0.18_0.006_285)] p-10">
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-brand-orange/10 border border-brand-orange/30 flex items-center justify-center shrink-0">
                     <Icon className="w-5 h-5 text-brand-orange" />
                   </div>
                   <span aria-hidden="true" className="font-display text-5xl text-zinc-500 leading-none">{step}</span>
