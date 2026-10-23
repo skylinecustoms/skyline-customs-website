@@ -111,7 +111,7 @@ export default function ReviewWall({ total = "140+", initial = PAGE }: { total?:
 
       {shown < visible.length && (
         <div className="text-center mt-8">
-          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-8 py-3 transition-colors">
+          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-8 py-3 transition-colors">
             Read more reviews ({visible.length - shown} more)
           </button>
         </div>

@@ -41,9 +41,9 @@ export function endOfMonth(): string {
 }
 
 const BTN = "inline-flex items-center justify-center gap-2 font-display text-lg md:text-xl tracking-[0.1em] uppercase px-8 py-4 md:py-5 transition-colors";
-const BTN_PRIMARY = `${BTN} bg-[#E85D04] text-black hover:bg-orange-600`;
-const BTN_ON_ORANGE = `${BTN} bg-black text-white hover:bg-zinc-900`;
-const BTN_ON_ORANGE_OUTLINE = `${BTN} border border-black/60 text-black hover:bg-black hover:text-white`;
+const BTN_PRIMARY = `cta ${BTN} bg-[#E85D04] text-black hover:bg-orange-600`;
+const BTN_ON_ORANGE = `cta cta-alt ${BTN} bg-black text-white hover:bg-zinc-900`;
+const BTN_ON_ORANGE_OUTLINE = `cta cta-alt ${BTN} border border-black/60 text-black hover:bg-black hover:text-white`;
 const FINE_PRINT = "text-zinc-400 text-xs tracking-wide";
 
 const PHOTOS = [
