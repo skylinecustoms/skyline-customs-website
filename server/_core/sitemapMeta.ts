@@ -69,6 +69,8 @@ export const SITEMAP_META: Record<string, { lastmod: string; changefreq: string;
   "/ppf-fredericksburg-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/ceramic-coating-fredericksburg-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/window-tinting-fredericksburg-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
-  "/privacy-policy": { lastmod: "2026-04-10", changefreq: "yearly", priority: "0.3" },
+  "/privacy-policy": { lastmod: "2026-10-23", changefreq: "yearly", priority: "0.3" },
+  "/sms-terms": { lastmod: "2026-10-23", changefreq: "yearly", priority: "0.3" },
+  "/northern-virginia-car-protection-report": { lastmod: "2026-10-23", changefreq: "monthly", priority: "0.7" },
   "/terms-of-service": { lastmod: "2026-04-10", changefreq: "yearly", priority: "0.3" },
 };

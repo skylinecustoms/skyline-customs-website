@@ -9,6 +9,7 @@ import { ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
+import SmsConsent from "@/components/SmsConsent";
 
 const FLEET_SIZES = ["2–5", "6–15", "16–50", "50+"];
 const INTERESTS = [
@@ -99,6 +100,7 @@ export default function FleetForm() {
       <button type="submit" disabled={submit.isPending || !agreed} className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
         {submit.isPending ? "SENDING..." : "GET FLEET PRICING"}{!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
+      <SmsConsent className="mt-3" />
       <p className="text-center text-zinc-400 text-xs tracking-wide">Per-unit pricing within one business day. One contact, one invoice, one warranty file for the whole fleet.</p>
     </form>
   );

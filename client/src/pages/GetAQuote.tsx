@@ -14,6 +14,7 @@ import { Link } from "wouter";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
 import { inferredService, leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
+import SmsConsent from "@/components/SmsConsent";
 
 // Order matters: people tap the first thing that looks right. Lead with what we sell most.
 const SERVICE_OPTIONS = [
@@ -444,6 +445,7 @@ export default function GetAQuote() {
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     )}
                   </button>
+                  <SmsConsent className="mt-3" />
                   <p className="text-center text-zinc-400 text-xs leading-relaxed">Nothing to pay now. A 20% deposit locks your date only after you approve your exact quote, goes toward your total, and is fully refundable at any time.</p>
                 </form>
               </>

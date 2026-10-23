@@ -482,6 +482,10 @@ export default function Home() {
               PROTECT<br />
               YOUR<br />
               <span className="text-brand-orange">INVESTMENT.</span>
+              {/* What we do and where, in the words people search, as part of the page's one heading. */}
+              <span className="block mt-6 font-mono-brand text-xs sm:text-sm md:text-base tracking-[0.18em] leading-relaxed text-[oklch(0.80_0.008_285)]">
+                Full front PPF · Ceramic coating · Window tint<br className="sm:hidden" /> in Chantilly, VA
+              </span>
             </h1>
 
             <p className="text-[oklch(0.75_0.008_285)] text-lg md:text-xl leading-relaxed mb-10 max-w-lg">

@@ -541,6 +541,16 @@ export const STATIC_META: Record<string, PageMeta> = {
     description: "How Skyline Customs collects, uses, and protects your information when you use our website or request a quote.",
     canonical: `${BASE_URL}/privacy-policy`,
   },
+  "/northern-virginia-car-protection-report": {
+    title: "Northern Virginia Car Protection Report 2026 | Skyline Customs",
+    description: "What Northern Virginia drivers asked to protect, on which cars, and how soon: real quote data on PPF, window tint and ceramic coating from Chantilly, VA.",
+    canonical: `${BASE_URL}/northern-virginia-car-protection-report`,
+  },
+  "/sms-terms": {
+    title: `Text Message Terms | ${SITE_NAME}`,
+    description: "What to expect when you get texts from Skyline Customs: what we send, how often, and how to stop. Reply STOP to opt out or HELP for help.",
+    canonical: `${BASE_URL}/sms-terms`,
+  },
   "/terms-of-service": {
     title: `Terms of Service | ${SITE_NAME}`,
     description: "Terms and conditions for using the Skyline Customs website and services in Chantilly, VA.",
