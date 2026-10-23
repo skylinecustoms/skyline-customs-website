@@ -110,7 +110,7 @@ function renderSection(section: BlogSection, idx: number) {
           {c.eyebrow && <p className="text-black/70 text-xs font-bold tracking-[0.3em] uppercase mb-2">{c.eyebrow}</p>}
           <p className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "'Oswald', sans-serif", textTransform: "uppercase" }}>{c.heading}</p>
           <p className="text-white/85 text-sm mb-5 leading-relaxed max-w-2xl">{c.body}</p>
-          <Link href={c.href} data-cta="blog-inline" className="inline-block bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-6 py-3 hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200" style={{ fontFamily: "'Oswald', sans-serif" }}>{c.label}</Link>
+          <Link href={c.href} data-cta="blog-inline" className="cta cta-alt inline-block bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-6 py-3 hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200" style={{ fontFamily: "'Oswald', sans-serif" }}>{c.label}</Link>
         </aside>
       );
     }
@@ -130,7 +130,7 @@ function PromoCtaCard({ category }: { category?: string }) {
       <p className="text-black/70 text-xs font-bold tracking-[0.3em] uppercase mb-2">{eyebrow}</p>
       <h3 className="text-white text-xl font-bold mb-2" style={{ fontFamily: "'Oswald', sans-serif", textTransform: "uppercase" }}>{heading}</h3>
       <p className="text-white/85 text-sm mb-5 leading-relaxed">{body}</p>
-      <Link href={href} data-cta="blog-sidebar" className="block bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-5 py-3 text-center hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200" style={{ fontFamily: "'Oswald', sans-serif" }}>{label}</Link>
+      <Link href={href} data-cta="blog-sidebar" className="cta cta-alt block bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-5 py-3 text-center hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200" style={{ fontFamily: "'Oswald', sans-serif" }}>{label}</Link>
     </div>
   );
   if (category === "Window Tinting") return card("Virginia-legal ceramic tint", "Get a Tint Quote", "GeoShield Pro Nano Ceramic in legal shades, lifetime warranty, 2 to 4 hour install in Chantilly. Tell us the car and we reply with an exact price, usually within the hour.", "/get-a-quote?service=tint", "GET A TINT QUOTE");
@@ -456,7 +456,7 @@ export default function BlogPost() {
           </div>
           <a
             href="https://www.skylinecustomshop.com/get-a-quote"
-            className="bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-8 py-3 hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200 whitespace-nowrap"
+            className="cta cta-alt bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-8 py-3 hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200 whitespace-nowrap"
             style={{ fontFamily: "'Oswald', sans-serif" }}
           >
             GET A FREE QUOTE

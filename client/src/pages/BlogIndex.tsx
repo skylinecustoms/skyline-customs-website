@@ -165,7 +165,7 @@ export default function BlogIndex() {
           </div>
           <a
             href="https://www.skylinecustomshop.com/get-a-quote"
-            className="bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-8 py-3 hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200 whitespace-nowrap"
+            className="cta cta-alt bg-white text-[#e85d04] font-bold text-sm tracking-widest uppercase px-8 py-3 hover:bg-[#0d0d0d] hover:text-white transition-colors duration-200 whitespace-nowrap"
             style={{ fontFamily: "'Oswald', sans-serif" }}
           >
             GET A FREE QUOTE

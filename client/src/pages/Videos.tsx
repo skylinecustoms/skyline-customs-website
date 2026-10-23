@@ -62,7 +62,7 @@ export default function Videos() {
             <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
               <Youtube className="w-4 h-4" /> Subscribe on YouTube
             </a>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
               <Instagram className="w-4 h-4" /> Follow on Instagram
             </a>
           </div>
@@ -107,7 +107,7 @@ export default function Videos() {
         <div className="container max-w-3xl text-center">
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">READY WHEN YOU ARE</h2>
           <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">Seen enough? Get a free quote and we'll recommend the right package for your car.</p>
-          <Link href="/get-a-quote" className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
+          <Link href="/get-a-quote" className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
             GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

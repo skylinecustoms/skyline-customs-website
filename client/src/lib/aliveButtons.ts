@@ -1,13 +1,26 @@
-// The details that make the orange buttons (class "cta") feel alive, as on runonsystems.com: a light that
-// follows the cursor across the button and a slight magnetic lean toward it. One listener for the whole
-// site, so no button needs its own code. Mouse only; nothing runs on touch or with reduced motion.
+// The details that make the buttons (class "cta") feel alive, as on runonsystems.com: a light that follows
+// the cursor across the button and a slight magnetic lean toward it, plus an orange haze that follows the
+// mouse over every page. One listener for the whole site, so no button or page needs its own code. Mouse
+// only; nothing runs on touch or with reduced motion.
 export function installAliveButtons() {
   if (typeof window === "undefined") return () => {};
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return () => {};
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
+  // the page-wide orange haze that follows the mouse
+  const haze = document.createElement("div");
+  haze.className = "cursor-haze";
+  haze.setAttribute("aria-hidden", "true");
+  document.body.appendChild(haze);
+  let frame = 0;
   let current: HTMLElement | null = null;
   const reset = (el: HTMLElement) => { el.style.removeProperty("translate"); };
   const move = (e: PointerEvent) => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      haze.style.setProperty("--hx", `${e.clientX}px`);
+      haze.style.setProperty("--hy", `${e.clientY}px`);
+      haze.dataset.on = "1";
+    });
     const el = (e.target as Element | null)?.closest?.<HTMLElement>(".cta") ?? null;
     if (current && current !== el) reset(current);
     current = el;
@@ -19,8 +32,8 @@ export function installAliveButtons() {
     const k = r.width > 360 ? 0.04 : 0.15;
     el.style.translate = `${(e.clientX - (r.left + r.width / 2)) * k}px ${(e.clientY - (r.top + r.height / 2)) * 0.25}px`;
   };
-  const leave = () => { if (current) reset(current); current = null; };
+  const leave = () => { if (current) reset(current); current = null; haze.dataset.on = "0"; };
   document.addEventListener("pointermove", move, { passive: true });
   document.documentElement.addEventListener("pointerleave", leave);
-  return () => { document.removeEventListener("pointermove", move); document.documentElement.removeEventListener("pointerleave", leave); };
+  return () => { cancelAnimationFrame(frame); haze.remove(); document.removeEventListener("pointermove", move); document.documentElement.removeEventListener("pointerleave", leave); };
 }

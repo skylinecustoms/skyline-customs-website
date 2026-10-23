@@ -169,7 +169,7 @@ export default function Services() {
                   </Link>
                   <Link
                     href={service.href}
-                    className="inline-flex items-center gap-2 border border-[oklch(0.35_0.008_285)] text-[oklch(0.65_0.008_85)] font-display text-sm tracking-widest px-6 py-3 hover:border-brand-orange hover:text-brand-orange transition-colors"
+                    className="cta cta-alt inline-flex items-center gap-2 border border-[oklch(0.35_0.008_285)] text-[oklch(0.65_0.008_85)] font-display text-sm tracking-widest px-6 py-3 hover:border-brand-orange hover:text-brand-orange transition-colors"
                   >
                     LEARN MORE
                     <ArrowRight size={14} />
@@ -218,7 +218,7 @@ export default function Services() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/get-a-quote"
-              className="inline-flex items-center justify-center gap-2 bg-[oklch(0.10_0.005_285)] text-[oklch(0.96_0.008_85)] font-display text-base tracking-widest px-8 py-4 hover:bg-[oklch(0.15_0.005_285)] transition-colors"
+              className="cta cta-alt inline-flex items-center justify-center gap-2 bg-[oklch(0.10_0.005_285)] text-[oklch(0.96_0.008_85)] font-display text-base tracking-widest px-8 py-4 hover:bg-[oklch(0.15_0.005_285)] transition-colors"
             >
               GET A QUOTE
               <ArrowRight size={16} />

@@ -105,7 +105,7 @@ export default function PpfCost() {
               <Link href="/get-a-quote?service=ppf" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
                 GET MY EXACT PRICE <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+              <a href="tel:+17037754383" className="cta cta-alt border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
             </div>
@@ -218,10 +218,10 @@ export default function PpfCost() {
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">GET YOUR EXACT PPF PRICE</h2>
             <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">Year, make, model, and the coverage you want. We reply with a number, usually within the hour.</p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/get-a-quote?service=ppf" className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
+              <Link href="/get-a-quote?service=ppf" className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
                 GET A PPF QUOTE <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
+              <a href="tel:+17037754383" className="cta cta-alt border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
             </div>

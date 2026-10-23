@@ -42,7 +42,7 @@ export default function TintShadeDemo() {
           <p className={back ? "text-green-500" : "text-amber-500"}>{back ? "Rear doors and back glass: legal" : "Rear doors and back glass: too dark on a sedan (35% minimum)"}</p>
         </>}
       </div>
-      <Link href="/get-a-quote?service=tint" data-cta="demo_tint_shades" className="inline-flex items-center gap-2 bg-[#E85D04] hover:bg-[#c94f03] text-white font-['Bebas_Neue',sans-serif] text-xl tracking-wider px-6 py-3">
+      <Link href="/get-a-quote?service=tint" data-cta="demo_tint_shades" className="cta inline-flex items-center gap-2 bg-[#E85D04] hover:bg-[#c94f03] text-white font-['Bebas_Neue',sans-serif] text-xl tracking-wider px-6 py-3">
         {shade === 100 ? "Book your tint" : `Book ${shade}% tint`} <ArrowRight className="w-4 h-4" />
       </Link>
     </DemoLayout>

@@ -63,7 +63,7 @@ export default function Reviews() {
             <a href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
               <PenLine className="w-4 h-4" /> Write a Review
             </a>
-            <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+            <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
               Read All on Google <ExternalLink className="w-4 h-4" />
             </a>
           </div>
@@ -100,7 +100,7 @@ export default function Reviews() {
         <div className="container max-w-3xl text-center">
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">READY TO JOIN THEM?</h2>
           <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">Get a free quote and see why Chantilly drivers keep coming back.</p>
-          <Link href="/get-a-quote" className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
+          <Link href="/get-a-quote" className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
             GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

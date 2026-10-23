@@ -297,7 +297,7 @@ export default function ServiceCeramic() {
                 </Link>
                 <Link
                   href="/get-a-quote?service=ceramic"
-                  className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
+                  className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
                 >
                   GET A QUOTE
                 </Link>
@@ -463,13 +463,13 @@ export default function ServiceCeramic() {
             <Link
               href="/promo-ceramic"
               data-cta="ceramic-final-special"
-              className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
+              className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
               LOCK IN THE $995 SPECIAL <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/get-a-quote?service=ceramic"
-              className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
+              className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
               GET A QUOTE <ArrowRight className="w-4 h-4" />
             </Link>

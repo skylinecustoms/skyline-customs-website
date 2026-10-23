@@ -83,7 +83,7 @@ export default function ExoticCeramic() {
               <Link href="/get-a-quote?service=ceramic" data-cta="exotic-ceramic-hero" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
                 Get an exact quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
+              <a href="tel:+17037754383" className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
             </div>
@@ -173,10 +173,10 @@ export default function ExoticCeramic() {
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">COATED, CORRECTED, CURED INDOORS</h2>
             <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">Tell us the car and how it is driven. We reply with an exact price and the next open two-day slot, usually within the hour.</p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/get-a-quote?service=ceramic" data-cta="exotic-ceramic-cta" className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2">
+              <Link href="/get-a-quote?service=ceramic" data-cta="exotic-ceramic-cta" className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2">
                 Get my exact quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2">
+              <a href="tel:+17037754383" className="cta cta-alt border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2">
                 <Phone className="w-4 h-4" /> Call now
               </a>
             </div>

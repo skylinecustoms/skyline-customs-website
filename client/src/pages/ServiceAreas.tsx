@@ -104,7 +104,7 @@ export default function ServiceAreas() {
                 GET A FREE QUOTE <ArrowRight className="w-4 h-4" />
               </Link>
               <a href="tel:+17037754383"
-                className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
+                className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
               >
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
@@ -252,7 +252,7 @@ export default function ServiceAreas() {
           <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Where you work, where you bought the car</p>
           <h2 className="font-['Bebas_Neue',sans-serif] text-4xl md:text-5xl text-white mb-3">BASES, FEDERAL WORKPLACES &amp; DEALER DELIVERY</h2>
           <p className="text-zinc-400 max-w-2xl mb-6">PPF guides written for the schedules people actually have: a PCS move, a deployment, a delivery appointment at a dealer across town.</p>
-          <Link href="/fleet-ppf" className="inline-flex items-center gap-2 mb-10 border border-[#E85D04]/50 text-[#E85D04] hover:bg-[#E85D04]/10 font-bold tracking-widest uppercase text-sm px-5 py-3 transition-colors">Managing a fleet or a dealership? Fleet pricing <ArrowRight className="w-4 h-4" /></Link>
+          <Link href="/fleet-ppf" className="cta cta-alt inline-flex items-center gap-2 mb-10 border border-[#E85D04]/50 text-[#E85D04] hover:bg-[#E85D04]/10 font-bold tracking-widest uppercase text-sm px-5 py-3 transition-colors">Managing a fleet or a dealership? Fleet pricing <ArrowRight className="w-4 h-4" /></Link>
           {(["base", "dealer"] as const).map((kind) => (
             <div key={kind} className="mb-10 last:mb-0">
               <h3 className="font-['Bebas_Neue',sans-serif] text-2xl text-[#E85D04] tracking-wide mb-4">{kind === "base" ? "Military & federal" : "New-car delivery"}</h3>
@@ -333,12 +333,12 @@ export default function ServiceAreas() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/get-a-quote"
-              className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
             <a href="tel:+17037754383"
-              className="border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="cta cta-alt border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               <Phone className="w-4 h-4" /> CALL NOW
             </a>
