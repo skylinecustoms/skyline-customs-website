@@ -9,7 +9,7 @@ import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 import { pathToFileURL } from "node:url";
 import { getBlogPostBySlug , getAllBlogPosts } from "../db";
 import { getGalleryRows } from "../galleryJobs";
-import { getActivePromoByActive, getPromoSlots } from "../db";
+import { getActivePromoByActive, getPromoSlots, getArchivedPromoBySlug } from "../db";
 
 /**
  * Server-side rendering of the React app (dist/ssr/entry-server.js).
@@ -17,7 +17,7 @@ import { getActivePromoByActive, getPromoSlots } from "../db";
  * live bits (promo, gallery, reviews, feeds) load on the client after hydration.
  * Set SSR=0 to serve the empty shell instead.
  */
-type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown }) => Promise<{ html: string; state: string }> };
+type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; archivedPromo?: { slug: string; promo: unknown } }) => Promise<{ html: string; state: string }> };
 let renderer: Promise<Renderer | null> | null = null;
 const ssrCache = new Map<string, { html: string; state: string; at: number }>();
 const SSR_TTL_MS = 10 * 60 * 1000;
@@ -49,7 +49,7 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
   const hit = ssrCache.get(urlPath);
   if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit;
   try {
-    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[] } = {};
+    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown } } = {};
     // The blog index and every post list the other posts: render the list so crawlers see the links.
     if (/^\/blog(\/|$)/.test(urlPath) || urlPath === "/") preload.blogList = await getAllBlogPosts().catch(() => undefined);
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
@@ -58,6 +58,12 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
       preload.promo = await getActivePromoByActive()
         .then(async (p) => (p ? { ...p, slots: await getPromoSlots(p.id) } : null))
         .catch(() => undefined);
+    }
+    // Past specials (/june-special, /september-special ...): render the deal so crawlers see the page, not an empty shell.
+    const archived = urlPath.match(/^\/([a-z]+-special|[a-z]+-\d{4})$/);
+    if (archived) {
+      const p = await getArchivedPromoBySlug(archived[1]).catch(() => null);
+      if (p) preload.archivedPromo = { slug: archived[1], promo: { ...p, slots: await getPromoSlots(p.id).catch(() => []) } };
     }
     const blog = urlPath.match(/^\/blog\/([a-z0-9-]+)$/);
     if (blog) {

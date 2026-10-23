@@ -18,7 +18,7 @@ import { trpc } from "@/lib/trpc";
 import App from "./App";
 
 export interface RenderResult { html: string; /** superjson-serialized react-query cache for client hydration */ state: string }
-export interface Preload { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[] }
+export interface Preload { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown } }
 
 export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Promise<RenderResult> {
   const [path, search = ""] = url.split("?");
@@ -37,6 +37,9 @@ export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Pr
   }
   if (preload.promo !== undefined) {
     queryClient.setQueryData(getQueryKey(trpc.promo.getActive, undefined, "query"), preload.promo);
+  }
+  if (preload.archivedPromo) {
+    queryClient.setQueryData(getQueryKey(trpc.promo.getArchived, { archivedSlug: preload.archivedPromo.slug }, "query"), preload.archivedPromo.promo);
   }
   const trpcClient = trpc.createClient({
     links: [

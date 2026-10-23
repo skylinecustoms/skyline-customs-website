@@ -686,7 +686,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     badges: ["5.0 ★ Google Rating", "Full Front Specialists", "12-Year Film Warranty", "STEK DYNOshield Film"],
     seoTitle: (c) => `Full Front PPF ${c.name} ${c.state} | Paint Protection Film Near Me`,
     seoDescription: (c) =>
-      `Full front paint protection film for ${cityLabel(c)} drivers: hood, bumper, fenders, mirrors, and headlights in self-healing STEK DYNOshield, 12-year warranty. 5.0 stars on Google. Free quotes.`,
+      `Full front PPF for ${cityLabel(c)} drivers: hood, bumper, fenders, mirrors and headlights in self-healing STEK DYNOshield, 12-year warranty. Free quotes.`,
     heroLabel: "Full Front Paint Protection Film",
     heroHeading: "FULL FRONT PPF NEAR",
     heroText: (c) => `Northern Virginia's top-rated full front PPF installer, ${c.heroDrive}. Hood, bumper, fenders, mirrors, and headlights wrapped in self-healing STEK DYNOshield, so rock chips never reach your paint.`,
@@ -722,7 +722,7 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     badges: ["5.0 ★ Google Rating", "Free Quotes", "Up to 7-Year Coatings", "Graphene & SiO2 Coatings"],
     seoTitle: (c) => `Ceramic Coating ${c.name} ${c.state} | Car Ceramic Coating Near Me`,
     seoDescription: (c) =>
-      `Professional ceramic coating for ${cityLabel(c)} drivers. Gtechniq graphene and SiO2 coatings with paint correction, 5–7 year protection, and a hydrophobic finish. Free quotes. 5.0 stars on Google.`,
+      `Ceramic coating for ${cityLabel(c)} drivers: Gtechniq coatings over paint correction, 5–7 year protection and a hydrophobic finish. Free quotes.`,
     heroLabel: "Ceramic Coating",
     heroHeading: "CERAMIC COATING NEAR",
     heroText: (c) => `Northern Virginia's top-rated ceramic coating installer, ${c.heroDrive}. Paint correction plus Gtechniq coatings for a deep gloss that lasts for years.`,
@@ -756,9 +756,9 @@ export const SERVICES: Record<ServiceKey, ServiceContent> = {
     serviceHref: "/services/window-tinting",
     quoteParam: "tint",
     badges: ["5.0 ★ Google Rating", "Free Quotes", "Lifetime Warranty", "Ceramic Film Available"],
-    seoTitle: (c) => `Ceramic Window Tint in ${cityLabel(c)} | Legal Shades, Lifetime Warranty`,
+    seoTitle: (c) => `Ceramic Window Tint in ${cityLabel(c)} | Lifetime Warranty`,
     seoDescription: (c) =>
-      `Ceramic window tinting near ${cityLabel(c)}. GeoShield Pro Nano Ceramic film with 99% UV and up to 83% heat rejection, ${c.state === "DC" ? "DC" : STATE_NAMES[c.state]}-legal shades, and a nationwide lifetime warranty. Free quotes.`,
+      `Ceramic window tint near ${cityLabel(c)}: GeoShield Pro Nano Ceramic, 99% UV and up to 83% heat rejection, ${c.state === "DC" ? "DC" : STATE_NAMES[c.state]}-legal shades and a lifetime warranty.`,
     heroLabel: "Window Tinting",
     heroHeading: "WINDOW TINT NEAR",
     heroText: (c) => `Northern Virginia's top-rated window tinting shop, ${c.heroDrive}. Ceramic film that blocks heat and UV without the signal interference of metallic tint.`,

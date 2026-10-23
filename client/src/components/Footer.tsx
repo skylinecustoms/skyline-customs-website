@@ -172,15 +172,24 @@ export default function Footer() {
           <p className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs">
             © 2026 Skyline Customs. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <Link href="/privacy-policy" className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            <Link href="/privacy-policy" className="whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
+            <Link href="/terms-of-service" className="whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
               Terms of Service
             </Link>
-            <a href="https://www.runonsystems.com" className="text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
-              Website by Run On Systems
+            {/* Credit to the agency that builds and runs this site: its logo mark and name (the mark is the same as runonsystems.com's). */}
+            <a href="https://www.runonsystems.com" aria-label="Website by Run On Systems" className="group inline-flex items-center gap-2 whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-white transition-colors">
+              <span>Website by</span>
+              <svg viewBox="0 0 100 100" className="h-4 w-4 shrink-0" aria-hidden="true">
+                <rect x="12" y="12" width="76" height="76" rx="22" fill="none" stroke="currentColor" strokeWidth="8" />
+                <circle cx="50" cy="50" r="22" fill="#34D399" opacity=".22" />
+                <circle cx="50" cy="50" r="12" fill="#34D399" />
+              </svg>
+              <span className="font-semibold normal-case tracking-tight text-[13px] text-[oklch(0.85_0.005_285)] group-hover:text-white">
+                run <span className="text-[#34D399]">on</span> systems
+              </span>
             </a>
           </div>
         </div>
