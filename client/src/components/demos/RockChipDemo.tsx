@@ -11,11 +11,14 @@ const money = (n: number) => "$" + n.toLocaleString("en-US");
 
 /**
  * Throw rocks at the car. With PPF the film takes every hit (+$100 saved each); without it every hit chips
- * the paint and adds to the repair bill. `cta` sets where the button below it goes.
+ * the paint and adds to the repair bill. `cta` sets where the button below it goes; `highwayOnStart` starts
+ * it with highway mode on, so rocks are already flying when it scrolls into view.
  */
-export default function RockChipDemo({ eyebrow = "Paint protection film", cta = { href: "/get-a-quote?service=ppf", label: "Get a PPF quote" } }: { eyebrow?: string; cta?: { href: string; label: string } }) {
+export default function RockChipDemo({ eyebrow = "Paint protection film", cta = { href: "/get-a-quote?service=ppf", label: "Get a PPF quote" }, highwayOnStart = false }: { eyebrow?: string; cta?: { href: string; label: string }; highwayOnStart?: boolean }) {
   const [film, setFilm] = useState(true);
-  const [highway, setHighway] = useState(false);
+  const [highway, setHighway] = useState(highwayOnStart);
+  // highway mode starts on where asked, except for visitors who ask for reduced motion
+  useEffect(() => { if (highwayOnStart && window.matchMedia("(prefers-reduced-motion: reduce)").matches) setHighway(false); }, [highwayOnStart]);
   const [stats, setStats] = useState<RockStats>({ hits: 0, chips: 0, saved: 0, cost: 0 });
   const [touched, setTouched] = useState(false);
   const played = useDemoTracking("rock_chips");
