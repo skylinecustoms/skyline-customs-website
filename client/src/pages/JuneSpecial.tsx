@@ -1504,7 +1504,7 @@ export default function JuneSpecial() {
       ================================================================ */}
       <section className="py-16 md:py-24 bg-[#0D0D0D] border-t border-zinc-900">
         <div className="container max-w-6xl">
-          <RockChipDemo eyebrow="What the film saves you" cta={{ href: "#claim", label: soldOut ? "Join the waitlist" : "Claim my spot" }} />
+          <RockChipDemo eyebrow="What the film saves you" cta={{ href: "#claim", label: soldOut ? "Join the waitlist" : "Claim my spot" }} highwayOnStart />
         </div>
       </section>
 
