@@ -63,7 +63,7 @@ export default function EsPromo() {
                   <span className="block text-[#E85D04] text-5xl md:text-7xl">{ES_PROMO.h1[1]}</span>
                 </h1>
                 <p className="text-zinc-300 text-lg leading-relaxed max-w-lg mb-7">{ES_PROMO.sub}</p>
-                <a href="#cotizar" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase px-8 py-5 hover:bg-orange-600 transition-colors">{ES_PROMO.cta} <ArrowRight className="w-5 h-5" /></a>
+                <a href="#cotizar" className="cta inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase px-8 py-5 hover:bg-orange-600 transition-colors">{ES_PROMO.cta} <ArrowRight className="w-5 h-5" /></a>
                 <p className="text-zinc-400 text-xs tracking-wide mt-3">{ES_UI.common.deposit} {ES_UI.common.payPlans}</p>
                 {giveaway && ES_PROMO.giveaway && (
                   <a href="#sorteo" className="mt-7 flex items-center gap-4 border border-[#E85D04]/50 bg-[#E85D04]/10 text-white px-5 py-4 max-w-lg hover:bg-[#E85D04]/20 transition-colors">
@@ -88,7 +88,7 @@ export default function EsPromo() {
                     <li key={b} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{b}</li>
                   ))}
                 </ul>
-                <a href="#cotizar" className="inline-flex w-full items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase px-8 py-4 hover:bg-orange-600 transition-colors">{ES_PROMO.cta} <ArrowRight className="w-5 h-5" /></a>
+                <a href="#cotizar" className="cta inline-flex w-full items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase px-8 py-4 hover:bg-orange-600 transition-colors">{ES_PROMO.cta} <ArrowRight className="w-5 h-5" /></a>
               </div>
             </div>
           </div>

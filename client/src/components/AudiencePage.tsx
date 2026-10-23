@@ -77,7 +77,7 @@ export default function AudiencePage({ data }: { data: AudiencePageData }) {
             ))}
             <p className="flex items-start gap-2 text-zinc-400 text-sm max-w-3xl mt-2"><MapPin className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{data.drive}</p>
             <div className="flex flex-wrap gap-3 mt-8">
-              <Link href={quoteHref} className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
+              <Link href={quoteHref} className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
                 Get my PPF quote <ArrowRight className="w-4 h-4" />
               </Link>
               <a href="tel:+17037754383" className="border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">

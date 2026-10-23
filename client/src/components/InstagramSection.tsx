@@ -141,7 +141,7 @@ export default function InstagramSection() {
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-brand-orange hover:bg-[oklch(0.72_0.21_40)] text-[oklch(0.10_0.005_285)] font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors self-start md:self-auto"
+            className="cta bg-brand-orange hover:bg-[oklch(0.72_0.21_40)] text-[oklch(0.10_0.005_285)] font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors self-start md:self-auto"
           >
             <Instagram className="w-4 h-4" /> Follow @{INSTAGRAM_HANDLE} <ArrowUpRight className="w-4 h-4" />
           </a>

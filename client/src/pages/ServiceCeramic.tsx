@@ -291,7 +291,7 @@ export default function ServiceCeramic() {
                 <Link
                   href="/promo-ceramic"
                   data-cta="ceramic-hero-special"
-                  className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
+                  className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
                 >
                   SEE THE $995 SPECIAL <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -321,7 +321,7 @@ export default function ServiceCeramic() {
                   <li key={t} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{t}</li>
                 ))}
               </ul>
-              <Link href="/promo-ceramic" id="ceramic-hero-cta" data-cta="ceramic-hero-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
+              <Link href="/promo-ceramic" id="ceramic-hero-cta" data-cta="ceramic-hero-card" className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
                 Lock in my slot <ArrowRight className="w-5 h-5" />
               </Link>
               <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">Limited slots this month</span> · Ends {endOfMonth()}</p>
@@ -382,7 +382,7 @@ export default function ServiceCeramic() {
                   </ul>
                   <Link
                     href="/get-a-quote?service=ceramic"
-                    className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-white hover:text-[#E85D04]"}`}
+                    className={`cta w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-white hover:text-[#E85D04]"}`}
                   >
                     GET A QUOTE
                   </Link>
@@ -493,7 +493,7 @@ export default function ServiceCeramic() {
             <p className="text-zinc-400 text-[11px] md:text-xs mt-0.5">System X ceramic special{timeLeftLabel(endOfMonth()) ? ` · ${timeLeftLabel(endOfMonth())}` : ""}<span className="hidden md:inline"> · Limited slots this month</span></p>
           </div>
           <a href="tel:+17037754383" className="hidden md:inline-flex items-center gap-2 text-zinc-300 hover:text-white text-sm font-semibold whitespace-nowrap">(703) 775-4383</a>
-          <Link href="/promo-ceramic" data-cta="ceramic-sticky" tabIndex={heroCtaVisible ? -1 : 0} className="shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base md:text-xl tracking-widest px-4 md:px-8 py-3 hover:bg-orange-600 transition-colors whitespace-nowrap">LOCK IN <span className="hidden md:inline">MY </span>SLOT</Link>
+          <Link href="/promo-ceramic" data-cta="ceramic-sticky" tabIndex={heroCtaVisible ? -1 : 0} className="cta shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base md:text-xl tracking-widest px-4 md:px-8 py-3 hover:bg-orange-600 transition-colors whitespace-nowrap">LOCK IN <span className="hidden md:inline">MY </span>SLOT</Link>
         </div>
       </div>
       <div className="h-16" aria-hidden="true" />

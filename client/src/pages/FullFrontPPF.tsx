@@ -75,7 +75,7 @@ export default function FullFrontPPF() {
             <h1 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl lg:text-8xl text-white leading-none mb-6">{g.h1}</h1>
             {g.intro.map((p) => <p key={p.slice(0, 40)} className="text-zinc-300 text-lg leading-relaxed max-w-3xl mb-4">{renderInline(p)}</p>)}
             <div className="flex flex-wrap gap-3 mt-8">
-              <Link href="/get-a-quote?service=ppf" data-cta="guide-quote" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">Get a full front quote <ArrowRight className="w-4 h-4" /></Link>
+              <Link href="/get-a-quote?service=ppf" data-cta="guide-quote" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">Get a full front quote <ArrowRight className="w-4 h-4" /></Link>
               <a href="tel:+17037754383" className="border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors"><Phone className="w-4 h-4" /> (703) 775-4383</a>
             </div>
             <ul className="flex flex-wrap gap-x-6 gap-y-2 mt-8 text-sm text-zinc-400">

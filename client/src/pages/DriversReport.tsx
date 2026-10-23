@@ -138,7 +138,7 @@ export default function DriversReport() {
           <p>You're welcome to quote these numbers. Please credit "Skyline Customs, Northern Virginia Car Protection Report {YEAR}" and link to this page.</p>
 
           <div className="mt-10">
-            <Link href="/get-a-quote" className="inline-flex items-center gap-3 bg-brand-orange text-black font-display text-lg tracking-widest px-8 py-4 hover:bg-orange-600 transition-colors">
+            <Link href="/get-a-quote" className="cta inline-flex items-center gap-3 bg-brand-orange text-black font-display text-lg tracking-widest px-8 py-4 hover:bg-orange-600 transition-colors">
               GET A FREE QUOTE
             </Link>
           </div>

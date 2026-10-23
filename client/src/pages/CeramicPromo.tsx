@@ -476,7 +476,7 @@ export default function CeramicPromo() {
           <p className="text-[11px] font-bold"><span className="text-white">{PRICE_TXT}</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">Glass + wheels free</span></p>
           <p className="text-zinc-400 text-[11px] mt-0.5">System X ceramic special{timeLeftLabel(endDate) ? ` · ${timeLeftLabel(endDate)}` : ""}</p>
         </div>
-        <a href={quoteUrl} data-cta="ceramic-promo-claim" className="shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-4 py-3 hover:bg-orange-600 transition-colors">LOCK IN SLOT</a>
+        <a href={quoteUrl} data-cta="ceramic-promo-claim" className="cta shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-4 py-3 hover:bg-orange-600 transition-colors">LOCK IN SLOT</a>
       </div>
       <div className="h-16 md:hidden" aria-hidden="true" />
     </div>

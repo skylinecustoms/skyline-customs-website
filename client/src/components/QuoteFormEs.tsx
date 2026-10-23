@@ -92,7 +92,7 @@ export default function QuoteFormEs({ ui, service, promo }: Props) {
         </span>
       </label>
       {errorMsg && <p className="text-red-400 text-sm">{errorMsg}</p>}
-      <button type="submit" disabled={submit.isPending || !agreed} className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+      <button type="submit" disabled={submit.isPending || !agreed} className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
         {submit.isPending ? ui.sending : ui.submit}{!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
       <SmsConsent lang="es" className="mt-3" />

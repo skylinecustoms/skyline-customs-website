@@ -147,7 +147,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription,
       <button
         type="submit"
         disabled={submit.isPending}
-        className="w-full bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="cta w-full bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {submit.isPending ? "SENDING..." : buttonLabel}
         {!submit.isPending && <ArrowRight className="w-5 h-5" />}

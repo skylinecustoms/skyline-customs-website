@@ -203,7 +203,7 @@ export default function Gallery() {
             href="https://www.instagram.com/skylinecustomshop/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest px-8 py-4 hover:bg-[oklch(0.72_0.21_40)] transition-colors"
+            className="cta inline-flex items-center gap-2 bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest px-8 py-4 hover:bg-[oklch(0.72_0.21_40)] transition-colors"
           >
             @SKYLINECUSTOMSHOP
           </a>

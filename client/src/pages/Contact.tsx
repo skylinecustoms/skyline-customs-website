@@ -226,7 +226,7 @@ export default function Contact() {
               <div className="mt-8">
                 <a
                   href="/get-a-quote"
-                  className="flex items-center justify-center gap-2 bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest py-4 hover:bg-[oklch(0.72_0.21_40)] transition-colors group w-full"
+                  className="cta flex items-center justify-center gap-2 bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest py-4 hover:bg-[oklch(0.72_0.21_40)] transition-colors group w-full"
                 >
                   BOOK ONLINE NOW
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -392,7 +392,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={submitContact.isPending}
-                      className="w-full bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-base tracking-widest py-4 hover:bg-[oklch(0.72_0.21_40)] transition-colors flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="cta w-full bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-base tracking-widest py-4 hover:bg-[oklch(0.72_0.21_40)] transition-colors flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {submitContact.isPending ? "SENDING..." : "SEND MESSAGE"}
                       {!submitContact.isPending && (

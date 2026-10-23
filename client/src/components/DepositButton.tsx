@@ -54,7 +54,7 @@ export default function DepositButton(p: Props) {
       <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">{c.eyebrow}</p>
       <h4 className="font-display text-2xl text-white tracking-wide mb-2">{c.heading}</h4>
       <p className="text-zinc-300 text-sm leading-relaxed mb-5">{c.body}</p>
-      <button type="button" onClick={start} disabled={busy} className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-60">
+      <button type="button" onClick={start} disabled={busy} className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-60">
         {busy ? c.starting : c.button}{!busy && <ArrowRight className="w-5 h-5" />}
       </button>
       {err && <p className="text-red-400 text-sm mt-3">{err}</p>}

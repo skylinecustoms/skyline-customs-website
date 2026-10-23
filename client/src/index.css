@@ -453,3 +453,56 @@
   background: radial-gradient(520px circle at var(--x, 50%) var(--y, 50%), rgba(232, 93, 4, .20), rgba(232, 93, 4, .06) 40%, transparent 65%);
 }
 .hero-cursor-glow[data-on="1"] { opacity: 1; }
+
+/* Orange call-to-action buttons (class "cta"), dressed like runonsystems.com's: a pill with a light that
+   pulses like a status light, the arrow in its own dark circle that turns on hover, a light that follows
+   the cursor (lib/aliveButtons.ts sets --mx/--my and the lean) and a press that gives. Unlayered on
+   purpose so it wins over the buttons' own Tailwind classes. */
+.cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 9999px;
+  transition: translate .3s cubic-bezier(.2,.8,.2,1), scale .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .3s ease;
+}
+.cta:hover { scale: 1; box-shadow: 0 0 28px rgba(232, 93, 4, .35); }
+.cta:active { scale: .97; }
+.cta::before {
+  content: "";
+  display: inline-block;
+  flex-shrink: 0;
+  width: 8px; height: 8px;
+  margin-right: .75em;
+  vertical-align: middle;
+  border-radius: 9999px;
+  background: currentColor;
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 18%, transparent);
+  animation: cta-dot 2.4s ease-in-out infinite;
+}
+.cta::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s ease;
+  mix-blend-mode: soft-light;
+  background: radial-gradient(140px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.9), transparent 70%);
+}
+.cta:hover::after { opacity: 1; }
+.cta:has(> svg.lucide-arrow-right:last-child) { padding-right: .4rem; }
+.cta > svg.lucide-arrow-right:last-child {
+  box-sizing: content-box;
+  padding: .55rem;
+  margin-left: .35rem;
+  border-radius: 9999px;
+  background: #0A0A0A;
+  color: #E85D04;
+  transition: transform .35s cubic-bezier(.23,1,.32,1);
+}
+.cta:hover > svg.lucide-arrow-right:last-child { transform: rotate(-45deg); }
+.cta:disabled { box-shadow: none; }
+@keyframes cta-dot { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) {
+  .cta::before { animation: none; }
+  .cta > svg.lucide-arrow-right:last-child { transition: none; }
+}

@@ -97,7 +97,7 @@ export default function FleetForm() {
         <span className="text-xs text-zinc-400 leading-relaxed"><span className="text-red-400 font-bold mr-1">*</span>I have read and agree to Skyline Customs' <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2" onClick={(e) => e.stopPropagation()}>Terms of Service &amp; Warranty Policy</a>.</span>
       </label>
       {errorMsg && <p className="text-red-400 text-sm">{errorMsg}</p>}
-      <button type="submit" disabled={submit.isPending || !agreed} className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+      <button type="submit" disabled={submit.isPending || !agreed} className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
         {submit.isPending ? "SENDING..." : "GET FLEET PRICING"}{!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
       <SmsConsent className="mt-3" />

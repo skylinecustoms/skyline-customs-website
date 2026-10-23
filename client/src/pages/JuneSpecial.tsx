@@ -484,7 +484,7 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
         <button
           type="submit"
           disabled={joinWaitlist.isPending || !intent}
-          className="w-full bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+          className="cta w-full bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
         >
           {joinWaitlist.isPending ? 'JOINING...' : 'JOIN THE WAITLIST'} <ArrowRight className="w-5 h-5" />
         </button>
@@ -1657,7 +1657,7 @@ export default function JuneSpecial() {
           <a
             href={quoteUrl}
             data-cta="promo-claim"
-            className="shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-4 py-3 hover:bg-orange-600 transition-colors"
+            className="cta shrink-0 bg-[#E85D04] text-black font-display text-sm tracking-widest px-4 py-3 hover:bg-orange-600 transition-colors"
           >
             CLAIM SPOT
           </a>

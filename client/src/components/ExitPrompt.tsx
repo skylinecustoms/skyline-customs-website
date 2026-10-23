@@ -116,7 +116,7 @@ export default function ExitPrompt({ promoTitle, promoTag, service = "PPF", form
               <input type="tel" required autoComplete="tel" placeholder="(703) 000-0000" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full bg-[#111] border border-zinc-700 text-zinc-100 px-4 py-3 text-sm focus:outline-none focus:border-[#E85D04] placeholder:text-zinc-500" />
             </div>
             {err && <p className="text-red-400 text-sm">{err}</p>}
-            <button type="submit" disabled={submit.isPending} className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors disabled:opacity-50">
+            <button type="submit" disabled={submit.isPending} className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors disabled:opacity-50">
               {submit.isPending ? "Sending..." : "Text me the price"} {!submit.isPending && <ArrowRight className="w-5 h-5" />}
             </button>
             <p className="text-zinc-500 text-[11px] leading-relaxed">By sending, you agree to receive a text from Skyline Customs about this request. Msg &amp; data rates may apply. Reply STOP any time. <a href="/sms-terms" className="underline underline-offset-2">Text terms</a> · <a href="/privacy-policy" className="underline underline-offset-2">Privacy</a></p>

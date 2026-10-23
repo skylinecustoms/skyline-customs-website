@@ -438,7 +438,7 @@ export default function GetAQuote() {
                   <button
                     type="submit"
                     disabled={submitContact.isPending || !agreedToTos}
-                    className="w-full bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xl tracking-widest py-4 hover:bg-[#d45200] transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="cta w-full bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xl tracking-widest py-4 hover:bg-[#d45200] transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {submitContact.isPending ? "SENDING..." : "GET MY FREE QUOTE"}
                     {!submitContact.isPending && (
