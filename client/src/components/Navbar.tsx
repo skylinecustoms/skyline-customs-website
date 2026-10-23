@@ -115,10 +115,10 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
                 <div key={link.href} className="relative" ref={servicesRef}>
                   <button
                     onClick={() => setServicesOpen(!servicesOpen)}
-                    className={`relative font-display text-sm 2xl:text-base tracking-wider transition-colors group flex items-center gap-1 ${
+                    className={`nav-link relative font-display text-sm 2xl:text-base tracking-wider group flex items-center gap-1 ${
                       location.startsWith("/services")
                         ? "text-brand-orange"
-                        : "text-[oklch(0.75_0.008_85)] hover:text-[oklch(0.96_0.008_85)]"
+                        : "text-[oklch(0.75_0.008_85)]"
                     }`}
                   >
                     Services
@@ -126,7 +126,7 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
                     <span className={`absolute -bottom-1 left-0 h-[2px] bg-brand-orange transition-all duration-300 ${location.startsWith("/services") ? "w-full" : "w-0 group-hover:w-full"}`} />
                   </button>
                   {servicesOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-56 bg-[#111] border border-zinc-800 shadow-2xl z-50">
+                    <div className="squircle overflow-hidden absolute top-full left-0 mt-2 w-56 bg-[#111] border border-zinc-800 shadow-2xl z-50">
                       {activePromo && (
                         <Link
                           href="/promo"
@@ -163,10 +163,10 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative font-display text-sm 2xl:text-base tracking-wider transition-colors group ${
+                  className={`nav-link relative font-display text-sm 2xl:text-base tracking-wider group ${
                     location === link.href
                       ? "text-brand-orange"
-                      : "text-[oklch(0.75_0.008_85)] hover:text-[oklch(0.96_0.008_85)]"
+                      : "text-[oklch(0.75_0.008_85)]"
                   }`}
                 >
                   {link.label}
@@ -183,7 +183,7 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
             {activePromo && (
               <Link
                 href="/promo"
-                className={`relative font-display text-sm 2xl:text-base tracking-wider transition-colors group flex items-center gap-1.5 whitespace-nowrap ${
+                className={`nav-link relative font-display text-sm 2xl:text-base tracking-wider group flex items-center gap-1.5 whitespace-nowrap ${
                   location === "/promo"
                     ? "text-brand-orange"
                     : "text-brand-orange/80 hover:text-brand-orange"

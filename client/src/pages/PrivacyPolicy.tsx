@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
             PRIVACY<br />
             <span className="text-brand-orange">POLICY</span>
           </h1>
-          <p className="text-[oklch(0.66_0.008_285)] text-sm">Last updated: February 2026</p>
+          <p className="text-[oklch(0.66_0.008_285)] text-sm">Last updated: October 2026</p>
         </div>
       </section>
 
@@ -84,6 +84,13 @@ export default function PrivacyPolicy() {
               <h2 className="font-display text-2xl text-[oklch(0.96_0.008_85)] tracking-wider mb-4">4. SHARING YOUR INFORMATION</h2>
               <p>
                 We do not sell, trade, or rent your personal information to third parties. We may share your information with trusted service providers who assist us in operating our website and conducting our business (such as our CRM platform, GoHighLevel), provided those parties agree to keep this information confidential. We may also disclose information when required by law or to protect our rights.
+              </p>
+              <p className="mt-4">
+                <strong className="text-[oklch(0.85_0.008_85)]">Text messages.</strong> When you give us your mobile number and agree to get texts, we text you about your quote, appointments and follow-ups. Message frequency varies and message and data rates may apply. Reply STOP to opt out or HELP for help. See our{" "}
+                <a href="/sms-terms" className="text-brand-orange underline underline-offset-2 decoration-1 hover:decoration-2">text message terms</a>.
+              </p>
+              <p className="mt-4">
+                <strong className="text-[oklch(0.85_0.008_85)]">No mobile information will be shared with third parties or affiliates for marketing or promotional purposes.</strong> Text messaging opt-in data and consent are never shared with or sold to anyone; the only exception is the texting provider that sends our messages for us.
               </p>
             </div>
 

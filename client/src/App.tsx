@@ -65,6 +65,8 @@ const ServiceTint = lazy(() => import("./pages/ServiceTint"));
 const GetAQuote = lazy(() => import("./pages/GetAQuote"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const SmsTerms = lazy(() => import("./pages/SmsTerms"));
+const DriversReport = lazy(() => import("./pages/DriversReport"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
@@ -185,6 +187,8 @@ function Router() {
 
       {/* Legal pages -- MUST stay above /:archivedSlug catch-all */}
       <Route path={'/privacy-policy'} component={PrivacyPolicy} />
+      <Route path={'/sms-terms'} component={SmsTerms} />
+      <Route path={'/northern-virginia-car-protection-report'} component={DriversReport} />
       <Route path={'/privacy-policy-112467'} component={PrivacyPolicy} />
       <Route path={'/terms-of-service'} component={TermsOfService} />
 

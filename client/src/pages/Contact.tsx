@@ -7,6 +7,7 @@ import SEO from "@/components/SEO";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
 import { trpc } from "@/lib/trpc";
+import SmsConsent from "@/components/SmsConsent";
 
 // GHL field IDs (from the live form inspection)
 // first_name, last_name, phone, email (standard)
@@ -398,6 +399,7 @@ export default function Contact() {
                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                       )}
                     </button>
+                    <SmsConsent className="mt-3" />
                   </form>
                 </>
               )}

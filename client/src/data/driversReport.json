@@ -1,0 +1,103 @@
+{
+  "shop": "Skyline Customs",
+  "place": "Chantilly, VA",
+  "source": "GoHighLevel (quote requests)",
+  "updated": "2026-10-23",
+  "since": "2026-02",
+  "leads": 3293,
+  "services": {
+    "answered": 2827,
+    "counts": [
+      {
+        "name": "Window tint",
+        "n": 1390
+      },
+      {
+        "name": "Paint protection film",
+        "n": 1380
+      },
+      {
+        "name": "Ceramic coating",
+        "n": 226
+      }
+    ]
+  },
+  "makes": {
+    "answered": 1589,
+    "top": [
+      {
+        "name": "Toyota",
+        "n": 172
+      },
+      {
+        "name": "Tesla",
+        "n": 145
+      },
+      {
+        "name": "Honda",
+        "n": 141
+      },
+      {
+        "name": "BMW",
+        "n": 132
+      },
+      {
+        "name": "Chevrolet",
+        "n": 119
+      },
+      {
+        "name": "Ford",
+        "n": 99
+      },
+      {
+        "name": "Mercedes-Benz",
+        "n": 88
+      },
+      {
+        "name": "Lexus",
+        "n": 77
+      },
+      {
+        "name": "Nissan",
+        "n": 68
+      },
+      {
+        "name": "Jeep",
+        "n": 64
+      },
+      {
+        "name": "Kia",
+        "n": 47
+      },
+      {
+        "name": "Audi",
+        "n": 46
+      }
+    ]
+  },
+  "paint": {
+    "answered": 0,
+    "counts": []
+  },
+  "timing": {
+    "answered": 1137,
+    "counts": [
+      {
+        "name": "This week",
+        "n": 467
+      },
+      {
+        "name": "This month",
+        "n": 410
+      },
+      {
+        "name": "As soon as possible",
+        "n": 192
+      },
+      {
+        "name": "Car not picked up yet",
+        "n": 68
+      }
+    ]
+  }
+}

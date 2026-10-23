@@ -31,6 +31,7 @@ import { Link } from "wouter";
 import { toast } from "sonner";
 import RockChipDemo from "@/components/demos/RockChipDemo";
 import WaterDemo from "@/components/demos/WaterDemo";
+import SmsConsent from "@/components/SmsConsent";
 import {
   Shield, Sparkles, Zap, CheckCircle, ArrowRight, Clock,
   Star, Lock, ChevronDown, AlertTriangle, Eye, Wrench, Layers, Mail, Phone, Car, Gift
@@ -487,6 +488,7 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
         >
           {joinWaitlist.isPending ? 'JOINING...' : 'JOIN THE WAITLIST'} <ArrowRight className="w-5 h-5" />
         </button>
+        <SmsConsent className="mt-3" />
         <p className="text-zinc-400 text-xs text-center">No spam. Just a heads-up when your spot is ready.</p>
       </form>
     </div>

@@ -84,6 +84,7 @@ export default function Footer() {
                 { label: "Blog", href: "/blog" },
                 { label: "FAQ", href: "/faq" },
                 { label: "Reviews", href: "/reviews" },
+                { label: "Car Protection Report", href: "/northern-virginia-car-protection-report" },
                 { label: "Service Areas", href: "/service-areas" },
               ].map((s) => (
                 <li key={s.label}>
@@ -178,6 +179,9 @@ export default function Footer() {
             </Link>
             <Link href="/terms-of-service" className="whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
               Terms of Service
+            </Link>
+            <Link href="/sms-terms" className="whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-brand-orange transition-colors">
+              Text Terms
             </Link>
             {/* Credit to the agency that builds and runs this site: its logo mark and name (the mark is the same as runonsystems.com's). */}
             <a href="https://www.runonsystems.com" aria-label="Website by Run On Systems" className="group inline-flex items-center gap-2 whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-white transition-colors">

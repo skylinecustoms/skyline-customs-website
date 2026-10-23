@@ -426,3 +426,30 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-glow::before, .hero-glow::after { animation: none; }
 }
+
+/* Rounder cards: a soft squircle where the browser supports corner-shape (it needs a larger radius
+   to look the same size), a plain rounded corner everywhere else. In the components layer so a
+   Tailwind rounded-* utility can still override it. */
+@layer components {
+  .squircle { border-radius: 1.25rem; }
+  @supports (corner-shape: squircle) {
+    .squircle { border-radius: 2rem; corner-shape: squircle; }
+  }
+}
+
+/* Desktop menu links: orange, a slight lift and a soft glow on hover and keyboard focus
+   (the underline is the span inside each link). */
+.nav-link { transition: color .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), text-shadow .3s ease; }
+.nav-link:hover, .nav-link:focus-visible { color: oklch(0.62 0.21 40); transform: translateY(-2px); text-shadow: 0 0 18px rgba(232, 93, 4, .45); outline: none; }
+.nav-link:focus-visible > span:last-child { width: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-link { transition: color .2s ease; }
+  .nav-link:hover, .nav-link:focus-visible { transform: none; }
+}
+
+/* Home hero: an orange glow that follows the mouse (desktop only, see HeroCursorGlow). */
+.hero-cursor-glow {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s ease;
+  background: radial-gradient(520px circle at var(--x, 50%) var(--y, 50%), rgba(232, 93, 4, .20), rgba(232, 93, 4, .06) 40%, transparent 65%);
+}
+.hero-cursor-glow[data-on="1"] { opacity: 1; }

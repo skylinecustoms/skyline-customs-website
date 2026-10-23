@@ -9,6 +9,7 @@ import { trpc } from "@/lib/trpc";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
 import DepositButton from "@/components/DepositButton";
+import SmsConsent from "@/components/SmsConsent";
 
 interface Props {
   promoTitle: string;
@@ -151,6 +152,7 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription,
         {submit.isPending ? "SENDING..." : buttonLabel}
         {!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
+      <SmsConsent className="mt-3" />
       <p className="text-center text-zinc-400 text-xs tracking-wide">{footnote ?? "No catch. Just flawless paint, guaranteed 12 years. Nothing to pay now: a fully refundable 20% deposit locks your date only after you approve your exact quote. Pay over time with Klarna, Afterpay, or Affirm."}</p>
     </form>
   );

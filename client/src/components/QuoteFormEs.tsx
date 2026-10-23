@@ -12,6 +12,7 @@ import { usePartialLead } from "@/lib/partialLead";
 import { promoTagFor } from "@/components/PromoQuoteForm";
 import DepositButton from "@/components/DepositButton";
 import type { EsUi } from "@/lib/es";
+import SmsConsent from "@/components/SmsConsent";
 
 interface Props {
   ui: EsUi["form"];
@@ -94,6 +95,7 @@ export default function QuoteFormEs({ ui, service, promo }: Props) {
       <button type="submit" disabled={submit.isPending || !agreed} className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-xl tracking-[0.1em] uppercase py-4 hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
         {submit.isPending ? ui.sending : ui.submit}{!submit.isPending && <ArrowRight className="w-5 h-5" />}
       </button>
+      <SmsConsent lang="es" className="mt-3" />
       <p className="text-center text-zinc-400 text-xs tracking-wide">{ui.finePrint}</p>
     </form>
   );
