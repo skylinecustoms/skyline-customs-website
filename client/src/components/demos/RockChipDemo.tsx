@@ -6,7 +6,7 @@ import { DemoLayout, Hint, Stat, Toggle, useDemoEngine, useDemoTracking } from "
 
 /** What one rock chip costs to touch up. Used for the running "repair bill" and "saved by PPF" totals. */
 export const CHIP_COST = 100;
-const CTA = "inline-flex items-center gap-2 bg-[#E85D04] hover:bg-[#c94f03] text-white font-['Bebas_Neue',sans-serif] text-xl tracking-wider px-6 py-3";
+const CTA = "cta inline-flex items-center gap-2 bg-[#E85D04] hover:bg-[#c94f03] text-white font-['Bebas_Neue',sans-serif] text-xl tracking-wider px-6 py-3";
 const money = (n: number) => "$" + n.toLocaleString("en-US");
 
 /**
@@ -46,8 +46,8 @@ export default function RockChipDemo({ eyebrow = "Paint protection film", cta = 
         {film ? <Stat label="Saved by PPF" value={"+" + money(stats.saved)} tone="good" /> : <Stat label="Repair bill" value={stats.cost ? "−" + money(stats.cost) : "$0"} tone="bad" />}
       </div>
       <div className="flex flex-wrap gap-2">
-        <button type="button" aria-pressed={highway} onClick={() => { setHighway(!highway); touch(); }} className="min-h-[44px] px-4 border border-zinc-700 text-zinc-200 text-sm hover:border-[#E85D04]">Highway mode: {highway ? "on" : "off"}</button>
-        <button type="button" onClick={() => api?.reset()} className="min-h-[44px] px-4 border border-zinc-700 text-zinc-200 text-sm hover:border-[#E85D04]">Fix the paint</button>
+        <button type="button" aria-pressed={highway} onClick={() => { setHighway(!highway); touch(); }} className="cta cta-alt min-h-[44px] px-4 border border-zinc-700 text-zinc-200 text-sm hover:border-[#E85D04]">Highway mode: {highway ? "on" : "off"}</button>
+        <button type="button" onClick={() => api?.reset()} className="cta cta-alt min-h-[44px] px-4 border border-zinc-700 text-zinc-200 text-sm hover:border-[#E85D04]">Fix the paint</button>
       </div>
       {cta.href.startsWith("#") ? (
         <a href={cta.href} data-cta="demo_rock_chips" className={CTA}>{cta.label} <ArrowRight className="w-4 h-4" /></a>
