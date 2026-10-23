@@ -447,12 +447,6 @@
   .nav-link:hover, .nav-link:focus-visible { transform: none; }
 }
 
-/* Home hero: an orange glow that follows the mouse (desktop only, see HeroCursorGlow). */
-.hero-cursor-glow {
-  position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s ease;
-  background: radial-gradient(520px circle at var(--x, 50%) var(--y, 50%), rgba(232, 93, 4, .20), rgba(232, 93, 4, .06) 40%, transparent 65%);
-}
-.hero-cursor-glow[data-on="1"] { opacity: 1; }
 
 /* Orange call-to-action buttons (class "cta"), dressed like runonsystems.com's: a pill with a light that
    pulses like a status light, the arrow in its own dark circle that turns on hover, a light that follows
@@ -506,3 +500,25 @@
   .cta::before { animation: none; }
   .cta > svg.lucide-arrow-right:last-child { transition: none; }
 }
+
+/* Secondary buttons (black on orange sections, outlined Call buttons, white blog buttons): same pill,
+   light and lean as .cta, with an orange cursor light and the arrow circle in the button's own colour. */
+.cta-alt:hover { box-shadow: 0 0 24px rgba(232, 93, 4, .28); }
+.cta-alt::after {
+  mix-blend-mode: normal;
+  background: radial-gradient(140px circle at var(--mx, 50%) var(--my, 50%), rgba(232, 93, 4, .28), transparent 70%);
+}
+.cta-alt > svg.lucide-arrow-right:last-child {
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  color: inherit;
+}
+
+/* An orange haze that follows the mouse over every page (lib/aliveButtons.ts moves it). It sits on top and
+   screens, so it lightens whatever is under the cursor without blocking clicks. */
+.cursor-haze {
+  position: fixed; inset: 0; z-index: 45; pointer-events: none;
+  opacity: 0; transition: opacity .5s ease;
+  mix-blend-mode: screen;
+  background: radial-gradient(560px circle at var(--hx, 50%) var(--hy, 50%), rgba(232, 93, 4, .16), rgba(232, 93, 4, .05) 40%, transparent 65%);
+}
+.cursor-haze[data-on="1"] { opacity: 1; }

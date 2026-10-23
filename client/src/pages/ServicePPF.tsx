@@ -186,7 +186,7 @@ export default function ServicePPF() {
                   <Link href="/promo" data-cta="ppf-hero-special" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
                     SEE THE {promoPriceTxt} SPECIAL <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <Link href="/get-a-quote?service=ppf" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2">
+                  <Link href="/get-a-quote?service=ppf" className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2">
                     GET A PPF QUOTE
                   </Link>
                 </>
@@ -465,10 +465,10 @@ export default function ServicePPF() {
           <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white mb-4">PROTECT IT BEFORE THE FIRST CHIP</h2>
           <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">Send us the year, make, and model. We reply with exact pricing, usually within the hour, and book you into the bay.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/get-a-quote?service=ppf" className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+            <Link href="/get-a-quote?service=ppf" className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
               GET MY PPF QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
-            <a href="tel:+17037754383" className="border-2 border-black/70 text-black hover:bg-black hover:text-white font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 inline-flex items-center gap-2">
+            <a href="tel:+17037754383" className="cta cta-alt border-2 border-black/70 text-black hover:bg-black hover:text-white font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 inline-flex items-center gap-2">
               <Phone className="w-4 h-4" /> CALL (703) 775-4383
             </a>
           </div>

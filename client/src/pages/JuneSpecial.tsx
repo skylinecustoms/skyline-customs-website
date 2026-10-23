@@ -1649,7 +1649,7 @@ export default function JuneSpecial() {
         {soldOut ? (
           <a
             href="#claim"
-            className="shrink-0 bg-zinc-700 text-white font-display text-sm tracking-widest px-5 py-3"
+            className="cta cta-alt shrink-0 bg-zinc-700 text-white font-display text-sm tracking-widest px-5 py-3"
           >
             JOIN WAITLIST
           </a>

@@ -2,7 +2,6 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, Star, ChevronDown, Phone, ClipboardList, Wrench, Shield, CheckCircle, Clock, Zap } from "lucide-react";
 import { trpc } from "@/lib/trpc";
-import HeroCursorGlow from "@/components/HeroCursorGlow";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { BookingService } from "@/components/BookingModal";
@@ -377,11 +376,11 @@ function ThisMonthsSpecialBanner() {
                   Claim My Spot <ArrowRight className="w-4 h-4" />
                 </Link>
               ) : (
-                <Link href={promoUrl + "#waitlist"} className="inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] font-display text-sm tracking-widest uppercase px-7 py-4 hover:bg-[#E85D04]/10 transition-colors">
+                <Link href={promoUrl + "#waitlist"} className="cta cta-alt inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] font-display text-sm tracking-widest uppercase px-7 py-4 hover:bg-[#E85D04]/10 transition-colors">
                   Join Waitlist <ArrowRight className="w-4 h-4" />
                 </Link>
               )}
-              <Link href={promoUrl} className="inline-flex items-center gap-2 border border-zinc-700 text-zinc-300 font-display text-sm tracking-widest uppercase px-7 py-4 hover:border-zinc-500 transition-colors">
+              <Link href={promoUrl} className="cta cta-alt inline-flex items-center gap-2 border border-zinc-700 text-zinc-300 font-display text-sm tracking-widest uppercase px-7 py-4 hover:border-zinc-500 transition-colors">
                 See Full Details <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -471,8 +470,6 @@ export default function Home() {
           {/* Phones: only a soft fade into the next section, so the glow stays visible behind the headline. */}
           <div className="md:hidden absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[oklch(0.08_0.005_285)] to-transparent" />
         </div>
-
-        <HeroCursorGlow />
 
         <div className="relative z-10 container max-w-6xl py-32">
           <div className="max-w-2xl">
@@ -676,14 +673,14 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/get-a-quote"
-              className="flex items-center justify-center gap-3 bg-white text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-zinc-100 transition-all duration-200 hover:scale-[1.02] group"
+              className="cta cta-alt flex items-center justify-center gap-3 bg-white text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-zinc-100 transition-all duration-200 hover:scale-[1.02] group"
             >
               GET A FREE QUOTE
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <a
               href="tel:+17037754383"
-              className="flex items-center justify-center gap-3 border-2 border-black text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-white hover:text-brand-orange transition-colors"
+              className="cta cta-alt flex items-center justify-center gap-3 border-2 border-black text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-white hover:text-brand-orange transition-colors"
             >
               <Phone className="w-5 h-5" />
               (703) 775-4383

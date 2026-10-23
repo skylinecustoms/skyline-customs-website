@@ -460,7 +460,7 @@ export default function ServiceTint() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/get-a-quote?service=tint"
-              className="bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
+              className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
               GET A QUOTE <ArrowRight className="w-4 h-4" />
             </Link>

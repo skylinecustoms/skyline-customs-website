@@ -216,7 +216,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
                 GET A FREE QUOTE <ArrowRight className="w-4 h-4" />
               </Link>
               <a href="tel:+17037754383"
-                className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
+                className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
               >
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
@@ -341,12 +341,12 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
           <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">{svc.ctaText(city)}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href={`/get-a-quote?service=${svc.quoteParam}`}
-              className="bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
             <a href="tel:+17037754383"
-              className="border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
+              className="cta cta-alt border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
             >
               <Phone className="w-4 h-4" /> CALL NOW
             </a>
@@ -362,7 +362,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
               <p className="text-white text-lg font-semibold">Read the complete full front PPF guide</p>
               <p className="text-zinc-400 text-sm mt-1">Every panel it covers, the STEK film, the install day step by step, and what the film looks like at year ten.</p>
             </div>
-            <Link href="/full-front-ppf" className="md:ml-auto shrink-0 inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-black font-bold tracking-widest uppercase px-6 py-3 transition-colors">Full front PPF guide <ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/full-front-ppf" className="cta cta-alt md:ml-auto shrink-0 inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-black font-bold tracking-widest uppercase px-6 py-3 transition-colors">Full front PPF guide <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </section>
       )}
@@ -375,7 +375,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
               <p className="text-white text-lg font-semibold">Read the complete ceramic coating guide</p>
               <p className="text-zinc-400 text-sm mt-1">What a coating does and does not do, why the paint is corrected first, the install day, and how long it lasts around here.</p>
             </div>
-            <Link href="/ceramic-coating-guide" className="md:ml-auto shrink-0 inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-black font-bold tracking-widest uppercase px-6 py-3 transition-colors">Ceramic coating guide <ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/ceramic-coating-guide" className="cta cta-alt md:ml-auto shrink-0 inline-flex items-center gap-2 border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-black font-bold tracking-widest uppercase px-6 py-3 transition-colors">Ceramic coating guide <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </section>
       )}

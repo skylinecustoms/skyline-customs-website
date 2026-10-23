@@ -66,7 +66,7 @@ export default function ThankYou() {
             </Link>
             <a
               href="tel:+17037754383"
-              className="inline-flex items-center justify-center gap-3 border border-zinc-600 hover:border-[#E85D04] text-white hover:text-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200"
+              className="cta cta-alt inline-flex items-center justify-center gap-3 border border-zinc-600 hover:border-[#E85D04] text-white hover:text-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200"
             >
               <Phone className="w-4 h-4" />
               CALL US NOW

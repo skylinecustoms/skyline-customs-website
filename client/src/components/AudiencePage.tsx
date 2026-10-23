@@ -80,7 +80,7 @@ export default function AudiencePage({ data }: { data: AudiencePageData }) {
               <Link href={quoteHref} className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
                 Get my PPF quote <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="tel:+17037754383" className="border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
+              <a href="tel:+17037754383" className="cta cta-alt border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
             </div>
@@ -231,8 +231,8 @@ export default function AudiencePage({ data }: { data: AudiencePageData }) {
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl leading-none mb-4">FILM IT BEFORE THE FIRST CHIP</h2>
             <p className="text-black/90 text-lg mb-8">Tell us the car and the week you want it done. Written quote the same business day, full front on in one day at our Chantilly shop.</p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Link href={quoteHref} className="bg-black text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-zinc-900 transition-colors">Get a free quote <ArrowRight className="w-4 h-4" /></Link>
-              <a href="tel:+17037754383" className="border-2 border-black text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-black hover:text-white transition-colors"><Phone className="w-4 h-4" /> (703) 775-4383</a>
+              <Link href={quoteHref} className="cta cta-alt bg-black text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-zinc-900 transition-colors">Get a free quote <ArrowRight className="w-4 h-4" /></Link>
+              <a href="tel:+17037754383" className="cta cta-alt border-2 border-black text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-black hover:text-white transition-colors"><Phone className="w-4 h-4" /> (703) 775-4383</a>
             </div>
           </div>
         </section>

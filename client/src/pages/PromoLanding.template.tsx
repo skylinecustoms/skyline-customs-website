@@ -220,7 +220,7 @@ export default function JuneSpecial() {
                   </Link>
                   <a
                     href="tel:+17037754383"
-                    className="border-2 border-zinc-700 text-white hover:border-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 text-center"
+                    className="cta cta-alt border-2 border-zinc-700 text-white hover:border-[#E85D04] font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 text-center"
                   >
                     CALL (703) 775-4383
                   </a>
@@ -413,13 +413,13 @@ export default function JuneSpecial() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/get-a-quote?service=ppf&promo=june-special"
-              className="bg-white text-[#E85D04] hover:bg-zinc-100 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
+              className="cta cta-alt bg-white text-[#E85D04] hover:bg-zinc-100 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
               {soldOut ? "JOIN WAITLIST" : "CLAIM YOUR SLOT"} <ArrowRight className="w-4 h-4" />
             </Link>
             <a
               href="tel:+17037754383"
-              className="border-2 border-white text-white hover:bg-white hover:text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200"
+              className="cta cta-alt border-2 border-white text-white hover:bg-white hover:text-[#E85D04] font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200"
             >
               CALL (703) 775-4383
             </a>
