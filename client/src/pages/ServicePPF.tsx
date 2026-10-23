@@ -183,7 +183,7 @@ export default function ServicePPF() {
             <div className="flex flex-wrap gap-4">
               {promoLive ? (
                 <>
-                  <Link href="/promo" data-cta="ppf-hero-special" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+                  <Link href="/promo" data-cta="ppf-hero-special" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
                     SEE THE {promoPriceTxt} SPECIAL <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link href="/get-a-quote?service=ppf" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2">
@@ -192,7 +192,7 @@ export default function ServicePPF() {
                 </>
               ) : (
                 <>
-                  <Link href="/get-a-quote?service=ppf" id="ppf-hero-cta" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+                  <Link href="/get-a-quote?service=ppf" id="ppf-hero-cta" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
                     GET A PPF QUOTE <ArrowRight className="w-4 h-4" />
                   </Link>
                   <a href="#packages" className="text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-4 py-4 inline-flex items-center gap-2">
@@ -218,7 +218,7 @@ export default function ServicePPF() {
                   ))}
                 </ul>
               )}
-              <Link href="/promo" id="ppf-hero-cta" data-cta="ppf-hero-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors mt-2">
+              <Link href="/promo" id="ppf-hero-cta" data-cta="ppf-hero-card" className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors mt-2">
                 Claim my spot <ArrowRight className="w-5 h-5" />
               </Link>
               <p className="text-zinc-400 text-xs mt-3 text-center"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5 align-middle" /><span className="text-emerald-400 font-semibold">{promoRemaining} spots left</span>{promo!.endDate ? ` · Ends ${promo!.endDate}` : ""}</p>
@@ -288,7 +288,7 @@ export default function ServicePPF() {
                   </ul>
                   <p className="text-zinc-400 text-xs mb-1">{pkg.bestFor}</p>
                   <p className="text-zinc-400 text-xs mb-5">Install time: {pkg.installTime}</p>
-                  <Link href={`/get-a-quote?service=ppf&package=${pkg.key}`} className={`w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-white"}`}>
+                  <Link href={`/get-a-quote?service=ppf&package=${pkg.key}`} className={`cta w-full py-3 font-bold text-sm tracking-widest uppercase transition-all block text-center ${pkg.featured ? "bg-[#E85D04] hover:bg-[#d14e00] text-black" : "border border-zinc-700 hover:border-[#E85D04] text-white"}`}>
                     GET A QUOTE
                   </Link>
                 </div>
@@ -333,7 +333,7 @@ export default function ServicePPF() {
             ))}
           </div>
           <div className="flex flex-wrap gap-4 mt-8">
-            <Link href="/get-a-quote?service=ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">GET MY EXACT PRICE <ArrowRight className="w-4 h-4" /></Link>
+            <Link href="/get-a-quote?service=ppf" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">GET MY EXACT PRICE <ArrowRight className="w-4 h-4" /></Link>
             <Link href="/ppf-cost" className="inline-flex items-center gap-2 text-[#E85D04] font-bold tracking-widest uppercase text-sm hover:text-white self-center">What changes a PPF quote <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </div>
@@ -485,7 +485,7 @@ export default function ServicePPF() {
             <h2 className="font-['Bebas_Neue',sans-serif] text-3xl md:text-4xl text-white">MODEL 3, Y, S, X & CYBERTRUCK COVERAGE</h2>
             <p className="text-zinc-400 mt-2 max-w-xl">Model-specific diagrams, pricing, and answers on Autopilot sensors and Tesla's own PPF kit.</p>
           </div>
-          <Link href="/tesla-ppf" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors self-start md:self-auto">
+          <Link href="/tesla-ppf" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors self-start md:self-auto">
             TESLA PPF PAGE <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -527,7 +527,7 @@ export default function ServicePPF() {
                 <p className="text-zinc-400 text-[11px] md:text-xs mt-0.5 truncate">{promoRemaining} spots left{promo!.endDate && timeLeftLabel(promo!.endDate) ? ` · ${timeLeftLabel(promo!.endDate)}` : ""}<span className="hidden md:inline"> · STEK DYNOshield, 12-year warranty</span></p>
               </div>
               <a href="tel:+17037754383" className="hidden md:inline-flex items-center gap-2 text-zinc-300 hover:text-white text-sm font-semibold whitespace-nowrap">(703) 775-4383</a>
-              <Link href="/promo" data-cta="ppf-sticky" tabIndex={heroCtaVisible ? -1 : 0} className="shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base md:text-xl tracking-widest px-4 md:px-8 py-3 hover:bg-orange-600 transition-colors whitespace-nowrap">CLAIM <span className="hidden md:inline">MY </span>SPOT</Link>
+              <Link href="/promo" data-cta="ppf-sticky" tabIndex={heroCtaVisible ? -1 : 0} className="cta shrink-0 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-base md:text-xl tracking-widest px-4 md:px-8 py-3 hover:bg-orange-600 transition-colors whitespace-nowrap">CLAIM <span className="hidden md:inline">MY </span>SPOT</Link>
             </div>
           </div>
           <div className="h-16" aria-hidden="true" />

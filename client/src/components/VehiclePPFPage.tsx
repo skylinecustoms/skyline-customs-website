@@ -82,7 +82,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
             ))}
           </div>
           <div className="flex flex-wrap gap-4">
-            <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}`} className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+            <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}`} className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
               GET MY {brand.name.toUpperCase()} QUOTE <ArrowRight className="w-4 h-4" />
             </Link>
             <a href="tel:+17037754383" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2">

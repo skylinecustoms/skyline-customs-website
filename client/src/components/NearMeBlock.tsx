@@ -94,7 +94,7 @@ export default function NearMeBlock({ service }: { service: ServiceKey }) {
             </ul>
 
             <div className="flex flex-wrap gap-4">
-              <Link href={`/get-a-quote?service=${svc.quoteParam}`} data-cta={`${service}-near-me-quote`} className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
+              <Link href={`/get-a-quote?service=${svc.quoteParam}`} data-cta={`${service}-near-me-quote`} className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
                 Get a free quote <ArrowRight className="w-4 h-4" />
               </Link>
               <a href="tel:+17037754383" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">

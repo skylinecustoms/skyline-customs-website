@@ -178,7 +178,7 @@ export default function About() {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest px-6 py-3 hover:bg-[oklch(0.72_0.21_40)] transition-colors group"
+                className="cta inline-flex items-center gap-2 bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-sm tracking-widest px-6 py-3 hover:bg-[oklch(0.72_0.21_40)] transition-colors group"
               >
                 GET DIRECTIONS <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>

@@ -22,7 +22,7 @@ export default function VideoSection() {
             <Link href="/videos" className="border border-zinc-600 hover:border-brand-orange text-white font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors">
               All videos <ArrowRight className="w-4 h-4" />
             </Link>
-            <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" className="bg-brand-orange hover:bg-[oklch(0.72_0.21_40)] text-[oklch(0.10_0.005_285)] font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors">
+            <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" className="cta bg-brand-orange hover:bg-[oklch(0.72_0.21_40)] text-[oklch(0.10_0.005_285)] font-bold tracking-widest uppercase text-sm px-6 py-3 inline-flex items-center gap-2 transition-colors">
               <Youtube className="w-4 h-4" /> Subscribe
             </a>
           </div>

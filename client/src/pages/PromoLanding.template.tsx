@@ -214,7 +214,7 @@ export default function JuneSpecial() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/get-a-quote?service=ppf&promo=june-special"
-                    className="bg-[#E85D04] text-black hover:bg-orange-600 font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
+                    className="cta bg-[#E85D04] text-black hover:bg-orange-600 font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
                   >
                     CLAIM YOUR SLOT <ArrowRight className="w-4 h-4" />
                   </Link>

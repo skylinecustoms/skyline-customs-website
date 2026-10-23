@@ -8,6 +8,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { X } from "lucide-react";
 import { installEngagementTracking, pageViewSent, trackPageView } from "@/lib/analytics";
+import { installAliveButtons } from "@/lib/aliveButtons";
 import TextUsButton from "@/components/TextUsButton";
 import { CITIES, CITY_ORDER, cityPath, cityServices } from "@/lib/localSeo";
 import { MODEL_PAGES } from "@/lib/modelPages";
@@ -214,6 +215,7 @@ function Router() {
 function AppContent() {
   const { isOpen, service, closeBooking } = useBooking();
   useEffect(() => installEngagementTracking(), []);
+  useEffect(() => installAliveButtons(), []);
   return (
     <>
       <ScrollToTop />

@@ -184,7 +184,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href={promoUrl}
-                className="flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors"
+                className="cta flex items-center justify-center gap-2 bg-[#E85D04] text-black font-display text-lg tracking-[0.1em] px-8 py-4 hover:bg-orange-600 transition-colors"
               >
                 YES! PROTECT MY PAINT <ArrowRight className="w-4 h-4" />
               </Link>

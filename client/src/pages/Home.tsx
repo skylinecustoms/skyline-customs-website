@@ -373,7 +373,7 @@ function ThisMonthsSpecialBanner() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               {!soldOut ? (
-                <Link href={quoteUrl} className="inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-sm tracking-widest uppercase px-7 py-4 hover:bg-orange-600 transition-colors">
+                <Link href={quoteUrl} className="cta inline-flex items-center gap-2 bg-[#E85D04] text-black font-display text-sm tracking-widest uppercase px-7 py-4 hover:bg-orange-600 transition-colors">
                   Claim My Spot <ArrowRight className="w-4 h-4" />
                 </Link>
               ) : (
@@ -487,7 +487,7 @@ export default function Home() {
               <span className="text-brand-orange">INVESTMENT.</span>
               {/* What we do and where, in the words people search, as part of the page's one heading. */}
               <span className="block mt-6 font-mono-brand text-xs sm:text-sm md:text-base tracking-[0.18em] leading-relaxed text-[oklch(0.80_0.008_285)]">
-                Full front PPF · Ceramic coating · Window tint<br className="sm:hidden" /> in Chantilly, VA
+                Full front PPF · Ceramic coating · Window tint in Chantilly, VA
               </span>
             </h1>
 
@@ -498,7 +498,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/get-a-quote"
-                className="flex items-center justify-center gap-3 bg-brand-orange text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-orange-600 transition-all duration-200 hover:scale-[1.02] group"
+                className="cta flex items-center justify-center gap-3 bg-brand-orange text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-orange-600 transition-all duration-200 hover:scale-[1.02] group"
               >
                 GET A FREE QUOTE
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

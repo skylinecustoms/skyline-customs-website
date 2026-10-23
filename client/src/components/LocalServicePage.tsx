@@ -211,7 +211,7 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
             </div>
             <div className="flex flex-wrap gap-4">
               <Link href={`/get-a-quote?service=${svc.quoteParam}`}
-                className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
+                className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
               >
                 GET A FREE QUOTE <ArrowRight className="w-4 h-4" />
               </Link>

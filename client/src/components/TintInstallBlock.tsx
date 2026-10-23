@@ -99,7 +99,7 @@ export default function TintInstallBlock({ city }: { city: City }) {
             <p className="text-zinc-400 text-sm mt-5">
               Most cars take two to four hours. Request a quote with your year, make, and model and we send the exact price for each package, usually within the hour during business hours.
             </p>
-            <Link href="/get-a-quote?service=tint" className="inline-flex items-center gap-2 mt-4 bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase text-sm px-6 py-3 transition-colors">
+            <Link href="/get-a-quote?service=tint" className="cta inline-flex items-center gap-2 mt-4 bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase text-sm px-6 py-3 transition-colors">
               Get a tint quote <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

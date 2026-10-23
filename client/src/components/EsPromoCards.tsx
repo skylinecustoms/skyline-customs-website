@@ -42,7 +42,7 @@ export function EsPpfPromoCard() {
                 ))}
               </ul>
             )}
-            <a href="#cotizar" data-cta="es-ppf-promo-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
+            <a href="#cotizar" data-cta="es-ppf-promo-card" className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
               Aparte su cupo <ArrowRight className="w-5 h-5" />
             </a>
             <p className="text-zinc-400 text-xs mt-3 text-center"><span className="text-emerald-400 font-semibold">{remaining} cupos disponibles</span>{promo.endDate ? ` · Termina el ${fechaEs(promo.endDate)}` : ""}</p>
@@ -78,7 +78,7 @@ export function EsCeramicPromoCard() {
                 <li key={t} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{t}</li>
               ))}
             </ul>
-            <a href="#cotizar" data-cta="es-ceramic-promo-card" className="w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
+            <a href="#cotizar" data-cta="es-ceramic-promo-card" className="cta w-full inline-flex items-center justify-center gap-2 bg-[#E85D04] text-black font-['Bebas_Neue',sans-serif] text-xl md:text-2xl tracking-[0.1em] uppercase px-6 py-4 hover:bg-orange-600 transition-colors">
               Aparte su cupo <ArrowRight className="w-5 h-5" />
             </a>
             <LeadPulse lang="es" className="mt-3" />

@@ -80,7 +80,7 @@ export default function ExoticCeramic() {
               ))}
             </div>
             <div className="flex flex-wrap gap-4">
-              <Link href="/get-a-quote?service=ceramic" data-cta="exotic-ceramic-hero" className="bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
+              <Link href="/get-a-quote?service=ceramic" data-cta="exotic-ceramic-hero" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
                 Get an exact quote <ArrowRight className="w-4 h-4" />
               </Link>
               <a href="tel:+17037754383" className="border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-colors inline-flex items-center gap-2">
