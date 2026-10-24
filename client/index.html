@@ -99,8 +99,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
 
     <!-- Google Analytics 4 + Meta Pixel. The tiny queue stubs run now so page code can call
-         gtag()/fbq() at any time; the ~300 KB of vendor scripts load on the first interaction
-         or 3 s after the page has loaded, so they never compete with the first paint. -->
+         gtag()/fbq() at any time; the ~300 KB of vendor scripts load when the browser is idle after the
+         first interaction, or 8 s after the page has loaded, so they never compete with the first paint or
+         with the page becoming usable (a 3 s timer sometimes landed in the middle of hydration). -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -118,8 +119,9 @@
           ['https://www.googletagmanager.com/gtag/js?id=G-DDL3M7SVBK','https://connect.facebook.net/en_US/fbevents.js']
             .forEach(function(u){var s=document.createElement('script');s.async=true;s.src=u;document.head.appendChild(s);});
         }
-        ['pointerdown','keydown','touchstart','scroll'].forEach(function(e){addEventListener(e,load,{once:true,passive:true});});
-        addEventListener('load',function(){setTimeout(load,3000);});
+        function idle(){ (window.requestIdleCallback||function(f){setTimeout(f,1);})(load,{timeout:2000}); }
+        ['pointerdown','keydown','touchstart','scroll'].forEach(function(e){addEventListener(e,idle,{once:true,passive:true});});
+        addEventListener('load',function(){setTimeout(idle,8000);});
       })();
     </script>
     <!-- End analytics (Meta Pixel noscript fallback in body) -->

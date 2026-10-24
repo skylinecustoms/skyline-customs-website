@@ -8,7 +8,9 @@ import App from "./App";
 import { getLoginUrl } from "./const";
 import "./index.css";
 
-const queryClient = new QueryClient();
+// Data the server rendered with (window.__RQ_STATE__) counts as fresh for a minute, so the page doesn't fetch it
+// all again and re-render right after hydrating.
+const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 60_000 } } });
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;
