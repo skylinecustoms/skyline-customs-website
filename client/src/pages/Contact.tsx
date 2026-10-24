@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Clock, Instagram, Youtube, ArrowRight } from "luci
 import Navbar from "@/components/Navbar";
 import { Link } from "wouter";
 import Footer from "@/components/Footer";
+import WhatHappensNext from "@/components/WhatHappensNext";
 import SEO from "@/components/SEO";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
@@ -237,15 +238,7 @@ export default function Contact() {
             {/* ── Right: Send a Message Form ── */}
             <div className="lg:col-span-2 bg-[oklch(0.12_0.005_285)] p-8 lg:p-10">
               {submitted ? (
-                <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center">
-                  <div className="w-16 h-16 bg-brand-orange flex items-center justify-center mb-6">
-                    <span className="font-display text-3xl text-[oklch(0.10_0.005_285)]">✓</span>
-                  </div>
-                  <h3 className="font-display text-4xl text-[oklch(0.96_0.008_85)] mb-4">MESSAGE SENT</h3>
-                  <p className="text-[oklch(0.66_0.01_285)] max-w-sm">
-                    Thank you for reaching out. We'll get back to you within 24 hours. For faster service, give us a call at (703) 775-4383.
-                  </p>
-                </div>
+                <WhatHappensNext service={form.service} name={form.firstName.trim() || undefined} />
               ) : (
                 <>
                   <h2 className="font-display text-3xl text-[oklch(0.96_0.008_85)] tracking-wider mb-8">

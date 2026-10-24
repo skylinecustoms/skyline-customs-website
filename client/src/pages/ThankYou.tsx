@@ -6,6 +6,7 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatHappensNext from "@/components/WhatHappensNext";
 import SEO from "@/components/SEO";
 import { CheckCircle, Phone, Images } from "lucide-react";
 import { Link } from "wouter";
@@ -47,13 +48,10 @@ export default function ThankYou() {
             <span className="text-[#E85D04]">ALL SET</span>
           </h1>
 
-          {/* Body copy */}
-          <p className="text-zinc-400 text-lg leading-relaxed mb-10 max-w-md mx-auto">
-            Someone from our team will reach out shortly — usually within the hour during business hours.
-          </p>
-
-          {/* Divider */}
-          <div className="h-px bg-zinc-800 mb-10" />
+          {/* What happens next, how to book, the questions people ask, one real review */}
+          <div className="squircle bg-[#111] border border-zinc-800 p-6 md:p-8 mb-10 mt-4">
+            <WhatHappensNext />
+          </div>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
