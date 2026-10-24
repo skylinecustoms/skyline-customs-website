@@ -156,6 +156,14 @@ export function serveStatic(app: Express) {
   // index: false so "/" goes through the meta-injecting handler below.
   app.use(express.static(distPath, { maxAge: "30d", index: false }));
 
+  // The review count in the page's structured data (index.html and each page's schema say a fixed number)
+  // becomes Google's live total, so Google, Bing and AI assistants always read the current count.
+  async function withLiveReviewCount(page: string): Promise<string> {
+    const live = await getGoogleReviews().catch(() => null);
+    if (!live?.total) return page;
+    return page.replace(/("reviewCount"\s*:\s*")\d+(")/g, `$1${live.total}$2`);
+  }
+
   // fall through to index.html — inject SSR meta tags before sending
   app.use("*", async (req, res) => {
     if (!indexHtml) {
@@ -184,6 +192,7 @@ export function serveStatic(app: Express) {
           page = page.replace('<div id="root"></div>', `<div id="root">${rendered.html}</div>${state}`);
         }
       }
+      page = await withLiveReviewCount(page);
       // Unknown URLs render the app's Not Found page with a real 404 status,
       // so search engines don't index "soft 404" pages.
       res
