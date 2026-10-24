@@ -9,6 +9,7 @@ import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 import { pathToFileURL } from "node:url";
 import { getBlogPostBySlug , getAllBlogPosts } from "../db";
 import { getGalleryRows } from "../galleryJobs";
+import { getGoogleReviews } from "../googleReviews";
 import { getActivePromoByActive, getPromoSlots, getArchivedPromoBySlug } from "../db";
 
 /**
@@ -17,7 +18,7 @@ import { getActivePromoByActive, getPromoSlots, getArchivedPromoBySlug } from ".
  * live bits (promo, gallery, reviews, feeds) load on the client after hydration.
  * Set SSR=0 to serve the empty shell instead.
  */
-type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; archivedPromo?: { slug: string; promo: unknown } }) => Promise<{ html: string; state: string }> };
+type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown }) => Promise<{ html: string; state: string }> };
 let renderer: Promise<Renderer | null> | null = null;
 const ssrCache = new Map<string, { html: string; state: string; at: number }>();
 const SSR_TTL_MS = 10 * 60 * 1000;
@@ -49,7 +50,9 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
   const hit = ssrCache.get(urlPath);
   if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit;
   try {
-    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown } } = {};
+    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown } = {};
+    // Every page with a review block renders the real Google reviews into the HTML (cached for an hour, so this is cheap).
+    preload.googleReviews = (await getGoogleReviews().catch(() => null)) ?? undefined;
     // The blog index and every post list the other posts: render the list so crawlers see the links.
     if (/^\/blog(\/|$)/.test(urlPath) || urlPath === "/") preload.blogList = await getAllBlogPosts().catch(() => undefined);
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
