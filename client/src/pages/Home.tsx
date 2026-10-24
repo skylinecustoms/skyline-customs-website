@@ -112,7 +112,11 @@ const faqs = [
   },
   {
     q: "How long does window tinting take?",
-    a: "Most full-vehicle tint jobs are completed in 2–4 hours. We use computer-cut patterns for a precise fit with no trimming on the glass, which reduces installation time and improves quality.",
+    a: "At our Chantilly window tint shop, most full-vehicle tint jobs are completed in 2–4 hours. We use computer-cut patterns for a precise fit with no trimming on the glass, which reduces installation time and improves quality.",
+  },
+  {
+    q: "Do you do auto window tinting in Chantilly, VA?",
+    a: "Yes. Auto window tinting is one of our three core services, done at our shop at 4215 Walney Rd, Suite 1A & B, Chantilly, VA 20151, just off Route 28. We tint cars, SUVs, and trucks (not homes or offices) with GeoShield Pro Nano Ceramic film, metered to Virginia's legal limits, with a nationwide lifetime warranty.",
   },
   {
     q: "Do you offer mobile service or do I come to you?",
@@ -420,6 +424,11 @@ export default function Home() {
         jsonLd={[
           {
             "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+          },
+          {
+            "@context": "https://schema.org",
             "@type": "ItemList",
             "name": "Vehicle makes protected at Skyline Custom Shop, Chantilly VA",
             "itemListElement": VEHICLE_MAKES.map((m, i) => ({ "@type": "ListItem", "position": i + 1, "name": m.name, "url": `https://www.skylinecustomshop.com${m.href}` })),
@@ -522,10 +531,36 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[oklch(0.18_0.006_285)]">
             {brandStatements.map((s, i) => (
               <div key={i} className="px-8 py-10">
-                <h2 className="font-display text-2xl text-brand-orange tracking-wider mb-3">{s.heading}</h2>
+                <p className="font-display text-2xl text-brand-orange tracking-wider mb-3">{s.heading}</p>
                 <p className="text-[oklch(0.65_0.008_285)] text-sm leading-relaxed">{s.body}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── THE SHOP, IN PLAIN WORDS ─────────────────────────────────────────── */}
+      {/* What the shop is and where, said plainly: AI assistants and search engines answer "which PPF shop in
+          Chantilly" from sentences like these, not from slogans. Every fact here is on the site already. */}
+      <section className="py-20 bg-[oklch(0.10_0.005_285)]" aria-labelledby="chantilly-shop">
+        <div className="container max-w-4xl">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-8 bg-brand-orange" />
+            <span className="text-brand-orange text-xs font-bold tracking-[0.3em] uppercase">Chantilly, VA</span>
+          </div>
+          <h2 id="chantilly-shop" className="font-display text-4xl md:text-5xl text-white tracking-tight mb-6">CHANTILLY'S FULL FRONT PPF, CERAMIC COATING &amp; WINDOW TINT SHOP</h2>
+          <div className="space-y-4 text-zinc-400 leading-relaxed">
+            <p>
+              Skyline Customs is a paint protection film, ceramic coating and window tint shop at 4215 Walney Rd, Suite 1A &amp; B,
+              Chantilly, VA 20151, just off Route 28. Most of our work is <Link href="/services/ppf" className="text-white hover:text-brand-orange">full front PPF</Link>:
+              STEK DYNOshield film on the full hood, bumper, fenders, mirrors and headlights, with a 12-year manufacturer warranty.
+            </p>
+            <p>
+              We also install <Link href="/services/ceramic-coating" className="text-white hover:text-brand-orange">Gtechniq ceramic coatings</Link> (5 and 7 year) with paint
+              correction, and <Link href="/services/window-tinting" className="text-white hover:text-brand-orange">GeoShield ceramic window tint</Link> metered to Virginia's legal limits.
+              Drivers come from Centreville, South Riding, Herndon, Fairfax, Reston, Ashburn and Tysons. We're open Monday to Friday, 9 AM to 6 PM,
+              and rated 5.0 on Google.
+            </p>
           </div>
         </div>
       </section>
@@ -538,7 +573,7 @@ export default function Home() {
               <div className="h-px w-8 bg-brand-orange" />
               <span className="text-brand-orange text-xs font-bold tracking-[0.3em] uppercase">What We Do Best</span>
             </div>
-            <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">OUR SERVICES</h2>
+            <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">PPF, CERAMIC COATING &amp; TINT</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -655,7 +690,7 @@ export default function Home() {
               <div className="h-px w-8 bg-brand-orange" />
               <span className="text-brand-orange text-xs font-bold tracking-[0.3em] uppercase">Common Questions</span>
             </div>
-            <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">FAQ</h2>
+            <h2 className="font-display text-5xl md:text-6xl text-white tracking-tight">PPF, CERAMIC &amp; TINT FAQ</h2>
           </div>
           <FAQAccordion />
         </div>
