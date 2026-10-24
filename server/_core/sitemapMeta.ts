@@ -1,7 +1,7 @@
 // Generated from the original static sitemap.xml so existing pages keep honest lastmod values.
 // New pages fall back to SITE_UPDATED in sitemap.ts.
 export const SITEMAP_META: Record<string, { lastmod: string; changefreq: string; priority: string }> = {
-  "/": { lastmod: "2026-04-10", changefreq: "weekly", priority: "1.0" },
+  "/": { lastmod: "2026-10-24", changefreq: "weekly", priority: "1.0" },
   "/services": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/gallery": { lastmod: "2026-04-10", changefreq: "weekly", priority: "0.8" },
   "/about": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.7" },
@@ -14,7 +14,7 @@ export const SITEMAP_META: Record<string, { lastmod: string; changefreq: string;
   "/services/window-tinting": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/blog": { lastmod: "2026-04-27", changefreq: "weekly", priority: "0.8" },
   "/blog/window-tinting-near-me-chantilly-va": { lastmod: "2026-04-23", changefreq: "monthly", priority: "0.8" },
-  "/blog/virginia-window-tint-laws-2026": { lastmod: "2026-10-23", changefreq: "monthly", priority: "0.8" },
+  "/blog/virginia-window-tint-laws-2026": { lastmod: "2026-10-24", changefreq: "monthly", priority: "0.8" },
   "/blog/spring-ceramic-coating-northern-virginia": { lastmod: "2026-03-02", changefreq: "monthly", priority: "0.8" },
   "/blog/ppf-paint-protection-film-northern-virginia": { lastmod: "2026-10-13", changefreq: "monthly", priority: "0.8" },
   "/blog/how-long-does-ppf-last-northern-virginia": { lastmod: "2026-04-27", changefreq: "monthly", priority: "0.8" },
@@ -44,7 +44,7 @@ export const SITEMAP_META: Record<string, { lastmod: string; changefreq: string;
   "/window-tinting-mclean-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/ppf-tysons-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/ceramic-coating-tysons-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
-  "/window-tinting-tysons-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
+  "/window-tinting-tysons-va": { lastmod: "2026-10-24", changefreq: "monthly", priority: "0.9" },
   "/ppf-alexandria-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/ceramic-coating-alexandria-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },
   "/window-tinting-alexandria-va": { lastmod: "2026-04-10", changefreq: "monthly", priority: "0.9" },

@@ -112,7 +112,11 @@ const faqs = [
   },
   {
     q: "How long does window tinting take?",
-    a: "Most full-vehicle tint jobs are completed in 2–4 hours. We use computer-cut patterns for a precise fit with no trimming on the glass, which reduces installation time and improves quality.",
+    a: "At our Chantilly window tint shop, most full-vehicle tint jobs are completed in 2–4 hours. We use computer-cut patterns for a precise fit with no trimming on the glass, which reduces installation time and improves quality.",
+  },
+  {
+    q: "Do you do auto window tinting in Chantilly, VA?",
+    a: "Yes. Auto window tinting is one of our three core services, done at our shop at 4215 Walney Rd, Suite 1A & B, Chantilly, VA 20151, just off Route 28. We tint cars, SUVs, and trucks (not homes or offices) with GeoShield Pro Nano Ceramic film, metered to Virginia's legal limits, with a nationwide lifetime warranty.",
   },
   {
     q: "Do you offer mobile service or do I come to you?",
