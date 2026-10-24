@@ -184,7 +184,7 @@ export default function Footer() {
               Text Terms
             </Link>
             {/* Credit to the agency that builds and runs this site: its logo mark and name (the mark is the same as runonsystems.com's). */}
-            <a href="https://www.runonsystems.com" aria-label="Website by Run On Systems" className="group inline-flex items-center gap-2 whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-white transition-colors">
+            <a href="https://www.runonsystems.com" className="group inline-flex items-center gap-2 whitespace-nowrap text-[oklch(0.66_0.008_285)] font-mono-brand text-xs hover:text-white transition-colors">
               <span>Website by</span>
               <svg viewBox="0 0 100 100" className="h-4 w-4 shrink-0" aria-hidden="true">
                 <rect x="12" y="12" width="76" height="76" rx="22" fill="none" stroke="currentColor" strokeWidth="8" />
