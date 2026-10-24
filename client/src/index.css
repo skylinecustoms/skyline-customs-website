@@ -522,3 +522,18 @@
   background: radial-gradient(560px circle at var(--hx, 50%) var(--hy, 50%), rgba(232, 93, 4, .16), rgba(232, 93, 4, .05) 40%, transparent 65%);
 }
 .cursor-haze[data-on="1"] { opacity: 1; }
+
+/* The fixed nav (and the promo strip under it, when it shows) would cover whatever a link or a form jumps to:
+   leave that much room at the top when scrolling to an anchor. */
+html { scroll-padding-top: 7rem; }
+@media (min-width: 640px) { html { scroll-padding-top: 7.5rem; } }
+
+/* Pages with a sticky call-to-action bar at the bottom (data-sticky-bar): room under the footer so the bar
+   never covers its last lines. The promo pages' bars are phone-only (md:hidden). */
+body:has([data-sticky-bar]) footer::after { content: ""; display: block; height: 5.5rem; }
+@media (min-width: 768px) { body:has([data-sticky-bar].md\:hidden) footer::after { display: none; } }
+
+/* Rock chip demo: the pulsing "tap here" target on the car. */
+.tap-ring { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 9999px; border: 2px solid #E85D04; animation: tap-ring 1.4s ease-out infinite; }
+@keyframes tap-ring { from { transform: scale(1); opacity: .9; } to { transform: scale(4.5); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tap-ring { animation: none; opacity: .6; transform: scale(2); } }

@@ -35,7 +35,15 @@ export default function RockChipDemo({ eyebrow = "Paint protection film", cta = 
       stage={
         <div className="relative w-full aspect-[16/10] overflow-hidden border border-zinc-800 bg-[#0a0a0a]">
           <canvas ref={ref} onPointerDown={touch} className="absolute inset-0 w-full h-full cursor-crosshair touch-manipulation" role="img" aria-label="The front end of a grey Tesla Model 3 driving. Tap the paint to throw rocks at it." />
-          <Hint show={!touched}>Tap the car to throw a rock</Hint>
+          {/* While rocks fly on their own, a pulsing target on the hood invites the visitor to throw one too. */}
+          {highway && !touched && (
+            <span aria-hidden="true" className="pointer-events-none absolute left-[42%] top-[46%] -translate-x-1/2 -translate-y-1/2">
+              <span className="tap-ring" />
+              <span className="tap-ring" style={{ animationDelay: "0.7s" }} />
+              <span className="relative block h-4 w-4 rounded-full bg-[#E85D04] shadow-[0_0_18px_rgba(232,93,4,0.8)]" />
+            </span>
+          )}
+          <Hint show={!touched}>{highway ? "Your turn: tap the car to throw a rock" : "Tap the car to throw a rock"}</Hint>
         </div>
       }>
       <p className="text-zinc-400 leading-relaxed">
