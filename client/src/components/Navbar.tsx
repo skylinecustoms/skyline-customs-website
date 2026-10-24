@@ -79,6 +79,7 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
   const phoneLine2 = `${stripParts.slice(0, 2).join(" + ")} · Claim my spot →`;
 
   return (
+    <>
     <nav
       aria-label="Main navigation"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -328,5 +329,9 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
         </div>
       )}
     </nav>
+    {/* The nav is fixed, so the strip under it would sit on top of the page. This spacer, the strip's height,
+        moves every page's content down by the same amount whenever the strip shows. */}
+    {(manual || showPromoStrip) && <div aria-hidden="true" className={manual ? "h-7" : "h-10 sm:h-7"} />}
+    </>
   );
 }
