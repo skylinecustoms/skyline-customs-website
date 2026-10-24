@@ -7,6 +7,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatHappensNext from "@/components/WhatHappensNext";
 import SEO from "@/components/SEO";
 import { Shield, Clock, Star, ArrowRight, Sparkles } from "lucide-react";
 import { trpc } from "@/lib/trpc";
@@ -233,17 +234,7 @@ export default function GetAQuote() {
         <div className="container max-w-3xl">
           <div className="squircle bg-[#111] border border-zinc-800 p-8 md:p-10">
             {submitted ? (
-              <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
-                <div className="w-16 h-16 bg-[#E85D04] flex items-center justify-center mb-6">
-                  <span className="font-['Bebas_Neue',sans-serif] text-3xl text-[#0A0A0A]">✓</span>
-                </div>
-                <h3 className="font-['Bebas_Neue',sans-serif] text-4xl text-white mb-4 tracking-wider">
-                  QUOTE REQUEST SENT
-                </h3>
-                <p className="text-zinc-400 max-w-sm">
-                  Thank you! A Skyline specialist will reach out within the hour during business hours. For immediate assistance, call us at (703) 775-4383.
-                </p>
-              </div>
+              <WhatHappensNext service={form.service} name={form.firstName.trim() || undefined} />
             ) : (
               <>
                 <div className="flex items-start justify-between mb-8 gap-4">

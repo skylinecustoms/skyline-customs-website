@@ -4,7 +4,8 @@
  * GoHighLevel tagged with the promo, with the visitor's page journey in the note.
  */
 import { useState } from "react";
-import { ArrowRight, CheckCircle, Phone } from "lucide-react";
+import WhatHappensNext from "@/components/WhatHappensNext";
+import { ArrowRight, CheckCircle } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
@@ -80,16 +81,16 @@ export default function PromoQuoteForm({ promoTitle, promoSlug, dealDescription,
 
   if (submitted) {
     return (
-      <div className="border border-emerald-800 bg-emerald-900/20 p-8 text-center">
-        <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
-        <h3 className="font-display text-3xl text-white tracking-wide mb-2">YOU'RE IN</h3>
-        <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto">
-          We have your request for the {promoTitle || "special"}. Expect a call or text from the shop, usually within the hour during business hours, with your exact price and open install dates.
-        </p>
-        {showDeposit && <DepositButton contactId={contactId} firstName={form.firstName} lastName={form.lastName} email={form.email} phone={form.phone} promoTitle={promoTitle || "Special"} vehicle={[form.year, form.make, form.model].filter(Boolean).join(" ")} />}
-        <a href="tel:+17037754383" className="inline-flex items-center gap-2 mt-6 text-[#E85D04] font-bold tracking-widest uppercase text-sm underline underline-offset-2 decoration-1 hover:decoration-2">
-          <Phone className="w-4 h-4" /> Or call (703) 775-4383
-        </a>
+      <div className="border border-emerald-800 bg-emerald-900/20 p-6 md:p-8">
+        <div className="text-center">
+          <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
+          <h3 className="font-display text-3xl text-white tracking-wide mb-2">YOU'RE IN</h3>
+          <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto">
+            We have your request for the {promoTitle || "special"}.
+          </p>
+          {showDeposit && <DepositButton contactId={contactId} firstName={form.firstName} lastName={form.lastName} email={form.email} phone={form.phone} promoTitle={promoTitle || "Special"} vehicle={[form.year, form.make, form.model].filter(Boolean).join(" ")} />}
+        </div>
+        <WhatHappensNext service={service} className="mt-8 pt-8 border-t border-emerald-900/60" />
       </div>
     );
   }
