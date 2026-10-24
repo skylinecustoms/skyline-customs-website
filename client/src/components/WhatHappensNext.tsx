@@ -1,17 +1,15 @@
-import { Star, Phone, CalendarCheck } from "lucide-react";
-import { useBooking } from "@/contexts/BookingContext";
-import type { BookingService } from "@/components/BookingModal";
+import { Star, Phone } from "lucide-react";
 import { useSiteReviews, type ReviewFocus } from "@/lib/reviews";
 
 /**
  * Shown right after a quote or contact form is sent (and on /thank-you): the moment the visitor is most
- * focused on their car, so instead of "someone will contact you" it says what happens next and when, lets
- * them book a day now, answers the questions people ask before a visit, and shows one real Google review.
+ * focused on their car, so instead of "someone will contact you" it says what happens next and when,
+ * answers the questions people ask before a visit, and shows one real Google review.
  * Every fact here is one the site already states (hours, address, install times, how pricing works).
  */
 
-/** Map whatever the form calls the service ("PPF", "Tints", "Ceramic Coating", ...) to the booking calendar. */
-export function bookingServiceOf(raw?: string): BookingService {
+/** Map whatever the form calls the service ("PPF", "Tints", "Ceramic Coating", ...) to a service key. */
+export function serviceKeyOf(raw?: string): ReviewFocus | "general" {
   const s = (raw ?? "").toLowerCase();
   if (s.includes("ppf") || s.includes("paint protection") || s.includes("film")) return "ppf";
   if (s.includes("ceramic")) return "ceramic";
@@ -26,9 +24,8 @@ const QUESTIONS: [string, string][] = [
 ];
 
 export default function WhatHappensNext({ service, name, heading = "WHAT HAPPENS NEXT", className = "" }: { service?: string; name?: string; heading?: string; className?: string }) {
-  const { openBooking } = useBooking();
-  const booking = bookingServiceOf(service);
-  const focus: ReviewFocus[] = booking === "general" ? ["ppf", "ceramic"] : [booking];
+  const key = serviceKeyOf(service);
+  const focus: ReviewFocus[] = key === "general" ? ["ppf", "ceramic"] : [key];
   const { reviews } = useSiteReviews(focus);
   const story = reviews.find((r) => r.rating >= 5 && r.text.length > 80);
   const quote = story && (story.text.length > 260 ? story.text.slice(0, story.text.lastIndexOf(" ", 250)) + "…" : story.text);
@@ -36,7 +33,7 @@ export default function WhatHappensNext({ service, name, heading = "WHAT HAPPENS
   const steps: [string, string][] = [
     ["In the next minute", "A text from Skyline Customs confirming we have your request. Reply to it any time; it comes straight to the shop."],
     ["Within the hour", "A specialist texts or calls with your exact price, usually within the hour, Monday to Friday 9 AM to 6 PM. Sent after hours or on a weekend? The next business morning."],
-    ["Then pick your day", "Book the install that suits you. Most full front PPF jobs are done the same day you drop the car off."],
+    ["Then we set your day", "We find an install date that suits you. Most full front PPF jobs are done the same day you drop the car off."],
   ];
 
   return (
@@ -55,11 +52,8 @@ export default function WhatHappensNext({ service, name, heading = "WHAT HAPPENS
       </ol>
 
       <div className="flex flex-col sm:flex-row gap-3 mt-7">
-        <button type="button" onClick={() => openBooking(booking)} className="cta inline-flex items-center justify-center gap-2 bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase text-sm px-6 py-3">
-          <CalendarCheck className="w-4 h-4" /> Book my install
-        </button>
-        <a href="tel:+17037754383" className="cta cta-alt inline-flex items-center justify-center gap-2 border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-6 py-3">
-          <Phone className="w-4 h-4" /> (703) 775-4383
+        <a href="tel:+17037754383" className="cta inline-flex items-center justify-center gap-2 bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase text-sm px-6 py-3">
+          <Phone className="w-4 h-4" /> Can't wait? Call (703) 775-4383
         </a>
       </div>
 
