@@ -6,7 +6,7 @@
  */
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, Star, Shield, CheckCircle, Clock, Zap } from "lucide-react";
+import { ArrowRight, Star, Shield, CheckCircle, Clock, Zap, Phone, MapPin } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 interface IncludedService {
@@ -82,6 +82,8 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
   // The nav hides its promo strip where this block renders; a manual announcement strip can still be there.
   const { data: settings } = trpc.site.settings.useQuery();
   const manualStrip = settings?.announcementActive === "1" && !!settings.announcement;
+  // The live Google rating and count (rendered into the page on the server), rounded down: "150+ reviews".
+  const { data: google } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000 });
 
   if (isLoading) return null;
   if (!promo) return null;
@@ -103,6 +105,22 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
     catch { includedServices = []; }
   }
   const { freeValue, fullPrice, fmt } = promoMath(price, includedServices);
+  const reviewCount = google?.total ? `${Math.floor(google.total / 10) * 10}+ reviews` : "150+ reviews";
+  const trustRow = (className: string) => (
+    <div className={`grid grid-cols-3 gap-3 ${className}`}>
+      {[
+        { icon: Shield, label: "STEK Certified", sub: "12-yr warranty" },
+        { icon: Star, label: `${(google?.rating ?? 5).toFixed(1)} on Google`, sub: reviewCount },
+        { icon: CheckCircle, label: "Walk & Pay", sub: "Guaranteed" },
+      ].map(({ icon: Icon, label, sub }, i) => (
+        <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-3 text-center">
+          <Icon className="w-4 h-4 text-[#E85D04] mx-auto mb-1.5" />
+          <p className="text-white text-xs font-bold leading-tight">{label}</p>
+          <p className="text-zinc-400 text-xs">{sub}</p>
+        </div>
+      ))}
+    </div>
+  );
 
   if (compact) {
     const shortTagline = (promo.tagline ?? "").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "").trim();
@@ -163,8 +181,11 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
             </h2>
 
             {/* Tagline -- DB tagline */}
-            <p className="text-zinc-300 text-base md:text-lg leading-relaxed mb-5 max-w-lg">
+            <p className="text-zinc-300 text-base md:text-lg leading-relaxed mb-2 max-w-lg">
               {promo.tagline}
+            </p>
+            <p className="flex items-center gap-1.5 text-zinc-400 text-xs font-bold tracking-[0.2em] uppercase mb-5">
+              <MapPin className="w-3.5 h-3.5 text-[#E85D04] shrink-0" /> Chantilly&apos;s full front PPF shop
             </p>
 
             {/* Included pills -- from DB includedServices JSON */}
@@ -180,7 +201,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
               </div>
             )}
 
-            {/* CTAs */}
+            {/* CTAs (the call button is for phones; wide screens show the number in the nav) */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href={promoUrl}
@@ -188,6 +209,13 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
               >
                 YES! PROTECT MY PAINT <ArrowRight className="w-4 h-4" />
               </Link>
+              <a
+                href="tel:+17037754383"
+                data-cta="hero-call"
+                className="cta cta-alt flex lg:hidden items-center justify-center gap-2 whitespace-nowrap border border-zinc-600 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase text-sm px-6 py-3 sm:py-4 transition-colors"
+              >
+                <Phone className="w-4 h-4 text-[#E85D04]" /> Call (703) 775-4383
+              </a>
             </div>
             <div className="flex items-center gap-3 mt-3">
               {remaining > 0 ? (
@@ -199,6 +227,7 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
                 <p className="text-red-400 text-xs font-bold tracking-wide uppercase">All slots filled &mdash; join the waitlist</p>
               )}
             </div>
+            {trustRow("mt-6 lg:hidden")}
           </div>
 
           {/* ---- Right: progress + price ---- */}
@@ -221,20 +250,8 @@ export default function ActivePromoBanner({ compact = false }: { compact?: boole
               </p>
             </div>
 
-            {/* Trust row */}
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { icon: Shield, label: "STEK Certified", sub: "12-yr warranty" },
-                { icon: Star, label: "5-Star Rated", sub: "700+ reviews, all platforms" },
-                { icon: CheckCircle, label: "Walk & Pay", sub: "Guaranteed" },
-              ].map(({ icon: Icon, label, sub }, i) => (
-                <div key={i} className="border border-zinc-800 bg-[#0D0D0D] p-3 text-center">
-                  <Icon className="w-4 h-4 text-[#E85D04] mx-auto mb-1.5" />
-                  <p className="text-white text-xs font-bold leading-tight">{label}</p>
-                  <p className="text-zinc-400 text-xs">{sub}</p>
-                </div>
-              ))}
-            </div>
+            {/* Trust row (phones get it under the button instead, where it shows without scrolling) */}
+            {trustRow("hidden lg:grid")}
           </div>
         </div>
       </div>
