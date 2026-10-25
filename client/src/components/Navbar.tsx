@@ -60,6 +60,14 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
     setServicesOpen(false);
   }, [location]);
 
+  // While the mobile menu is open the page behind it doesn't scroll; the menu does.
+  useEffect(() => {
+    if (!isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [isOpen]);
+
   // Derive a short promo label from the title (first word, e.g. "June" from "June Special")
   const promoLabel = activePromo?.title
     ? activePromo.title.split(" ").slice(0, 2).join(" ")
@@ -82,7 +90,7 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
     <>
     <nav
       aria-label="Main navigation"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isOpen ? "flex flex-col max-h-[100dvh]" : ""} ${
         scrolled
           ? "bg-[oklch(0.10_0.005_285)]/95 backdrop-blur-sm shadow-lg"
           : "bg-transparent"
@@ -255,7 +263,9 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-[oklch(0.12_0.005_285)] border-t border-[oklch(0.25_0.006_285)]">
+        // Taller than a short phone with the promo strip on top: the panel scrolls inside the screen instead of
+        // running off the bottom (Service Areas, Contact and the phone number were out of reach on 667px phones).
+        <div className="lg:hidden min-h-0 flex-1 overflow-y-auto overscroll-contain bg-[oklch(0.12_0.005_285)] border-t border-[oklch(0.25_0.006_285)]">
           <div className="container py-6 flex flex-col gap-4">
             {navLinks.map((link) =>
               link.label === "Services" ? (
