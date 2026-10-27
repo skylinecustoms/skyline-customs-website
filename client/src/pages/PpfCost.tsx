@@ -55,7 +55,7 @@ export default function PpfCost() {
     <div className="min-h-screen bg-[#0A0A0A] text-white">
       <SEO
         title="How Much Does Full Front PPF Cost in Northern Virginia?"
-        description="What sets the cost of paint protection film in Chantilly, VA: coverage level, vehicle size, matte vs gloss film, paint condition, and bundles with ceramic or tint. Exact quote within the hour."
+        description="What sets the cost of paint protection film in Chantilly, VA: coverage level, vehicle size, matte vs gloss film, and bundles with ceramic or tint. Exact quote within the hour."
         canonical={canonical}
         jsonLd={[
           {

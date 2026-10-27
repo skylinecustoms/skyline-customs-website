@@ -6,7 +6,7 @@ import type { ComparisonData } from "@/components/ComparisonPage";
 export const PPF_VS_CERAMIC: ComparisonData = {
   path: "/ppf-vs-ceramic-coating",
   title: "Full Front PPF vs Ceramic Coating: Which Do You Need?",
-  description: "PPF vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which one Chantilly, VA drivers need, and when to do both.",
+  description: "PPF vs ceramic coating compared side by side: rock chips, scratches, gloss, cost, lifespan, and maintenance. Which you need, and when to do both.",
   eyebrow: "PPF vs ceramic coating",
   h1: "PPF VS CERAMIC COATING: WHICH ONE DO YOU ACTUALLY NEED?",
   intro: "They get sold as if they were rivals, but paint protection film and ceramic coating solve different problems. Film is a physical barrier that stops rock chips and scratches. A coating is a chemical layer that makes paint glossier, slicker, and easier to wash. This is how we explain the difference to customers in our Chantilly bay every week, with the same numbers we quote them.",
@@ -101,7 +101,7 @@ export const TINT_COMPARISON: ComparisonData = {
 export const STEK_VS_XPEL: ComparisonData = {
   path: "/stek-vs-xpel-ppf",
   title: "STEK vs XPEL PPF: Why We Install STEK DYNOshield in Chantilly",
-  description: "STEK DYNOshield vs XPEL Ultimate Plus, row by row: 12-year warranty, hydrophobic self-healing top coat, clarity, pattern fit, and why Skyline Customs chose STEK for Northern Virginia cars.",
+  description: "STEK DYNOshield vs XPEL Ultimate Plus, row by row: 12-year warranty, self-healing top coat, clarity, pattern fit, and why we chose STEK.",
   eyebrow: "STEK vs XPEL",
   h1: "STEK VS XPEL: WHY WE PUT STEK DYNOSHIELD ON EVERY CAR",
   intro: "We did not pick a film because a rep bought lunch. Before Skyline Customs standardized on one brand, we installed and lived with both STEK DYNOshield and XPEL Ultimate Plus on Northern Virginia daily drivers, the cars that eat gravel on Route 28 and I-66 every morning. Both are premium thermoplastic polyurethane films, and both stop a rock chip. STEK won our bay on the things you notice in year three and year ten: a top coat that stays clear and sheds water on its own, self-healing that keeps the hood looking new after a dozen washes, a 12-year manufacturer warranty written in plain terms, and patterns that fit the newest Teslas, BMWs, and trucks the day they come out. Here is the comparison, row by row, and what it means for your car.",
@@ -149,7 +149,7 @@ export const STEK_VS_XPEL: ComparisonData = {
 export const PARTIAL_VS_FULL_FRONT: ComparisonData = {
   path: "/partial-front-vs-full-front-ppf",
   title: "What Does Full Front PPF Cover? Partial vs Full Front Compared",
-  description: "What full front PPF covers (hood, bumper, fenders, mirrors, headlights, A-pillars) vs partial front and extended, where the hood line falls, and which fits how you drive.",
+  description: "What full front PPF covers (hood, bumper, fenders, mirrors, headlights, A-pillars) vs partial front and extended, and which fits how you drive.",
   eyebrow: "PPF coverage compared",
   h1: "PARTIAL FRONT VS FULL FRONT PPF: WHERE SHOULD THE FILM STOP?",
   intro: "Every paint protection film quote comes down to one question: how far up the car does the film go? A partial front covers the bumper and the leading edge of the hood. A full front covers the panels that face the airstream at highway speed. Full front extended adds the rockers and door edges that take parking-lot abuse. We install all three in Chantilly, and we recommend full front to most daily drivers. This page explains why, and when the other two are the smarter call.",

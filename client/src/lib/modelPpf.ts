@@ -140,7 +140,7 @@ export const VEHICLE_BRANDS: VehicleBrand[] = [
   {
     slug: "bronco", name: "Bronco", headline: "PPF",
     seoTitle: "Ford Bronco Full Front PPF in Northern Virginia | Skyline Customs",
-    seoDescription: "Ford Bronco paint protection film in Chantilly, VA. Self-healing STEK DYNOshield for Bronco, Raptor, and Bronco Sport: full front plus rocker and fender coverage. 12-year warranty.",
+    seoDescription: "Ford Bronco paint protection film in Chantilly, VA. STEK DYNOshield for Bronco, Raptor and Bronco Sport: full front plus rocker and fender coverage. 12-year warranty.",
     intro: "Broncos live two lives in Northern Virginia: commuting on I-66 during the week and running trails, beaches, and gravel on the weekend. Fender flares, rocker panels, and the flat hood take the abuse, and with the doors and roof coming off, the door edges and jambs get more wear than on any other vehicle we see. We've filmed and tinted Broncos in the Chantilly bay, and the same STEK DYNOshield film covers all of it.",
     photoMatch: /bronco/i,
     videoIds: ["FsQ8yZxh4Es"],

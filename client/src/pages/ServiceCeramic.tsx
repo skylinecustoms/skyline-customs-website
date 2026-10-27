@@ -187,7 +187,7 @@ export default function ServiceCeramic() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Ceramic Coating in Chantilly, VA | Northern Virginia's Top-Rated Coating Shop"
+        title="Ceramic Coating in Chantilly, VA | Northern Virginia Coating Shop"
         description="Professional ceramic coating near you in Chantilly, VA: paint correction first, then Gtechniq Crystal Serum Light (5-year) or Ultra (7-year). 140+ five-star Google reviews. Drivers from Fairfax, Loudoun, and Prince William. Free quotes."
         canonical="https://www.skylinecustomshop.com/services/ceramic-coating"
         jsonLd={[
