@@ -22,7 +22,7 @@ export const EXOTIC_CERAMIC = {
   path: "/exotic-car-ceramic-coating",
   title: "Exotic & Luxury Car Ceramic Coating in the DMV | Chantilly, VA",
   description:
-    "Ceramic coating for exotic, luxury, and performance cars across Northern Virginia, DC, and Maryland. Paint correction first, then Gtechniq Crystal Serum Ultra with a 7-year warranty, applied indoors in Chantilly. Porsche, Corvette, BMW M, AMG, Ferrari, Lamborghini, McLaren.",
+    "Ceramic coating for exotic and luxury cars across Northern Virginia, DC and Maryland: paint correction, then Gtechniq Crystal Serum Ultra, 7-year warranty. Porsche, Corvette, BMW M, AMG, Ferrari, Lamborghini, McLaren.",
   hero: "/images/ceramic_1_53c9aefc.webp",
   eyebrow: "Exotic, luxury & performance",
   h1: ["EXOTIC CAR", "CERAMIC COATING"],

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
+import { SEO_TITLES, fitDescription as fitDesc, fitTitle } from "@shared/seoFit";
 
 /*
  * SKYLINE CUSTOMS — SEO Component
@@ -28,15 +29,17 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/images/og-full-front-ppf.jpg`;
 // Social/JSON-LD images must be absolute URLs; accept site-relative paths too.
 export const absoluteUrl = (u: string) => (u.startsWith("http") ? u : `${BASE_URL}${u.startsWith("/") ? "" : "/"}${u}`);
 
-export default function SEO({ title, description, canonical, ogImage, jsonLd, alternates, lang = "en", ogType = "website" }: SEOProps) {
+export default function SEO({ title, description: rawDescription, canonical, ogImage, jsonLd, alternates, lang = "en", ogType = "website" }: SEOProps) {
   // Google shows about 60 characters of a title. Add the brand only when it fits;
   // long titles stand on their own (Google appends the site name in results anyway).
-  const fullTitle = title.includes("Skyline") || title.length > 47 ? title : `${title} | ${SITE_NAME}`;
   const canonicalUrl = canonical
     ? canonical.startsWith("http")
       ? canonical
       : `${BASE_URL}${canonical}`
     : BASE_URL;
+  const seoTitle = SEO_TITLES[canonicalUrl.replace(BASE_URL, "")] ?? title;
+  const fullTitle = fitTitle(seoTitle.includes("Skyline") || seoTitle.length > 47 ? seoTitle : `${seoTitle} | ${SITE_NAME}`);
+  const description = fitDesc(rawDescription);
   const imageUrl = ogImage ? absoluteUrl(ogImage) : DEFAULT_OG_IMAGE;
 
   useEffect(() => {

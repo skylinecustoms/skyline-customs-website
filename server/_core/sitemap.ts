@@ -37,7 +37,9 @@ function escapeXml(s: string): string {
 }
 
 const LASTMOD_KEY = "sitemapLastmod";
-type LastmodEntry = { hash: string; lastmod: string };
+type LastmodEntry = { hash: string; lastmod: string; v?: number };
+// Bump when contentOnly() changes: stored hashes are re-baselined once, keeping their dates.
+const HASH_VERSION = 2;
 
 /**
  * The part of a rendered page that counts as content for lastmod. Script blocks
@@ -45,11 +47,15 @@ type LastmodEntry = { hash: string; lastmod: string };
  * stylesheet links, and preload hints change with every build or request; if
  * they were hashed, every page would get today's date after every deploy, the
  * daily push would re-send the whole site, and Google would learn to ignore
- * the sitemap's dates.
+ * the sitemap's dates. The menu, footer and monthly promo strip are on every page,
+ * so they are left out too: a menu change is not a change to 200 pages.
  */
 function contentOnly(html: string): string {
   return html
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/<footer\b[\s\S]*?<\/footer>/gi, "")
+    .replace(/<nav\b[\s\S]*?<\/nav>/gi, "")
+    .replace(/<section\b[^>]*aria-label="This month(?:'|&#x27;|&#39;)s special"[\s\S]*?<\/section>/gi, "")
     .replace(/<link\b[^>]*\/assets\/[^>]*>/gi, "")
     .replace(/\/assets\/[A-Za-z0-9_.-]+/g, "/assets/x")
     .replace(/\s+/g, " ");
@@ -79,10 +85,14 @@ async function pageLastmods(paths: string[]): Promise<Map<string, string>> {
     const prev = stored[path];
     if (!prev) {
       // First time we hash this page: it is being tracked from today.
-      next[path] = { hash, lastmod: today };
+      next[path] = { hash, lastmod: today, v: HASH_VERSION };
+      changed = true;
+    } else if ((prev.v ?? 1) !== HASH_VERSION) {
+      // Hashed the old way: take the new hash as the baseline, keep the date.
+      next[path] = { hash, lastmod: prev.lastmod, v: HASH_VERSION };
       changed = true;
     } else if (prev.hash !== hash) {
-      next[path] = { hash, lastmod: today };
+      next[path] = { hash, lastmod: today, v: HASH_VERSION };
       changed = true;
     }
     map.set(path, next[path].lastmod);

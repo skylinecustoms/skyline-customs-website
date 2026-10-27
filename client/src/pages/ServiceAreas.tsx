@@ -36,8 +36,8 @@ export default function ServiceAreas() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="Full Front PPF Across Northern Virginia | Fairfax, Loudoun & Prince William"
-        description="One Chantilly shop for full front PPF, ceramic coating, and ceramic tint across Northern Virginia: Fairfax, Loudoun, Prince William, Arlington, Alexandria, Stafford, plus DC and Maryland. Drive times, dealer delivery, and every city page."
+        title="PPF Across Northern Virginia | Fairfax, Loudoun & Prince William"
+        description="One Chantilly shop for full front PPF, ceramic coating and tint across Fairfax, Loudoun, Prince William, Arlington, Alexandria, Stafford, DC and Maryland. Drive times, dealer delivery, and every city page."
         canonical="https://www.skylinecustomshop.com/service-areas"
         jsonLd={[
           {

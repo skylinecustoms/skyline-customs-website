@@ -140,7 +140,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "spring-ceramic-coating-northern-virginia",
     title: "Spring Prep: Why Ceramic Coating Is a Must-Have for Your Car in Northern Virginia",
-    excerpt: "Pollen, acid rain, road salt, and stronger sun hit Northern Virginia paint every spring. How a Gtechniq ceramic coating protects your car and why to pair it with PPF.",
+    excerpt: "Pollen, acid rain, road salt and stronger sun hit Northern Virginia paint every spring. How a Gtechniq ceramic coating protects it, and why to pair it with PPF.",
     date: "March 2, 2026",
     updated: "September 19, 2026",
     readTime: "6 min read",
