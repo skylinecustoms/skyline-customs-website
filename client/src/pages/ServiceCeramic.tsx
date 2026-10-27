@@ -281,8 +281,9 @@ export default function ServiceCeramic() {
               </Link>
               <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">02 — Coating</p>
               <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-6">
-                CERAMIC<br />
-                <span className="text-[#E85D04]">COATING</span>
+                CERAMIC<br />{" "}
+                <span className="text-[#E85D04]">COATING</span>{" "}
+                <span className="block text-3xl md:text-5xl text-zinc-300 mt-2">IN CHANTILLY, VA</span>
               </h1>
               <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
                 A permanent paint defense system — not a wax, not a sealant. Professionally applied ceramic coating that bonds to your paint at a molecular level and lasts years.

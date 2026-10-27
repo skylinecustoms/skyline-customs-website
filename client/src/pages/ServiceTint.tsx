@@ -236,8 +236,9 @@ export default function ServiceTint() {
           <div className="max-w-4xl">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">03 — Tinting</p>
             <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-6">
-              WINDOW<br />
-              <span className="text-[#E85D04]">TINTING</span>
+              WINDOW<br />{" "}
+              <span className="text-[#E85D04]">TINTING</span>{" "}
+              <span className="block text-3xl md:text-5xl text-zinc-300 mt-2">IN CHANTILLY, VA</span>
             </h1>
             <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
               Premium ceramic window film engineered for heat rejection, UV protection, and interior defense. Not just shade — performance.
