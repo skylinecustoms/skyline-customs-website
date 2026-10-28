@@ -22,6 +22,7 @@ import { buildVideoSitemap } from "./videoSitemap";
 import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
 import { handleTelegramWebhook } from "../telegramWebhook";
 import { registerDepositRoutes } from "../deposit";
+import { registerLeadFeedRoutes } from "../leadFeed";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -172,6 +173,8 @@ async function startServer() {
   app.post("/api/telegram/webhook", handleTelegramWebhook);
   // Online deposits (Stripe Checkout + webhook)
   registerDepositRoutes(app);
+  // Skyline's recent leads (no names) for its dashboard in the Run On Systems client portal (server/leadFeed.ts)
+  registerLeadFeedRoutes(app);
   // Health: which optional integrations this deployment has credentials for (booleans only, never values).
   const startedAt = new Date().toISOString();
   // Blog topic candidates from Search Console for the weekly writing routine (robots.txt disallows /api).
