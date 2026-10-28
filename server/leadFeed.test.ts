@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { feedAuthorized, toLead } from "./leadFeed";
+import { feedAuthorized, toLead, shortName } from "./leadFeed";
 
 const KEY = "k".repeat(40);
 
@@ -15,6 +15,11 @@ describe("lead feed for the client portal", () => {
       ...({ phone: "+15555550100", email: "dana@example.com" } as object) });
     expect(l).toEqual({ kind: "form", name: "Dana L.", vehicle: "2024 BMW M4", value: 3150, source: "Google", service: "PPF", booked: true, website: true, at: "2026-10-28T18:00:00.000Z" });
     expect(JSON.stringify(l)).not.toMatch(/5555|example\.com/);
+  });
+  it("tidies names typed in all caps", () => {
+    expect(shortName("GLEN", "DOE")).toBe("Glen D.");
+    expect(shortName("mary-ann", "o'neil")).toBe("Mary-Ann O.");
+    expect(shortName("DeShawn", "McKay")).toBe("DeShawn M.");
   });
   it("takes GHL's nulls for empty fields", () => {
     expect(toLead({ tags: null, firstName: null, lastName: null, source: null, dateAdded: null, customFields: null })).toMatchObject({ name: "", vehicle: "", value: 0, kind: "lead" });
