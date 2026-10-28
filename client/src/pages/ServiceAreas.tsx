@@ -36,8 +36,8 @@ export default function ServiceAreas() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
-        title="PPF Across Northern Virginia | Fairfax, Loudoun & Prince William"
-        description="One Chantilly shop for full front PPF, ceramic coating and tint across Fairfax, Loudoun, Prince William, Arlington, Alexandria, Stafford, DC and Maryland. Drive times, dealer delivery, and every city page."
+        title="Areas We Serve: PPF, Tint & Ceramic Coating in NoVA, DC & MD"
+        description="Every city Skyline Customs serves from Chantilly, VA: PPF, ceramic coating and window tint for Fairfax, Loudoun, Prince William, Arlington, DC and Maryland."
         canonical="https://www.skylinecustomshop.com/service-areas"
         jsonLd={[
           {
@@ -91,8 +91,8 @@ export default function ServiceAreas() {
           <div className="max-w-4xl">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">Service areas</p>
             <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-4">
-              FULL FRONT PPF ACROSS<br />
-              <span className="text-[#E85D04]">NORTHERN VIRGINIA</span>
+              EVERY CITY WE SERVE<br />
+              <span className="text-[#E85D04]">FROM CHANTILLY, VA</span>
             </h1>
             <p className="text-zinc-300 text-lg md:text-xl max-w-2xl leading-relaxed mb-6">
               One shop in Chantilly, {CITY_ORDER.length} cities on the schedule. Full front paint protection film, ceramic coating, and ceramic window tint for drivers across Fairfax, Loudoun, Prince William, Arlington, Alexandria, and Stafford, plus Washington, DC and the Maryland suburbs. Every job is done in our bay off Route 28; the pages below cover the drive from your city, the roads that chip your paint there, and the questions we hear from your neighbors.

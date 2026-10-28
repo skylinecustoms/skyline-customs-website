@@ -193,8 +193,8 @@ export const STATIC_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/get-a-quote`,
   },
   "/service-areas": {
-    title: "PPF Across Northern Virginia | Fairfax, Loudoun & Prince William",
-    description: "One Chantilly shop for full front PPF, ceramic coating and tint across Fairfax, Loudoun, Prince William, Arlington, Alexandria, Stafford, DC and Maryland. Drive times, dealer delivery, and every city page.",
+    title: "Areas We Serve: PPF, Tint & Ceramic Coating in NoVA, DC & MD",
+    description: "Every city Skyline Customs serves from Chantilly, VA: PPF, ceramic coating and window tint for Fairfax, Loudoun, Prince William, Arlington, DC and Maryland.",
     canonical: `${BASE_URL}/service-areas`,
   },
   "/blog": {
