@@ -17,7 +17,7 @@ export function feedAuthorized(header: string | undefined, key = process.env.POR
   return key.length >= 32 && got.length === want.length && timingSafeEqual(got, want);
 }
 
-export interface FeedLead { kind: "form" | "call" | "lead"; source: string; service: string; booked: boolean; at: string }
+export interface FeedLead { kind: "form" | "call" | "lead"; source: string; service: string; booked: boolean; website: boolean; at: string }
 interface Contact { tags?: string[]; source?: string; dateAdded?: string }
 
 /** One GHL contact as the portal shows it, or null for spam. */
@@ -27,7 +27,9 @@ export function toLead(c: Contact): FeedLead | null {
   const kind = tags.some((t) => /called lead/.test(t)) ? "call" : tags.some((t) => /^website-(quote|contact)$/.test(t)) ? "form" : "lead";
   const service = tags.some((t) => /\bppf\b/.test(t)) ? "PPF" : tags.some((t) => /ceramic coating/.test(t)) ? "Ceramic coating" : tags.some((t) => /\btint\b/.test(t)) ? "Tint" : "";
   const source = c.source || (tags.includes("facebook") ? "Facebook" : tags.includes("google") ? "Google" : tags.includes("organic") ? "Organic" : "");
-  return { kind, source: String(source).slice(0, 40), service, booked: tags.some((t) => /^(booked|deposit paid)$/.test(t)), at: c.dateAdded ?? "" };
+  // "From your website" in the portal: the leads the website brings in, tagged website-contact (or website-quote).
+  const website = tags.some((t) => /^website-(contact|quote)$/.test(t));
+  return { kind, source: String(source).slice(0, 40), service, booked: tags.some((t) => /^(booked|deposit paid)$/.test(t)), website, at: c.dateAdded ?? "" };
 }
 
 export function registerLeadFeedRoutes(app: Express) {
@@ -54,8 +56,14 @@ export function registerLeadFeedRoutes(app: Express) {
     } catch (e) {
       return res.status(502).json({ error: (e as Error).message });
     }
-    const counts = { form: 0, call: 0, lead: 0, booked: 0 };
-    for (const l of leads) { counts[l.kind]++; if (l.booked) counts.booked++; }
-    res.json({ days: DAYS, total: leads.length, counts, leads: leads.slice(0, 200) });
+    const tally = (list: FeedLead[]) => {
+      const counts = { form: 0, call: 0, lead: 0, booked: 0 };
+      for (const l of list) { counts[l.kind]++; if (l.booked) counts.booked++; }
+      return counts;
+    };
+    const fromSite = leads.filter((l) => l.website);
+    // The list is capped, so the website leads go first: the portal's "From your website" view still fills up.
+    const list = [...fromSite.slice(0, 100), ...leads.filter((l) => !l.website)].slice(0, 200).sort((a, b) => b.at.localeCompare(a.at));
+    res.json({ days: DAYS, total: leads.length, counts: tally(leads), website: { total: fromSite.length, counts: tally(fromSite) }, leads: list });
   });
 }
