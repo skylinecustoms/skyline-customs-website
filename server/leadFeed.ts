@@ -24,7 +24,8 @@ interface Contact { tags?: string[]; source?: string; dateAdded?: string }
 export function toLead(c: Contact): FeedLead | null {
   const tags = (c.tags ?? []).map((t) => t.toLowerCase());
   if (tags.some((t) => /spam|scam/.test(t))) return null;
-  const kind = tags.some((t) => /called lead/.test(t)) ? "call" : tags.some((t) => /^website-(quote|contact)$/.test(t)) ? "form" : "lead";
+  // How they came in: a website lead stays a quote request even after a call (it gets "called lead" too).
+  const kind = tags.some((t) => /^website-(quote|contact)$/.test(t)) ? "form" : tags.some((t) => /called lead/.test(t)) ? "call" : "lead";
   const service = tags.some((t) => /\bppf\b/.test(t)) ? "PPF" : tags.some((t) => /ceramic coating/.test(t)) ? "Ceramic coating" : tags.some((t) => /\btint\b/.test(t)) ? "Tint" : "";
   const source = c.source || (tags.includes("facebook") ? "Facebook" : tags.includes("google") ? "Google" : tags.includes("organic") ? "Organic" : "");
   // "From your website" in the portal: the leads the website brings in, tagged website-contact (or website-quote).
