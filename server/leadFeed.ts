@@ -20,19 +20,22 @@ export function feedAuthorized(header: string | undefined, key = process.env.POR
 }
 
 export interface FeedLead { kind: "form" | "call" | "lead"; name: string; vehicle: string; value: number; source: string; service: string; booked: boolean; website: boolean; at: string }
-interface Contact { tags?: string[]; source?: string; dateAdded?: string; firstName?: string; lastName?: string; customFields?: { id: string; value?: unknown }[] }
+interface Contact { tags?: string[] | null; source?: string | null; dateAdded?: string | null; firstName?: string | null; lastName?: string | null; customFields?: { id: string; value?: unknown }[] | null }
 
 // Skyline's GHL custom fields (ids, as the contacts API returns them; see skyline-minato CLAUDE.md).
 const FIELD = { make: "2YNQZIRvWYEjqdJ2UGVw", model: "DAjqA7njYRUfAh7t67Xb", year: "n5O64Bp2FJvBK5GsVSnV", ymm: "aCeicFhtVTo4zc8ZCvBy", value: "M4ZxemI7IYUXNbK2cMMx" };
 const field = (c: Contact, id: string) => String(c.customFields?.find((f) => f.id === id)?.value ?? "").trim();
 /** "Dana L.": enough to know who it is on the shop's own dashboard. */
-export const shortName = (first = "", last = "") => [first.trim(), last.trim() ? `${last.trim()[0].toUpperCase()}.` : ""].filter(Boolean).join(" ").slice(0, 40);
+export const shortName = (first?: string | null, last?: string | null) => {
+  const f = String(first ?? "").trim(), l = String(last ?? "").trim();
+  return [f, l ? `${l[0].toUpperCase()}.` : ""].filter(Boolean).join(" ").slice(0, 40);
+};
 /** "2024 BMW M4", from Year / Make / Model, or the single Vehicle (YMM) field Facebook leads fill in. */
 export const vehicleOf = (c: Contact) => (field(c, FIELD.ymm) || [field(c, FIELD.year), field(c, FIELD.make), field(c, FIELD.model)].filter(Boolean).join(" ")).replace(/\s+/g, " ").slice(0, 60);
 
 /** One GHL contact as the portal shows it, or null for spam. */
 export function toLead(c: Contact): FeedLead | null {
-  const tags = (c.tags ?? []).map((t) => t.toLowerCase());
+  const tags = (c.tags ?? []).map((t) => String(t ?? "").toLowerCase());
   if (tags.some((t) => /spam|scam/.test(t))) return null;
   // How they came in: a website lead stays a quote request even after a call (it gets "called lead" too).
   const kind = tags.some((t) => /^website-(quote|contact)$/.test(t)) ? "form" : tags.some((t) => /called lead/.test(t)) ? "call" : "lead";
@@ -61,7 +64,8 @@ export function registerLeadFeedRoutes(app: Express) {
         if (!r.ok) throw new Error(`GHL contacts search ${r.status}`);
         const j = (await r.json()) as { contacts?: (Contact & { searchAfter?: unknown })[] };
         const batch = j.contacts ?? [];
-        for (const c of batch) { const l = toLead(c); if (l) leads.push(l); }
+        // One odd contact (GHL sends null for empty fields) is skipped, not the whole feed.
+        for (const c of batch) { try { const l = toLead(c); if (l) leads.push(l); } catch (e) { console.warn(`lead feed: skipped a contact: ${(e as Error).message}`); } }
         if (batch.length < 100) break;
         searchAfter = batch[batch.length - 1]?.searchAfter;
         if (!searchAfter) break;
