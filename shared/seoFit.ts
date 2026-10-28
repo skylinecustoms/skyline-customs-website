@@ -46,7 +46,7 @@ export function fitDescription(description: string): string {
  * The page's own headline stays as it is.
  */
 export const SEO_TITLES: Record<string, string> = {
-  "/blog/best-window-tint-virginia-summer": "Best Window Tint for Virginia Summers: Ceramic, Carbon or Dyed?",
+  "/blog/best-window-tint-virginia-summer": "Best Window Tint for Virginia Summer Heat, Window by Window",
   "/blog/how-to-wash-and-care-for-ppf": "How to Wash and Care for PPF: The First 7 Days and After",
   "/blog/ppf-vs-ceramic-coating-chantilly-va": "PPF vs. Ceramic Coating: Which Is Right for Your Car?",
   "/blog/spring-ceramic-coating-northern-virginia": "Why Ceramic Coating Before Spring in Northern Virginia",
