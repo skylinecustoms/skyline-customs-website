@@ -28,8 +28,8 @@ export function toLead(c: Contact): FeedLead | null {
   const kind = tags.some((t) => /^website-(quote|contact)$/.test(t)) ? "form" : tags.some((t) => /called lead/.test(t)) ? "call" : "lead";
   const service = tags.some((t) => /\bppf\b/.test(t)) ? "PPF" : tags.some((t) => /ceramic coating/.test(t)) ? "Ceramic coating" : tags.some((t) => /\btint\b/.test(t)) ? "Tint" : "";
   const source = c.source || (tags.includes("facebook") ? "Facebook" : tags.includes("google") ? "Google" : tags.includes("organic") ? "Organic" : "");
-  // "From your website" in the portal: the leads the website brings in, tagged website-contact (or website-quote).
-  const website = tags.some((t) => /^website-(contact|quote)$/.test(t));
+  // "From your website" in the portal: the leads our work brings in, tagged website-contact (or website-quote) or organic.
+  const website = tags.some((t) => /^(website-(contact|quote)|organic)$/.test(t));
   return { kind, source: String(source).slice(0, 40), service, booked: tags.some((t) => /^(booked|deposit paid)$/.test(t)), website, at: c.dateAdded ?? "" };
 }
 

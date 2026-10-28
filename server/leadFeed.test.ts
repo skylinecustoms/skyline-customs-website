@@ -20,6 +20,8 @@ describe("lead feed for the client portal", () => {
     expect(toLead({ tags: ["website-contact", "ppf lead"] })).toMatchObject({ website: true });
     expect(toLead({ tags: ["website-contact", "called lead"] })).toMatchObject({ kind: "form", website: true });
     expect(toLead({ tags: ["called lead"] })).toMatchObject({ website: false });
+    expect(toLead({ tags: ["organic", "tint lead"] })).toMatchObject({ website: true, kind: "lead" });
+    expect(toLead({ tags: ["facebook", "ppf lead"] })).toMatchObject({ website: false });
     expect(toLead({ tags: ["spam likely"] })).toBeNull();
     expect(toLead({ tags: ["scam call", "called lead"] })).toBeNull();
   });
