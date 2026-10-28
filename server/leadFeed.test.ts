@@ -9,10 +9,15 @@ describe("lead feed for the client portal", () => {
     expect(feedAuthorized(`Bearer ${"x".repeat(40)}`, KEY)).toBe(false);
     expect(feedAuthorized("Bearer ", "")).toBe(false);
   });
-  it("turns a GHL contact into a lead without anything personal", () => {
-    const l = toLead({ tags: ["website-quote", "ppf lead", "booked"], source: "Google", dateAdded: "2026-10-28T18:00:00.000Z", ...({ firstName: "Dana", phone: "+15555550100" } as object) });
-    expect(l).toEqual({ kind: "form", source: "Google", service: "PPF", booked: true, website: true, at: "2026-10-28T18:00:00.000Z" });
-    expect(JSON.stringify(l)).not.toMatch(/Dana|5555/);
+  it("turns a GHL contact into a lead: short name, vehicle and job value, no phone or email", () => {
+    const l = toLead({ tags: ["website-quote", "ppf lead", "booked"], source: "Google", dateAdded: "2026-10-28T18:00:00.000Z", firstName: "Dana", lastName: "lee",
+      customFields: [{ id: "n5O64Bp2FJvBK5GsVSnV", value: "2024" }, { id: "2YNQZIRvWYEjqdJ2UGVw", value: "BMW" }, { id: "DAjqA7njYRUfAh7t67Xb", value: "M4" }, { id: "M4ZxemI7IYUXNbK2cMMx", value: "$3,150" }],
+      ...({ phone: "+15555550100", email: "dana@example.com" } as object) });
+    expect(l).toEqual({ kind: "form", name: "Dana L.", vehicle: "2024 BMW M4", value: 3150, source: "Google", service: "PPF", booked: true, website: true, at: "2026-10-28T18:00:00.000Z" });
+    expect(JSON.stringify(l)).not.toMatch(/5555|example\.com/);
+  });
+  it("uses the one-line vehicle field when that's what the lead filled in", () => {
+    expect(toLead({ tags: ["facebook"], customFields: [{ id: "aCeicFhtVTo4zc8ZCvBy", value: "2023  Tesla Model Y" }] })).toMatchObject({ vehicle: "2023 Tesla Model Y", value: 0, name: "" });
   });
   it("labels calls and services, and drops spam", () => {
     expect(toLead({ tags: ["called lead", "tint lead"] })).toMatchObject({ kind: "call", service: "Tint" });

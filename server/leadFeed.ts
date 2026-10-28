@@ -1,8 +1,10 @@
 /**
  * A private feed of Skyline's recent leads for the Run On Systems client portal (runonsystems.com/portal shows
  * them on Skyline's dashboard). Skyline's leads live in its GHL location, so this reads the last 30 days of new
- * contacts there and passes on only what the dashboard shows: how they came in, the service, whether they
- * booked, and when. No names, phone numbers or emails. Contacts tagged as spam or scam are left out.
+ * contacts there and passes on only what the dashboard shows: the customer (first name and last initial), their
+ * vehicle, how they came in, the service, whether they booked, what the job is worth (the Customer Value field),
+ * and when. No phone numbers or emails. Contacts tagged as spam or scam are left out. The portal is Skyline's own
+ * signed-in dashboard.
  *
  *   GET /api/lead-feed   Authorization: Bearer PORTAL_FEED_KEY (32+ characters, the same key the portal has)
  */
@@ -17,8 +19,16 @@ export function feedAuthorized(header: string | undefined, key = process.env.POR
   return key.length >= 32 && got.length === want.length && timingSafeEqual(got, want);
 }
 
-export interface FeedLead { kind: "form" | "call" | "lead"; source: string; service: string; booked: boolean; website: boolean; at: string }
-interface Contact { tags?: string[]; source?: string; dateAdded?: string }
+export interface FeedLead { kind: "form" | "call" | "lead"; name: string; vehicle: string; value: number; source: string; service: string; booked: boolean; website: boolean; at: string }
+interface Contact { tags?: string[]; source?: string; dateAdded?: string; firstName?: string; lastName?: string; customFields?: { id: string; value?: unknown }[] }
+
+// Skyline's GHL custom fields (ids, as the contacts API returns them; see skyline-minato CLAUDE.md).
+const FIELD = { make: "2YNQZIRvWYEjqdJ2UGVw", model: "DAjqA7njYRUfAh7t67Xb", year: "n5O64Bp2FJvBK5GsVSnV", ymm: "aCeicFhtVTo4zc8ZCvBy", value: "M4ZxemI7IYUXNbK2cMMx" };
+const field = (c: Contact, id: string) => String(c.customFields?.find((f) => f.id === id)?.value ?? "").trim();
+/** "Dana L.": enough to know who it is on the shop's own dashboard. */
+export const shortName = (first = "", last = "") => [first.trim(), last.trim() ? `${last.trim()[0].toUpperCase()}.` : ""].filter(Boolean).join(" ").slice(0, 40);
+/** "2024 BMW M4", from Year / Make / Model, or the single Vehicle (YMM) field Facebook leads fill in. */
+export const vehicleOf = (c: Contact) => (field(c, FIELD.ymm) || [field(c, FIELD.year), field(c, FIELD.make), field(c, FIELD.model)].filter(Boolean).join(" ")).replace(/\s+/g, " ").slice(0, 60);
 
 /** One GHL contact as the portal shows it, or null for spam. */
 export function toLead(c: Contact): FeedLead | null {
@@ -30,7 +40,9 @@ export function toLead(c: Contact): FeedLead | null {
   const source = c.source || (tags.includes("facebook") ? "Facebook" : tags.includes("google") ? "Google" : tags.includes("organic") ? "Organic" : "");
   // "From your website" in the portal: the leads our work brings in, tagged website-contact (or website-quote) or organic.
   const website = tags.some((t) => /^(website-(contact|quote)|organic)$/.test(t));
-  return { kind, source: String(source).slice(0, 40), service, booked: tags.some((t) => /^(booked|deposit paid)$/.test(t)), website, at: c.dateAdded ?? "" };
+  const value = Number(field(c, FIELD.value).replace(/[^\d.]/g, "")) || 0;
+  return { kind, name: shortName(c.firstName, c.lastName), vehicle: vehicleOf(c), value, source: String(source).slice(0, 40), service,
+    booked: tags.some((t) => /^(booked|deposit paid)$/.test(t)), website, at: c.dateAdded ?? "" };
 }
 
 export function registerLeadFeedRoutes(app: Express) {
@@ -58,8 +70,9 @@ export function registerLeadFeedRoutes(app: Express) {
       return res.status(502).json({ error: (e as Error).message });
     }
     const tally = (list: FeedLead[]) => {
-      const counts = { form: 0, call: 0, lead: 0, booked: 0 };
-      for (const l of list) { counts[l.kind]++; if (l.booked) counts.booked++; }
+      const counts = { form: 0, call: 0, lead: 0, booked: 0, value: 0, paying: 0 };
+      for (const l of list) { counts[l.kind]++; if (l.booked) counts.booked++; if (l.value > 0) { counts.value += l.value; counts.paying++; } }
+      counts.value = Math.round(counts.value);
       return counts;
     };
     const fromSite = leads.filter((l) => l.website);
