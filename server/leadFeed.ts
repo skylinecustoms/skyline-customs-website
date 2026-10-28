@@ -27,7 +27,9 @@ const FIELD = { make: "2YNQZIRvWYEjqdJ2UGVw", model: "DAjqA7njYRUfAh7t67Xb", yea
 const field = (c: Contact, id: string) => String(c.customFields?.find((f) => f.id === id)?.value ?? "").trim();
 /** "Dana L.": enough to know who it is on the shop's own dashboard. */
 export const shortName = (first?: string | null, last?: string | null) => {
-  const f = String(first ?? "").trim(), l = String(last ?? "").trim();
+  // Names typed in all caps (or all lower case) read as "Glen", not "GLEN"; mixed case like "McKay" stays.
+  const tidy = (x: string) => (x === x.toUpperCase() || x === x.toLowerCase() ? x.toLowerCase().replace(/(^|[\s'-])[a-z\u00e0-\u00ff]/g, (m) => m.toUpperCase()) : x);
+  const f = tidy(String(first ?? "").trim()), l = String(last ?? "").trim();
   return [f, l ? `${l[0].toUpperCase()}.` : ""].filter(Boolean).join(" ").slice(0, 40);
 };
 /** "2024 BMW M4", from Year / Make / Model, or the single Vehicle (YMM) field Facebook leads fill in. */
