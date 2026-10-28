@@ -16,6 +16,10 @@ describe("lead feed for the client portal", () => {
     expect(l).toEqual({ kind: "form", name: "Dana L.", vehicle: "2024 BMW M4", value: 3150, source: "Google", service: "PPF", booked: true, website: true, at: "2026-10-28T18:00:00.000Z" });
     expect(JSON.stringify(l)).not.toMatch(/5555|example\.com/);
   });
+  it("takes GHL's nulls for empty fields", () => {
+    expect(toLead({ tags: null, firstName: null, lastName: null, source: null, dateAdded: null, customFields: null })).toMatchObject({ name: "", vehicle: "", value: 0, kind: "lead" });
+    expect(toLead({ tags: ["organic"], firstName: "Sam", lastName: null, customFields: [{ id: "M4ZxemI7IYUXNbK2cMMx", value: null }] })).toMatchObject({ name: "Sam", value: 0, website: true });
+  });
   it("uses the one-line vehicle field when that's what the lead filled in", () => {
     expect(toLead({ tags: ["facebook"], customFields: [{ id: "aCeicFhtVTo4zc8ZCvBy", value: "2023  Tesla Model Y" }] })).toMatchObject({ vehicle: "2023 Tesla Model Y", value: 0, name: "" });
   });
