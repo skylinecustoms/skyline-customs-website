@@ -76,8 +76,9 @@ export function registerLeadFeedRoutes(app: Express) {
       return res.status(502).json({ error: (e as Error).message });
     }
     const tally = (list: FeedLead[]) => {
-      const counts = { form: 0, call: 0, lead: 0, booked: 0, value: 0, paying: 0 };
-      for (const l of list) { counts[l.kind]++; if (l.booked) counts.booked++; if (l.value > 0) { counts.value += l.value; counts.paying++; } }
+      // bookedUnpriced: booked customers without a Customer Value yet (the portal estimates them at the average job).
+      const counts = { form: 0, call: 0, lead: 0, booked: 0, value: 0, paying: 0, bookedUnpriced: 0 };
+      for (const l of list) { counts[l.kind]++; if (l.booked) counts.booked++; if (l.value > 0) { counts.value += l.value; counts.paying++; } else if (l.booked) counts.bookedUnpriced++; }
       counts.value = Math.round(counts.value);
       return counts;
     };
