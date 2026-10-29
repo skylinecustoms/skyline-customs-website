@@ -12,6 +12,7 @@ import { buildSitemap } from "./sitemap";
 import { buildRssFeed } from "./rss";
 import { startIndexingScheduler, lastIndexingSweep } from "../searchIndexing";
 import { startIndexStatusScheduler } from "../indexStatus";
+import { ensureQualityTags, qualityTagStatus } from "../ghlQuality";
 import { startWeeklyReportScheduler } from "../weeklyReport";
 import { getGoogleListing } from "../googleReviews";
 import { getDb } from "../db";
@@ -236,6 +237,7 @@ async function startServer() {
         stripe: has("STRIPE_SECRET_KEY"),
         stripeWebhook: has("STRIPE_WEBHOOK_SECRET"),
         googleIndexing: has("GOOGLE_INDEXING_SA_JSON"),
+        ghlQualityTags: qualityTagStatus(),
       },
       searchIndexing: lastIndexingSweep(),
       googleIndexingKey: has("GOOGLE_INDEXING_SA_JSON") ? describeKeyEnv() : null,
@@ -293,6 +295,7 @@ async function startServer() {
     startIndexingScheduler();
     startIndexStatusScheduler();
     startWeeklyReportScheduler();
+    void ensureQualityTags();
   });
 }
 
