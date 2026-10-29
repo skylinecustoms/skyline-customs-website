@@ -730,6 +730,7 @@ export async function handleTelegramWebhook(req: Request, res: Response) {
       `<b>-- Promo Banner --</b>\n` +
       `/promo on · /promo off · /promo status\n` +
       `/stats - quick slot + waitlist count\n` +
+      `/ghl_audit - CRM workflows, pipelines and quality tags (for the Meta event setup)\n` +
       `/waitlist - see all waitlist entries\n\n` +
       `<b>-- Create New Promo --</b>\n` +
       `/new_month - guided step-by-step wizard (easiest)\n` +
@@ -1048,6 +1049,14 @@ export async function handleTelegramWebhook(req: Request, res: Response) {
     await sendMessage(chatId, "⏳ Pulling Search Console and Analytics...");
     try { await sendMessage(chatId, await buildWeeklyReport()); }
     catch (err) { await sendMessage(chatId, `❌ Report failed: ${err instanceof Error ? err.message : String(err)}`); }
+    return;
+  }
+
+  // -- /ghl_audit: what the CRM already has around lead quality and Meta events --
+  if (effectiveText.startsWith("/ghl_audit")) {
+    await sendMessage(chatId, "⏳ Reading GHL workflows, pipelines and tags...");
+    try { const { buildGhlAudit } = await import("./ghlAudit"); await sendMessage(chatId, await buildGhlAudit()); }
+    catch (err) { await sendMessage(chatId, `❌ Audit failed: ${err instanceof Error ? err.message : String(err)}`); }
     return;
   }
 
