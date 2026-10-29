@@ -19,8 +19,8 @@ export function feedAuthorized(header: string | undefined, key = process.env.POR
   return key.length >= 32 && got.length === want.length && timingSafeEqual(got, want);
 }
 
-export interface FeedLead { kind: "form" | "call" | "lead"; name: string; vehicle: string; value: number; source: string; service: string; booked: boolean; website: boolean; at: string }
-interface Contact { tags?: string[] | null; source?: string | null; dateAdded?: string | null; firstName?: string | null; lastName?: string | null; customFields?: { id: string; value?: unknown }[] | null }
+export interface FeedLead { kind: "form" | "call" | "lead"; name: string; vehicle: string; value: number; source: string; service: string; booked: boolean; website: boolean; at: string; contacted?: boolean }
+interface Contact { id?: string; tags?: string[] | null; source?: string | null; dateAdded?: string | null; firstName?: string | null; lastName?: string | null; customFields?: { id: string; value?: unknown }[] | null }
 
 // Skyline's GHL custom fields (ids, as the contacts API returns them; see skyline-minato CLAUDE.md).
 const FIELD = { make: "2YNQZIRvWYEjqdJ2UGVw", model: "DAjqA7njYRUfAh7t67Xb", year: "n5O64Bp2FJvBK5GsVSnV", ymm: "aCeicFhtVTo4zc8ZCvBy", value: "M4ZxemI7IYUXNbK2cMMx" };
@@ -77,6 +77,33 @@ export function periodTotals(leads: FeedLead[], from: Date, to?: Date) {
   return { from: from.toISOString(), ...(to ? { to: to.toISOString() } : {}), total: inside.length, counts: tally(inside), website: { total: site.length, counts: tally(site) } };
 }
 
+// ---- has anyone replied? (the portal reminds the shop when a new website lead is still waiting) ----
+
+const CONTACT_HOURS = 6, CONTACT_CHECKS = 25;
+const HUMAN_TYPES = ["TYPE_SMS", "TYPE_EMAIL", "TYPE_CALL", "TYPE_WHATSAPP", "TYPE_FACEBOOK", "TYPE_INSTAGRAM", "TYPE_GMB", "TYPE_LIVE_CHAT"];
+export interface CrmMessage { direction?: string; messageType?: string; source?: string; status?: string; meta?: { call?: { status?: string } } }
+/** A real reply: a text, email or call from the shop (not the workflow's automatic first text), or an answered call from them. */
+export const humanTouch = (m: CrmMessage) =>
+  (m.direction === "outbound" && HUMAN_TYPES.includes(String(m.messageType)) && !["workflow", "campaign", "bulk_actions"].includes(String(m.source ?? "")))
+  || (m.direction === "inbound" && m.messageType === "TYPE_CALL" && String(m.meta?.call?.status ?? m.status ?? "").toLowerCase() === "completed");
+/** For website leads from the last few hours: has the shop replied yet (`contacted`)? Older leads are left as they are. */
+async function markContacted(pairs: { lead: FeedLead; id: string }[], base: string, headers: Record<string, string>, location: string) {
+  const cut = new Date(Date.now() - CONTACT_HOURS * 3600e3).toISOString(), h = { ...headers, Version: "2021-04-15" };
+  const check = async ({ lead, id }: { lead: FeedLead; id: string }) => {
+    try {
+      const conv = (await (await fetch(`${base}/conversations/search?locationId=${encodeURIComponent(location)}&contactId=${encodeURIComponent(id)}`, { headers: h, signal: AbortSignal.timeout(8000) })).json()) as { conversations?: { id: string }[] };
+      const cid = conv.conversations?.[0]?.id;
+      if (!cid) { lead.contacted = false; return; }
+      const j = (await (await fetch(`${base}/conversations/${cid}/messages?limit=50`, { headers: h, signal: AbortSignal.timeout(8000) })).json()) as { messages?: CrmMessage[] | { messages?: CrmMessage[] } };
+      const list = Array.isArray(j.messages) ? j.messages : j.messages?.messages ?? [];
+      lead.contacted = list.some(humanTouch);
+    } catch (e) { console.warn(`lead feed: reply check skipped: ${(e as Error).message}`); }
+  };
+  // Five at a time, so a busy afternoon doesn't slow the feed down.
+  const due = pairs.filter((p) => p.lead.website && p.lead.at >= cut).slice(0, CONTACT_CHECKS);
+  for (let i = 0; i < due.length; i += 5) await Promise.all(due.slice(i, i + 5).map(check));
+}
+
 export function registerLeadFeedRoutes(app: Express) {
   app.get("/api/lead-feed", async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
@@ -84,7 +111,7 @@ export function registerLeadFeedRoutes(app: Express) {
     // Back to the start of the month before last (or 60 days, whichever is earlier), so each total has one to
     // compare with: the 30 days before, last month up to the same day, and the month before last.
     const { thisMonth, lastMonth, monthBefore } = monthStarts(), dayCut = new Date(Date.now() - DAYS * 864e5), prevCut = new Date(Date.now() - 2 * DAYS * 864e5);
-    const since = new Date(Math.min(monthBefore.getTime(), prevCut.getTime())).toISOString(), leads: FeedLead[] = [];
+    const since = new Date(Math.min(monthBefore.getTime(), prevCut.getTime())).toISOString(), leads: FeedLead[] = [], pairs: { lead: FeedLead; id: string }[] = [];
     let searchAfter: unknown;
     try {
       for (let page = 0; page < MAX_PAGES; page++) {
@@ -97,11 +124,12 @@ export function registerLeadFeedRoutes(app: Express) {
         const j = (await r.json()) as { contacts?: (Contact & { searchAfter?: unknown })[] };
         const batch = j.contacts ?? [];
         // One odd contact (GHL sends null for empty fields) is skipped, not the whole feed.
-        for (const c of batch) { try { const l = toLead(c); if (l) leads.push(l); } catch (e) { console.warn(`lead feed: skipped a contact: ${(e as Error).message}`); } }
+        for (const c of batch) { try { const l = toLead(c); if (l) { leads.push(l); if (c.id) pairs.push({ lead: l, id: c.id }); } } catch (e) { console.warn(`lead feed: skipped a contact: ${(e as Error).message}`); } }
         if (batch.length < 100) break;
         searchAfter = batch[batch.length - 1]?.searchAfter;
         if (!searchAfter) break;
       }
+      await markContacted(pairs, "https://services.leadconnectorhq.com", GHL_HEADERS as Record<string, string>, GHL_LOCATION_ID);
     } catch (e) {
       return res.status(502).json({ error: (e as Error).message });
     }
