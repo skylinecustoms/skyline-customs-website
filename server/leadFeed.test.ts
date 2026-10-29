@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { feedAuthorized, toLead, shortName } from "./leadFeed";
+import { feedAuthorized, toLead, shortName, monthStarts, periodTotals } from "./leadFeed";
 
 const KEY = "k".repeat(40);
 
@@ -38,5 +38,15 @@ describe("lead feed for the client portal", () => {
     expect(toLead({ tags: ["facebook", "ppf lead"] })).toMatchObject({ website: false });
     expect(toLead({ tags: ["spam likely"] })).toBeNull();
     expect(toLead({ tags: ["scam call", "called lead"] })).toBeNull();
+  });
+  it("splits this month and last month at midnight Eastern", () => {
+    const m = monthStarts(new Date("2026-10-29T12:00:00Z"));
+    expect(m.thisMonth.toISOString()).toBe("2026-10-01T04:00:00.000Z");
+    expect(m.lastMonth.toISOString()).toBe("2026-09-01T04:00:00.000Z");
+    expect(monthStarts(new Date("2026-01-01T03:00:00Z")).thisMonth.toISOString()).toBe("2025-12-01T05:00:00.000Z"); // still Dec 31 in Chantilly
+    const a = toLead({ tags: ["website-contact", "booked"], dateAdded: "2026-09-30T23:00:00.000Z", customFields: [{ id: "M4ZxemI7IYUXNbK2cMMx", value: "500" }] })!; // Sep 30, 7pm ET
+    const b = toLead({ tags: ["facebook"], dateAdded: "2026-10-02T15:00:00.000Z" })!;
+    expect(periodTotals([a, b], m.lastMonth, m.thisMonth)).toMatchObject({ total: 1, website: { total: 1, counts: { value: 500 } } });
+    expect(periodTotals([a, b], m.thisMonth)).toMatchObject({ total: 1, website: { total: 0 } });
   });
 });
