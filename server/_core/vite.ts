@@ -1,4 +1,5 @@
 import express, { type Express } from "express";
+import { getLiveEdits } from "../liveEdits";
 import fs from "fs";
 import { type Server } from "http";
 import { nanoid } from "nanoid";
@@ -18,9 +19,11 @@ import { getActivePromoByActive, getPromoSlots, getArchivedPromoBySlug } from ".
  * live bits (promo, gallery, reviews, feeds) load on the client after hydration.
  * Set SSR=0 to serve the empty shell instead.
  */
-type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown }) => Promise<{ html: string; state: string }> };
+type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; live?: unknown }) => Promise<{ html: string; state: string }> };
 let renderer: Promise<Renderer | null> | null = null;
 const ssrCache = new Map<string, { html: string; state: string; at: number }>();
+/** Drop every cached page (the portal's instant edits changed). */
+export const clearSsrCache = () => ssrCache.clear();
 const SSR_TTL_MS = 10 * 60 * 1000;
 
 function loadRenderer(distPath: string): Promise<Renderer | null> {
@@ -50,7 +53,7 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
   const hit = ssrCache.get(urlPath);
   if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit;
   try {
-    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown } = {};
+    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; live?: unknown } = { live: getLiveEdits() };
     // Every page with a review block renders the real Google reviews into the HTML (cached for an hour, so this is cheap).
     preload.googleReviews = (await getGoogleReviews().catch(() => null)) ?? undefined;
     // The blog index and every post list the other posts: render the list so crawlers see the links.
@@ -193,6 +196,9 @@ export function serveStatic(app: Express) {
         }
       }
       page = await withLiveReviewCount(page);
+      // The portal's instant edits, so the browser renders exactly what the server did.
+      const live = getLiveEdits();
+      if (Object.keys(live).length) page = page.replace("</body>", `<script>window.__ROS_LIVE__=${JSON.stringify(live).replace(/</g, "\\u003c")}</script></body>`);
       // Unknown URLs render the app's Not Found page with a real 404 status,
       // so search engines don't index "soft 404" pages.
       res

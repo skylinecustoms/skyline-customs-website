@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { getLive, hoursLine } from "@shared/live";
 import { Phone, Mail, MapPin, Instagram, Youtube } from "lucide-react";
 import { CITIES, CITY_ORDER, cityPath } from "@/lib/localSeo";
 
@@ -160,7 +161,7 @@ export default function Footer() {
             </ul>
             <div className="mt-5">
               <p className="font-mono-brand text-xs text-[oklch(0.66_0.008_285)] uppercase tracking-widest mb-1">Hours</p>
-              <p className="text-[oklch(0.66_0.01_285)] text-sm">Mon–Fri: 9AM – 6PM</p>
+              <p className="text-[oklch(0.66_0.01_285)] text-sm">{getLive().hours ? hoursLine(getLive().hours!) : "Mon–Fri: 9AM – 6PM"}</p>
               <p className="text-[oklch(0.66_0.008_285)] text-sm">Weekends: Closed</p>
             </div>
           </div>

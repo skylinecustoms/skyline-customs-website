@@ -140,6 +140,8 @@ export function registerLeadFeedRoutes(app: Express) {
     const shown = leads.filter((l) => l.at >= new Date(Math.min(lastMonth.getTime(), dayCut.getTime())).toISOString());
     const list = [...shown.filter((l) => l.website).slice(0, 150), ...shown.filter((l) => !l.website)].slice(0, 300).sort((a, b) => b.at.localeCompare(a.at));
     res.json({ days: DAYS, total: recent.length, counts: tally(recent), website: { total: fromSite.length, counts: tally(fromSite) },
+      // Skyline's own hours, so the portal's Update your site form starts from them.
+      siteHours: { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" },
       prev: periodTotals(leads, prevCut, dayCut),
       periods: { this: periodTotals(leads, thisMonth), last: periodTotals(leads, lastMonth, thisMonth), before: periodTotals(leads, monthBefore, lastMonth),
         lastToDate: periodTotals(leads, lastMonth, new Date(Math.min(thisMonth.getTime(), lastMonth.getTime() + (Date.now() - thisMonth.getTime())))) },

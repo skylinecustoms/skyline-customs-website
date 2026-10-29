@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { activeSpecial, upcomingClosure } from "@shared/live";
 import { Link, useLocation } from "wouter";
 import { Menu, X, Phone, ChevronDown, Zap } from "lucide-react";
 import { useBooking } from "@/contexts/BookingContext";
@@ -75,7 +76,11 @@ export default function Navbar({ hidePromoStrip = false }: { hidePromoStrip?: bo
 
   // Strip under the nav row: a manual announcement wins; otherwise the active special (not on the promo page itself).
   const { data: settings } = trpc.site.settings.useQuery();
-  const manual = settings?.announcementActive === "1" && settings.announcement ? settings.announcement : null;
+  // The shop's own words from the portal (Update your site) come first: a closure this week, then the special.
+  const closure = upcomingClosure(), special = activeSpecial();
+  const day = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  const closureText = closure ? `${closure.note || "Closed"}: ${day(closure.from)}${closure.to !== closure.from ? `–${day(closure.to)}` : ""}` : "";
+  const manual = closureText || special?.text || (settings?.announcementActive === "1" && settings.announcement ? settings.announcement : null);
   const stripTagline = (activePromo?.tagline ?? "Full Front PPF + Free Ceramic Coating").replace(/\s*[—-]\s*Spots Are Limited\.?$/i, "");
   const showPromoStrip = !manual && !hidePromoStrip && !!activePromo?.title && location !== "/promo";
   // Phone layout: two short lines built from the tagline ("Full Front PPF + a Free Ceramic Coating on Your Whole Car").

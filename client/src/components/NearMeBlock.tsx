@@ -8,6 +8,7 @@
  * review count, plus a map and a directions link. Drive times come from the
  * city data so they match the city pages.
  */
+import { getLive, hoursLine } from "@shared/live";
 import { Link } from "wouter";
 import { MapPin, Clock, Star, Car, ArrowRight, Phone } from "lucide-react";
 import { CITIES, SERVICES, cityPath, type ServiceKey } from "@/lib/localSeo";
@@ -70,7 +71,7 @@ export default function NearMeBlock({ service }: { service: ServiceKey }) {
               </div>
               <div className="bg-[#0D0D0D] p-5">
                 <dt className="flex items-center gap-2 text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-2"><Clock className="w-4 h-4" /> Hours</dt>
-                <dd className="text-white text-sm leading-relaxed">Mon to Fri, 9 AM to 6 PM<br />Installs by appointment</dd>
+                <dd className="text-white text-sm leading-relaxed">{getLive().hours ? hoursLine(getLive().hours!) : "Mon to Fri, 9 AM to 6 PM"}<br />Installs by appointment</dd>
               </div>
               <div className="bg-[#0D0D0D] p-5">
                 <dt className="flex items-center gap-2 text-[#E85D04] text-xs font-bold tracking-widest uppercase mb-2"><Star className="w-4 h-4" /> Reviews</dt>

@@ -16,12 +16,14 @@ import { getQueryKey } from "@trpc/react-query";
 import superjson from "superjson";
 import { trpc } from "@/lib/trpc";
 import App from "./App";
+import { applyLive, type LiveEdits } from "@shared/live";
 
 export interface RenderResult { html: string; /** superjson-serialized react-query cache for client hydration */ state: string }
-export interface Preload { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown }
+export interface Preload { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; live?: LiveEdits }
 
 export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Promise<RenderResult> {
   const [path, search = ""] = url.split("?");
+  applyLive(preload.live);
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: Infinity } } });
   // Data the server already has (e.g. the blog post for /blog/:slug) is seeded into
   // the query cache so it renders into the HTML; the same state is handed to the
