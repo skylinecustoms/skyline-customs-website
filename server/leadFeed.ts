@@ -1,10 +1,10 @@
 /**
  * A private feed of Skyline's recent leads for the Run On Systems client portal (runonsystems.com/portal shows
  * them on Skyline's dashboard). Skyline's leads live in its GHL location, so this reads new contacts there since
- * the start of last month (totals for the last 30 days, this month and last month) and passes on only what the
- * dashboard shows: the customer (first name and last initial), their vehicle, how they came in, the service, whether they booked, what the job is worth (the Customer Value field),
- * and when. No phone numbers or emails. Contacts tagged as spam or scam are left out. The portal is Skyline's own
- * signed-in dashboard.
+ * the start of the month before last (totals for the last 30 days, this month and the two before, to compare) and
+ * passes on only what the dashboard shows: the customer (first name and last initial), their vehicle, how they came
+ * in, the service, whether they booked, what the job is worth (the Customer Value field), and when. No phone
+ * numbers or emails. Contacts tagged as spam or scam are left out. The portal is Skyline's own signed-in dashboard.
  *
  *   GET /api/lead-feed   Authorization: Bearer PORTAL_FEED_KEY (32+ characters, the same key the portal has)
  */
@@ -12,7 +12,7 @@ import type { Express } from "express";
 import { timingSafeEqual } from "crypto";
 import { GHL_HEADERS, GHL_LOCATION_ID } from "./routers";
 
-const DAYS = 30, MAX_PAGES = 20, TZ = "America/New_York";
+const DAYS = 30, MAX_PAGES = 30, TZ = "America/New_York";
 
 export function feedAuthorized(header: string | undefined, key = process.env.PORTAL_FEED_KEY ?? ""): boolean {
   const got = Buffer.from(String(header ?? "").replace(/^Bearer /, "")), want = Buffer.from(key);
@@ -64,11 +64,12 @@ const zoneOffset = (d: Date, tz: string) => {
     .formatToParts(d).map((x) => [x.type, x.value]));
   return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - Math.floor(d.getTime() / 1000) * 1000;
 };
-/** The first moment of this month and of last month in Skyline's time zone. */
+/** The first moment of this month, last month and the month before in Skyline's time zone. */
 export function monthStarts(now = new Date(), tz = TZ) {
   const [y, m] = new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit" }).format(now).split("-").map(Number);
   const start = (yy: number, mm: number) => { const guess = Date.UTC(yy, mm - 1, 1); return new Date(guess - zoneOffset(new Date(guess), tz)); };
-  return { thisMonth: start(y, m), lastMonth: m === 1 ? start(y - 1, 12) : start(y, m - 1) };
+  const back = (k: number) => { const t = y * 12 + (m - 1) - k; return start(Math.floor(t / 12), (t % 12) + 1); };
+  return { thisMonth: back(0), lastMonth: back(1), monthBefore: back(2) };
 }
 /** Totals for one stretch of time: all leads and the website's. */
 export function periodTotals(leads: FeedLead[], from: Date, to?: Date) {
@@ -80,9 +81,10 @@ export function registerLeadFeedRoutes(app: Express) {
   app.get("/api/lead-feed", async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     if (!feedAuthorized(req.headers.authorization)) return res.status(401).json({ error: "unauthorized" });
-    // Since the start of last month (or 30 days back, whichever is earlier: March 1 is only 28 days after Feb 1).
-    const { thisMonth, lastMonth } = monthStarts(), dayCut = new Date(Date.now() - DAYS * 864e5);
-    const since = new Date(Math.min(lastMonth.getTime(), dayCut.getTime())).toISOString(), leads: FeedLead[] = [];
+    // Back to the start of the month before last (or 60 days, whichever is earlier), so each total has one to
+    // compare with: the 30 days before, last month up to the same day, and the month before last.
+    const { thisMonth, lastMonth, monthBefore } = monthStarts(), dayCut = new Date(Date.now() - DAYS * 864e5), prevCut = new Date(Date.now() - 2 * DAYS * 864e5);
+    const since = new Date(Math.min(monthBefore.getTime(), prevCut.getTime())).toISOString(), leads: FeedLead[] = [];
     let searchAfter: unknown;
     try {
       for (let page = 0; page < MAX_PAGES; page++) {
@@ -106,8 +108,13 @@ export function registerLeadFeedRoutes(app: Express) {
     // Totals: the last 30 days (what the portal has always shown), plus this month and last month.
     const recent = leads.filter((l) => l.at >= dayCut.toISOString()), fromSite = recent.filter((l) => l.website);
     // The list is capped, so the website leads go first: the portal's "From your website" view still fills up.
-    const list = [...leads.filter((l) => l.website).slice(0, 150), ...leads.filter((l) => !l.website)].slice(0, 300).sort((a, b) => b.at.localeCompare(a.at));
+    // The list only goes back to the start of last month (or 30 days); the older months are only for totals.
+    const shown = leads.filter((l) => l.at >= new Date(Math.min(lastMonth.getTime(), dayCut.getTime())).toISOString());
+    const list = [...shown.filter((l) => l.website).slice(0, 150), ...shown.filter((l) => !l.website)].slice(0, 300).sort((a, b) => b.at.localeCompare(a.at));
     res.json({ days: DAYS, total: recent.length, counts: tally(recent), website: { total: fromSite.length, counts: tally(fromSite) },
-      periods: { this: periodTotals(leads, thisMonth), last: periodTotals(leads, lastMonth, thisMonth) }, leads: list });
+      prev: periodTotals(leads, prevCut, dayCut),
+      periods: { this: periodTotals(leads, thisMonth), last: periodTotals(leads, lastMonth, thisMonth), before: periodTotals(leads, monthBefore, lastMonth),
+        lastToDate: periodTotals(leads, lastMonth, new Date(Math.min(thisMonth.getTime(), lastMonth.getTime() + (Date.now() - thisMonth.getTime())))) },
+      leads: list });
   });
 }
