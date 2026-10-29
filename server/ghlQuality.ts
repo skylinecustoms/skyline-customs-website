@@ -1,37 +1,41 @@
 /**
  * Lead-quality tags in GoHighLevel.
  *
- * The Meta conversion-event setup (Leadfuse lesson 1.6.6 and Bryan's
- * "What Is a Quality Lead" one-pager) hangs on two tags with exact spelling:
- *   quality | qualified     Meta: find more people like this one
- *   quality | unqualified   Meta: fewer people like this
- * This creates them in the CRM at boot if they are missing, so the closer
- * picks them from the list instead of typing them, and reports the result
- * on /api/health (integrations.ghlQualityTags). Workflows cannot be created
- * through the GHL API; those are built in the GHL interface.
+ * The CRM already runs the Meta conversion-event setup through the
+ * "PPF Meta Conversions Pipeline" workflow, keyed on these tags:
+ *   ppf lead, ppf qualified lead, ppf unqualified lead, deposit paid, paid/job completed
+ * An earlier pass created a second pair (quality | qualified / unqualified)
+ * before that workflow was found. This removes that pair at boot if it is
+ * still there, so the closer has one set of tags to pick from, and reports
+ * on /api/health (integrations.ghlQualityTags).
  */
 import { GHL_HEADERS, GHL_LOCATION_ID } from "./routers";
 
-export const QUALITY_TAGS = ["quality | qualified", "quality | unqualified"] as const;
+/** Tags the Meta workflow listens for. Keep in step with the workflow in GHL. */
+export const QUALITY_TAGS = { newLead: "ppf lead", qualified: "ppf qualified lead", unqualified: "ppf unqualified lead", deposit: "deposit paid", complete: "paid/job completed" } as const;
+const RETIRED_TAGS = ["quality | qualified", "quality | unqualified"];
 
-export interface QualityTagStatus { checkedAt: string; present: string[]; created: string[]; error?: string }
+export interface QualityTagStatus { checkedAt: string; present: string[]; removed: string[]; error?: string }
 let status: QualityTagStatus | null = null;
 export const qualityTagStatus = () => status;
 
 export async function ensureQualityTags(): Promise<QualityTagStatus> {
-  const result: QualityTagStatus = { checkedAt: new Date().toISOString(), present: [], created: [] };
+  const result: QualityTagStatus = { checkedAt: new Date().toISOString(), present: [], removed: [] };
   if (!GHL_LOCATION_ID || !(process.env.GHL_API_KEY ?? "").trim()) { result.error = "GHL not configured"; status = result; return result; }
   try {
     const r = await fetch(`https://services.leadconnectorhq.com/locations/${GHL_LOCATION_ID}/tags`, { headers: GHL_HEADERS });
     if (!r.ok) throw new Error(`list tags HTTP ${r.status}: ${(await r.text()).slice(0, 200)}`);
-    const existing = new Set((((await r.json()) as { tags?: { name: string }[] }).tags ?? []).map((t) => t.name.trim().toLowerCase()));
-    for (const name of QUALITY_TAGS) {
-      if (existing.has(name)) { result.present.push(name); continue; }
-      const c = await fetch(`https://services.leadconnectorhq.com/locations/${GHL_LOCATION_ID}/tags`, { method: "POST", headers: { ...GHL_HEADERS, "Content-Type": "application/json" }, body: JSON.stringify({ name }) });
-      if (!c.ok) throw new Error(`create tag "${name}" HTTP ${c.status}: ${(await c.text()).slice(0, 200)}`);
-      result.created.push(name);
+    const tags = ((await r.json()) as { tags?: { id: string; name: string }[] }).tags ?? [];
+    const byName = new Map(tags.map((t) => [t.name.trim().toLowerCase(), t.id]));
+    for (const name of Object.values(QUALITY_TAGS)) if (byName.has(name)) result.present.push(name);
+    for (const name of RETIRED_TAGS) {
+      const id = byName.get(name);
+      if (!id) continue;
+      const d = await fetch(`https://services.leadconnectorhq.com/locations/${GHL_LOCATION_ID}/tags/${id}`, { method: "DELETE", headers: GHL_HEADERS });
+      if (!d.ok) throw new Error(`delete tag "${name}" HTTP ${d.status}: ${(await d.text()).slice(0, 200)}`);
+      result.removed.push(name);
     }
-    console.log(`[ghl] quality tags: ${result.present.length} present, ${result.created.length} created`);
+    console.log(`[ghl] quality tags: ${result.present.length}/5 workflow tags present, ${result.removed.length} retired tag(s) removed`);
   } catch (err) {
     result.error = (err as Error).message;
     console.warn("[ghl] quality tags check failed:", result.error);
