@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { feedAuthorized, toLead, shortName, monthStarts, periodTotals } from "./leadFeed";
+import { feedAuthorized, toLead, shortName, monthStarts, periodTotals, humanTouch } from "./leadFeed";
 
 const KEY = "k".repeat(40);
 
@@ -50,5 +50,12 @@ describe("lead feed for the client portal", () => {
     const b = toLead({ tags: ["facebook"], dateAdded: "2026-10-02T15:00:00.000Z" })!;
     expect(periodTotals([a, b], m.lastMonth, m.thisMonth)).toMatchObject({ total: 1, website: { total: 1, counts: { value: 500 } } });
     expect(periodTotals([a, b], m.thisMonth)).toMatchObject({ total: 1, website: { total: 0 } });
+  });
+  it("counts a real reply as contacted, not the automatic first text", () => {
+    expect(humanTouch({ direction: "outbound", messageType: "TYPE_SMS", source: "workflow" })).toBe(false);
+    expect(humanTouch({ direction: "outbound", messageType: "TYPE_ACTIVITY_OPPORTUNITY", source: "app" })).toBe(false);
+    expect(humanTouch({ direction: "outbound", messageType: "TYPE_SMS", source: "app" })).toBe(true);
+    expect(humanTouch({ direction: "inbound", messageType: "TYPE_CALL", meta: { call: { status: "completed" } } })).toBe(true);
+    expect(humanTouch({ direction: "inbound", messageType: "TYPE_CALL", meta: { call: { status: "no-answer" } } })).toBe(false);
   });
 });
