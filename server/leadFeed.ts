@@ -1,8 +1,8 @@
 /**
  * A private feed of Skyline's recent leads for the Run On Systems client portal (runonsystems.com/portal shows
- * them on Skyline's dashboard). Skyline's leads live in its GHL location, so this reads the last 30 days of new
- * contacts there and passes on only what the dashboard shows: the customer (first name and last initial), their
- * vehicle, how they came in, the service, whether they booked, what the job is worth (the Customer Value field),
+ * them on Skyline's dashboard). Skyline's leads live in its GHL location, so this reads new contacts there since
+ * the start of last month (totals for the last 30 days, this month and last month) and passes on only what the
+ * dashboard shows: the customer (first name and last initial), their vehicle, how they came in, the service, whether they booked, what the job is worth (the Customer Value field),
  * and when. No phone numbers or emails. Contacts tagged as spam or scam are left out. The portal is Skyline's own
  * signed-in dashboard.
  *
@@ -12,7 +12,7 @@ import type { Express } from "express";
 import { timingSafeEqual } from "crypto";
 import { GHL_HEADERS, GHL_LOCATION_ID } from "./routers";
 
-const DAYS = 30, MAX_PAGES = 10;
+const DAYS = 30, MAX_PAGES = 20, TZ = "America/New_York";
 
 export function feedAuthorized(header: string | undefined, key = process.env.PORTAL_FEED_KEY ?? ""): boolean {
   const got = Buffer.from(String(header ?? "").replace(/^Bearer /, "")), want = Buffer.from(key);
@@ -50,11 +50,39 @@ export function toLead(c: Contact): FeedLead | null {
     booked: tags.some((t) => /^(booked|deposit paid)$/.test(t)), website, at: c.dateAdded ?? "" };
 }
 
+/** Totals for one view; bookedUnpriced = booked customers without a Customer Value yet (the portal estimates them at the average job). */
+export function tally(list: FeedLead[]) {
+  const counts = { form: 0, call: 0, lead: 0, booked: 0, value: 0, paying: 0, bookedUnpriced: 0 };
+  for (const l of list) { counts[l.kind]++; if (l.booked) counts.booked++; if (l.value > 0) { counts.value += l.value; counts.paying++; } else if (l.booked) counts.bookedUnpriced++; }
+  counts.value = Math.round(counts.value);
+  return counts;
+}
+
+/** How far the zone's clock is ahead of UTC at that instant, in ms. */
+const zoneOffset = (d: Date, tz: string) => {
+  const p = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" })
+    .formatToParts(d).map((x) => [x.type, x.value]));
+  return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - Math.floor(d.getTime() / 1000) * 1000;
+};
+/** The first moment of this month and of last month in Skyline's time zone. */
+export function monthStarts(now = new Date(), tz = TZ) {
+  const [y, m] = new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit" }).format(now).split("-").map(Number);
+  const start = (yy: number, mm: number) => { const guess = Date.UTC(yy, mm - 1, 1); return new Date(guess - zoneOffset(new Date(guess), tz)); };
+  return { thisMonth: start(y, m), lastMonth: m === 1 ? start(y - 1, 12) : start(y, m - 1) };
+}
+/** Totals for one stretch of time: all leads and the website's. */
+export function periodTotals(leads: FeedLead[], from: Date, to?: Date) {
+  const inside = leads.filter((l) => l.at >= from.toISOString() && (!to || l.at < to.toISOString())), site = inside.filter((l) => l.website);
+  return { from: from.toISOString(), ...(to ? { to: to.toISOString() } : {}), total: inside.length, counts: tally(inside), website: { total: site.length, counts: tally(site) } };
+}
+
 export function registerLeadFeedRoutes(app: Express) {
   app.get("/api/lead-feed", async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     if (!feedAuthorized(req.headers.authorization)) return res.status(401).json({ error: "unauthorized" });
-    const since = new Date(Date.now() - DAYS * 864e5).toISOString(), leads: FeedLead[] = [];
+    // Since the start of last month (or 30 days back, whichever is earlier: March 1 is only 28 days after Feb 1).
+    const { thisMonth, lastMonth } = monthStarts(), dayCut = new Date(Date.now() - DAYS * 864e5);
+    const since = new Date(Math.min(lastMonth.getTime(), dayCut.getTime())).toISOString(), leads: FeedLead[] = [];
     let searchAfter: unknown;
     try {
       for (let page = 0; page < MAX_PAGES; page++) {
@@ -75,16 +103,11 @@ export function registerLeadFeedRoutes(app: Express) {
     } catch (e) {
       return res.status(502).json({ error: (e as Error).message });
     }
-    const tally = (list: FeedLead[]) => {
-      // bookedUnpriced: booked customers without a Customer Value yet (the portal estimates them at the average job).
-      const counts = { form: 0, call: 0, lead: 0, booked: 0, value: 0, paying: 0, bookedUnpriced: 0 };
-      for (const l of list) { counts[l.kind]++; if (l.booked) counts.booked++; if (l.value > 0) { counts.value += l.value; counts.paying++; } else if (l.booked) counts.bookedUnpriced++; }
-      counts.value = Math.round(counts.value);
-      return counts;
-    };
-    const fromSite = leads.filter((l) => l.website);
+    // Totals: the last 30 days (what the portal has always shown), plus this month and last month.
+    const recent = leads.filter((l) => l.at >= dayCut.toISOString()), fromSite = recent.filter((l) => l.website);
     // The list is capped, so the website leads go first: the portal's "From your website" view still fills up.
-    const list = [...fromSite.slice(0, 100), ...leads.filter((l) => !l.website)].slice(0, 200).sort((a, b) => b.at.localeCompare(a.at));
-    res.json({ days: DAYS, total: leads.length, counts: tally(leads), website: { total: fromSite.length, counts: tally(fromSite) }, leads: list });
+    const list = [...leads.filter((l) => l.website).slice(0, 150), ...leads.filter((l) => !l.website)].slice(0, 300).sort((a, b) => b.at.localeCompare(a.at));
+    res.json({ days: DAYS, total: recent.length, counts: tally(recent), website: { total: fromSite.length, counts: tally(fromSite) },
+      periods: { this: periodTotals(leads, thisMonth), last: periodTotals(leads, lastMonth, thisMonth) }, leads: list });
   });
 }
