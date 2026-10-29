@@ -5,6 +5,7 @@ import { httpBatchLink, TRPCClientError } from "@trpc/client";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
+import { applyLive, type LiveEdits } from "@shared/live";
 import { getLoginUrl } from "./const";
 import "./index.css";
 
@@ -55,7 +56,9 @@ const trpcClient = trpc.createClient({
 });
 
 // Query data the server rendered with (see entry-server.tsx) so hydration matches.
-declare global { interface Window { __RQ_STATE__?: string } }
+declare global { interface Window { __RQ_STATE__?: string; __ROS_LIVE__?: LiveEdits } }
+// The portal's instant edits the server rendered with (special, hours, closures), before the first render.
+applyLive(window.__ROS_LIVE__);
 if (window.__RQ_STATE__) {
   try { hydrate(queryClient, superjson.parse(window.__RQ_STATE__)); } catch { /* render without it */ }
 }

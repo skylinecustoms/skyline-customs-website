@@ -1,4 +1,6 @@
 import "dotenv/config";
+import { startLiveEdits } from "../liveEdits";
+import { clearSsrCache } from "./vite";
 import express from "express";
 import compression from "compression";
 import { createServer } from "http";
@@ -295,6 +297,7 @@ async function startServer() {
     startIndexingScheduler();
     startIndexStatusScheduler();
     startWeeklyReportScheduler();
+    startLiveEdits(clearSsrCache);
     void ensureQualityTags();
   });
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getLive, hoursSchema } from "@shared/live";
 import { Phone, Mail, MapPin, Clock, Instagram, Youtube, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { Link } from "wouter";
@@ -105,7 +106,7 @@ export default function Contact() {
             "telephone": "+17037754383",
             "email": "info@skylinecustomshop.com",
             "address": { "@type": "PostalAddress", "streetAddress": "4215 Walney Rd Suite 1A & B", "addressLocality": "Chantilly", "addressRegion": "VA", "postalCode": "20151", "addressCountry": "US" },
-            "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00" }],
+            "openingHoursSpecification": getLive().hours ? hoursSchema(getLive().hours!) : [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00" }],
           },
           { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": CONTACT_FAQS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) },
         ]}
