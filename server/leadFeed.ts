@@ -3,8 +3,8 @@
  * them on Skyline's dashboard). Skyline's leads live in its GHL location, so this reads new contacts there since
  * the start of the month before last (totals for the last 30 days, this month and the two before, to compare) and
  * passes on only what the dashboard shows: the customer (first name and last initial), their vehicle, how they came
- * in, the service, whether they booked, what the job is worth (the Customer Value field), and when. No phone
- * numbers or emails. Contacts tagged as spam or scam are left out. The portal is Skyline's own signed-in dashboard.
+ * in, the service, whether they booked, what the job is worth (the Customer Value field), when, and their phone
+ * (so Skyline can call or text from the portal). No emails. Contacts tagged as spam or scam are left out. The portal is Skyline's own signed-in dashboard.
  *
  *   GET /api/lead-feed   Authorization: Bearer PORTAL_FEED_KEY (32+ characters, the same key the portal has)
  */
@@ -19,8 +19,8 @@ export function feedAuthorized(header: string | undefined, key = process.env.POR
   return key.length >= 32 && got.length === want.length && timingSafeEqual(got, want);
 }
 
-export interface FeedLead { kind: "form" | "call" | "lead"; name: string; vehicle: string; value: number; source: string; service: string; booked: boolean; website: boolean; at: string; contacted?: boolean }
-interface Contact { id?: string; tags?: string[] | null; source?: string | null; dateAdded?: string | null; firstName?: string | null; lastName?: string | null; customFields?: { id: string; value?: unknown }[] | null }
+export interface FeedLead { kind: "form" | "call" | "lead"; name: string; phone?: string; vehicle: string; value: number; source: string; service: string; booked: boolean; website: boolean; at: string; contacted?: boolean }
+interface Contact { id?: string; phone?: string | null; tags?: string[] | null; source?: string | null; dateAdded?: string | null; firstName?: string | null; lastName?: string | null; customFields?: { id: string; value?: unknown }[] | null }
 
 // Skyline's GHL custom fields (ids, as the contacts API returns them; see skyline-minato CLAUDE.md).
 const FIELD = { make: "2YNQZIRvWYEjqdJ2UGVw", model: "DAjqA7njYRUfAh7t67Xb", year: "n5O64Bp2FJvBK5GsVSnV", ymm: "aCeicFhtVTo4zc8ZCvBy", value: "M4ZxemI7IYUXNbK2cMMx" };
@@ -35,6 +35,8 @@ export const shortName = (first?: string | null, last?: string | null) => {
 /** "2024 BMW M4", from Year / Make / Model, or the single Vehicle (YMM) field Facebook leads fill in. */
 export const vehicleOf = (c: Contact) => (field(c, FIELD.ymm) || [field(c, FIELD.year), field(c, FIELD.make), field(c, FIELD.model)].filter(Boolean).join(" ")).replace(/\s+/g, " ").slice(0, 60);
 
+/** A US phone as 10 digits, or "" (the portal makes tel: and sms: links from it). */
+export const phoneOf = (p?: string | null) => { const d = String(p ?? "").replace(/\D/g, "").replace(/^1(?=\d{10}$)/, ""); return d.length === 10 ? d : ""; };
 /** One GHL contact as the portal shows it, or null for spam. */
 export function toLead(c: Contact): FeedLead | null {
   const tags = (c.tags ?? []).map((t) => String(t ?? "").toLowerCase());
@@ -46,7 +48,7 @@ export function toLead(c: Contact): FeedLead | null {
   // "From your website" in the portal: the leads our work brings in, tagged website-contact (or website-quote) or organic.
   const website = tags.some((t) => /^(website-(contact|quote)|organic)$/.test(t));
   const value = Number(field(c, FIELD.value).replace(/[^\d.]/g, "")) || 0;
-  return { kind, name: shortName(c.firstName, c.lastName), vehicle: vehicleOf(c), value, source: String(source).slice(0, 40), service,
+  return { kind, name: shortName(c.firstName, c.lastName), ...(phoneOf(c.phone) ? { phone: phoneOf(c.phone) } : {}), vehicle: vehicleOf(c), value, source: String(source).slice(0, 40), service,
     booked: tags.some((t) => /^(booked|deposit paid)$/.test(t)), website, at: c.dateAdded ?? "" };
 }
 

@@ -9,12 +9,13 @@ describe("lead feed for the client portal", () => {
     expect(feedAuthorized(`Bearer ${"x".repeat(40)}`, KEY)).toBe(false);
     expect(feedAuthorized("Bearer ", "")).toBe(false);
   });
-  it("turns a GHL contact into a lead: short name, vehicle and job value, no phone or email", () => {
+  it("turns a GHL contact into a lead: short name, vehicle, job value and phone, no email", () => {
     const l = toLead({ tags: ["website-quote", "ppf lead", "booked"], source: "Google", dateAdded: "2026-10-28T18:00:00.000Z", firstName: "Dana", lastName: "lee",
       customFields: [{ id: "n5O64Bp2FJvBK5GsVSnV", value: "2024" }, { id: "2YNQZIRvWYEjqdJ2UGVw", value: "BMW" }, { id: "DAjqA7njYRUfAh7t67Xb", value: "M4" }, { id: "M4ZxemI7IYUXNbK2cMMx", value: "$3,150" }],
       ...({ phone: "+15555550100", email: "dana@example.com" } as object) });
-    expect(l).toEqual({ kind: "form", name: "Dana L.", vehicle: "2024 BMW M4", value: 3150, source: "Google", service: "PPF", booked: true, website: true, at: "2026-10-28T18:00:00.000Z" });
-    expect(JSON.stringify(l)).not.toMatch(/5555|example\.com/);
+    expect(l).toEqual({ kind: "form", name: "Dana L.", phone: "5555550100", vehicle: "2024 BMW M4", value: 3150, source: "Google", service: "PPF", booked: true, website: true, at: "2026-10-28T18:00:00.000Z" });
+    expect(l?.phone).toBe("5555550100");
+    expect(JSON.stringify(l)).not.toMatch(/example\.com/);
   });
   it("tidies names typed in all caps", () => {
     expect(shortName("GLEN", "DOE")).toBe("Glen D.");
