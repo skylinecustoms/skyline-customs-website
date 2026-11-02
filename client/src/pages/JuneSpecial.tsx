@@ -514,7 +514,7 @@ function LastMonthStrip() {
             <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-2">Last Month</p>
             <h3 className="font-display text-3xl text-white tracking-wide">{lastPromo.title?.toUpperCase()}</h3>
             <p className="text-zinc-400 text-sm mt-1">
-              Sold out &mdash; {filledCount} cars protected.
+              {filledCount >= totalSlots ? "Sold out" : "Wrapped up"} &mdash; {filledCount} car{filledCount === 1 ? "" : "s"} protected.
             </p>
           </div>
           <div className="flex flex-col sm:items-end gap-4">
