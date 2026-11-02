@@ -154,6 +154,33 @@ function FAQAccordion() {
   );
 }
 
+/**
+ * Starts the hero reel only after the page has loaded, so the 1.3 MB video never
+ * delays first paint. On phones (narrow viewports), on a data-saver connection,
+ * and for visitors who prefer reduced motion, the reel is never attached at all:
+ * phones show the orange glow instead (see the hero markup).
+ */
+function HeroReel() {
+  useEffect(() => {
+    const v = document.getElementById("hero-reel") as HTMLVideoElement | null;
+    if (!v) return;
+    const phone = window.matchMedia("(max-width: 767px)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
+    if (phone || reducedMotion || saveData) return;
+    const start = () => {
+      if (v.src) return;
+      v.src = "/images/hero-reel_web.mp4";
+      v.play().catch(() => {});
+    };
+    if (document.readyState === "complete") { const t = window.setTimeout(start, 400); return () => window.clearTimeout(t); }
+    const onLoad = () => window.setTimeout(start, 400);
+    window.addEventListener("load", onLoad, { once: true });
+    return () => window.removeEventListener("load", onLoad);
+  }, []);
+  return null;
+}
+
 // ---- Every car from every special we have run (no numbering) ----------------
 function RecentCarsSection() {
   const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
