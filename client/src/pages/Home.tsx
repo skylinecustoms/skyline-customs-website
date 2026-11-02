@@ -154,104 +154,13 @@ function FAQAccordion() {
   );
 }
 
-// ---- "We Did It Again" Homepage Banner ------------------------------------
-function WeDidItAgainBannerHome() {
-  const { data: lastPromo } = trpc.promo.getLastArchived.useQuery();
-  const { data: activePromo } = trpc.promo.getActive.useQuery();
-  const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
-  if (!lastPromo) return null;
-
-  const specials = (past ?? []).filter((p) => (p.slots?.length ?? 0) > 0);
-  const filledCount = specials.reduce((n, p) => n + p.slots.length, 0) || (lastPromo.slots?.length ?? 0);
-  if (filledCount === 0) return null; // nothing to show off yet
-  const totalSlots = lastPromo.totalSlots ?? 21;
-  const lastTitle = lastPromo.title ?? "Last Month's Special";
-  const isSoldOut = (lastPromo.slots?.length ?? 0) >= totalSlots;
-  const thumbSlots = (specials.length ? specials.flatMap((p) => p.slots) : (lastPromo.slots ?? [])).filter((s) => s.photoUrl).slice(0, 8);
-  const activeSlug = activePromo?.slug ?? "promo";
-  const activeTitle = activePromo?.title ?? "This Month's Special";
-  const promoUrl = "/promo";
-
-  return (
-    <Link
-      href="/promo"
-      className="block mt-16 md:mt-20 bg-[#0D0D0D] border-b border-zinc-800 hover:bg-[#141414] transition-colors cursor-pointer"
-    >
-      <div className="container max-w-6xl py-4">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-
-          {/* Left: badge + headline */}
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xs tracking-widest px-2 py-1 mt-0.5">
-              {isSoldOut ? "SOLD OUT" : "PAST SPECIALS"}
-            </div>
-            <div>
-              <p className="text-white font-['Bebas_Neue',sans-serif] text-xl tracking-widest leading-tight">
-                {isSoldOut ? `${lastTitle.toUpperCase()} \u2014 SOLD OUT` : "THE CARS WE'VE DONE ON OUR SPECIALS"}
-              </p>
-              <p className="text-zinc-400 text-xs mt-0.5">
-                {filledCount} car{filledCount === 1 ? "" : "s"} protected across {Math.max(specials.length, 1)} special{specials.length === 1 ? "" : "s"}. See every one of them.
-              </p>
-            </div>
-          </div>
-
-          {/* Right: car thumbs + arrow */}
-          <div className="flex items-center gap-3 flex-shrink-0">
-            {thumbSlots.length > 0 && (
-              <div className="flex -space-x-2">
-                {thumbSlots.map((slot) => (
-                  <div key={slot.id} className="w-9 h-9 rounded-full border-2 border-[#0D0D0D] overflow-hidden bg-zinc-800">
-                    <img loading="lazy" decoding="async" src={slot.photoUrl!} alt={slot.carDescription ?? 'car'} className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
-            )}
-            <ArrowRight className="w-4 h-4 text-[#E85D04] flex-shrink-0" />
-          </div>
-
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-// ---- Recent Cars Social Proof Section ------------------------------------
-/**
- * Starts the hero reel only after the page has loaded, so the 1.3 MB video never
- * delays first paint. On phones (narrow viewports), on a data-saver connection,
- * and for visitors who prefer reduced motion, the reel is never attached at all:
- * the poster stays as a still, which keeps the mobile home page a 1.3 MB lighter
- * download and the hero image the largest contentful paint.
- */
-function HeroReel() {
-  useEffect(() => {
-    const v = document.getElementById("hero-reel") as HTMLVideoElement | null;
-    if (!v) return;
-    const phone = window.matchMedia("(max-width: 767px)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
-    if (phone || reducedMotion || saveData) return;
-    const start = () => {
-      if (v.src) return;
-      v.src = "/images/hero-reel_web.mp4";
-      v.play().catch(() => {});
-    };
-    if (document.readyState === "complete") { const t = window.setTimeout(start, 400); return () => window.clearTimeout(t); }
-    const onLoad = () => window.setTimeout(start, 400);
-    window.addEventListener("load", onLoad, { once: true });
-    return () => window.removeEventListener("load", onLoad);
-  }, []);
-  return null;
-}
-
+// ---- Every car from every special we have run (no numbering) ----------------
 function RecentCarsSection() {
-  const { data: lastPromo } = trpc.promo.getLastArchived.useQuery();
-  if (!lastPromo || !lastPromo.slots || lastPromo.slots.length === 0) return null;
-
-  const slots = lastPromo.slots.filter((s) => s.photoUrl);
+  const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const specials = (past ?? []).filter((p) => (p.slots?.length ?? 0) > 0);
+  const slots = specials.flatMap((p) => p.slots.filter((s) => s.photoUrl).map((s) => ({ ...s, promoTitle: p.title ?? "Special" })));
   if (slots.length === 0) return null;
-
-  const title = lastPromo.title ?? "Last Month's Special";
+  const total = specials.reduce((n, p) => n + p.slots.length, 0);
 
   return (
     <section className="py-24 bg-[#080808] border-t border-zinc-900">
@@ -265,7 +174,7 @@ function RecentCarsSection() {
             WHO WE&apos;VE PROTECTED
           </h2>
           <p className="text-zinc-400 mt-3 text-sm max-w-xl">
-            Every car below was protected by our team this past month. Real customers, verified work.
+            {total} car{total === 1 ? "" : "s"} from our monthly specials, every one full front STEK DYNOshield PPF with the free ceramic coating on the whole car. Real customers, verified work.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -277,11 +186,11 @@ function RecentCarsSection() {
               <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden">
                 <img loading="lazy" decoding="async"
                   src={slot.photoUrl!}
-                  alt={`${slot.carDescription} — Skyline Customs ${title}`}
+                  alt={`${slot.carDescription} — Skyline Customs ${slot.promoTitle}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1">
-                  #{slot.slotNumber}
+                <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1 uppercase">
+                  {slot.promoTitle}
                 </div>
                 <div className="absolute top-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
                   <CheckCircle className="w-3 h-3" /> VERIFIED
