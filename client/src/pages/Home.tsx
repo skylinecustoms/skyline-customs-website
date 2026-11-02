@@ -158,14 +158,16 @@ function FAQAccordion() {
 function WeDidItAgainBannerHome() {
   const { data: lastPromo } = trpc.promo.getLastArchived.useQuery();
   const { data: activePromo } = trpc.promo.getActive.useQuery();
+  const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
   if (!lastPromo) return null;
 
-  const filledCount = lastPromo.slots?.length ?? 0;
+  const specials = (past ?? []).filter((p) => (p.slots?.length ?? 0) > 0);
+  const filledCount = specials.reduce((n, p) => n + p.slots.length, 0) || (lastPromo.slots?.length ?? 0);
   if (filledCount === 0) return null; // nothing to show off yet
   const totalSlots = lastPromo.totalSlots ?? 21;
   const lastTitle = lastPromo.title ?? "Last Month's Special";
-  const isSoldOut = filledCount >= totalSlots;
-  const thumbSlots = (lastPromo.slots ?? []).filter((s) => s.photoUrl).slice(0, 5);
+  const isSoldOut = (lastPromo.slots?.length ?? 0) >= totalSlots;
+  const thumbSlots = (specials.length ? specials.flatMap((p) => p.slots) : (lastPromo.slots ?? [])).filter((s) => s.photoUrl).slice(0, 8);
   const activeSlug = activePromo?.slug ?? "promo";
   const activeTitle = activePromo?.title ?? "This Month's Special";
   const promoUrl = "/promo";
@@ -181,16 +183,14 @@ function WeDidItAgainBannerHome() {
           {/* Left: badge + headline */}
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0 bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xs tracking-widest px-2 py-1 mt-0.5">
-              SOLD OUT
+              {isSoldOut ? "SOLD OUT" : "PAST SPECIALS"}
             </div>
             <div>
               <p className="text-white font-['Bebas_Neue',sans-serif] text-xl tracking-widest leading-tight">
-                {lastTitle.toUpperCase()} &mdash; SOLD OUT
+                {isSoldOut ? `${lastTitle.toUpperCase()} \u2014 SOLD OUT` : "THE CARS WE'VE DONE ON OUR SPECIALS"}
               </p>
               <p className="text-zinc-400 text-xs mt-0.5">
-                {isSoldOut
-                  ? `Every spot was claimed. See the cars we protected last month.`
-                  : `${filledCount} cars protected last month. See them here.`}
+                {filledCount} car{filledCount === 1 ? "" : "s"} protected across {Math.max(specials.length, 1)} special{specials.length === 1 ? "" : "s"}. See every one of them.
               </p>
             </div>
           </div>
@@ -204,11 +204,6 @@ function WeDidItAgainBannerHome() {
                     <img loading="lazy" decoding="async" src={slot.photoUrl!} alt={slot.carDescription ?? 'car'} className="w-full h-full object-cover" />
                   </div>
                 ))}
-                {filledCount > 5 && (
-                  <div className="w-9 h-9 rounded-full border-2 border-[#0D0D0D] bg-zinc-700 flex items-center justify-center">
-                    <span className="text-zinc-300 text-[10px] font-bold">+{filledCount - 5}</span>
-                  </div>
-                )}
               </div>
             )}
             <ArrowRight className="w-4 h-4 text-[#E85D04] flex-shrink-0" />

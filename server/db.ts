@@ -195,6 +195,13 @@ export async function getArchivedPromoBySlug(archivedSlug: string) {
 }
 
 // Get the most recently archived promo (for the "Last Month" strip on /promo)
+/** Every past special, newest first, for the "cars we have protected" sections. */
+export async function getArchivedPromos() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(promos).where(eq(promos.isArchived, 1)).orderBy(desc(promos.createdAt));
+}
+
 export async function getLastArchivedPromo() {
   const db = await getDb();
   if (!db) return undefined;

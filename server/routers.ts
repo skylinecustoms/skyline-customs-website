@@ -4,7 +4,7 @@ import { invokeLLM } from "./_core/llm";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { getAllBlogPosts, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo } from "./db";
+import { getAllBlogPosts, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo, getArchivedPromos } from "./db";
 import { getDb } from "./db";
 import { getGoogleReviews } from "./googleReviews";
 import { getInstagramFeed } from "./instagram";
@@ -713,6 +713,12 @@ Guidelines:
       }),
 
     // Public: get the most recently archived promo (for "Last Month" strip on /promo)
+    // Public: every past special with its finished cars, newest first.
+    pastSpecials: publicProcedure.query(async () => {
+      const list = await getArchivedPromos();
+      return Promise.all(list.map(async (p) => ({ id: p.id, title: p.title, archivedSlug: p.archivedSlug, totalSlots: p.totalSlots, startDate: p.startDate, endDate: p.endDate, slots: await getPromoSlots(p.id) })));
+    }),
+
     getLastArchived: publicProcedure.query(async () => {
       const promo = await getLastArchivedPromo();
       if (!promo) return null;

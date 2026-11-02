@@ -495,57 +495,46 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
   );
 }
 
-// ---- Last Month Strip -------------------------------------------------------
-function LastMonthStrip() {
-  const { data: lastPromo } = trpc.promo.getLastArchived.useQuery();
-  if (!lastPromo) return null;
-
-  const filledCount = lastPromo.slots?.length ?? 0;
-  if (filledCount === 0) return null; // nothing to show off yet
-  const totalSlots = lastPromo.totalSlots ?? 21;
-  const archiveUrl = lastPromo.archivedSlug ? `/${lastPromo.archivedSlug}` : null;
-  if (!archiveUrl) return null;
+// ---- Past Specials: every car from every special we have run, no numbers ----
+function PastSpecialsSection() {
+  const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const specials = (past ?? []).filter((p) => (p.slots?.length ?? 0) > 0);
+  const cars = specials.flatMap((p) => p.slots.filter((s) => s.photoUrl).map((s) => ({ ...s, promoTitle: p.title, archiveUrl: p.archivedSlug ? `/${p.archivedSlug}` : null })));
+  if (cars.length === 0) return null;
+  const totalCars = specials.reduce((n, p) => n + p.slots.length, 0);
 
   return (
-    <section className="py-16 bg-zinc-950 border-t border-zinc-900">
+    <section className="py-16 md:py-20 bg-zinc-950 border-t border-zinc-900">
       <div className="container max-w-6xl">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <p className="text-zinc-400 text-xs font-bold tracking-[0.3em] uppercase mb-2">Last Month</p>
-            <h3 className="font-display text-3xl text-white tracking-wide">{lastPromo.title?.toUpperCase()}</h3>
-            <p className="text-zinc-400 text-sm mt-1">
-              {filledCount >= totalSlots ? "Sold out" : "Wrapped up"} &mdash; {filledCount} car{filledCount === 1 ? "" : "s"} protected.
+            <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Past specials</p>
+            <h3 className="font-display text-4xl md:text-5xl text-white tracking-wide">EVERY CAR WE'VE DONE ON A SPECIAL</h3>
+            <p className="text-zinc-400 text-sm mt-3 max-w-2xl">
+              {totalCars} car{totalCars === 1 ? "" : "s"} protected across {specials.length} special{specials.length === 1 ? "" : "s"}, each one full front STEK DYNOshield PPF with the free ceramic coating on the whole car. Real customers, in front of their cars, the day they picked up.
             </p>
           </div>
-          <div className="flex flex-col sm:items-end gap-4">
-            {/* Mini slot thumbnail grid */}
-            {lastPromo.slots && lastPromo.slots.length > 0 && (
-              <div className="flex gap-2">
-                {lastPromo.slots.slice(0, 6).map((slot) => (
-                  <div key={slot.id} className="w-12 h-12 bg-zinc-800 overflow-hidden border border-zinc-700">
-                    {slot.photoUrl ? (
-                      <img loading="lazy" decoding="async" src={slot.photoUrl} alt={slot.carDescription} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Shield className="w-4 h-4 text-zinc-400" />
-                      </div>
-                    )}
-                  </div>
-                ))}
-                {lastPromo.slots.length > 6 && (
-                  <div className="w-12 h-12 bg-zinc-800 border border-zinc-700 flex items-center justify-center">
-                    <span className="text-zinc-400 text-xs font-bold">+{lastPromo.slots.length - 6}</span>
-                  </div>
-                )}
-              </div>
-            )}
-            <Link
-              href={archiveUrl}
-              className="flex items-center gap-2 text-[#E85D04] text-sm font-bold tracking-wide underline underline-offset-2 decoration-1 hover:decoration-2"
-            >
-              See all {filledCount} cars from {lastPromo.title} <ArrowRight className="w-4 h-4" />
-            </Link>
+          <div className="flex flex-wrap gap-2 shrink-0">
+            {specials.map((p) => p.archivedSlug && (
+              <Link key={p.id} href={`/${p.archivedSlug}`} className="border border-zinc-700 hover:border-[#E85D04] text-zinc-300 hover:text-white text-xs font-bold tracking-widest uppercase px-3 py-2 transition-colors">
+                {p.title}
+              </Link>
+            ))}
           </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {cars.map((car) => (
+            <figure key={car.id} className="border border-zinc-800 bg-[#0D0D0D] overflow-hidden group">
+              <div className="relative aspect-[4/5] bg-zinc-900 overflow-hidden">
+                <img loading="lazy" decoding="async" src={car.photoUrl!} alt={`${car.carDescription} -- Skyline Customs ${car.promoTitle}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <span className="absolute top-2 left-2 bg-black/70 text-[#E85D04] text-[10px] font-bold tracking-widest uppercase px-2 py-1">{car.promoTitle}</span>
+              </div>
+              <figcaption className="p-3">
+                <p className="text-white font-semibold text-sm">{car.customerName}</p>
+                <p className="text-zinc-400 text-xs leading-relaxed mt-0.5">{car.carDescription}</p>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>
@@ -1580,7 +1569,7 @@ export default function JuneSpecial() {
           LAST MONTH STRIP (shows previous archived promo)
       ================================================================ */}
       <div id="last-month">
-        <LastMonthStrip />
+        <PastSpecialsSection />
       </div>
 
       {/* ================================================================
