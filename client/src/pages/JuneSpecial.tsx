@@ -505,7 +505,7 @@ function PastSpecialsSection() {
   if (cars.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-20 bg-zinc-950 border-t border-zinc-900">
+    <section id="past-specials" className="py-16 md:py-20 bg-zinc-950 border-t border-zinc-900 scroll-mt-24">
       <div className="container max-w-6xl">
         <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
@@ -570,16 +570,17 @@ function safeIsoDate(raw: string): string | null {
 // ---- "We Did It Again" Banner -----------------------------------------------
 function WeDidItAgainBanner() {
   const { data: lastPromo } = trpc.promo.getLastArchived.useQuery();
-  if (!lastPromo) return null;
+  const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const { data: gallery } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const cars = pastSpecialCars(past, gallery);
+  if (!lastPromo || cars.length === 0) return null; // nothing to show off yet
 
-  const filledCount = lastPromo.slots?.length ?? 0;
-  if (filledCount === 0) return null; // nothing to show off yet
   const totalSlots = lastPromo.totalSlots ?? 21;
   const lastTitle = lastPromo.title ?? "Last Month's Special";
-  const isSoldOut = filledCount >= totalSlots;
+  const isSoldOut = (lastPromo.slots?.length ?? 0) >= totalSlots;
 
-  // Mini car thumbnails (up to 5)
-  const thumbSlots = (lastPromo.slots ?? []).filter((s) => s.photoUrl).slice(0, 5);
+  // A handful of car thumbnails from across the specials; the full set is in the section below.
+  const thumbs = cars.slice(0, 6);
 
   return (
     <div className="bg-[#111] border-b border-zinc-800 pt-16">
@@ -589,48 +590,41 @@ function WeDidItAgainBanner() {
           {/* Left: headline + context */}
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0 bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xs tracking-widest px-2 py-1 mt-0.5">
-              SOLD OUT
+              {isSoldOut ? "SOLD OUT" : "PAST SPECIALS"}
             </div>
             <div>
               <p className="text-white font-['Bebas_Neue',sans-serif] text-xl tracking-widest leading-tight">
-                {lastTitle.toUpperCase()} &mdash; SOLD OUT
+                {isSoldOut ? `${lastTitle.toUpperCase()} \u2014 SOLD OUT` : "SOME OF THE CARS WE'VE PROTECTED"}
               </p>
               <p className="text-zinc-400 text-xs mt-0.5">
                 {isSoldOut
-                  ? `Every spot was claimed. See the cars we protected last month.`
-                  : `${filledCount} cars protected last month. See them here.`}
+                  ? "Every spot was claimed. See the cars from this and every past special."
+                  : "A few of the cars from our monthly specials. See them all below."}
               </p>
             </div>
           </div>
 
           {/* Right: mini car thumbs + link */}
           <div className="flex items-center gap-3 flex-shrink-0">
-            {thumbSlots.length > 0 && (
-              <div className="flex -space-x-2">
-                {thumbSlots.map((slot) => (
-                  <div
-                    key={slot.id}
-                    className="w-9 h-9 rounded-full border-2 border-[#0A0A0A] overflow-hidden bg-zinc-800"
-                  >
-                    <img loading="lazy" decoding="async" src={slot.photoUrl!} alt={slot.carDescription ?? "car"} className="w-full h-full object-cover" />
-                  </div>
-                ))}
-                {filledCount > 5 && (
-                  <div className="w-9 h-9 rounded-full border-2 border-[#0A0A0A] bg-zinc-700 flex items-center justify-center">
-                    <span className="text-zinc-300 text-[10px] font-bold">+{filledCount - 5}</span>
-                  </div>
-                )}
-              </div>
-            )}
+            <div className="flex -space-x-2">
+              {thumbs.map((car) => (
+                <div
+                  key={car.key + car.photoUrl}
+                  className="w-9 h-9 rounded-full border-2 border-[#0A0A0A] overflow-hidden bg-zinc-800"
+                >
+                  <img loading="lazy" decoding="async" src={car.photoUrl} alt={car.name} className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
             <a
-              href="#last-month"
+              href="#past-specials"
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById("last-month")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                document.getElementById("past-specials")?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
               className="flex items-center gap-1.5 text-[#E85D04] text-xs font-bold tracking-widest uppercase underline underline-offset-2 decoration-1 hover:decoration-2 whitespace-nowrap"
             >
-              See last month’s cars <ArrowRight className="w-3.5 h-3.5" />
+              See every car <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
