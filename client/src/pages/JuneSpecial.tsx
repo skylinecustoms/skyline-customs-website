@@ -27,6 +27,7 @@ import CoverageDiagram from "@/components/CoverageDiagram";
 import { videosByCategory } from "@/lib/videos";
 import { reelsByCategory } from "@/lib/instagramPosts";
 import { promoExtrasFor, type PromoGiveaway } from "@/lib/promoExtras";
+import { pastSpecialCars } from "@/lib/pastSpecialCars";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import RockChipDemo from "@/components/demos/RockChipDemo";
@@ -498,10 +499,10 @@ function WaitlistForm({ promoTitle }: { promoTitle: string }) {
 // ---- Past Specials: every car from every special we have run, no numbers ----
 function PastSpecialsSection() {
   const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const { data: gallery } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
   const specials = (past ?? []).filter((p) => (p.slots?.length ?? 0) > 0);
-  const cars = specials.flatMap((p) => p.slots.filter((s) => s.photoUrl).map((s) => ({ ...s, promoTitle: p.title, archiveUrl: p.archivedSlug ? `/${p.archivedSlug}` : null })));
+  const cars = pastSpecialCars(past, gallery);
   if (cars.length === 0) return null;
-  const totalCars = specials.reduce((n, p) => n + p.slots.length, 0);
 
   return (
     <section className="py-16 md:py-20 bg-zinc-950 border-t border-zinc-900">
@@ -511,7 +512,7 @@ function PastSpecialsSection() {
             <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Past specials</p>
             <h3 className="font-display text-4xl md:text-5xl text-white tracking-wide">EVERY CAR WE'VE DONE ON A SPECIAL</h3>
             <p className="text-zinc-400 text-sm mt-3 max-w-2xl">
-              {totalCars} car{totalCars === 1 ? "" : "s"} protected across {specials.length} special{specials.length === 1 ? "" : "s"}, each one full front STEK DYNOshield PPF with the free ceramic coating on the whole car. Real customers, in front of their cars, the day they picked up.
+              Every car from our monthly specials, each one full front STEK DYNOshield PPF with the free ceramic coating on the whole car. Real customers, real cars, the day they picked up.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 shrink-0">
@@ -524,14 +525,14 @@ function PastSpecialsSection() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {cars.map((car) => (
-            <figure key={car.id} className="border border-zinc-800 bg-[#0D0D0D] overflow-hidden group">
+            <figure key={car.key + car.photoUrl} className="border border-zinc-800 bg-[#0D0D0D] overflow-hidden group">
               <div className="relative aspect-[4/5] bg-zinc-900 overflow-hidden">
-                <img loading="lazy" decoding="async" src={car.photoUrl!} alt={`${car.carDescription} -- Skyline Customs ${car.promoTitle}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <span className="absolute top-2 left-2 bg-black/70 text-[#E85D04] text-[10px] font-bold tracking-widest uppercase px-2 py-1">{car.promoTitle}</span>
+                <img loading="lazy" decoding="async" src={car.photoUrl} alt={car.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <span className="absolute top-2 left-2 bg-black/70 text-[#E85D04] text-[10px] font-bold tracking-widest uppercase px-2 py-1">{car.badge}</span>
               </div>
               <figcaption className="p-3">
-                <p className="text-white font-semibold text-sm">{car.customerName}</p>
-                <p className="text-zinc-400 text-xs leading-relaxed mt-0.5">{car.carDescription}</p>
+                <p className="text-white font-semibold text-sm">{car.name}</p>
+                <p className="text-zinc-400 text-xs leading-relaxed mt-0.5">{car.description}</p>
               </figcaption>
             </figure>
           ))}

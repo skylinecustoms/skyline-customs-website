@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, Star, ChevronDown, Phone, ClipboardList, Wrench, Shield, CheckCircle, Clock, Zap } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { pastSpecialCars } from "@/lib/pastSpecialCars";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { BookingService } from "@/components/BookingModal";
@@ -184,10 +185,9 @@ function HeroReel() {
 // ---- Every car from every special we have run (no numbering) ----------------
 function RecentCarsSection() {
   const { data: past } = trpc.promo.pastSpecials.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
-  const specials = (past ?? []).filter((p) => (p.slots?.length ?? 0) > 0);
-  const slots = specials.flatMap((p) => p.slots.filter((s) => s.photoUrl).map((s) => ({ ...s, promoTitle: p.title ?? "Special" })));
-  if (slots.length === 0) return null;
-  const total = specials.reduce((n, p) => n + p.slots.length, 0);
+  const { data: gallery } = trpc.site.gallery.useQuery(undefined, { staleTime: 10 * 60 * 1000 });
+  const cars = pastSpecialCars(past, gallery);
+  if (cars.length === 0) return null;
 
   return (
     <section className="py-24 bg-[#080808] border-t border-zinc-900">
@@ -201,31 +201,31 @@ function RecentCarsSection() {
             WHO WE&apos;VE PROTECTED
           </h2>
           <p className="text-zinc-400 mt-3 text-sm max-w-xl">
-            {total} car{total === 1 ? "" : "s"} from our monthly specials, every one full front STEK DYNOshield PPF with the free ceramic coating on the whole car. Real customers, verified work.
+            Every car from our monthly specials: full front STEK DYNOshield PPF with the free ceramic coating on the whole car. Real customers, verified work.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {slots.map((slot) => (
+          {cars.map((car) => (
             <div
-              key={slot.id}
+              key={car.key + car.photoUrl}
               className="squircle border border-zinc-800 bg-[#0D0D0D] overflow-hidden group hover:border-[#E85D04]/50 transition-colors"
             >
               <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden">
                 <img loading="lazy" decoding="async"
-                  src={slot.photoUrl!}
-                  alt={`${slot.carDescription} — Skyline Customs ${slot.promoTitle}`}
+                  src={car.photoUrl}
+                  alt={car.alt}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3 bg-[#E85D04] text-black text-xs font-bold tracking-widest px-2 py-1 uppercase">
-                  {slot.promoTitle}
+                  {car.badge}
                 </div>
                 <div className="absolute top-3 right-3 bg-black/70 text-emerald-400 text-xs font-bold tracking-wide px-2 py-1 flex items-center gap-1">
                   <CheckCircle className="w-3 h-3" /> VERIFIED
                 </div>
               </div>
               <div className="p-4">
-                <p className="text-white font-semibold text-sm mb-1">{slot.customerName}</p>
-                <p className="text-zinc-400 text-xs leading-relaxed">{slot.carDescription}</p>
+                <p className="text-white font-semibold text-sm mb-1">{car.name}</p>
+                <p className="text-zinc-400 text-xs leading-relaxed">{car.description}</p>
               </div>
             </div>
           ))}
