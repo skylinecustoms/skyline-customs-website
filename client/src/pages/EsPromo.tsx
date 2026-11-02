@@ -23,7 +23,7 @@ export default function EsPromo() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const { data: promo } = trpc.promo.getActive.useQuery();
   const { giveaway } = promoExtrasFor(promo?.slug);
-  const title = promo?.title ?? "Fall Special";
+  const title = promo?.title ?? "Thanks Special";
   const slug = promo?.slug ?? "promo";
   const price = Number(promo?.price ?? 0) || 0;
   let included: { name: string; value: string; isFree: boolean }[] = [];

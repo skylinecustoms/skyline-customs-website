@@ -1,6 +1,6 @@
 /**
  * Spanish copy for the /es pages: three service pages, the shared UI strings
- * (nav, quote form, common lines) and the October 2026 promo page.
+ * (nav, quote form, common lines) and the November 2026 promo page.
  * Neutral Latin American Spanish, "usted" form. Brand names stay in English.
  * No prices anywhere; the pages send every visitor to the free quote form.
  */
@@ -169,7 +169,7 @@ export const ES_UI: EsUi = {
     ppf: "Película PPF",
     ceramic: "Recubrimiento cerámico",
     tint: "Polarizado",
-    promo: "Especial de octubre",
+    promo: "Especial de noviembre",
     quote: "Cotización gratis",
     english: "English",
   },
@@ -208,23 +208,23 @@ export const ES_UI: EsUi = {
 export const ES_PROMO: EsPromo = {
   path: "/es/promo",
   enPath: "/promo",
-  title: "Especial de Otoño: PPF Frontal Completo + Cerámico Gratis | Chantilly, VA",
-  description: "Del 1 al 31 de octubre de 2026: PPF frontal completo STEK DYNOshield con recubrimiento cerámico gratis en todo el carro. Cupos limitados.",
-  eyebrow: "Especial de otoño · 1 al 31 de octubre de 2026",
+  title: "Especial de Acción de Gracias: PPF Frontal Completo + Cerámico Gratis | Chantilly, VA",
+  description: "Del 1 al 30 de noviembre de 2026: PPF frontal completo STEK DYNOshield con recubrimiento cerámico gratis en todo el carro. Cupos limitados.",
+  eyebrow: "Especial de Acción de Gracias · 1 al 30 de noviembre de 2026",
   h1: ["PPF FRONTAL COMPLETO", "+ CERÁMICO GRATIS EN TODO EL CARRO"],
-  sub: "Reserve la película de protección frontal completa STEK DYNOshield durante octubre y aplicamos un recubrimiento cerámico en toda la carrocería sin costo adicional. Los cupos son limitados.",
+  sub: "Reserve la película de protección frontal completa STEK DYNOshield durante noviembre y aplicamos un recubrimiento cerámico en toda la carrocería sin costo adicional. Los cupos son limitados.",
   bullets: [
     "PPF frontal completo STEK DYNOshield: capó, bumper, guardafangos, espejos, faros y pilares A, con garantía de 12 años.",
     "Recubrimiento cerámico gratis en cada panel pintado del carro, no solo en el frente.",
     "Lavado de descontaminación completo e inspección panel por panel bajo luces antes de pagar el saldo.",
   ],
-  cta: "RESERVE SU CUPO DE OCTUBRE",
+  cta: "RESERVE SU CUPO DE NOVIEMBRE",
   formHeading: "APARTE SU CUPO",
-  formIntro: "Complete el formulario y le enviamos su cotización exacta con las fechas disponibles de octubre. Sin compromiso: el depósito reembolsable se paga solo cuando usted apruebe la cotización.",
+  formIntro: "Complete el formulario y le enviamos su cotización exacta con las fechas disponibles de noviembre. Sin compromiso: el depósito reembolsable se paga solo cuando usted apruebe la cotización.",
   faqs: [
-    { q: "¿Qué incluye exactamente el Especial de Otoño?", a: "Usted paga la película STEK DYNOshield frontal completa: capó completo, bumper delantero, ambos guardafangos, espejos, faros y pilares A. Sin costo adicional, aplicamos un recubrimiento cerámico en toda la carrocería. Cada carro recibe también el lavado de descontaminación y la inspección panel por panel bajo luces antes de pagar el saldo." },
-    { q: "¿Cuánto tiempo tardan en entregar el carro?", a: "La película frontal completa normalmente toma un día. Como el especial incluye el recubrimiento cerámico en todo el carro, cuente con dos días en el taller. Por eso tomamos un número limitado de carros en octubre: cada vehículo recibe el mismo nivel de atención y nadie sale apurado." },
+    { q: "¿Qué incluye exactamente el Especial de Acción de Gracias?", a: "Usted paga la película STEK DYNOshield frontal completa: capó completo, bumper delantero, ambos guardafangos, espejos, faros y pilares A. Sin costo adicional, aplicamos un recubrimiento cerámico en toda la carrocería. Cada carro recibe también el lavado de descontaminación y la inspección panel por panel bajo luces antes de pagar el saldo." },
+    { q: "¿Cuánto tiempo tardan en entregar el carro?", a: "La película frontal completa normalmente toma un día. Como el especial incluye el recubrimiento cerámico en todo el carro, cuente con dos días en el taller. Por eso tomamos un número limitado de carros en noviembre: cada vehículo recibe el mismo nivel de atención y nadie sale apurado." },
     { q: "¿Puedo agregar más cobertura que el frontal completo?", a: "Sí. El especial cubre el paquete frontal completo. Si quiere agregar los estribos, los bordes de las puertas y las copas de las manijas, que forman nuestro paquete frontal completo extendido, lo cotizamos por separado al reservar. Muchos clientes agregan al menos los estribos." },
-    { q: "¿Hay depósito y puedo pagar a plazos?", a: "Después de aprobar su cotización, un depósito del 20 por ciento reserva su fecha de octubre y se descuenta del total. Es totalmente reembolsable en cualquier momento. El saldo se paga al recoger el carro, después de la inspección bajo luces. Aceptamos Klarna, Afterpay y Affirm para dividir el pago; la aprobación depende del proveedor." },
+    { q: "¿Hay depósito y puedo pagar a plazos?", a: "Después de aprobar su cotización, un depósito del 20 por ciento reserva su fecha de noviembre y se descuenta del total. Es totalmente reembolsable en cualquier momento. El saldo se paga al recoger el carro, después de la inspección bajo luces. Aceptamos Klarna, Afterpay y Affirm para dividir el pago; la aprobación depende del proveedor." },
   ],
 };

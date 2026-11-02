@@ -1193,7 +1193,7 @@ export default function JuneSpecial() {
                 </p>
                 <ul className="space-y-3 text-sm text-zinc-300">
                   {[
-                    "Finish a Fall Special job and your entry is automatic. Nothing to sign up for.",
+                    `Finish a ${title} job and your entry is automatic. Nothing to sign up for.`,
                     "Your car and first name go up at the top of this page, so you can see who you're up against.",
                     `We draw one winner on ${giveaway.drawingDate}, announce it on Instagram, and call you.`,
                   ].map((line) => (
