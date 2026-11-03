@@ -180,18 +180,25 @@ async function startServer() {
   registerLeadFeedRoutes(app);
   // Health: which optional integrations this deployment has credentials for (booleans only, never values).
   const startedAt = new Date().toISOString();
+  // ?refresh=1 forces new Google calls (URL Inspection has a 2,000/day quota): at most once every 10 minutes per report,
+  // so nobody can burn the quota by hammering it. Everything else is served from the cache.
+  const lastRefresh = new Map<string, number>();
+  const mayRefresh = (name: string, q: unknown) => {
+    if (q !== "1" || Date.now() - (lastRefresh.get(name) ?? 0) < 600_000) return false;
+    lastRefresh.set(name, Date.now()); return true;
+  };
   // Blog topic candidates from Search Console for the weekly writing routine (robots.txt disallows /api).
   app.get("/api/seo/topics", async (req, res) => {
     const { getSeoTopics } = await import("../seoTopics");
     res.setHeader("Cache-Control", "no-store");
-    res.json(await getSeoTopics(req.query.refresh === "1"));
+    res.json(await getSeoTopics(mayRefresh("topics", req.query.refresh)));
   });
 
   // Google index status of every sitemap URL (URL Inspection API, cached 12 h; ?refresh=1 re-inspects).
   app.get("/api/seo/index-status", async (req, res) => {
     const { getIndexStatus } = await import("../indexStatus");
     res.setHeader("Cache-Control", "no-store");
-    try { res.json(await getIndexStatus(req.query.refresh === "1")); }
+    try { res.json(await getIndexStatus(mayRefresh("index", req.query.refresh))); }
     catch (err) { res.status(502).json({ error: (err as Error).message }); }
   });
 
@@ -200,7 +207,7 @@ async function startServer() {
     const { getBehavior } = await import("../seoBehavior");
     res.setHeader("Cache-Control", "no-store");
     const days = Math.min(90, Math.max(7, Number(req.query.days) || 28));
-    try { res.json(await getBehavior(req.query.refresh === "1", days)); }
+    try { res.json(await getBehavior(mayRefresh("behavior", req.query.refresh), days)); }
     catch (err) { res.status(502).json({ error: (err as Error).message }); }
   });
 

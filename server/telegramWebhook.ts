@@ -43,6 +43,7 @@ import { storagePut } from "./storage";
 import { notifyPpfLeadsSlotClaimed } from "./ghl";
 import { buildWeeklyReport } from "./weeklyReport";
 import fs from "fs";
+import { timingSafeEqual } from "crypto";
 import path from "path";
 
 // --- Sitemap helper ----------------------------------------------------------
@@ -346,7 +347,16 @@ async function executeNewPromo(db: Db, chatId: number | string, data: Record<str
 
 // --- Main webhook handler ----------------------------------------------------
 
+/** True only when the request carries the secret Telegram was given in setWebhook. The from.id in the body is
+ * whatever the caller wrote, so without this anyone could post a fake update "from" the owner. */
+export function telegramSecretOk(header: unknown, secret = ENV.telegramWebhookSecret): boolean {
+  if (!secret || secret.length < 16 || typeof header !== "string") return false;
+  const a = Buffer.from(header), b = Buffer.from(secret);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
 export async function handleTelegramWebhook(req: Request, res: Response) {
+  if (!telegramSecretOk(req.headers["x-telegram-bot-api-secret-token"])) { res.sendStatus(401); return; }
   res.sendStatus(200); // Always respond immediately
 
   const update = req.body as TelegramUpdate;

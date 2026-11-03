@@ -2,7 +2,8 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { invokeLLM } from "./_core/llm";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
+import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { getAllBlogPosts, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo, getArchivedPromos } from "./db";
 import { getDb } from "./db";
@@ -215,10 +216,16 @@ async function upsertGhlContact(
 
   // --- Step 2: Attempt update (strip locationId and phone to avoid cascading duplicate) ---
   // Tags are left out of the update: a PUT replaces the whole tag list, and the caller adds tags additively afterwards.
-  const { locationId: _loc, phone: _ph, tags: _tags, ...safeUpdatePayload } = payload as Record<string, unknown> & {
+  // Name and email are left out too: a form only proves someone typed this email or phone, so it never renames an
+  // existing customer. Their new vehicle and service answers still land.
+  const { locationId: _loc, phone: _ph, tags: _tags, firstName: _fn, lastName: _ln, name: _nm, email: _em, ...safeUpdatePayload } = payload as Record<string, unknown> & {
     locationId?: unknown;
     phone?: unknown;
     tags?: unknown;
+    firstName?: unknown;
+    lastName?: unknown;
+    name?: unknown;
+    email?: unknown;
   };
 
   const updateRes = await fetch(`https://services.leadconnectorhq.com/contacts/${existingId}`, {
@@ -247,6 +254,21 @@ async function upsertGhlContact(
   throw new Error("Failed to update contact in GHL");
 }
 
+// A simple per-visitor limit for the public forms and the AI chat (one server, so memory is enough). Railway's proxy
+// puts the caller first in X-Forwarded-For.
+const hits = new Map<string, number[]>();
+function tooMany(req: { headers: Record<string, unknown>; socket?: { remoteAddress?: string } }, bucket: string, max: number, windowMs = 3600_000): boolean {
+  const ip = String(req.headers["x-forwarded-for"] ?? req.socket?.remoteAddress ?? "").split(",")[0].trim() || "?";
+  const key = `${bucket}|${ip}`, now = Date.now();
+  const list = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
+  if (hits.size > 20000) hits.clear();
+  if (list.length >= max) { hits.set(key, list); return true; }
+  list.push(now); hits.set(key, list); return false;
+}
+const TOO_MANY = () => new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many tries. Please call or text us at (703) 775-4383." });
+// Public site settings: only what pages show. Drafts from the Telegram bot and cached reports stay private.
+const PUBLIC_SETTINGS = new Set(["announcement", "announcementActive", "hours"]);
+
 export const appRouter = router({
   system: systemRouter,
 
@@ -263,7 +285,7 @@ export const appRouter = router({
 
     // Used by the scheduled automation after owner approval
     // Requires user-level auth (scheduled task cookie has role=user)
-    create: protectedProcedure
+    create: adminProcedure
       .input(
         z.object({
           slug: z.string().min(1),
@@ -315,12 +337,13 @@ export const appRouter = router({
           messages: z.array(
             z.object({
               role: z.enum(["user", "assistant"]),
-              content: z.string(),
+              content: z.string().max(600),
             })
-          ),
+          ).max(24),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
+        if (tooMany(ctx.req, "chat", 60)) throw TOO_MANY();
         const systemPrompt = `You are the Skyline Customs AI Quote Assistant — a friendly, knowledgeable automotive protection specialist at Skyline Custom Shop in Chantilly, VA.
 
 Your ONLY job is to collect the following 6 pieces of information from the visitor so you can pre-fill their quote request form:
@@ -346,7 +369,7 @@ Guidelines:
           ...input.messages.map((m) => ({ role: m.role as "user" | "assistant", content: m.content })),
         ];
 
-        const response = await invokeLLM({ messages: llmMessages });
+        const response = await invokeLLM({ messages: llmMessages, maxTokens: 400 });
         const rawContent = response.choices?.[0]?.message?.content ?? "";
         const content = typeof rawContent === "string" ? rawContent : "";
 
@@ -392,15 +415,15 @@ Guidelines:
     submit: publicProcedure
       .input(
         z.object({
-          firstName: z.string().min(1),
-          lastName: z.string().min(1),
-          email: z.string().email(),
-          phone: z.string().optional(),
-          make: z.string().optional(),
-          model: z.string().optional(),
-          year: z.string().optional(),
-          service: z.string().optional(),
-          message: z.string().optional(),
+          firstName: z.string().min(1).max(60),
+          lastName: z.string().min(1).max(60),
+          email: z.string().email().max(120),
+          phone: z.string().max(30).optional(),
+          make: z.string().max(40).optional(),
+          model: z.string().max(60).optional(),
+          year: z.string().max(10).optional(),
+          service: z.string().max(80).optional(),
+          message: z.string().max(1500).optional(),
           // Optional promo tag — set when visitor arrives from a promo CTA
           promoTag: z.string().max(80).optional(),
           // Which form on the site sent this: sets the CRM source and tags.
@@ -424,7 +447,8 @@ Guidelines:
             .optional(),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
+        if (tooMany(ctx.req, "lead", 10)) throw TOO_MANY();
         void recordLead();
         // Build custom fields array for GHL
         const customFields: { id: string; field_value: string }[] = [];
@@ -498,34 +522,8 @@ Guidelines:
         );
         if (!contactId && !telegram.ok) throw new Error("Failed to create contact in GHL");
 
-        // Step 2: Send an SMS via GHL conversations if a message was provided
-        if (input.message && input.message.trim().length > 0 && contactId && contactPhone) {
-          const vehicle = [input.year, input.make, input.model].filter(Boolean).join(" ");
-          const smsBody = `New website message from ${input.firstName} ${input.lastName}${vehicle ? ` (${vehicle})` : ""}:\n\n"${input.message}"\n\nPhone: ${contactPhone}\nEmail: ${input.email}`;
-
-          try {
-            const smsRes = await fetch("https://services.leadconnectorhq.com/conversations/messages", {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${GHL_API_KEY}`,
-                Version: "2021-04-15",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                type: "SMS",
-                contactId,
-                locationId: GHL_LOCATION_ID,
-                message: smsBody,
-              }),
-            });
-            if (!smsRes.ok) {
-              const smsErr = await smsRes.text();
-              console.warn("[GHL] SMS send failed (non-fatal):", smsRes.status, smsErr);
-            }
-          } catch (smsErr) {
-            console.warn("[GHL] SMS send exception (non-fatal):", smsErr);
-          }
-        }
+        // (No text back to the phone typed in: the form used to echo the message to that number from Skyline's line,
+        // which let anyone send any wording to any phone. The message is in the Telegram alert and the GHL note.)
 
         // Step 3: Add a note to the GHL contact
         // Written when there is a message, a promo tag, or a recorded website journey.
@@ -605,7 +603,8 @@ Guidelines:
             .optional(),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
+        if (tooMany(ctx.req, "partial", 20)) return { ok: false };
         const digits = input.phone.replace(/\D/g, "");
         if (digits.length < 10) return { success: false as const, reason: "phone" };
         void recordLead();
@@ -670,7 +669,7 @@ Guidelines:
       const db = await getDb();
       if (!db) return {};
       const rows = await db.select().from(siteSettings);
-      return Object.fromEntries(rows.map(r => [r.key, r.value]));
+      return Object.fromEntries(rows.filter((r) => PUBLIC_SETTINGS.has(r.key)).map((r) => [r.key, r.value]));
     }),
 
     // Public: get all active gallery photos from DB (bot-uploaded)
@@ -731,9 +730,9 @@ Guidelines:
       .input(
         z.object({
           name: z.string().min(1).max(128),
-          email: z.string().email(),
-          phone: z.string().optional(),
-          vehicle: z.string().optional(),
+          email: z.string().email().max(120),
+          phone: z.string().max(30).optional(),
+          vehicle: z.string().max(120).optional(),
           year: z.string().max(4).optional(),
           make: z.string().max(64).optional(),
           model: z.string().max(64).optional(),
@@ -742,7 +741,8 @@ Guidelines:
           desiredTiming: z.string().max(500).optional(),
         })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
+        if (tooMany(ctx.req, "waitlist", 5)) throw TOO_MANY();
         const promo = await getActivePromoByActive();
         if (!promo) throw new Error('No active promo found');
         await addToWaitlist({
@@ -849,14 +849,14 @@ Guidelines:
         const OWNER_IDS = TELEGRAM_OWNER_IDS;
         if (BOT_TOKEN) {
           const msg =
-            `*New Waitlist Entry - ${promo.title}*\n\n` +
-            `Name: ${input.name}\n` +
-            `Email: ${input.email}` +
-            (input.phone ? `\nPhone: ${input.phone}` : '') +
-            (input.vehicle ? `\nVehicle: ${input.vehicle}` : '') +
-            (intentLabel ? `\nTimeline: ${intentLabel}` : '') +
-            (input.ppfReason ? `\nWhy PPF: ${input.ppfReason}` : '') +
-            (input.desiredTiming ? `\nDesired Timing: ${input.desiredTiming}` : '') +
+            `<b>New Waitlist Entry - ${escapeHtml(promo.title)}</b>\n\n` +
+            `Name: ${escapeHtml(input.name)}\n` +
+            `Email: ${escapeHtml(input.email)}` +
+            (input.phone ? `\nPhone: ${escapeHtml(input.phone)}` : '') +
+            (input.vehicle ? `\nVehicle: ${escapeHtml(input.vehicle)}` : '') +
+            (intentLabel ? `\nTimeline: ${escapeHtml(intentLabel)}` : '') +
+            (input.ppfReason ? `\nWhy PPF: ${escapeHtml(input.ppfReason)}` : '') +
+            (input.desiredTiming ? `\nDesired Timing: ${escapeHtml(input.desiredTiming)}` : '') +
             `\n\nAdded to GHL with tags: ppf-waitlist` +
             (intentTag ? `, ${intentTag}` : '') +
             `.\nThey want to be notified when a slot opens up.`;
@@ -864,7 +864,7 @@ Guidelines:
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ chat_id: id, text: msg, parse_mode: 'Markdown' }),
+              body: JSON.stringify({ chat_id: id, text: msg, parse_mode: 'HTML' }),
             }).catch(() => {});
           }
         }
