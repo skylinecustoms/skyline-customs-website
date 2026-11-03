@@ -522,8 +522,36 @@ Guidelines:
         );
         if (!contactId && !telegram.ok) throw new Error("Failed to create contact in GHL");
 
-        // (No text back to the phone typed in: the form used to echo the message to that number from Skyline's line,
-        // which let anyone send any wording to any phone. The message is in the Telegram alert and the GHL note.)
+        // Step 2: Put the request into the GHL conversation on every form, as the confirmation text.
+        // Fixed wording only: the customer's free-text note never goes into this message (it is in
+        // the GHL note and the Telegram alert), so the line cannot be used to send arbitrary text
+        // to an arbitrary number. Name, service, special and vehicle are reduced to plain words.
+        if (contactId && contactPhone) {
+          const plain = (v: string | undefined, max: number) => (v ?? "").replace(/[^A-Za-z0-9 .'&-]/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
+          const firstName = plain(input.firstName, 30) || "there";
+          const vehicle = form === "fleet" ? plain(input.company, 40) : plain([input.year, input.make, input.model].filter(Boolean).join(" "), 40);
+          const serviceLabel = /ppf|film/i.test(input.service ?? "") ? "full front PPF" : /tint/i.test(input.service ?? "") ? "window tint" : /ceramic|coat/i.test(input.service ?? "") ? "ceramic coating" : "";
+          const promoName = plain(input.promoTag?.replace(/-promo$/, "").replace(/-/g, " "), 40).replace(/\b\w/g, (c) => c.toUpperCase());
+          const what = form === "fleet" ? `a fleet PPF quote${vehicle ? ` for ${vehicle}` : ""}` : `${promoName ? `the ${promoName}` : serviceLabel ? `a ${serviceLabel} quote` : "a quote"}${vehicle ? ` on your ${vehicle}` : ""}`;
+          const smsBody = input.language === "es"
+            ? `Hola ${firstName}, somos Skyline Customs en Chantilly. Recibimos su solicitud de ${promoName ? `la ${promoName}` : serviceLabel ? `cotización de ${serviceLabel === "full front PPF" ? "PPF frontal completo" : serviceLabel === "window tint" ? "polarizado" : "recubrimiento cerámico"}` : "cotización"}${vehicle ? ` para su ${vehicle}` : ""}. Le respondemos por aquí con el precio exacto y las fechas disponibles. Responda STOP para cancelar.`
+            : `Hi ${firstName}, this is Skyline Customs in Chantilly. We got your request for ${what}. We'll text you back here with the exact price and open dates. Reply to this message with any questions. Reply STOP to unsubscribe.`;
+
+          try {
+            const smsRes = await fetch("https://services.leadconnectorhq.com/conversations/messages", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${GHL_API_KEY}`,
+                Version: "2021-04-15",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ type: "SMS", contactId, locationId: GHL_LOCATION_ID, message: smsBody }),
+            });
+            if (!smsRes.ok) console.warn("[GHL] confirmation text failed (non-fatal):", smsRes.status, (await smsRes.text()).slice(0, 200));
+          } catch (smsErr) {
+            console.warn("[GHL] confirmation text exception (non-fatal):", smsErr);
+          }
+        }
 
         // Step 3: Add a note to the GHL contact
         // Written when there is a message, a promo tag, or a recorded website journey.
