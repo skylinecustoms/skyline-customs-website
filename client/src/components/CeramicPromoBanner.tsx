@@ -12,8 +12,8 @@ export default function CeramicPromoBanner({ cta = "ceramic-promo-banner" }: { c
         <div className="flex items-center gap-4">
           <Sparkles className="w-10 h-10 shrink-0" strokeWidth={1.75} />
           <div>
-            <p className="font-display text-3xl md:text-4xl leading-none tracking-wide">$995 CERAMIC COATING, GLASS + WHEELS FREE</p>
-            <p className="text-black/90 text-sm md:text-base mt-1">System X, 9H, 6-year transferable warranty. Limited install slots this month.</p>
+            <p className="font-display text-3xl md:text-4xl leading-none tracking-wide"><s className="opacity-60">$1,300</s> NOW $495 CERAMIC COATING</p>
+            <p className="text-black/90 text-sm md:text-base mt-1">System X on the paint, 9H, 10-year transferable warranty. Limited install slots this month.</p>
           </div>
         </div>
         <Link href="/promo-ceramic" data-cta={cta} className="cta cta-alt md:ml-auto shrink-0 inline-flex items-center justify-center gap-2 bg-black text-white font-display text-xl tracking-[0.1em] uppercase px-7 py-4 hover:bg-zinc-900 transition-colors">See the special <ArrowRight className="w-5 h-5" /></Link>

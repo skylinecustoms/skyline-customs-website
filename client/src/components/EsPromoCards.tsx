@@ -60,19 +60,19 @@ export function EsCeramicPromoCard() {
     <section className="bg-[#0A0A0A] pb-14">
       <div className="container max-w-5xl">
         <aside className="relative bg-gradient-to-br from-[#1a0f05] to-[#0D0D0D] border-2 border-[#E85D04]/70 p-6 md:p-8 grid md:grid-cols-2 gap-6 md:gap-10 items-center" aria-label="Especial de recubrimiento cerámico">
-          <span className="absolute -top-px -right-px bg-[#E85D04] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Vidrios + rines gratis</span>
+          <span className="absolute -top-px -right-px bg-[#E85D04] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Antes $1,300</span>
           <div>
             <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">Especial de este mes</p>
-            <p className="font-['Bebas_Neue',sans-serif] text-6xl md:text-7xl text-[#E85D04] leading-none mb-2">$995</p>
-            <p className="text-white font-semibold text-lg leading-snug mb-1">Recubrimiento cerámico System X completo + vidrios y rines gratis</p>
-            <p className="text-zinc-400 text-sm">Todo incluido, sin extras. Garantía registrada y transferible de 6 años. Cupos limitados este mes.</p>
+            <p className="font-['Bebas_Neue',sans-serif] leading-none mb-2"><span className="text-zinc-500 text-3xl line-through decoration-[#E85D04] decoration-2 mr-3">$1,300</span><span className="text-6xl md:text-7xl text-[#E85D04]">$495</span></p>
+            <p className="text-white font-semibold text-lg leading-snug mb-1">Recubrimiento cerámico System X en la pintura</p>
+            <p className="text-zinc-400 text-sm">El mismo recubrimiento que instalamos a $1,300. Garantía registrada y transferible de 10 años. Solo pintura: sin rines, sin corrección de pintura ni extras. Cupos limitados este mes.</p>
           </div>
           <div>
             <ul className="space-y-2 mb-5 text-sm text-zinc-200">
               {[
                 "Cerámico System X en cada panel pintado, dureza 9H, certificado por laboratorio SGS",
-                "Recubrimiento de vidrios en el parabrisas y todas las ventanas, sin costo",
-                "Recubrimiento de los cuatro rines, sin costo",
+                "Garantía registrada y transferible de 10 años",
+                "Lavado y descontaminación completos antes de aplicar",
                 "Inspección panel por panel bajo luces antes de pagar el saldo",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{t}</li>

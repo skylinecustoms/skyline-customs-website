@@ -80,7 +80,7 @@ export const CERAMIC_GUIDE = {
         { type: "p", text: "Crystal Serum Light is our five-year coating and the one most customers choose. It is hard, slick, and forgiving of the real world: brine on I-95 in January, pollen in April, whatever falls out of the trees in Reston in August. Our Crystal package pairs it with a Stage 1 correction and a glass coating." },
         { type: "h3", text: "Gtechniq Crystal Serum Ultra" },
         { type: "p", text: "Crystal Serum Ultra is the seven-year flagship for owners who want the hardest, longest-lasting coating Gtechniq makes. It goes on with a Stage 2 correction in our Ultimate package, which also coats the glass, trim, and wheels. Both coatings are finished with the Gtechniq EXO top layer for the slick surface you feel the first time you dry the car." },
-        { type: "p", text: "This month we are also running a System X ceramic coating, 9H and SGS lab certified, with a six-year registered transferable warranty, and the glass coating and wheel coating are included. The details are on [this month's ceramic special](/promo-ceramic)." },
+        { type: "p", text: "This month we are also running a System X ceramic coating on the paint, 9H and SGS lab certified, with a ten-year registered transferable warranty, at $495 instead of the regular $1,300. Paint only, no wheel coating or correction bundled in. The details are on [this month's ceramic special](/promo-ceramic)." },
       ],
     },
     {

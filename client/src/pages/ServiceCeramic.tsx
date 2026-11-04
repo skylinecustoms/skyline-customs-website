@@ -277,7 +277,7 @@ export default function ServiceCeramic() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
             <div className="lg:col-span-7">
               <Link href="/promo-ceramic" data-cta="ceramic-hero-pill" className="inline-flex items-center gap-2 bg-[#E85D04] text-black text-xs font-bold tracking-[0.2em] uppercase px-3 py-1.5 mb-4 hover:bg-orange-500 transition-colors">
-                <Zap className="w-3.5 h-3.5 fill-current" /> This month: $995 special, glass + wheels free
+                <Zap className="w-3.5 h-3.5 fill-current" /> This month: $495 ceramic special, was $1,300
               </Link>
               <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">02 — Coating</p>
               <h1 className="font-['Bebas_Neue',sans-serif] text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-6">
@@ -294,7 +294,7 @@ export default function ServiceCeramic() {
                   data-cta="ceramic-hero-special"
                   className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
                 >
-                  SEE THE $995 SPECIAL <ArrowRight className="w-4 h-4" />
+                  SEE THE $495 SPECIAL <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/get-a-quote?service=ceramic"
@@ -307,16 +307,16 @@ export default function ServiceCeramic() {
 
             {/* This month's special, the same price card as the special's own page */}
             <aside className="lg:col-span-5 order-first lg:order-none relative bg-gradient-to-br from-[#1a0f05] to-[#0D0D0D] border-2 border-[#E85D04]/70 p-6 md:p-8" aria-label="This month's ceramic coating special">
-              <span className="absolute -top-px -right-px bg-[#E85D04] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Free glass + wheels</span>
+              <span className="absolute -top-px -right-px bg-[#E85D04] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">Was $1,300</span>
               <p className="text-[#E85D04] text-xs font-bold tracking-[0.3em] uppercase mb-2">This month only</p>
-              <p className="font-['Bebas_Neue',sans-serif] text-6xl md:text-7xl text-[#E85D04] leading-none mb-2">$995</p>
-              <p className="text-white font-semibold text-base md:text-lg leading-snug mb-1">Full System X ceramic coating + free glass and wheel coating</p>
-              <p className="text-zinc-400 text-sm mb-4">Everything included. No add-ons. 6-year registered warranty. Price locked through {endOfMonth()}.</p>
+              <p className="font-['Bebas_Neue',sans-serif] leading-none mb-2"><span className="text-zinc-500 text-3xl line-through decoration-[#E85D04] decoration-2 mr-3">$1,300</span><span className="text-6xl md:text-7xl text-[#E85D04]">$495</span></p>
+              <p className="text-white font-semibold text-base md:text-lg leading-snug mb-1">System X ceramic coating on the paint, 10-year registered warranty</p>
+              <p className="text-zinc-400 text-sm mb-4">Same coating we install at $1,300. Paint only: no wheel coating, paint correction, or add-ons. Price locked through {endOfMonth()}.</p>
               <ul className="hidden sm:block space-y-2 mb-6 text-sm text-zinc-200">
                 {[
-                  "System X ceramic on every painted panel, 6-year registered warranty",
-                  "Glass coating on the windshield and every window at no charge",
-                  "Wheel coating on all four wheels at no charge",
+                  "System X ceramic on every painted panel",
+                  "Registered 10-year transferable warranty",
+                  "Full wash and decontamination before the coating goes on",
                   "Walk-and-pay: inspect every panel before you pay the balance",
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-[#E85D04] mt-0.5 shrink-0" />{t}</li>
@@ -458,7 +458,7 @@ export default function ServiceCeramic() {
             GIVE YOUR PAINT PERMANENT DEFENSE
           </h2>
           <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">
-            This month, the full System X coating is $995 with the glass and wheel coating included. Lock in a slot, or request a quote and we'll recommend the right tier for your car.
+            This month, the System X coating on your paint is $495 instead of $1,300, with the 10-year warranty. Lock in a slot, or request a quote and we'll recommend the right tier for your car.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
@@ -466,7 +466,7 @@ export default function ServiceCeramic() {
               data-cta="ceramic-final-special"
               className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
-              LOCK IN THE $995 SPECIAL <ArrowRight className="w-4 h-4" />
+              LOCK IN THE $495 SPECIAL <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/get-a-quote?service=ceramic"
@@ -490,7 +490,7 @@ export default function ServiceCeramic() {
       <div data-sticky-bar className={`fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A] border-t border-zinc-800 shadow-2xl transition-transform duration-300 ${heroCtaVisible ? "translate-y-full" : "translate-y-0"}`} aria-hidden={heroCtaVisible}>
         <div className="container max-w-6xl p-3 md:py-3 flex items-center gap-3 md:gap-6">
           <div className="flex-1 min-w-0 leading-tight">
-            <p className="text-[11px] md:text-sm font-bold"><span className="text-white">$995</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">Glass + wheels free</span><span className="hidden md:inline text-zinc-300 font-normal"> · Full System X ceramic coating, 6-year registered warranty</span></p>
+            <p className="text-[11px] md:text-sm font-bold"><span className="text-zinc-500 line-through">$1,300</span><span className="text-zinc-400"> · </span><span className="text-white">$495</span><span className="text-zinc-400"> · </span><span className="text-[#E85D04]">10-year warranty</span><span className="hidden md:inline text-zinc-300 font-normal"> · System X ceramic coating on the paint</span></p>
             <p className="text-zinc-400 text-[11px] md:text-xs mt-0.5">System X ceramic special{timeLeftLabel(endOfMonth()) ? ` · ${timeLeftLabel(endOfMonth())}` : ""}<span className="hidden md:inline"> · Limited slots this month</span></p>
           </div>
           <a href="tel:+17037754383" className="hidden md:inline-flex items-center gap-2 text-zinc-300 hover:text-white text-sm font-semibold whitespace-nowrap">(703) 775-4383</a>

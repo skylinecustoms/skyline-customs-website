@@ -134,7 +134,7 @@ function PromoCtaCard({ category }: { category?: string }) {
     </div>
   );
   if (category === "Window Tinting") return card("Virginia-legal ceramic tint", "Get a Tint Quote", "GeoShield Pro Nano Ceramic in legal shades, lifetime warranty, 2 to 4 hour install in Chantilly. Tell us the car and we reply with an exact price, usually within the hour.", "/get-a-quote?service=tint", "GET A TINT QUOTE");
-  if (category === "Ceramic Coating") return card("Ceramic coating special", "$995 Ceramic Coating, Glass + Wheels Free", "System X ceramic coating with a 6-year warranty, plus free glass and wheel coating. Limited install slots this month.", "/promo-ceramic", "SEE THE CERAMIC SPECIAL");
+  if (category === "Ceramic Coating") return card("Ceramic coating special", "$495 Ceramic Coating, Was $1,300", "System X ceramic coating on the paint with a 10-year warranty, less than half the regular price. Limited install slots this month.", "/promo-ceramic", "SEE THE CERAMIC SPECIAL");
   if (live) return card("This month's special", `${title}: Full Front PPF + Free Ceramic Coating`, `STEK DYNOshield full front PPF with the 12-year warranty${price > 0 ? ` for $${price.toLocaleString("en-US")}` : ""}, and we ceramic coat the whole car free. Limited spots${promo?.endDate ? `, ends ${promo.endDate}` : ""}.`, "/promo", "GET A QUOTE ON THE SPECIAL");
   return card("Free quote", "Get a Free Quote", "Tell us the year, make, and model and we reply with an exact price, usually within the hour.", "/get-a-quote", "GET A FREE QUOTE");
 }
