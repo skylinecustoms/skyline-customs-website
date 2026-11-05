@@ -3,7 +3,7 @@
  * PPF promo (/promo): hero with price card, problem, offer, what you get,
  * guarantees, process, real cars and reviews, claim form, brand callout, FAQ,
  * final CTA, sticky mobile bar, exit prompt. $495 System X ceramic coating on the
- * paint (regular $1,300), 10-year warranty, limited slots this month. Paint only:
+ * paint (regular $1,495), 10-year warranty, limited slots this month. Paint only:
  * no wheel coating, no paint correction, no add-ons. Only System X is named here. Leads use the shared promo form, tagged
  * ceramic-special-promo with the ceramic coating lead service.
  */
@@ -25,7 +25,7 @@ const PATH = "/promo-ceramic";
 const PRICE = 495;
 const PRICE_TXT = `$${PRICE}`;
 /** The regular price of the same coating, shown struck through next to the special. */
-const WAS = 1300;
+const WAS = 1495;
 const WAS_TXT = `$${WAS.toLocaleString("en-US")}`;
 const WARRANTY = "10-year";
 const PHONE = "(703) 775-4383";
@@ -63,7 +63,7 @@ const FAQS = [
   { q: "How long before I can wash it?", a: "Seven days. The coating cures during that week, so keep it dry when you can and skip any wash. After that, hand washes or a touchless wash are fine." },
   { q: "Does it fix existing swirls or scratches?", a: "No. A ceramic coating locks in whatever is under it, and paint correction is not part of the $495 special. We inspect the paint when you drop off; if the car needs correction we quote it separately, and you decide before anything is applied." },
   { q: "What exactly is included for $495?", a: "The System X ceramic coating on every painted panel, with a full wash and decontamination before it goes on, and the registered 10-year warranty. Wheel coating, glass coating, paint correction, and other add-ons are not included. They can be quoted on top if you want them." },
-  { q: "Why is it $495 when the same coating is normally $1,300?", a: "It is the same System X coating, the same prep, and the same registered warranty we install at the regular price. The special is limited to a set number of install slots this month, and the price goes back to $1,300 when they are gone." },
+  { q: "Why is it $495 when the same coating is normally $1,495?", a: "It is the same System X coating, the same prep, and the same registered warranty we install at the regular price. The special is limited to a set number of install slots this month, and the price goes back to $1,495 when they are gone." },
   { q: "What does the 10-year warranty cover?", a: "Chemical staining, UV fading, and water spotting on the coated paint for ten years. It is a registered System X warranty and it is transferable, so it stays with the car if you sell." },
   { q: "How do I keep it going?", a: "Hand wash with a pH-neutral soap, or a touchless wash. Avoid automatic brush washes, which grind grit into any finish. A quick rinse after a salty winter drive and the coating does the rest." },
   { q: "Can I pay over time?", a: "Yes. We take Klarna, Afterpay, and Affirm, so you can split the total into payments instead of paying it all at pickup. Nothing is due until you approve the price and the date." },
@@ -142,7 +142,7 @@ export default function CeramicPromo() {
               <a href="#included" className="flex items-center gap-4 border border-[#E85D04]/50 bg-[#E85D04]/10 text-white px-5 py-4 max-w-lg hover:bg-[#E85D04]/20 transition-colors">
                 <Droplets className="w-8 h-8 shrink-0 text-[#E85D04]" strokeWidth={1.75} />
                 <span>
-                  <span className="block font-display text-2xl leading-none tracking-wide">SAVE {`$${(WAS - PRICE).toLocaleString("en-US")}`} ON THE SAME COATING</span>
+                  <span className="block font-display text-2xl leading-none tracking-wide">{`$${(WAS - PRICE).toLocaleString("en-US")}`} OFF THE SAME COATING</span>
                   <span className="block text-sm text-zinc-300 mt-1">Same System X ceramic, same prep, same registered {WARRANTY} warranty as the {WAS_TXT} install. Paint only, no add-ons.</span>
                 </span>
               </a>
@@ -195,7 +195,7 @@ export default function CeramicPromo() {
           <div className="flex items-center gap-4">
             <Sparkles className="w-10 h-10 shrink-0" strokeWidth={1.75} />
             <div>
-              <p className="font-display text-3xl md:text-4xl leading-none tracking-wide">WAS {WAS_TXT}. NOW {PRICE_TXT}. SAME COATING.</p>
+              <p className="font-display text-3xl md:text-4xl leading-none tracking-wide">WAS {WAS_TXT}. NOW {PRICE_TXT}. {`$${(WAS - PRICE).toLocaleString("en-US")}`} OFF.</p>
               <p className="text-black/90 text-sm md:text-base mt-1">The System X ceramic coating we install every week at {WAS_TXT}, on your paint for {PRICE_TXT} this month, with the full {WARRANTY} registered warranty.</p>
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function CeramicPromo() {
         <div className="container max-w-6xl">
           <div className="mb-10 md:mb-16 text-center">
             <p className="text-[#E85D04] text-sm font-bold tracking-[0.3em] uppercase mb-3">The Solution</p>
-            <h2 className="font-display text-5xl md:text-6xl text-white leading-none">THE SAME COATING.<br /><span className="text-[#E85D04]">LESS THAN HALF THE PRICE.</span></h2>
+            <h2 className="font-display text-5xl md:text-6xl text-white leading-none">THE SAME COATING.<br /><span className="text-[#E85D04]">$1,000 OFF THIS MONTH.</span></h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>

@@ -12,7 +12,7 @@ export default function CeramicPromoBanner({ cta = "ceramic-promo-banner" }: { c
         <div className="flex items-center gap-4">
           <Sparkles className="w-10 h-10 shrink-0" strokeWidth={1.75} />
           <div>
-            <p className="font-display text-3xl md:text-4xl leading-none tracking-wide"><s className="opacity-60">$1,300</s> NOW $495 CERAMIC COATING</p>
+            <p className="font-display text-3xl md:text-4xl leading-none tracking-wide"><s className="opacity-60">$1,495</s> NOW $495 CERAMIC COATING, $1,000 OFF</p>
             <p className="text-black/90 text-sm md:text-base mt-1">System X on the paint, 9H, 10-year transferable warranty. Limited install slots this month.</p>
           </div>
         </div>
