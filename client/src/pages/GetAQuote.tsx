@@ -9,13 +9,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatHappensNext from "@/components/WhatHappensNext";
 import SEO from "@/components/SEO";
-import { Shield, Clock, Star, ArrowRight, ArrowLeft, Sparkles, Check } from "lucide-react";
+import { Shield, Clock, Star, ArrowRight, ArrowLeft, Sparkles, Check, ChevronDown } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
 import { inferredService, leadJourney, track, trackLead } from "@/lib/analytics";
 import { usePartialLead } from "@/lib/partialLead";
 import SmsConsent from "@/components/SmsConsent";
+import { QUOTE_MAKES, modelsFor, quoteYears } from "@/lib/vehicles";
 
 // Order matters: people tap the first thing that looks right. Lead with what we sell most.
 const SERVICE_OPTIONS = [
@@ -327,16 +328,25 @@ export default function GetAQuote() {
                       <div className="grid grid-cols-3 gap-3">
                         <div>
                           <label className={labelClass} htmlFor="q-year">Year</label>
-                          <input id="q-year" type="number" inputMode="numeric" required min={1990} max={2030} value={form.year} onChange={set("year")} className={inputClass} placeholder="2024" />
+                          <div className="relative">
+                          <select id="q-year" required value={form.year} onChange={set("year")} className={`${inputClass} appearance-none pr-8 ${form.year ? "" : "text-zinc-400"}`}>
+                            <option value="" disabled>Year</option>
+                            {quoteYears().map((y) => <option key={y} value={String(y)}>{y}</option>)}
+                            {form.year && !quoteYears().includes(Number(form.year)) && <option value={form.year}>{form.year}</option>}
+                          </select>
+                          <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#E85D04]" />
+                          </div>
                         </div>
                         <div className="col-span-2">
                           <label className={labelClass} htmlFor="q-make">Make</label>
-                          <input id="q-make" type="text" required value={form.make} onChange={set("make")} className={inputClass} placeholder="Tesla" autoComplete="off" />
+                          <input id="q-make" type="text" required list="q-makes" value={form.make} onChange={set("make")} className={inputClass} placeholder="Tesla, BMW..." autoComplete="off" autoCapitalize="words" />
+                          <datalist id="q-makes">{QUOTE_MAKES.map((m) => <option key={m} value={m} />)}</datalist>
                         </div>
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="q-model">Model</label>
-                        <input id="q-model" type="text" required value={form.model} onChange={set("model")} className={inputClass} placeholder="Model Y" autoComplete="off" />
+                        <input id="q-model" type="text" required list="q-models" value={form.model} onChange={set("model")} className={inputClass} placeholder={modelsFor(form.make)[0] ? `e.g. ${modelsFor(form.make)[0]}` : "Model Y"} autoComplete="off" autoCapitalize="words" />
+                        <datalist id="q-models">{modelsFor(form.make).map((m) => <option key={m} value={m} />)}</datalist>
                       </div>
                       {showNote || form.message ? (
                         <div>
@@ -369,20 +379,20 @@ export default function GetAQuote() {
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <label className={labelClass} htmlFor="q-first">First name</label>
-                          <input id="q-first" type="text" required value={form.firstName} onChange={set("firstName")} className={inputClass} placeholder="John" autoComplete="given-name" />
+                          <input id="q-first" name="given-name" type="text" required value={form.firstName} onChange={set("firstName")} className={inputClass} placeholder="John" autoComplete="given-name" />
                         </div>
                         <div>
                           <label className={labelClass} htmlFor="q-last">Last name</label>
-                          <input id="q-last" type="text" required value={form.lastName} onChange={set("lastName")} className={inputClass} placeholder="Smith" autoComplete="family-name" />
+                          <input id="q-last" name="family-name" type="text" required value={form.lastName} onChange={set("lastName")} className={inputClass} placeholder="Smith" autoComplete="family-name" />
                         </div>
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="q-phone">Mobile number</label>
-                        <input id="q-phone" type="tel" required value={form.phone} onChange={set("phone")} className={inputClass} placeholder="(703) 000-0000" autoComplete="tel" />
+                        <input id="q-phone" name="tel" inputMode="tel" type="tel" required value={form.phone} onChange={set("phone")} className={inputClass} placeholder="(703) 000-0000" autoComplete="tel" />
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="q-email">Email</label>
-                        <input id="q-email" type="email" required value={form.email} onChange={set("email")} className={inputClass} placeholder="john@example.com" autoComplete="email" />
+                        <input id="q-email" name="email" inputMode="email" type="email" required value={form.email} onChange={set("email")} className={inputClass} placeholder="john@example.com" autoComplete="email" />
                       </div>
 
                       {/* Terms of Service agreement checkbox — required */}
