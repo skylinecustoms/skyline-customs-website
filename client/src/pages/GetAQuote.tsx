@@ -9,7 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatHappensNext from "@/components/WhatHappensNext";
 import SEO from "@/components/SEO";
-import { Shield, Clock, Star, ArrowRight, Sparkles } from "lucide-react";
+import { Shield, Clock, Star, ArrowRight, ArrowLeft, Sparkles, Check } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { quoteAssistantStore } from "@/components/QuoteAssistant";
@@ -52,6 +52,15 @@ export default function GetAQuote() {
   const [errorMsg, setErrorMsg] = useState("");
   const [preFilledByAI, setPreFilledByAI] = useState(false);
   const [agreedToTos, setAgreedToTos] = useState(false);
+  // Three short steps instead of one long form: 1 service (one tap), 2 the car, 3 how to reach them.
+  const [step, setStep] = useState(1);
+  const [showNote, setShowNote] = useState(false);
+  const goTo = (n: number) => {
+    setErrorMsg("");
+    setStep(n);
+    track("quote_step", { form_id: "quote", step: n });
+    setTimeout(() => document.getElementById("quote-form-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
   // Promo context — set when visitor arrives from a promo CTA
   const [promoTitle, setPromoTitle] = useState("");
   const [promoTag, setPromoTag] = useState("");
@@ -95,6 +104,7 @@ export default function GetAQuote() {
       setPromoTag(decodeURIComponent(promoSlugParam) + "-promo");
     }
 
+    if (updates.service) setStep(2);
     if (Object.keys(updates).length > 0) {
       setForm((prev) => ({ ...prev, ...updates }));
       if (summaryParam && !promoNoteParam) setPreFilledByAI(true);
@@ -119,6 +129,7 @@ export default function GetAQuote() {
         year: data.year || prev.year || "",
         service: normalizeService(data.service || "") || prev.service,
       }));
+      if (data.service) setStep(2);
       setPreFilledByAI(true);
       // Clear the store so it doesn't re-fill on next visit
       quoteAssistantStore.formData = null;
@@ -264,180 +275,157 @@ export default function GetAQuote() {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} data-form="quote" className="space-y-5">
+                {/* Progress: three short steps */}
+                <ol className="flex items-center gap-2 mb-8" aria-label="Quote steps">
+                  {["Service", "Car", "Contact"].map((label, i) => {
+                    const n = i + 1, done = step > n, here = step === n;
+                    return (
+                      <li key={label} className="flex-1">
+                        <div className={`h-1.5 rounded-full ${step >= n ? "bg-[#E85D04]" : "bg-zinc-800"}`} />
+                        <p className={`mt-2 text-xs font-bold tracking-[0.15em] uppercase whitespace-nowrap flex items-center gap-1 ${here ? "text-white" : done ? "text-[#E85D04]" : "text-zinc-500"}`}>
+                          {done ? <Check className="w-3.5 h-3.5" /> : <span>{n}.</span>} {label}
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ol>
 
-                  {/* Row 1: First Name + Last Name */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className={labelClass}>First Name *</label>
-                      <input
-                        type="text"
-                        required
-                        value={form.firstName}
-                        onChange={set("firstName")}
-                        className={inputClass}
-                        placeholder="John"
-                      />
-                    </div>
-                    <div>
-                      <label className={labelClass}>Last Name *</label>
-                      <input
-                        type="text"
-                        required
-                        value={form.lastName}
-                        onChange={set("lastName")}
-                        className={inputClass}
-                        placeholder="Smith"
-                      />
-                    </div>
-                  </div>
+                <form onSubmit={handleSubmit} data-form="quote" data-step={step} className="space-y-5">
 
-                  {/* Row 2: Phone + Email */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {step === 1 && (
                     <div>
-                      <label className={labelClass}>Phone *</label>
-                      <input
-                        type="tel"
-                        required
-                        value={form.phone}
-                        onChange={set("phone")}
-                        className={inputClass}
-                        placeholder="(703) 000-0000"
-                      />
+                      <h3 className="text-white text-xl font-semibold mb-1">What can we help with?</h3>
+                      <p className="text-zinc-400 text-sm mb-5">Tap one. You can change it later.</p>
+                      <div className="grid grid-cols-1 gap-3">
+                        {SERVICE_OPTIONS.map((opt) => (
+                          <button
+                            type="button"
+                            key={opt.value}
+                            onClick={() => { setForm((prev) => ({ ...prev, service: opt.value })); goTo(2); }}
+                            className={`text-left flex items-center justify-between gap-3 px-5 py-4 min-h-[56px] border transition-colors ${
+                              form.service === opt.value ? "border-[#E85D04] bg-[#1a1a1a]" : "border-zinc-700 bg-[#161616] hover:border-[#E85D04]"
+                            }`}
+                          >
+                            <span className="text-zinc-100 text-base">{opt.label}</span>
+                            <ArrowRight className="w-4 h-4 text-[#E85D04] shrink-0" />
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-zinc-400 text-xs mt-4">Managing more than one vehicle, or a dealership? <Link href="/fleet-ppf" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">Use the fleet form</Link> for per-unit pricing.</p>
                     </div>
-                    <div>
-                      <label className={labelClass}>Email *</label>
-                      <input
-                        type="email"
-                        required
-                        value={form.email}
-                        onChange={set("email")}
-                        className={inputClass}
-                        placeholder="john@example.com"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Row 3: Make + Model + Year */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    <div>
-                      <label className={labelClass}>Make *</label>
-                      <input
-                        type="text"
-                        required
-                        value={form.make}
-                        onChange={set("make")}
-                        className={inputClass}
-                        placeholder="Tesla"
-                      />
-                    </div>
-                    <div>
-                      <label className={labelClass}>Model *</label>
-                      <input
-                        type="text"
-                        required
-                        value={form.model}
-                        onChange={set("model")}
-                        className={inputClass}
-                        placeholder="Model Y"
-                      />
-                    </div>
-                    <div>
-                      <label className={labelClass}>Year *</label>
-                      <input
-                        type="number"
-                        required
-                        min={1990}
-                        max={2030}
-                        value={form.year}
-                        onChange={set("year")}
-                        className={inputClass}
-                        placeholder="2024"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Service Radio Buttons */}
-                  <div>
-                    <label className={labelClass}>Service *</label>
-                    <p className="text-zinc-400 text-xs mb-3">Managing more than one vehicle, or a dealership? <Link href="/fleet-ppf" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">Use the fleet form</Link> for per-unit pricing.</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {SERVICE_OPTIONS.map((opt) => (
-                        <label
-                          key={opt.value}
-                          className={`flex items-center gap-3 px-4 py-3 border cursor-pointer transition-colors ${
-                            form.service === opt.value
-                              ? "border-[#E85D04] bg-[#1a1a1a]"
-                              : "border-zinc-700 bg-[#161616] hover:border-zinc-500"
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="service"
-                            value={opt.value}
-                            checked={form.service === opt.value}
-                            onChange={set("service")}
-                            className="accent-[#E85D04] w-4 h-4 shrink-0"
-                          />
-                          <span className="text-zinc-300 text-sm">{opt.label}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label className={labelClass}>Message / Additional Notes</label>
-                    <textarea
-                      value={form.message}
-                      onChange={set("message")}
-                      rows={4}
-                      className={`${inputClass} resize-none`}
-                      placeholder="Tell us about your vehicle and what you're looking for..."
-                    />
-                  </div>
-
-                  {/* Terms of Service agreement checkbox — required */}
-                  <label className={`flex items-start gap-3 cursor-pointer rounded p-2 transition-colors ${!agreedToTos ? 'border border-zinc-700' : 'border border-[#E85D04]/40 bg-[#E85D04]/5'}`}>
-                    <input
-                      type="checkbox"
-                      required
-                      checked={agreedToTos}
-                      onChange={(e) => setAgreedToTos(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 accent-[#E85D04] flex-shrink-0 cursor-pointer"
-                    />
-                    <span className="text-xs text-zinc-400 leading-relaxed">
-                      <span className="text-red-400 font-bold mr-1">*</span>
-                      I have read and agree to Skyline Customs'{", "}
-                      <a
-                        href="/terms-of-service"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Terms of Service &amp; Warranty Policy
-                      </a>
-                      , including the aftercare guidelines and warranty terms for the selected service.
-                    </span>
-                  </label>
-
-                  {errorMsg && (
-                    <p className="text-red-400 text-sm">{errorMsg}</p>
                   )}
 
-                  <button
-                    type="submit"
-                    disabled={submitContact.isPending || !agreedToTos}
-                    className="cta w-full bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xl tracking-widest py-4 hover:bg-[#d45200] transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {submitContact.isPending ? "SENDING..." : "GET MY FREE QUOTE"}
-                    {!submitContact.isPending && (
-                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                    )}
-                  </button>
-                  <SmsConsent className="mt-3" />
-                  <p className="text-center text-zinc-400 text-xs leading-relaxed">Nothing to pay now. A 20% deposit locks your date only after you approve your exact quote, goes toward your total, and is fully refundable at any time.</p>
+                  {step === 2 && (
+                    <div className="space-y-5">
+                      <div>
+                        <h3 className="text-white text-xl font-semibold mb-1">What are you driving?</h3>
+                        <p className="text-zinc-400 text-sm">
+                          For: <span className="text-white">{SERVICE_OPTIONS.find((o) => o.value === form.service)?.label || form.service}</span>{" "}
+                          <button type="button" onClick={() => goTo(1)} className="text-[#E85D04] underline underline-offset-2 decoration-1">change</button>
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3">
+                        <div>
+                          <label className={labelClass} htmlFor="q-year">Year</label>
+                          <input id="q-year" type="number" inputMode="numeric" required min={1990} max={2030} value={form.year} onChange={set("year")} className={inputClass} placeholder="2024" />
+                        </div>
+                        <div className="col-span-2">
+                          <label className={labelClass} htmlFor="q-make">Make</label>
+                          <input id="q-make" type="text" required value={form.make} onChange={set("make")} className={inputClass} placeholder="Tesla" autoComplete="off" />
+                        </div>
+                      </div>
+                      <div>
+                        <label className={labelClass} htmlFor="q-model">Model</label>
+                        <input id="q-model" type="text" required value={form.model} onChange={set("model")} className={inputClass} placeholder="Model Y" autoComplete="off" />
+                      </div>
+                      {showNote || form.message ? (
+                        <div>
+                          <label className={labelClass} htmlFor="q-note">Anything else? (optional)</label>
+                          <textarea id="q-note" value={form.message} onChange={set("message")} rows={3} className={`${inputClass} resize-none`} placeholder="New car, how you drive, where you park..." />
+                        </div>
+                      ) : (
+                        <button type="button" onClick={() => setShowNote(true)} className="text-[#E85D04] text-sm underline underline-offset-2 decoration-1">+ Add a note (optional)</button>
+                      )}
+                      {errorMsg && <p className="text-red-400 text-sm">{errorMsg}</p>}
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => (form.year && form.make.trim() && form.model.trim() ? goTo(3) : setErrorMsg("Add the year, make and model so we can price it."))}
+                          className="cta w-full bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xl tracking-widest py-4 hover:bg-[#d45200] transition-colors flex items-center justify-center gap-2"
+                        >
+                          NEXT <ArrowRight size={18} />
+                        </button>
+                        <button type="button" onClick={() => goTo(1)} className="mt-3 text-zinc-400 hover:text-white text-sm flex items-center gap-1"><ArrowLeft size={14} /> Back</button>
+                      </div>
+                    </div>
+                  )}
+
+                  {step === 3 && (
+                    <div className="space-y-5">
+                      <div>
+                        <h3 className="text-white text-xl font-semibold mb-1">Where should we send your quote?</h3>
+                        <p className="text-zinc-400 text-sm">{[form.year, form.make, form.model].filter(Boolean).join(" ")} · {SERVICE_OPTIONS.find((o) => o.value === form.service)?.label || form.service}</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className={labelClass} htmlFor="q-first">First name</label>
+                          <input id="q-first" type="text" required value={form.firstName} onChange={set("firstName")} className={inputClass} placeholder="John" autoComplete="given-name" />
+                        </div>
+                        <div>
+                          <label className={labelClass} htmlFor="q-last">Last name</label>
+                          <input id="q-last" type="text" required value={form.lastName} onChange={set("lastName")} className={inputClass} placeholder="Smith" autoComplete="family-name" />
+                        </div>
+                      </div>
+                      <div>
+                        <label className={labelClass} htmlFor="q-phone">Mobile number</label>
+                        <input id="q-phone" type="tel" required value={form.phone} onChange={set("phone")} className={inputClass} placeholder="(703) 000-0000" autoComplete="tel" />
+                      </div>
+                      <div>
+                        <label className={labelClass} htmlFor="q-email">Email</label>
+                        <input id="q-email" type="email" required value={form.email} onChange={set("email")} className={inputClass} placeholder="john@example.com" autoComplete="email" />
+                      </div>
+
+                      {/* Terms of Service agreement checkbox — required */}
+                      <label className={`flex items-start gap-3 cursor-pointer rounded p-3 transition-colors ${!agreedToTos ? 'border border-zinc-700' : 'border border-[#E85D04]/40 bg-[#E85D04]/5'}`}>
+                        <input
+                          type="checkbox"
+                          required
+                          checked={agreedToTos}
+                          onChange={(e) => setAgreedToTos(e.target.checked)}
+                          className="mt-0.5 w-5 h-5 accent-[#E85D04] flex-shrink-0 cursor-pointer"
+                        />
+                        <span className="text-xs text-zinc-400 leading-relaxed">
+                          I agree to Skyline Customs'{" "}
+                          <a
+                            href="/terms-of-service"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Terms of Service &amp; Warranty Policy
+                          </a>
+                          , including the aftercare guidelines and warranty terms for the selected service.
+                        </span>
+                      </label>
+
+                      {errorMsg && <p className="text-red-400 text-sm">{errorMsg}</p>}
+
+                      <div>
+                        <button
+                          type="submit"
+                          disabled={submitContact.isPending || !agreedToTos}
+                          className="cta w-full bg-[#E85D04] text-[#0A0A0A] font-['Bebas_Neue',sans-serif] text-xl tracking-widest py-4 hover:bg-[#d45200] transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {submitContact.isPending ? "SENDING..." : "GET MY FREE QUOTE"}
+                          {!submitContact.isPending && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
+                        </button>
+                        <button type="button" onClick={() => goTo(2)} className="mt-3 text-zinc-400 hover:text-white text-sm flex items-center gap-1"><ArrowLeft size={14} /> Back</button>
+                      </div>
+                      <SmsConsent className="mt-3" />
+                      <p className="text-center text-zinc-400 text-xs leading-relaxed">Nothing to pay now. A 20% deposit locks your date only after you approve your exact quote, goes toward your total, and is fully refundable at any time.</p>
+                    </div>
+                  )}
                 </form>
               </>
             )}
