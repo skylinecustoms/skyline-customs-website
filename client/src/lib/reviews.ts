@@ -1,20 +1,19 @@
 /**
  * One review list for every review block on the site.
  *
- * Sources, merged and de-duplicated by reviewer name:
- *   1. Live Google reviews from the server (trpc.site.googleReviews: the Places
- *      API returns the 5 newest and 5 most relevant, cached for 6 hours).
- *   2. The curated list in components/Testimonials.tsx (older reviews the
- *      Places API no longer returns).
+ * Sources, merged and de-duplicated by reviewer and date:
+ *   The server (trpc.site.googleReviews / site.allReviews): shared/googleReviews.json,
+ *   synced from the Google Business Profile API with the photos customers attached
+ *   to their reviews, plus reviews the Places API has seen since the last sync.
  *
- * Ordering: reviews that mention the page's focus (full front PPF and ceramic
- * coating by default) come first, newest first; then everything else, newest
- * first. Live reviews outrank curated ones of the same age because their dates
- * are current, while the curated dates were captured months ago.
+ * Ordering: reviews from the last two months with customer photos first, newest
+ * first; then the rest, newest first (shared/reviewTime.ts compareReviews, the
+ * same order the server sends).
  */
 import { useMemo } from "react";
 import { trpc } from "@/lib/trpc";
-import { ALL_REVIEWS, type Review } from "@/components/Testimonials";
+import type { Review } from "@/components/Testimonials";
+import { compareReviews } from "@shared/reviewTime";
 
 export type ReviewFocus = "ppf" | "ceramic" | "tint";
 
@@ -48,19 +47,16 @@ export function serviceTag(text: string, fallback = "Google Review"): string {
   return fallback;
 }
 
-export interface Rankable { text: string; date: string; live?: boolean }
+export interface Rankable { text: string; date: string; time?: number; photos?: unknown[]; live?: boolean }
 
-/** Sort key: focus match first, then newest. Curated (non-live) dates are stale, so they sit behind live ones. */
-export function reviewSortKey(r: Rankable, focus: ReviewFocus[]): [number, number] {
-  const topical = focus.some((f) => TOPIC[f].test(r.text)) ? 0 : 1;
-  return [topical, ageDays(r.date) + (r.live ? 0 : 180)];
-}
-
-export function rankReviews<T extends Rankable>(reviews: T[], focus: ReviewFocus[] = ["ppf", "ceramic"]): T[] {
-  return [...reviews].sort((a, b) => {
-    const [ta, da] = reviewSortKey(a, focus), [tb, db] = reviewSortKey(b, focus);
-    return ta - tb || da - db;
-  });
+/**
+ * Every review list on the site: reviews from the last two months with the customer's own photos first (newest
+ * first), then every other review (newest first). `focus` no longer changes the order (owner: "recent reviews
+ * with photos first"); the service label on each card still says what the review is about.
+ */
+export function rankReviews<T extends Rankable>(reviews: T[], _focus: ReviewFocus[] = ["ppf", "ceramic"]): T[] {
+  const now = Date.now();
+  return [...reviews].sort((a, b) => (a.time !== undefined && b.time !== undefined ? compareReviews(a, b, now) : ageDays(a.date) - ageDays(b.date)));
 }
 
 const COLORS = ["#7C3AED", "#0891B2", "#D97706", "#DB2777", "#16A34A", "#2563EB"];
@@ -68,15 +64,31 @@ const initialsOf = (n: string) => n.split(" ").filter(Boolean).slice(0, 2).map((
 
 export interface SiteReview extends Review { live?: boolean }
 
-/** Live + curated reviews, ranked for the given focus, with the live rating and total when available. */
-export function useSiteReviews(focus: ReviewFocus[] = ["ppf", "ceramic"]): { reviews: SiteReview[]; rating?: number; total?: number } {
-  const { data: live } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000, retry: false });
-  return useMemo(() => {
-    const fromLive: SiteReview[] = (live?.reviews ?? [])
-      .filter((r) => r.rating >= 4 && r.text?.trim())
-      .map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text.trim(), photo: r.photo, live: true }));
-    const names = new Set(fromLive.map((r) => r.name.toLowerCase()));
-    const fromStatic: SiteReview[] = ALL_REVIEWS.filter((r) => !names.has(r.name.toLowerCase())).map((r) => ({ ...r, service: serviceTag(r.text, r.service) }));
-    return { reviews: rankReviews([...fromLive, ...fromStatic], focus), rating: live?.rating, total: live?.total };
-  }, [live, focus.join(",")]);
+type ApiReview = { author: string; rating: number; when: string; text: string; time: number; photo?: string; photos?: Review["photos"] };
+const toSite = (list: ApiReview[]): SiteReview[] =>
+  list
+    .filter((r) => r.rating >= 4 && (r.text?.trim() || r.photos?.length))
+    .map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text ?? ""), text: (r.text ?? "").trim(), time: r.time, photo: r.photo, photos: r.photos, live: true }));
+
+/**
+ * The site's Google reviews in site order, with the rating and count. Default: the first few (server-rendered
+ * on every page, enough for a carousel). `{ all: true }`: every review (the /reviews page, the review wall).
+ * Source: shared/googleReviews.json (Google Business Profile sync, with the customers' photos) plus anything
+ * newer the Places API has seen; see server/googleReviews.ts.
+ */
+export function useSiteReviews(focus: ReviewFocus[] = ["ppf", "ceramic"], opts: { all?: boolean } = {}): { reviews: SiteReview[]; rating?: number; total?: number } {
+  const summary = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000, retry: false });
+  const full = trpc.site.allReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000, retry: false, enabled: !!opts.all });
+  const data = opts.all ? full.data ?? summary.data : summary.data;
+  return useMemo(() => ({ reviews: rankReviews(toSite(data?.reviews ?? []), focus), rating: data?.rating, total: data?.total }), [data, focus.join(",")]);
+}
+
+/**
+ * The shop's Google rating and review count, live from the Places API (trpc.site.googleReviews, refreshed
+ * hourly on the server and server-rendered on most pages). Undefined while loading or when the API is
+ * unavailable: callers then leave the number out instead of showing one that has drifted.
+ */
+export function useGoogleRating(): { rating?: number; total?: number } {
+  const { data } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000, retry: false });
+  return { rating: data?.rating, total: data?.total };
 }

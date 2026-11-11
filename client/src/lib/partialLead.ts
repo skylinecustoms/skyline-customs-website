@@ -23,6 +23,10 @@ export interface PartialFields {
   service?: string;
   promoTag?: string;
   language?: "en" | "es";
+  /** The car, when the form asks for it before the contact step (shown on the unfinished-quote alert). */
+  year?: string;
+  make?: string;
+  model?: string;
 }
 
 const SESSION_KEY = "sc-lead-captured";
@@ -50,6 +54,9 @@ function cleanFields(f: PartialFields) {
     service: f.service?.trim() || undefined,
     promoTag: f.promoTag || undefined,
     language: f.language,
+    year: f.year?.trim().slice(0, 10) || undefined,
+    make: f.make?.trim().slice(0, 40) || undefined,
+    model: f.model?.trim().slice(0, 60) || undefined,
   };
 }
 
@@ -70,15 +77,18 @@ export function usePartialLead(formId: PartialFormId, fields: PartialFields, sub
     const ready = fields.firstName.trim().length >= 2 && isValidPhone(fields.phone);
     if (!ready) return;
     const t = window.setTimeout(async () => {
-      if (sent.current || submitted || latest.current !== fields) return;
+      // Any field change clears this timer (effect deps), so no identity check is needed here: an
+      // unrelated re-render (a query resolving) used to make it bail and the partial never went out.
+      if (sent.current || submitted) return;
       sent.current = true;
       markLeadCaptured();
       const journey = await leadJourney();
-      mutation.mutate({ ...cleanFields(fields), formId, page: window.location.pathname, journey });
-      track("lead_partial", { form_id: formId, service: fields.service ?? "", reason: "idle" });
+      const f = latest.current;
+      mutation.mutate({ ...cleanFields(f), formId, page: window.location.pathname, journey });
+      track("lead_partial", { form_id: formId, service: f.service ?? "", reason: "idle" });
     }, IDLE_MS);
     return () => window.clearTimeout(t);
-  }, [fields.firstName, fields.phone, fields.email, fields.lastName, fields.service, submitted]);
+  }, [fields.firstName, fields.phone, fields.email, fields.lastName, fields.service, fields.year, fields.make, fields.model, submitted]);
 
   // Leaving the page without submitting: send what we have with keepalive.
   useEffect(() => {

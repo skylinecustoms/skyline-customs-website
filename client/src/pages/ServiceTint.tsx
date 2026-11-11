@@ -8,6 +8,7 @@
 import OneIdea from "@/components/OneIdea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import QuoteSection from "@/components/QuoteSection";
 import ServiceCityLinks from "@/components/ServiceCityLinks";
 import CompareLinks from "@/components/CompareLinks";
 import NearMeBlock from "@/components/NearMeBlock";
@@ -449,25 +450,8 @@ export default function ServiceTint() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 bg-[#E85D04]">
-        <div className="container text-center">
-          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white mb-4">
-            STAY COOL. DRIVE PROTECTED.
-          </h2>
-          <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">
-            Request a free quote and we'll help you choose the right tint level for your vehicle, lifestyle, and Virginia's legal requirements.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/get-a-quote?service=tint"
-              className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
-            >
-              GET A QUOTE <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Quote form right on the page (the shared three-step form, tint picked) */}
+      <QuoteSection heading="STAY COOL. DRIVE PROTECTED." text="Request a free quote and we'll help you choose the right tint level for your vehicle, lifestyle, and Virginia's legal requirements." dataForm="quote-service" presetService="Tints" eyebrow="Window tint quote" />
 
       <LocalBanner localHref="/service-areas" serviceName="Window Tinting" />
       <NearMeBlock service="tint" />

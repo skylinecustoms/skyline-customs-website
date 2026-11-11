@@ -26,6 +26,7 @@ import { GALLERY_IMAGE_REDIRECTS } from "../galleryJobs";
 import { handleTelegramWebhook } from "../telegramWebhook";
 import { registerDepositRoutes } from "../deposit";
 import { registerLeadFeedRoutes } from "../leadFeed";
+import { registerPartialAlertRoutes, startPartialAlertScheduler } from "../partialAlerts";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -178,6 +179,7 @@ async function startServer() {
   registerDepositRoutes(app);
   // Skyline's recent leads (no names) for its dashboard in the Run On Systems client portal (server/leadFeed.ts)
   registerLeadFeedRoutes(app);
+  registerPartialAlertRoutes(app);
   // Health: which optional integrations this deployment has credentials for (booleans only, never values).
   const startedAt = new Date().toISOString();
   // ?refresh=1 forces new Google calls (URL Inspection has a 2,000/day quota): at most once every 10 minutes per report,
@@ -304,6 +306,7 @@ async function startServer() {
     startIndexingScheduler();
     startIndexStatusScheduler();
     startWeeklyReportScheduler();
+    startPartialAlertScheduler();
     startLiveEdits(clearSsrCache);
     void ensureQualityTags();
   });

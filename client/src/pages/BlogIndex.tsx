@@ -29,7 +29,7 @@ export default function BlogIndex() {
       category: p.category,
       heroImage: p.heroImage,
       heroImageAlt: p.heroImageAlt,
-      content: JSON.parse(p.content) as BlogSection[],
+      content: [] as BlogSection[], // the list carries no bodies (blog.list returns summaries)
     }));
     const dbSlugs = new Set(dbMapped.map((p) => p.slug));
     const staticFiltered = staticPosts.filter((p) => !dbSlugs.has(p.slug));

@@ -19,7 +19,7 @@ import App from "./App";
 import { applyLive, type LiveEdits } from "@shared/live";
 
 export interface RenderResult { html: string; /** superjson-serialized react-query cache for client hydration */ state: string }
-export interface Preload { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; live?: LiveEdits }
+export interface Preload { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; allReviews?: unknown; live?: LiveEdits }
 
 export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Promise<RenderResult> {
   const [path, search = ""] = url.split("?");
@@ -33,6 +33,9 @@ export function render(url: string, preload: Preload = {}, timeoutMs = 8000): Pr
   }
   if (preload.googleReviews !== undefined) {
     queryClient.setQueryData(getQueryKey(trpc.site.googleReviews, undefined, "query"), preload.googleReviews);
+  }
+  if (preload.allReviews !== undefined) {
+    queryClient.setQueryData(getQueryKey(trpc.site.allReviews, undefined, "query"), preload.allReviews);
   }
   if (preload.gallery) {
     queryClient.setQueryData(getQueryKey(trpc.site.gallery, undefined, "query"), preload.gallery);

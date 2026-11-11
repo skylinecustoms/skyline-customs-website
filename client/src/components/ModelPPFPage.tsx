@@ -7,6 +7,7 @@ import { Link } from "wouter";
 import { ArrowRight, CheckCircle, ChevronDown, Phone, Shield, Zap, Star, Wrench } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import QuoteSection from "@/components/QuoteSection";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Testimonials from "@/components/Testimonials";
@@ -29,7 +30,8 @@ export default function ModelPPFPage({ model }: { model: ModelPage }) {
   const videos = VIDEOS.filter((v) => model.videoIds.includes(v.id));
   const path = `/${model.slug}-ppf`;
   const canonical = `${BASE_URL}${path}`;
-  const quoteHref = `/get-a-quote?service=ppf&make=${encodeURIComponent(model.make)}&model=${encodeURIComponent(model.name.replace(`${model.make} `, ""))}`;
+  const modelName = model.name.replace(`${model.make} `, "");
+  const quoteHref = `/get-a-quote?service=ppf&make=${encodeURIComponent(model.make)}&model=${encodeURIComponent(modelName)}`;
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
@@ -73,9 +75,9 @@ export default function ModelPPFPage({ model }: { model: ModelPage }) {
               <p key={p.slice(0, 30)} className="text-zinc-300 text-lg leading-relaxed max-w-3xl mb-4">{p}</p>
             ))}
             <div className="flex flex-wrap gap-3 mt-8">
-              <Link href={quoteHref} className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
-                Quote my {model.name.replace(`${model.make} `, "")} <ArrowRight className="w-4 h-4" />
-              </Link>
+              <a href="#get-quote" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+                Quote my {modelName} <ArrowRight className="w-4 h-4" />
+              </a>
               <a href="tel:+17037754383" className="cta cta-alt border border-zinc-700 hover:border-[#E85D04] text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 transition-colors">
                 <Phone className="w-4 h-4" /> (703) 775-4383
               </a>
@@ -213,17 +215,15 @@ export default function ModelPPFPage({ model }: { model: ModelPage }) {
         <Testimonials title={`WHAT ${model.make.toUpperCase()} OWNERS SAY ABOUT OUR PPF`} />
         <VehicleLinks current={model.slug} />
 
-        {/* CTA */}
-        <section className="py-20 bg-[#E85D04] text-black">
-          <div className="container max-w-4xl text-center">
-            <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl leading-none mb-4">PROTECT YOUR {model.name.replace(`${model.make} `, "").toUpperCase()} THIS WEEK</h2>
-            <p className="text-black/90 text-lg mb-8">Tell us the year and trim. Written quote the same business day, film on in one day at our Chantilly shop.</p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link href={quoteHref} className="cta cta-alt bg-black text-white font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-zinc-900 transition-colors">Get a free quote <ArrowRight className="w-4 h-4" /></Link>
-              <a href="tel:+17037754383" className="cta cta-alt border-2 border-black text-black font-bold tracking-widest uppercase px-8 py-4 inline-flex items-center gap-2 hover:bg-black hover:text-white transition-colors"><Phone className="w-4 h-4" /> Call the shop</a>
-            </div>
-          </div>
-        </section>
+        {/* Quote form right on the page, with this model already filled in */}
+        <QuoteSection
+          heading={<>PROTECT YOUR {modelName.toUpperCase()} THIS WEEK</>}
+          text="Tell us the year and trim. Written quote the same business day, film on in one day at our Chantilly shop."
+          dataForm="quote-model"
+          presetService="PPF"
+          presetVehicle={{ make: model.make, model: modelName }}
+          eyebrow={`${model.name} PPF quote`}
+        />
       </main>
       <Footer />
     </div>

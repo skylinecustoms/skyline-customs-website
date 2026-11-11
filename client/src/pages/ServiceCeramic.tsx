@@ -18,6 +18,7 @@ import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CeramicPromoBanner from "@/components/CeramicPromoBanner";
 import ExitPrompt from "@/components/ExitPrompt";
+import QuoteSection from "@/components/QuoteSection";
 import LeadPulse from "@/components/LeadPulse";
 import { endOfMonth } from "@/pages/CeramicPromo";
 import { responsiveImage } from "@/lib/responsiveImage";
@@ -468,15 +469,18 @@ export default function ServiceCeramic() {
             >
               LOCK IN THE $495 SPECIAL <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/get-a-quote?service=ceramic"
+            <a
+              href="#get-quote"
               className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 flex items-center gap-2"
             >
               GET A QUOTE <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
+
+      {/* Quote form right on the page (the shared three-step form, ceramic picked) */}
+      <QuoteSection heading="GET THE RIGHT COATING FOR YOUR CAR" text="Tell us the car and we'll recommend the right tier and send an exact price, usually within the hour." dataForm="quote-service" presetService="Ceramic Coating" eyebrow="Ceramic coating quote" />
 
       <LocalBanner localHref="/service-areas" serviceName="Ceramic Coating" />
       <NearMeBlock service="ceramic" />

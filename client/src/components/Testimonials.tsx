@@ -1,12 +1,17 @@
 /**
  * SKYLINE CUSTOMS — Testimonials Carousel
- * Real Google Business reviews (5.0 ★ · 141 reviews)
+ * Real Google reviews from the shop's Google Business Profile (shared/googleReviews.json, synced by
+ * scripts/sync-reviews.mjs, with the photos customers attached), served by the server with the live rating
+ * and count. Order: recent reviews with photos first, then newest first.
  * Design: Industrial Brutalism | Dark matte black + burnt orange (#E85D04)
  */
 
-import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { ChevronLeft, ChevronRight, Star, Quote, X, Expand } from "lucide-react";
 import { useSiteReviews, type ReviewFocus } from "@/lib/reviews";
+
+/** A photo the customer attached to their Google review (a local copy under /images/reviews). */
+export interface ReviewPhoto { src: string; /** 640 px */ mid?: string; thumb: string; width: number; height: number }
 
 export interface Review {
   name: string;
@@ -16,166 +21,13 @@ export interface Review {
   date: string;
   service: string;
   text: string;
+  /** Review date (Unix seconds). */
+  time?: number;
   /** Reviewer profile picture from Google, when available. */
   photo?: string;
+  /** Photos the customer attached to this review. */
+  photos?: ReviewPhoto[];
 }
-
-// Real reviews from Skyline Customs Google Business Profile (5.0 ★ · 141 reviews)
-export const ALL_REVIEWS: Review[] = [
-  {
-    name: "Henry Gates",
-    initials: "HG",
-    avatarColor: "#7C3AED",
-    rating: 5,
-    date: "in the last week",
-    service: "Auto Protection",
-    text: "The guys done a outstanding job they were very professional and didn’t hesitated to help and making the customer happy job well done",
-  },
-  {
-    name: "von rob",
-    initials: "VR",
-    avatarColor: "#D97706",
-    rating: 5,
-    date: "in the last week",
-    service: "PPF + Ceramic Coating",
-    text: "Communicated very well in informing me about their PPF and ceramic coating offers. My truck was ready at our scheduled pickup time and they did a great job.",
-  },
-  {
-    name: "Mark Baker",
-    initials: "MB",
-    avatarColor: "#DB2777",
-    rating: 5,
-    date: "a week ago",
-    service: "Window Tinting",
-    text: "This crew knows how to provide excellent customer service and are very professional. I walked in on a Thursday asking if I could get my car tinted next week and by Sunday afternoon the excellent job was completed. Trust me, if you need tinting (or any of the other services they provide) this is the place to go. Excellent communication throughout the process and just very pleasant to deal with. Plus, the car looks great!",
-  },
-  {
-    name: "Chris Hons",
-    initials: "CH",
-    avatarColor: "#16A34A",
-    rating: 5,
-    date: "2 weeks ago",
-    service: "Ceramic Coating",
-    text: "I can’t say enough good things about my ceramic coat. I took a picture of it to show my friend and it literally looked like it was a mirror. Scheduling was easy. Payment was easy. Everything about the process was easy with top quality results. You won’t be disappointed! Thanks Mo!",
-  },
-  {
-    name: "Youngsu Kim",
-    initials: "YK",
-    avatarColor: "#2563EB",
-    rating: 5,
-    date: "2 months ago",
-    service: "PPF + Window Tinting",
-    text: "I highly recommend these guys! They did an excellent job on both the front end PPF installation and the two front window tints. The attention to detail they put into their work is awesome, and everything looks flawless. On top of the great quality, the staff is incredibly friendly and very flexible with scheduling. If you're looking for professional work and great customer service, this is the place to go. Highly recommended!",
-  },
-  {
-    name: "Paolo Miclat",
-    initials: "PM",
-    avatarColor: "#EA580C",
-    rating: 5,
-    date: "2 months ago",
-    service: "PPF + Ceramic Coating",
-    text: "Great people to deal with. Owner was very transparent with all their services and they offer payment plans. I got the front half of my car PPF'd and back half ceramic coated (one of the packages they offered) and has been raining for a few days on an off. You cant even tell it rained. The PPF and ceramic coat works as intended.",
-  },
-  {
-    name: "Clara Kim",
-    initials: "CK",
-    avatarColor: "#9333EA",
-    rating: 5,
-    date: "4 months ago",
-    service: "Window Tinting",
-    text: "Good friend of mine recommended me to get the tints done from skyline and i can confidently say that my car looks awesome. I work from 8:30-6 so they were super flexible with my schedule, letting me drop my car off in the morning and pick it up later. I appreciate the work and happy with it!!",
-  },
-  {
-    name: "Isra Ibrahim",
-    initials: "II",
-    avatarColor: "#4F46E5",
-    rating: 5,
-    date: "1 month ago",
-    service: "Ceramic Coating",
-    text: "From start to finish, the experience was top-notch. Clear communication, fair pricing, and incredible workmanship. The ceramic coating completely transformed the look of my car and the shine is unreal. You can tell they take pride in their work. Highly recommend!!!",
-  },
-  {
-    name: "Hassan Awan",
-    initials: "HA",
-    avatarColor: "#059669",
-    rating: 5,
-    date: "1 month ago",
-    service: "Tinting + Ceramic Coating",
-    text: "The boys at Skyline Customs took care of me with my Cybertruck — tints all around and got it ceramic coated as well. Came out flawless, and the service was quick and professional. Will be bringing my other vehicles here as well.",
-  },
-  {
-    name: "Jonathan Cao",
-    initials: "JC",
-    avatarColor: "#DC2626",
-    rating: 5,
-    date: "3 weeks ago",
-    service: "Window Tinting",
-    text: "Got my new-to-me car tinted by Skyline Customs. Everyone was super friendly and extremely patient — I had to reschedule multiple times and they were very accommodating. Professional quality work done at a great price. Highly recommend and will be returning for future work!",
-  },
-  {
-    name: "Issac Tecle",
-    initials: "IT",
-    avatarColor: "#7C3AED",
-    rating: 5,
-    date: "1 month ago",
-    service: "Window Tinting",
-    text: "Top-tier service and excellent quality. Out of all the cars I've ever had tinted I've never received this level of expertise. The edges are perfect, there's not a single bubble. The tints look amazing and the staff was super friendly.",
-  },
-  {
-    name: "Omhani Mohamed",
-    initials: "OM",
-    avatarColor: "#0891B2",
-    rating: 5,
-    date: "1 month ago",
-    service: "Tinting + Ceramic Coating",
-    text: "Skyline Customs did an amazing job on my Tahoe. I came in for tint and ceramic coating, and the results honestly exceeded my expectations. You can tell they really care about their work and about their customers. My truck looks incredible.",
-  },
-  {
-    name: "Mohamed Ahmed",
-    initials: "MA",
-    avatarColor: "#D97706",
-    rating: 5,
-    date: "1 month ago",
-    service: "Tinting + Ceramic Coating",
-    text: "I had my window tints and ceramic coating done by Skyline Customs, and the entire experience was top-tier from start to finish. Communication was clear and consistent, the process was smooth, and the work itself was done at a very high standard.",
-  },
-  {
-    name: "Md Israil",
-    initials: "MI",
-    avatarColor: "#BE185D",
-    rating: 5,
-    date: "1 month ago",
-    service: "Window Tinting",
-    text: "I took my car to Skyline Customs to get the windows tinted and I'm very happy with how everything turned out. The staff was professional, respectful, and explained everything clearly without trying to upsell me. The work was done on time and at a fair price.",
-  },
-  {
-    name: "Md Moon",
-    initials: "MM",
-    avatarColor: "#0369A1",
-    rating: 5,
-    date: "1 month ago",
-    service: "Auto Detailing",
-    text: "I had a great experience with Skyline Customs. The quality of their work really stands out, and you can tell they take pride in what they do. Everything was done professionally, on time, and exactly how I wanted it. The staff was amazing.",
-  },
-  {
-    name: "Ai Ai",
-    initials: "AA",
-    avatarColor: "#15803D",
-    rating: 5,
-    date: "1 month ago",
-    service: "Ceramic Tinting",
-    text: "Just got my ceramic tints done at Skyline Custom and wow — my car looks completely different now. Definitely recommend this spot. Great pricing and amazing staff!",
-  },
-  {
-    name: "albedri m",
-    initials: "AM",
-    avatarColor: "#B45309",
-    rating: 5,
-    date: "3 weeks ago",
-    service: "Auto Detailing",
-    text: "Great service. Best work I've seen yet!!",
-  },
-];
 
 interface TestimonialsProps {
   service?: string;
@@ -223,6 +75,99 @@ export function Avatar({ review, size = "w-10 h-10" }: { review: Pick<Review, "n
   );
 }
 
+/** Large viewer for a review's photos: arrows, swipe, Escape; tap outside the photo closes it. */
+function PhotoViewer({ name, photos, index, onIndex, onClose }: { name: string; photos: ReviewPhoto[]; index: number; onIndex: (i: number) => void; onClose: () => void }) {
+  const n = photos.length;
+  const touch = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onIndex((index + 1) % n);
+      if (e.key === "ArrowLeft") onIndex((index - 1 + n) % n);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [index, n, onIndex, onClose]);
+  useEffect(() => { closeRef.current?.focus(); }, []);
+  const p = photos[index];
+  return (
+    <div
+      role="dialog" aria-modal="true" aria-label={`${name}'s review photos`} data-photo-viewer={index}
+      className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+      onClick={() => { if (swiped.current) { swiped.current = false; return; } onClose(); }}
+      onTouchStart={(e) => { touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }}
+      onTouchEnd={(e) => {
+        const t0 = touch.current; touch.current = null;
+        if (!t0 || n < 2) return;
+        const dx = e.changedTouches[0].clientX - t0.x, dy = e.changedTouches[0].clientY - t0.y;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { swiped.current = true; onIndex(dx < 0 ? (index + 1) % n : (index - 1 + n) % n); }
+      }}
+    >
+      <img src={p.src} alt={`Photo ${index + 1} of ${n} from ${name}'s Google review`} width={p.width} height={p.height} className="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded-lg" onClick={(e) => e.stopPropagation()} />
+      <button ref={closeRef} type="button" aria-label="Close" onClick={onClose} className="absolute top-4 right-4 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#E85D04]"><X className="w-5 h-5" /></button>
+      {n > 1 && (
+        <>
+          <button type="button" aria-label="Previous photo" onClick={(e) => { e.stopPropagation(); onIndex((index - 1 + n) % n); }} className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronLeft className="w-5 h-5" /></button>
+          <button type="button" aria-label="Next photo" onClick={(e) => { e.stopPropagation(); onIndex((index + 1) % n); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronRight className="w-5 h-5" /></button>
+          <p className="absolute bottom-4 left-0 right-0 text-center text-zinc-300 text-sm">{index + 1} / {n}</p>
+        </>
+      )}
+    </div>
+  );
+}
+
+const PRESS = "cursor-pointer transition duration-150 hover:brightness-110 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E85D04]";
+
+/**
+ * The photos a customer attached to their review: the first one large across the card (16:10), the rest as
+ * small thumbnails under it (+N on the last one when there are more). Every photo opens the large viewer at
+ * that photo. `fill`: a review with no text, where the big photo takes the text's place and grows to fill it.
+ */
+export function ReviewPhotos({ review, className = "", maxThumbs = 4, fill = false }: { review: Pick<Review, "name" | "photos">; className?: string; maxThumbs?: number; fill?: boolean }) {
+  const photos = review.photos ?? [];
+  const [open, setOpen] = useState<number | null>(null);
+  if (!photos.length) return null;
+  const n = photos.length;
+  const label = (i: number) => `Open photo ${i + 1} of ${n} from ${review.name}'s review`;
+  const first = photos[0];
+  const rest = photos.slice(1);
+  const thumbs = rest.slice(0, maxThumbs);
+  const extra = rest.length - thumbs.length;
+  return (
+    <div className={`${fill ? "flex-1 flex flex-col" : ""} ${className}`} data-review-photos={n}>
+      <button type="button" onClick={() => setOpen(0)} aria-label={label(0)} data-photo-index={0}
+        className={`group relative block w-full overflow-hidden rounded-lg bg-[#111] border border-zinc-800 ${fill ? "flex-1 min-h-[220px]" : "aspect-[16/10]"} ${PRESS}`}>
+        <img
+          src={first.mid ?? first.src}
+          srcSet={first.mid ? `${first.mid} 640w, ${first.src} 1000w` : undefined}
+          sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
+          alt={`Photo ${review.name} attached to their Google review`}
+          width={first.width} height={first.height} loading="lazy" decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <span aria-hidden="true" className="absolute right-2 bottom-2 w-8 h-8 rounded-full bg-black/65 text-white flex items-center justify-center group-hover:bg-[#E85D04] transition-colors">
+          <Expand className="w-4 h-4" />
+        </span>
+      </button>
+      {thumbs.length > 0 && (
+        <div className="flex gap-2 mt-2">
+          {thumbs.map((p, i) => (
+            <button key={p.src} type="button" onClick={() => setOpen(i + 1)} aria-label={label(i + 1)} data-photo-index={i + 1}
+              className={`relative w-16 h-16 shrink-0 overflow-hidden rounded-md border border-zinc-800 bg-[#111] ${PRESS}`}>
+              <img src={p.thumb} alt="" width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              {i === thumbs.length - 1 && extra > 0 && <span className="absolute inset-0 bg-black/60 text-white text-sm font-bold flex items-center justify-center">+{extra}</span>}
+            </button>
+          ))}
+        </div>
+      )}
+      <p className="text-zinc-500 text-[11px] mt-1.5">{n === 1 ? "Photo" : `${n} photos`} from {review.name}'s Google review</p>
+      {open !== null && <PhotoViewer name={review.name} photos={photos} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />}
+    </div>
+  );
+}
+
 function ReviewCard({ review, featured }: { review: Review; featured: boolean }) {
   return (
     <div
@@ -242,8 +187,9 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
         ))}
       </div>
 
-      {/* Review text */}
-      <p className="text-zinc-300 text-sm leading-relaxed flex-1">"{review.text}"</p>
+      {/* The customer's photos (first one large), then the review text; a photo-only review lets the photo fill the space. */}
+      {review.photos?.length ? <ReviewPhotos review={review} fill={!review.text} /> : null}
+      {review.text ? <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{review.text}"</p> : review.photos?.length ? null : <div className="flex-1" />}
 
       {/* Service tag */}
       <span className="text-[#E85D04] text-xs font-bold tracking-widest uppercase border border-[#E85D04]/30 px-2 py-0.5 self-start">
@@ -287,9 +233,12 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY", focus }
 
   // Auto-advance every 5 s
   useEffect(() => {
+    if (total < 2) return;
     const t = setInterval(() => go("right"), 5000);
     return () => clearInterval(t);
   }, [go]);
+
+  if (total === 0) return null;
 
   // Show 3 cards on desktop, 1 on mobile
   const visible = [
@@ -308,8 +257,8 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY", focus }
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 fill-[#E85D04] text-[#E85D04]" />
               ))}
-              <span className="text-[#E85D04] font-bold text-lg ml-1">{rating ? rating.toFixed(1) : "5.0"}</span>
-              <span className="text-zinc-400 text-sm ml-1">· {googleTotal ?? "140+"} Google reviews</span>
+              {rating && <span className="text-[#E85D04] font-bold text-lg ml-1">{rating.toFixed(1)}</span>}
+              <span className="text-zinc-400 text-sm ml-1">· {googleTotal ? `${googleTotal} Google reviews` : "Google reviews"}</span>
             </div>
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white leading-none">
               {title}
