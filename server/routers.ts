@@ -12,6 +12,7 @@ import { getInstagramFeed } from "./instagram";
 import { getGalleryRows } from "./galleryJobs";
 import { siteSettings, galleryPhotos } from "../drizzle/schema";
 import { getLeadPulse, recordLead } from "./leadPulse";
+import { queuePartialAlert, markLeadFinished, phoneKey } from "./partialAlerts";
 import { eq, asc } from "drizzle-orm";
 
 const GHL_API_KEY = process.env.GHL_API_KEY ?? "";
@@ -37,12 +38,13 @@ const GHL_STAGE_NEW_LEAD = process.env.GHL_STAGE_NEW_LEAD ?? "badd36ef-a6df-4776
 /** The one tag every website submission carries; it is removed and re-added so a "tag added" workflow fires every time. */
 const GHL_NOTIFY_TAG = "website-contact";
 // Owner chats: the bot's configured owner (TELEGRAM_OWNER_ID) first, then any extra ids.
-const TELEGRAM_OWNER_IDS = Array.from(new Set([process.env.TELEGRAM_OWNER_ID ?? "", ...(process.env.TELEGRAM_OWNER_IDS ?? "5497240056,5028193585").split(",")].map((s) => s.trim()).filter(Boolean)));
+// TELEGRAM_CHAT_IDS is the name the shop's other bot (Minato) uses for the same people; any listed there get system alerts too.
+const TELEGRAM_OWNER_IDS = Array.from(new Set([process.env.TELEGRAM_OWNER_ID ?? "", ...(process.env.TELEGRAM_OWNER_IDS ?? "5497240056,5028193585").split(","), ...(process.env.TELEGRAM_CHAT_IDS ?? "").split(",")].map((s) => s.trim()).filter(Boolean)));
 
 export const escapeHtml = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 /** Telegram message to the shop owners. Never throws. Reports per-chat results so a wrong chat id or a blocked bot is visible. */
-export async function notifyOwners(html: string): Promise<{ ok: boolean; results: string[] }> {
+export async function notifyOwners(html: string, replyMarkup?: { inline_keyboard: { text: string; url: string }[][] }): Promise<{ ok: boolean; results: string[] }> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return { ok: false, results: ["TELEGRAM_BOT_TOKEN not set"] };
   if (TELEGRAM_OWNER_IDS.length === 0) return { ok: false, results: ["no owner chat ids"] };
@@ -53,7 +55,7 @@ export async function notifyOwners(html: string): Promise<{ ok: boolean; results
       const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: id, text: html, parse_mode: "HTML", disable_web_page_preview: true }),
+        body: JSON.stringify({ chat_id: id, text: html, parse_mode: "HTML", disable_web_page_preview: true, ...(replyMarkup ? { reply_markup: replyMarkup } : {}) }),
       });
       const body = (await r.json().catch(() => ({}))) as { ok?: boolean; description?: string };
       ok = ok || r.ok;
@@ -494,6 +496,9 @@ Guidelines:
           console.error("[GHL] lead not saved:", crmError);
         }
         const contactPhone = resolvedPhone ?? input.phone;
+        // They finished: no unfinished-quote alert for this phone (see server/partialAlerts.ts).
+        await markLeadFinished(input.phone).catch((e) => console.warn("[partial-alerts] finish failed:", (e as Error).message));
+        if (resolvedPhone && phoneKey(resolvedPhone) !== phoneKey(input.phone)) await markLeadFinished(resolvedPhone).catch(() => false);
         if (contactId) {
           // The real submission wins over anything a half-finished form guessed earlier.
           await removeGhlTags(contactId, [GHL_PARTIAL_TAG, `website-${form}-partial`, "website-exit-partial"]);
@@ -619,6 +624,10 @@ Guidelines:
           formId: z.enum(["quote", "contact", "promo", "exit", "fleet"]),
           language: z.enum(["en", "es"]).optional(),
           page: z.string().max(300).optional(),
+          // The car, when the form asked for it before the contact step (optional; older clients omit it).
+          year: z.string().max(10).optional(),
+          make: z.string().max(40).optional(),
+          model: z.string().max(60).optional(),
           journey: z
             .object({
               gaClientId: z.string().max(64).optional(),
@@ -649,7 +658,9 @@ Guidelines:
           assignedTo: GHL_ASSIGNED_USER_ID,
         };
         if (input.email) payload.email = input.email;
-        if (input.service) payload.customFields = [{ id: GHL_FIELD_SERVICE, field_value: input.service }];
+        const partialFields = [[GHL_FIELD_SERVICE, input.service], [GHL_FIELD_MAKE, input.make], [GHL_FIELD_MODEL, input.model], [GHL_FIELD_YEAR, input.year]]
+          .filter(([, v]) => v && v.trim()).map(([id, v]) => ({ id: id as string, field_value: (v as string).trim() }));
+        if (partialFields.length) payload.customFields = partialFields;
 
         let contactId: string | null = null;
         let crmError: string | null = null;
@@ -679,6 +690,9 @@ Guidelines:
           `\n\nWorth a quick text: "Hey ${escapeHtml(input.firstName)}, saw you were looking at PPF on our site, want me to send the price?"` +
           (contactId ? `\nIn GHL: https://app.gohighlevel.com/v2/location/${GHL_LOCATION_ID}/contacts/detail/${contactId}` : `\n⚠️ Not saved in GHL (${escapeHtml(crmError ?? "unknown")})`)
         );
+        // If no full submit from this phone arrives in 15 minutes, the owners get an "unfinished quote" card.
+        await queuePartialAlert({ phone: input.phone, firstName: input.firstName, year: input.year, make: input.make, model: input.model, service: input.service, contactId, formId: input.formId, page: input.page })
+          .catch((e) => console.warn("[partial-alerts] queue failed:", (e as Error).message));
         return { success: true as const, contactId, crm: contactId ? "ok" : "failed", telegram: telegram.results };
       }),
     /** Today's quote-request count and minutes since the last one, for the promo pages. */
