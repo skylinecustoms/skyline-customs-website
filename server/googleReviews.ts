@@ -20,7 +20,7 @@ const TTL_MS = 60 * 60 * 1000;
 const ARCHIVE_KEY = "google:reviews-archive";
 
 export { relativeWhen } from "../shared/reviewTime";
-import { relativeWhen } from "../shared/reviewTime";
+import { relativeWhen, compareReviews } from "../shared/reviewTime";
 
 async function readArchive(): Promise<GoogleReview[]> {
   const db = await getDb();
@@ -110,6 +110,8 @@ export async function getGoogleReviews(): Promise<GoogleReviewSummary | null> {
     // Each reviewer's own photo of their car, when they posted one (fresh URL every refresh; old ones dropped).
     const jobPhotos = await fetchReviewerPhotos(all.map((r) => r.author));
     for (const r of all) { const p = jobPhotos.get(norm(r.author)); if (p) r.jobPhoto = p; else delete r.jobPhoto; }
+    // Site order: reviews with a car photo first, newest first; then the rest (a review that gains or loses a photo moves).
+    all.sort(compareReviews);
     if (added || all.length !== archive.length) {
       await writeArchive(all).catch((err) => console.warn("[googleReviews] archive write failed:", (err as Error).message));
       if (added) console.log(`[googleReviews] ${added} new review(s) added; ${all.length} on the site`);

@@ -8,14 +8,14 @@
  *   2. The snapshot in shared/googleReviews.json (the same real reviews, for the
  *      first render without the live feed; scripts/sync-reviews.mjs refreshes it).
  *
- * Ordering: reviews that mention the page's focus (full front PPF and ceramic
- * coating by default) come first, newest first; then everything else, newest
- * first. Live reviews outrank curated ones of the same age because their dates
- * are current, while the curated dates were captured months ago.
+ * Ordering: reviews with the customer's photo of their car first, newest first;
+ * then the rest, newest first (shared/reviewTime.ts compareReviews, the same
+ * order the server sends).
  */
 import { useMemo } from "react";
 import { trpc } from "@/lib/trpc";
 import { ALL_REVIEWS, type Review } from "@/components/Testimonials";
+import { compareReviews } from "@shared/reviewTime";
 
 export type ReviewFocus = "ppf" | "ceramic" | "tint";
 
@@ -49,18 +49,23 @@ export function serviceTag(text: string, fallback = "Google Review"): string {
   return fallback;
 }
 
-export interface Rankable { text: string; date: string; live?: boolean }
+export interface Rankable { text: string; date: string; time?: number; jobPhoto?: unknown; live?: boolean }
 
-/** Sort key: focus match first, then newest. Curated (non-live) dates are stale, so they sit behind live ones. */
-export function reviewSortKey(r: Rankable, focus: ReviewFocus[]): [number, number] {
-  const topical = focus.some((f) => TOPIC[f].test(r.text)) ? 0 : 1;
-  return [topical, ageDays(r.date) + (r.live ? 0 : 180)];
+/** Sort key, kept for callers: [no car photo, age in days]. */
+export function reviewSortKey(r: Rankable, _focus?: ReviewFocus[]): [number, number] {
+  return [r.jobPhoto ? 0 : 1, r.time ? Math.floor((Date.now() / 1000 - r.time) / 86400) : ageDays(r.date)];
 }
 
-export function rankReviews<T extends Rankable>(reviews: T[], focus: ReviewFocus[] = ["ppf", "ceramic"]): T[] {
+/**
+ * Every review list on the site: reviews with the customer's photo of their car first (newest first), then the
+ * rest (newest first). `focus` no longer changes the order (owner: "recent reviews with photos first"); service
+ * labels on the cards still say what each review is about.
+ */
+export function rankReviews<T extends Rankable>(reviews: T[], _focus: ReviewFocus[] = ["ppf", "ceramic"]): T[] {
   return [...reviews].sort((a, b) => {
-    const [ta, da] = reviewSortKey(a, focus), [tb, db] = reviewSortKey(b, focus);
-    return ta - tb || da - db;
+    if (a.time !== undefined && b.time !== undefined) return compareReviews(a, b);
+    const [pa, da] = reviewSortKey(a), [pb, db] = reviewSortKey(b);
+    return pa - pb || da - db;
   });
 }
 

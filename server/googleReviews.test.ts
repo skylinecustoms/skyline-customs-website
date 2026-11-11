@@ -70,4 +70,21 @@ describe("google reviews archive", () => {
     // The API key never reaches the browser.
     expect(JSON.stringify(out)).not.toContain("key=");
   });
+
+  it("orders reviews with a car photo first (newest first), then the rest; moves them when the photo comes or goes", async () => {
+    const stub = (withPhoto: boolean) => vi.stubGlobal("fetch", vi.fn(async (url: string) => {
+      const u = String(url);
+      const json = (j: unknown) => ({ ok: true, json: async () => j });
+      if (u.includes("maps.googleapis.com")) return json({ status: "OK", result: { rating: 5, user_ratings_total: 156, reviews: [review("Ann", 2), review("Old Photo", 40), review("Cy", 10)] } });
+      if (u.includes("/media?")) return json({ photoUri: "https://lh3.googleusercontent.com/x" });
+      return json({ photos: withPhoto ? [{ name: "places/p/photos/a", widthPx: 800, heightPx: 600, authorAttributions: [{ displayName: "Old Photo" }] }] : [] });
+    }));
+    stub(true);
+    let mod = await import("./googleReviews");
+    expect((await mod.getGoogleReviews())!.reviews.map((r) => r.author)).toEqual(["Old Photo", "Ann", "Cy"]);
+    vi.resetModules(); vi.setSystemTime(now + 2 * 3600_000);
+    stub(false);
+    mod = await import("./googleReviews");
+    expect((await mod.getGoogleReviews())!.reviews.map((r) => r.author)).toEqual(["Ann", "Cy", "Old Photo"]);
+  });
 });
