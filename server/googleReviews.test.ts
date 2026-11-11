@@ -46,4 +46,28 @@ describe("google reviews archive", () => {
     expect(out.reviews[0].when).toBe("in the last week");
     expect(out.total).toBe(150);
   });
+
+  it("puts a reviewer's own listing photo on their review, never the owner's photos", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (url: string) => {
+      const u = String(url);
+      const json = (j: unknown) => ({ ok: true, json: async () => j });
+      if (u.includes("maps.googleapis.com")) return json({ status: "OK", result: { rating: 5, user_ratings_total: 156, reviews: [review("Clara Kim", 10), review("Steven Kim", 20), review("Bob", 30)] } });
+      if (u.endsWith("/media?maxWidthPx=800&skipHttpRedirect=true")) return json({ photoUri: `https://lh3.googleusercontent.com/${u.split("/photos/")[1].split("/")[0]}` });
+      if (u.includes("places.googleapis.com/v1/places/")) return json({ photos: [
+        { name: "places/p/photos/owner1", widthPx: 1200, heightPx: 1600, authorAttributions: [{ displayName: "Skyline Customs" }] },
+        { name: "places/p/photos/clara", widthPx: 3600, heightPx: 4800, authorAttributions: [{ displayName: "Clara Kim" }] },
+        { name: "places/p/photos/steven", widthPx: 3608, heightPx: 3000, authorAttributions: [{ displayName: "Steven Kim" }] },
+      ] });
+      throw new Error(`unexpected ${u}`);
+    }));
+    const { getGoogleReviews } = await import("./googleReviews");
+    const out = (await getGoogleReviews())!;
+    const by = Object.fromEntries(out.reviews.map((r) => [r.author, r.jobPhoto]));
+    expect(by["Clara Kim"]).toEqual({ url: "https://lh3.googleusercontent.com/clara", width: 800, height: 1067 });
+    expect(by["Steven Kim"]?.url).toBe("https://lh3.googleusercontent.com/steven");
+    expect(by["Bob"]).toBeUndefined();
+    expect(JSON.stringify(out)).not.toContain("owner1");
+    // The API key never reaches the browser.
+    expect(JSON.stringify(out)).not.toContain("key=");
+  });
 });

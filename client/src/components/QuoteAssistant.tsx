@@ -15,21 +15,9 @@ interface Message {
   content: string;
 }
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
-  year: string;
-  make: string;
-  model: string;
-  service: string;
-}
-
-// Global store so GetAQuote page can read the pre-filled data
-export const quoteAssistantStore = {
-  formData: null as FormData | null,
-};
+// Global store so the quote form on /get-a-quote can read the pre-filled data (lives in its own module).
+import { quoteAssistantStore, type AssistantFormData as FormData } from "@/lib/quoteAssistantStore";
+export { quoteAssistantStore };
 
 const GREETING =
   "Hey there! 👋 I'm the Skyline Customs Quote Assistant. I'll help you get a custom quote in about 60 seconds. What's your first name?";

@@ -1,11 +1,12 @@
 /**
  * One review list for every review block on the site.
  *
- * Sources, merged and de-duplicated by reviewer name:
- *   1. Live Google reviews from the server (trpc.site.googleReviews: the Places
- *      API returns the 5 newest and 5 most relevant, cached for 6 hours).
- *   2. The curated list in components/Testimonials.tsx (older reviews the
- *      Places API no longer returns).
+ * Sources, merged and de-duplicated by reviewer and date:
+ *   1. Live Google reviews from the server (trpc.site.googleReviews: every review
+ *      the Places API has returned since the archive started, checked hourly, with
+ *      reviewers' own car photos from the listing).
+ *   2. The snapshot in shared/googleReviews.json (the same real reviews, for the
+ *      first render without the live feed; scripts/sync-reviews.mjs refreshes it).
  *
  * Ordering: reviews that mention the page's focus (full front PPF and ceramic
  * coating by default) come first, newest first; then everything else, newest
@@ -68,15 +69,26 @@ const initialsOf = (n: string) => n.split(" ").filter(Boolean).slice(0, 2).map((
 
 export interface SiteReview extends Review { live?: boolean }
 
-/** Live + curated reviews, ranked for the given focus, with the live rating and total when available. */
+/** Live + snapshot reviews (same review = same author and date), ranked for the given focus, with the live rating and total when available. */
 export function useSiteReviews(focus: ReviewFocus[] = ["ppf", "ceramic"]): { reviews: SiteReview[]; rating?: number; total?: number } {
   const { data: live } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000, retry: false });
   return useMemo(() => {
     const fromLive: SiteReview[] = (live?.reviews ?? [])
       .filter((r) => r.rating >= 4 && r.text?.trim())
-      .map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text.trim(), photo: r.photo, live: true }));
-    const names = new Set(fromLive.map((r) => r.name.toLowerCase()));
-    const fromStatic: SiteReview[] = ALL_REVIEWS.filter((r) => !names.has(r.name.toLowerCase())).map((r) => ({ ...r, service: serviceTag(r.text, r.service) }));
+      .map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text.trim(), time: r.time, photo: r.photo, jobPhoto: r.jobPhoto, live: true }));
+    const seen = new Set(fromLive.map((r) => `${r.name}|${r.time}`));
+    // Snapshot reviews carry real dates too, so they rank as live ones do.
+    const fromStatic: SiteReview[] = ALL_REVIEWS.filter((r) => !seen.has(`${r.name}|${r.time}`)).map((r) => ({ ...r, service: serviceTag(r.text), live: true }));
     return { reviews: rankReviews([...fromLive, ...fromStatic], focus), rating: live?.rating, total: live?.total };
   }, [live, focus.join(",")]);
+}
+
+/**
+ * The shop's Google rating and review count, live from the Places API (trpc.site.googleReviews, refreshed
+ * hourly on the server and server-rendered on most pages). Undefined while loading or when the API is
+ * unavailable: callers then leave the number out instead of showing one that has drifted.
+ */
+export function useGoogleRating(): { rating?: number; total?: number } {
+  const { data } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000, retry: false });
+  return { rating: data?.rating, total: data?.total };
 }

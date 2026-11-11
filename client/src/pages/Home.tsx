@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import type { BookingService } from "@/components/BookingModal";
 import SEO from "@/components/SEO";
 import Testimonials from "@/components/Testimonials";
+import { useGoogleRating } from "@/lib/reviews";
 import ActivePromoBanner from "@/components/ActivePromoBanner";
 import BrandMarquee from "@/components/BrandMarquee";
 import CompareLinks from "@/components/CompareLinks";
@@ -15,6 +16,8 @@ import VehicleLinks from "@/components/VehicleLinks";
 import { SUPPLIERS, VEHICLE_MAKES } from "@shared/brands";
 import { responsiveImage, variantUrl } from "@/lib/responsiveImage";
 const VideoSection = lazy(() => import("@/components/VideoSection"));
+// Below the fold: the form (and its year/make/model lists) loads in its own chunk, not the main bundle.
+const QuoteSection = lazy(() => import("@/components/QuoteSection"));
 const InstagramSection = lazy(() => import("@/components/InstagramSection"));
 
 const HERO_IMAGE = "/images/hero-bg.webp";
@@ -345,6 +348,7 @@ function ThisMonthsSpecialBanner() {
 }
 
 export default function Home() {
+  const { rating: googleRating, total: googleTotal } = useGoogleRating();
 
   return (
     <div className="min-h-screen bg-[oklch(0.10_0.005_285)] text-[oklch(0.95_0.005_85)]">
@@ -433,13 +437,13 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/get-a-quote"
+              <a
+                href="#get-quote"
                 className="cta flex items-center justify-center gap-3 bg-brand-orange text-black font-display text-lg tracking-widest px-10 py-5 hover:bg-orange-600 transition-all duration-200 hover:scale-[1.02] group"
               >
                 GET A FREE QUOTE
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -539,6 +543,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── QUOTE FORM: the shared three-step form, right on the home page ────── */}
+      <Suspense fallback={<section id="get-quote" className="min-h-[780px] lg:min-h-[640px] bg-[#140C07] border-y border-[#E85D04]/30" />}>
+        <QuoteSection
+          heading={<>GET YOUR EXACT PRICE<br />IN UNDER 2 MINUTES</>}
+          text="Pick the service, tell us the car, and a Skyline specialist texts you a written quote, usually within the hour."
+          dataForm="quote-home"
+        />
+      </Suspense>
+
       {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
       <Testimonials />
 
@@ -556,7 +569,7 @@ export default function Home() {
         <div className="container max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
-              { icon: Star, label: "140+", sub: "5-Star Reviews" },
+              { icon: Star, label: googleTotal ? String(googleTotal) : "5.0★", sub: googleTotal && googleRating ? `Google Reviews · ${googleRating.toFixed(1)}★` : "Rated on Google" },
               { icon: Shield, label: "12-Year", sub: "PPF Warranty" },
               { icon: Wrench, label: "1,000+", sub: "Vehicles Protected" },
               { icon: CheckCircle, label: "STEK", sub: "Certified Installer" },

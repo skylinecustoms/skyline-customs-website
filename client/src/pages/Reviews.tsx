@@ -9,21 +9,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { ALL_REVIEWS, Avatar } from "@/components/Testimonials";
+import { Avatar, JobPhoto } from "@/components/Testimonials";
 import { GOOGLE_MAPS_URL, GOOGLE_REVIEW_URL } from "@/lib/social";
-import { trpc } from "@/lib/trpc";
-import { rankReviews, serviceTag } from "@/lib/reviews";
-
-const COLORS = ["#7C3AED", "#0891B2", "#D97706", "#DB2777", "#16A34A", "#2563EB"];
-const initialsOf = (n: string) => n.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+import { useSiteReviews } from "@/lib/reviews";
 
 export default function Reviews() {
-  const { data: live } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000 });
-  const liveReviews = (live?.reviews ?? []).map((r, i) => ({ name: r.author, initials: initialsOf(r.author), avatarColor: COLORS[i % COLORS.length], rating: r.rating, date: r.when, service: serviceTag(r.text), text: r.text, photo: r.photo, live: true }));
-  const staticNames = new Set(liveReviews.map((r) => r.name));
-  const reviews = rankReviews([...liveReviews, ...ALL_REVIEWS.filter((r) => !staticNames.has(r.name))]);
-  const total = live?.total ? `${live.total} Google reviews` : "140+ Google reviews";
-  const rating = live?.rating ? live.rating.toFixed(1) : "5.0";
+  // Live Google reviews (with reviewers' car photos) plus the real-review snapshot, newest and most on-topic first.
+  const { reviews, rating: liveRating, total: liveTotal } = useSiteReviews();
+  const total = liveTotal ? `${liveTotal} Google reviews` : "Google reviews";
+  const rating = liveRating ? liveRating.toFixed(1) : "5.0";
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-['DM_Sans',sans-serif]">
       <SEO
@@ -76,10 +70,11 @@ export default function Reviews() {
         <div className="container">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
             {reviews.map((r) => (
-              <article key={`${r.name}-${r.date}`} className="bg-[#0D0D0D] p-8 flex flex-col">
+              <article key={`${r.name}-${r.time ?? r.date}`} className="bg-[#0D0D0D] p-8 flex flex-col">
                 <Quote className="w-6 h-6 text-[#E85D04] mb-4" />
                 <div className="flex mb-3">{[...Array(r.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-[#E85D04] text-[#E85D04]" />)}</div>
-                <p className="text-zinc-300 text-sm leading-relaxed flex-1">"{r.text}"</p>
+                <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{r.text}"</p>
+                {r.jobPhoto && <JobPhoto review={r} className="mt-5" />}
                 <div className="mt-6 flex items-center gap-3">
                   <Avatar review={r} />
                   <div>

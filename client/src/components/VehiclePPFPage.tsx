@@ -15,12 +15,21 @@ import VideoCarousel from "@/components/VideoCarousel";
 import { VIDEOS } from "@/lib/videos";
 import type { VehicleBrand } from "@/lib/modelPpf";
 import VehicleLinks from "@/components/VehicleLinks";
+import QuoteSection from "@/components/QuoteSection";
 import { trpc } from "@/lib/trpc";
 import { withJobSlugs } from "@shared/galleryJobs";
 import { responsiveImage } from "@/lib/responsiveImage";
 
 const BASE_URL = "https://www.skylinecustomshop.com";
 const ICONS = [Shield, Zap, Star];
+
+/** Some brand pages are really one model line: the Corvette page is a Chevrolet Corvette, the Bronco page a Ford Bronco. */
+const PAGE_VEHICLE: Record<string, { make: string; model?: string }> = {
+  Corvette: { make: "Chevrolet", model: "Corvette" },
+  Bronco: { make: "Ford", model: "Bronco" },
+};
+export const vehicleFor = (brandName: string): { make: string; model?: string } => PAGE_VEHICLE[brandName] ?? { make: brandName };
+const quoteQuery = (brandName: string) => { const v = vehicleFor(brandName); return `make=${encodeURIComponent(v.make)}${v.model ? `&model=${encodeURIComponent(v.model)}` : ""}`; };
 
 export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -47,8 +56,8 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
             "areaServed": { "@type": "State", "name": "Virginia" },
             "provider": { "@type": "AutoBodyShop", "name": "Skyline Custom Shop", "url": BASE_URL, "telephone": "+17037754383" },
             "offers": [
-              { "@type": "Offer", "name": `Full Front PPF (${brand.name})`, "url": `${BASE_URL}/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}` },
-              { "@type": "Offer", "name": `Partial Front PPF (${brand.name})`, "url": `${BASE_URL}/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}` },
+              { "@type": "Offer", "name": `Full Front PPF (${brand.name})`, "url": `${BASE_URL}/get-a-quote?service=ppf&${quoteQuery(brand.name)}` },
+              { "@type": "Offer", "name": `Partial Front PPF (${brand.name})`, "url": `${BASE_URL}/get-a-quote?service=ppf&${quoteQuery(brand.name)}` },
             ],
           },
           { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": brand.faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) },
@@ -82,9 +91,9 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
             ))}
           </div>
           <div className="flex flex-wrap gap-4">
-            <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}`} className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
+            <a href="#get-quote" className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
               GET MY {brand.name.toUpperCase()} QUOTE <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
             <a href="tel:+17037754383" className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2">
               <Phone className="w-4 h-4" /> (703) 775-4383
             </a>
@@ -115,7 +124,7 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
                 <h3 className="text-white font-semibold text-lg">{m.name}</h3>
                 <p className="text-zinc-400 text-sm mt-1 flex-1">{m.note}</p>
                 <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4">
-                  <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}&model=${encodeURIComponent(m.name)}`} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white">Quote my {m.name} →</Link>
+                  <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(vehicleFor(brand.name).make)}&model=${encodeURIComponent(m.name)}`} className="text-[#E85D04] text-xs font-bold tracking-widest uppercase hover:text-white">Quote my {m.name} →</Link>
                   {m.href && <Link href={m.href} className="text-zinc-400 text-xs font-bold tracking-widest uppercase hover:text-white underline underline-offset-2 decoration-1">Model guide</Link>}
                 </div>
               </div>
@@ -191,15 +200,8 @@ export default function VehiclePPFPage({ brand }: { brand: VehicleBrand }) {
 
       <Testimonials title={`WHAT ${brand.name.toUpperCase()} OWNERS SAY ABOUT OUR PPF`} />
 
-      <section className="py-20 bg-[#E85D04]">
-        <div className="container max-w-3xl text-center">
-          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">PROTECT IT BEFORE THE FIRST CHIP</h2>
-          <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">Tell us your model and we'll send exact pricing, usually within the hour.</p>
-          <Link href={`/get-a-quote?service=ppf&make=${encodeURIComponent(brand.name)}`} className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 inline-flex items-center gap-2 transition-colors">
-            GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
+      {/* Quote form right on the page, make (and model where the page is one) already filled in */}
+      <QuoteSection heading="PROTECT IT BEFORE THE FIRST CHIP" text="Tell us your model and we'll send exact pricing, usually within the hour." dataForm="quote-brand" presetService="PPF" presetVehicle={vehicleFor(brand.name)} eyebrow={`${brand.name} PPF quote`} />
 
       <VehicleLinks current={brand.slug} />
 

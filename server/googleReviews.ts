@@ -11,21 +11,16 @@ import { ENV } from "./_core/env";
 import { getDb } from "./db";
 import { siteSettings } from "../drizzle/schema";
 
-export interface GoogleReview { author: string; rating: number; when: string; text: string; time: number; /** Reviewer profile picture (Google-hosted). */ photo?: string }
+/** A photo the reviewer posted to the shop's Google listing (Places API photos, matched to the review by author name). */
+export interface ReviewJobPhoto { url: string; width: number; height: number }
+export interface GoogleReview { author: string; rating: number; when: string; text: string; time: number; /** Reviewer profile picture (Google-hosted). */ photo?: string; /** Their photo of the car, when they posted one on Google. */ jobPhoto?: ReviewJobPhoto }
 export interface GoogleReviewSummary { rating: number; total: number; reviews: GoogleReview[]; fetchedAt: number }
 
 const TTL_MS = 60 * 60 * 1000;
 const ARCHIVE_KEY = "google:reviews-archive";
 
-/** "in the last week", "3 weeks ago", "2 months ago", "a year ago": Google's wording, worked out from the review's date so archived ones stay right. */
-export function relativeWhen(timeSec: number, now = Date.now()): string {
-  const days = Math.max(0, (now / 1000 - timeSec) / 86400);
-  if (days < 7) return "in the last week";
-  if (days < 30) { const w = Math.floor(days / 7); return w === 1 ? "a week ago" : `${w} weeks ago`; }
-  if (days < 365) { const m = Math.floor(days / 30); return m === 1 ? "a month ago" : `${m} months ago`; }
-  const y = Math.floor(days / 365);
-  return y === 1 ? "a year ago" : `${y} years ago`;
-}
+export { relativeWhen } from "../shared/reviewTime";
+import { relativeWhen } from "../shared/reviewTime";
 
 async function readArchive(): Promise<GoogleReview[]> {
   const db = await getDb();
@@ -43,6 +38,36 @@ async function writeArchive(list: GoogleReview[]): Promise<void> {
   else await db.insert(siteSettings).values({ key: ARCHIVE_KEY, value });
 }
 let cache: { at: number; data: GoogleReviewSummary | null } | null = null;
+
+const norm = (n: string) => n.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toLowerCase();
+
+/**
+ * Photos reviewers posted to the listing, keyed by author name. Places API (New) lists the listing's photos with
+ * who posted each; a photo whose author is also a reviewer is that customer's own picture of their car, so it is
+ * shown on their review. The media URL comes from the photo's media endpoint (skipHttpRedirect, so the key never
+ * reaches the browser) and is refreshed with every hourly check. Owner photos ("Skyline Customs") are never used.
+ */
+export async function fetchReviewerPhotos(authors: string[], key = ENV.googlePlacesApiKey, placeId = ENV.googlePlaceId): Promise<Map<string, ReviewJobPhoto>> {
+  const out = new Map<string, ReviewJobPhoto>();
+  const wanted = new Set(authors.map(norm));
+  try {
+    const r = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`, { headers: { "X-Goog-Api-Key": key, "X-Goog-FieldMask": "photos" } });
+    if (!r.ok) throw new Error(`Places photos: HTTP ${r.status}`);
+    const j = (await r.json()) as { photos?: { name: string; widthPx: number; heightPx: number; authorAttributions?: { displayName?: string }[] }[] };
+    for (const p of j.photos ?? []) {
+      const who = norm(p.authorAttributions?.[0]?.displayName ?? "");
+      if (!who || !wanted.has(who) || out.has(who)) continue;
+      const m = await fetch(`https://places.googleapis.com/v1/${p.name}/media?maxWidthPx=800&skipHttpRedirect=true`, { headers: { "X-Goog-Api-Key": key } });
+      const mj = (await m.json().catch(() => ({}))) as { photoUri?: string };
+      if (!m.ok || !mj.photoUri?.startsWith("https://")) continue;
+      const scale = Math.min(1, 800 / (p.widthPx || 800));
+      out.set(who, { url: mj.photoUri, width: Math.round((p.widthPx || 800) * scale), height: Math.round((p.heightPx || 600) * scale) });
+    }
+  } catch (err) {
+    console.warn("[googleReviews] reviewer photos skipped:", (err as Error).message);
+  }
+  return out;
+}
 
 /** The listing's name, website, phone and address as Google currently has them (health diagnostic, not cached). */
 export async function getGoogleListing(): Promise<{ name?: string; website?: string; phone?: string; address?: string; status: string } | null> {
@@ -82,6 +107,9 @@ export async function getGoogleReviews(): Promise<GoogleReviewSummary | null> {
     let added = 0;
     for (const r of reviews) { const k = `${r.author}|${r.time}`; if (!byKey.has(k)) added++; byKey.set(k, r); }
     const all = Array.from(byKey.values()).sort((x, y) => y.time - x.time);
+    // Each reviewer's own photo of their car, when they posted one (fresh URL every refresh; old ones dropped).
+    const jobPhotos = await fetchReviewerPhotos(all.map((r) => r.author));
+    for (const r of all) { const p = jobPhotos.get(norm(r.author)); if (p) r.jobPhoto = p; else delete r.jobPhoto; }
     if (added || all.length !== archive.length) {
       await writeArchive(all).catch((err) => console.warn("[googleReviews] archive write failed:", (err as Error).message));
       if (added) console.log(`[googleReviews] ${added} new review(s) added; ${all.length} on the site`);

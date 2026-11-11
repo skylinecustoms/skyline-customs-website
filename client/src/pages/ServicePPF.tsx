@@ -21,6 +21,7 @@ import LocalBanner from "@/components/LocalBanner";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExitPrompt from "@/components/ExitPrompt";
+import QuoteSection from "@/components/QuoteSection";
 import LeadPulse from "@/components/LeadPulse";
 import { promoTagFor } from "@/components/PromoQuoteForm";
 import { timeLeftLabel } from "@/pages/JuneSpecial";
@@ -459,21 +460,8 @@ export default function ServicePPF() {
 
       <Testimonials title="WHAT PPF CUSTOMERS SAY" />
 
-      {/* CTA */}
-      <section className="py-24 bg-[#E85D04]">
-        <div className="container text-center">
-          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-7xl text-white mb-4">PROTECT IT BEFORE THE FIRST CHIP</h2>
-          <p className="text-black/90 text-lg mb-10 max-w-xl mx-auto">Send us the year, make, and model. We reply with exact pricing, usually within the hour, and book you into the bay.</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/get-a-quote?service=ppf" className="cta cta-alt bg-black text-white hover:bg-zinc-900 font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2">
-              GET MY PPF QUOTE <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a href="tel:+17037754383" className="cta cta-alt border-2 border-black/70 text-black hover:bg-black hover:text-white font-bold tracking-widest uppercase px-10 py-4 transition-all duration-200 inline-flex items-center gap-2">
-              <Phone className="w-4 h-4" /> CALL (703) 775-4383
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Quote form right on the page (the shared three-step form, PPF picked) */}
+      <QuoteSection heading="PROTECT IT BEFORE THE FIRST CHIP" text="Send us the year, make, and model. We reply with exact pricing, usually within the hour, and book you into the bay." dataForm="quote-service" presetService="PPF" eyebrow="PPF quote" />
 
       <LocalBanner localHref="/service-areas" serviceName="PPF" />
 

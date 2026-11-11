@@ -11,6 +11,7 @@ import { Link } from "wouter";
 import { PPF_QUESTIONS } from "@/lib/ppfQuestions";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import QuoteSection from "@/components/QuoteSection";
 import Testimonials from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import NearbyAreas from "@/components/NearbyAreas";
@@ -210,11 +211,11 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
               ))}
             </div>
             <div className="flex flex-wrap gap-4">
-              <Link href={`/get-a-quote?service=${svc.quoteParam}`}
+              <a href="#get-quote"
                 className="cta bg-[#E85D04] hover:bg-[#d14e00] text-black font-bold tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 inline-flex items-center gap-2"
               >
                 GET A FREE QUOTE <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
               <a href="tel:+17037754383"
                 className="cta cta-alt border border-zinc-600 hover:border-[#E85D04] text-zinc-300 hover:text-white font-bold tracking-widest uppercase px-8 py-4 transition-all inline-flex items-center gap-2"
               >
@@ -332,27 +333,8 @@ export default function LocalServicePage({ city: cityName, service: serviceKey }
 
       <Testimonials title={svc.testimonialsTitle(city.name)} focus={[serviceKey]} />
 
-      {/* CTA */}
-      <section className="py-20 bg-[#E85D04]">
-        <div className="container max-w-3xl text-center">
-          <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white mb-4">
-            {svc.ctaHeading}
-          </h2>
-          <p className="text-black/90 text-lg mb-8 max-w-xl mx-auto">{svc.ctaText(city)}</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href={`/get-a-quote?service=${svc.quoteParam}`}
-              className="cta cta-alt bg-black hover:bg-zinc-900 text-white font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
-            >
-              GET MY FREE QUOTE <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a href="tel:+17037754383"
-              className="cta cta-alt border-2 border-black/70 hover:bg-black hover:text-white text-black font-bold tracking-widest uppercase px-10 py-4 transition-colors inline-flex items-center gap-2"
-            >
-              <Phone className="w-4 h-4" /> CALL NOW
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Quote form right on the page (was a link to /get-a-quote) */}
+      <QuoteSection heading={svc.ctaHeading} text={svc.ctaText(city)} dataForm="quote-city" presetService={svc.quoteParam} eyebrow={`Free ${svc.label.toLowerCase()} quote`} />
 
       {serviceKey === "ppf" && (
         <section className="py-10 bg-[#0D0D0D] border-t border-zinc-800">

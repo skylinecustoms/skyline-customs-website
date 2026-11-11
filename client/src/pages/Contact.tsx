@@ -1,30 +1,10 @@
-import { useState } from "react";
 import { getLive, hoursSchema } from "@shared/live";
 import { Phone, Mail, MapPin, Clock, Instagram, Youtube, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { Link } from "wouter";
 import Footer from "@/components/Footer";
-import WhatHappensNext from "@/components/WhatHappensNext";
+import QuoteSteps from "@/components/QuoteSteps";
 import SEO from "@/components/SEO";
-import { leadJourney, track, trackLead } from "@/lib/analytics";
-import { usePartialLead } from "@/lib/partialLead";
-import { trpc } from "@/lib/trpc";
-import SmsConsent from "@/components/SmsConsent";
-
-// GHL field IDs (from the live form inspection)
-// first_name, last_name, phone, email (standard)
-// 2YNQZIRvWYEjqdJ2UGVw = Make
-// DAjqA7njYRUfAh7t67Xb = Model
-// n5O64Bp2FJvBK5GsVSnV = Year
-// j9D2tGUUK4qUONagWL71 = Service (radio)
-
-const SERVICE_OPTIONS = [
-  { value: "PPF", label: "Paint Protection Film (PPF)" },
-  { value: "Tints", label: "Window Tinting" },
-  { value: "Ceramic Coating", label: "Ceramic Coating" },
-  { value: "Multiple Services - Bundle & Save", label: "Multiple Services — Bundle & Save" },
-  { value: "Not Sure Yet", label: "Not Sure Yet" },
-];
 
 const CONTACT_FAQS = [
   { q: "Do I need an appointment, or can I walk in?", a: "Quotes and questions are welcome any time during business hours, Monday to Friday, 9 AM to 6 PM. Installs are by appointment so the bay is ready for your car. Request a quote online or call (703) 775-4383 and we will book a slot, often within the same week." },
@@ -34,60 +14,6 @@ const CONTACT_FAQS = [
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    make: "",
-    model: "",
-    year: "",
-    service: "",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  usePartialLead("contact", { firstName: form.firstName, lastName: form.lastName, phone: form.phone, email: form.email, service: form.service }, submitted);
-
-  const submitContact = trpc.contact.submit.useMutation({
-    onSuccess: () => {
-      setSubmitted(true);
-      setErrorMsg("");
-      trackLead("contact_form", form.service);
-    },
-    onError: (err) => {
-      setErrorMsg("Something went wrong. Please call us at (703) 775-4383 or try again.");
-      track("form_error", { form_id: "contact", error_message: String(err?.message ?? err).slice(0, 100) });
-      console.error("[Contact form error]", err);
-    },
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMsg("");
-    const journey = await leadJourney();
-    submitContact.mutate({
-      journey,
-      formId: "contact",
-      firstName: form.firstName,
-      lastName: form.lastName,
-      email: form.email,
-      phone: form.phone || undefined,
-      make: form.make || undefined,
-      model: form.model || undefined,
-      year: form.year || undefined,
-      service: form.service || undefined,
-      message: form.message || undefined,
-    });
-  };
-
-  const set = (field: keyof typeof form) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
-
-  const inputClass =
-    "w-full bg-[oklch(0.16_0.006_285)] border border-[oklch(0.25_0.006_285)] text-[oklch(0.85_0.008_85)] px-4 py-3 text-sm focus:outline-none focus:border-brand-orange transition-colors placeholder:text-[oklch(0.40_0.006_285)]";
-
   const labelClass =
     "font-mono-brand text-xs text-brand-orange uppercase tracking-widest block mb-2";
 
@@ -236,167 +162,9 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* ── Right: Send a Message Form ── */}
-            <div className="lg:col-span-2 bg-[oklch(0.12_0.005_285)] p-8 lg:p-10">
-              {submitted ? (
-                <WhatHappensNext service={form.service} name={form.firstName.trim() || undefined} />
-              ) : (
-                <>
-                  <h2 className="font-display text-3xl text-[oklch(0.96_0.008_85)] tracking-wider mb-8">
-                    SEND A MESSAGE
-                  </h2>
-
-                  <form onSubmit={handleSubmit} data-form="contact" className="space-y-5">
-
-                    {/* Row 1: First Name + Last Name */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className={labelClass}>First Name *</label>
-                        <input
-                          type="text"
-                          required
-                          value={form.firstName}
-                          onChange={set("firstName")}
-                          className={inputClass}
-                          placeholder="John"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Last Name *</label>
-                        <input
-                          type="text"
-                          required
-                          value={form.lastName}
-                          onChange={set("lastName")}
-                          className={inputClass}
-                          placeholder="Smith"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 2: Phone + Email */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className={labelClass}>Phone *</label>
-                        <input
-                          type="tel"
-                          required
-                          value={form.phone}
-                          onChange={set("phone")}
-                          className={inputClass}
-                          placeholder="(703) 000-0000"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Email *</label>
-                        <input
-                          type="email"
-                          required
-                          value={form.email}
-                          onChange={set("email")}
-                          className={inputClass}
-                          placeholder="john@example.com"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 3: Make + Model + Year */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                      <div>
-                        <label className={labelClass}>Make *</label>
-                        <input
-                          type="text"
-                          required
-                          value={form.make}
-                          onChange={set("make")}
-                          className={inputClass}
-                          placeholder="Tesla"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Model *</label>
-                        <input
-                          type="text"
-                          required
-                          value={form.model}
-                          onChange={set("model")}
-                          className={inputClass}
-                          placeholder="Model Y"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Year *</label>
-                        <input
-                          type="number"
-                          required
-                          min={1990}
-                          max={2030}
-                          value={form.year}
-                          onChange={set("year")}
-                          className={inputClass}
-                          placeholder="2024"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Service Radio Buttons */}
-                    <div>
-                      <label className={labelClass}>Service *</label>
-                      <p className="text-zinc-400 text-xs mb-3">Managing more than one vehicle, or a dealership? <Link href="/fleet-ppf" className="text-[#E85D04] underline underline-offset-2 decoration-1 hover:decoration-2">Use the fleet form</Link> for per-unit pricing.</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {SERVICE_OPTIONS.map((opt) => (
-                          <label
-                            key={opt.value}
-                            className={`flex items-center gap-3 px-4 py-3 border cursor-pointer transition-colors ${
-                              form.service === opt.value
-                                ? "border-brand-orange bg-[oklch(0.16_0.006_285)]"
-                                : "border-[oklch(0.25_0.006_285)] bg-[oklch(0.14_0.005_285)] hover:border-[oklch(0.35_0.008_285)]"
-                            }`}
-                          >
-                            <input
-                              type="radio"
-                              name="service"
-                              value={opt.value}
-                              checked={form.service === opt.value}
-                              onChange={set("service")}
-                              className="accent-brand-orange w-4 h-4 shrink-0"
-                            />
-                            <span className="text-[oklch(0.80_0.008_85)] text-sm">{opt.label}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Message */}
-                    <div>
-                      <label className={labelClass}>Message</label>
-                      <textarea
-                        value={form.message}
-                        onChange={set("message")}
-                        rows={4}
-                        className={`${inputClass} resize-none`}
-                        placeholder="Tell us about your vehicle and what you're looking for..."
-                      />
-                    </div>
-
-                    {errorMsg && (
-                      <p className="text-red-400 text-sm">{errorMsg}</p>
-                    )}
-
-                    <button
-                      type="submit"
-                      disabled={submitContact.isPending}
-                      className="cta w-full bg-brand-orange text-[oklch(0.10_0.005_285)] font-display text-base tracking-widest py-4 hover:bg-[oklch(0.72_0.21_40)] transition-colors flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                      {submitContact.isPending ? "SENDING..." : "SEND MESSAGE"}
-                      {!submitContact.isPending && (
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                      )}
-                    </button>
-                    <SmsConsent className="mt-3" />
-                  </form>
-                </>
-              )}
+            {/* ── Right: the shared three-step quote form (formId "contact" keeps the CRM source and tags) ── */}
+            <div className="lg:col-span-2 bg-[oklch(0.12_0.005_285)] p-4 sm:p-6 lg:p-8">
+              <QuoteSteps formId="contact" title="SEND A MESSAGE" submitLabel="SEND MESSAGE" noteOpen compact tosCheckbox={false} />
             </div>
           </div>
         </div>

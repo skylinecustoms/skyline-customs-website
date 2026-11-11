@@ -1,12 +1,15 @@
 /**
  * SKYLINE CUSTOMS — Testimonials Carousel
- * Real Google Business reviews (5.0 ★ · 141 reviews)
+ * Real Google Business reviews: live from the Places API (server, hourly), falling back to the snapshot in
+ * shared/googleReviews.json (scripts/sync-reviews.mjs). Rating and count are live, never typed in.
  * Design: Industrial Brutalism | Dark matte black + burnt orange (#E85D04)
  */
 
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { useSiteReviews, type ReviewFocus } from "@/lib/reviews";
+import snapshot from "@shared/googleReviews.json";
+import { relativeWhen } from "@shared/reviewTime";
 
 export interface Review {
   name: string;
@@ -16,166 +19,33 @@ export interface Review {
   date: string;
   service: string;
   text: string;
+  /** Review date (Unix seconds), when known: the "3 weeks ago" label is worked out from it. */
+  time?: number;
   /** Reviewer profile picture from Google, when available. */
   photo?: string;
+  /** The reviewer's own photo of their car from the Google listing (live feed only; URLs are short-lived). */
+  jobPhoto?: { url: string; width: number; height: number };
 }
 
-// Real reviews from Skyline Customs Google Business Profile (5.0 ★ · 141 reviews)
-export const ALL_REVIEWS: Review[] = [
-  {
-    name: "Henry Gates",
-    initials: "HG",
-    avatarColor: "#7C3AED",
-    rating: 5,
-    date: "in the last week",
-    service: "Auto Protection",
-    text: "The guys done a outstanding job they were very professional and didn’t hesitated to help and making the customer happy job well done",
-  },
-  {
-    name: "von rob",
-    initials: "VR",
-    avatarColor: "#D97706",
-    rating: 5,
-    date: "in the last week",
-    service: "PPF + Ceramic Coating",
-    text: "Communicated very well in informing me about their PPF and ceramic coating offers. My truck was ready at our scheduled pickup time and they did a great job.",
-  },
-  {
-    name: "Mark Baker",
-    initials: "MB",
-    avatarColor: "#DB2777",
-    rating: 5,
-    date: "a week ago",
-    service: "Window Tinting",
-    text: "This crew knows how to provide excellent customer service and are very professional. I walked in on a Thursday asking if I could get my car tinted next week and by Sunday afternoon the excellent job was completed. Trust me, if you need tinting (or any of the other services they provide) this is the place to go. Excellent communication throughout the process and just very pleasant to deal with. Plus, the car looks great!",
-  },
-  {
-    name: "Chris Hons",
-    initials: "CH",
-    avatarColor: "#16A34A",
-    rating: 5,
-    date: "2 weeks ago",
-    service: "Ceramic Coating",
-    text: "I can’t say enough good things about my ceramic coat. I took a picture of it to show my friend and it literally looked like it was a mirror. Scheduling was easy. Payment was easy. Everything about the process was easy with top quality results. You won’t be disappointed! Thanks Mo!",
-  },
-  {
-    name: "Youngsu Kim",
-    initials: "YK",
-    avatarColor: "#2563EB",
-    rating: 5,
-    date: "2 months ago",
-    service: "PPF + Window Tinting",
-    text: "I highly recommend these guys! They did an excellent job on both the front end PPF installation and the two front window tints. The attention to detail they put into their work is awesome, and everything looks flawless. On top of the great quality, the staff is incredibly friendly and very flexible with scheduling. If you're looking for professional work and great customer service, this is the place to go. Highly recommended!",
-  },
-  {
-    name: "Paolo Miclat",
-    initials: "PM",
-    avatarColor: "#EA580C",
-    rating: 5,
-    date: "2 months ago",
-    service: "PPF + Ceramic Coating",
-    text: "Great people to deal with. Owner was very transparent with all their services and they offer payment plans. I got the front half of my car PPF'd and back half ceramic coated (one of the packages they offered) and has been raining for a few days on an off. You cant even tell it rained. The PPF and ceramic coat works as intended.",
-  },
-  {
-    name: "Clara Kim",
-    initials: "CK",
-    avatarColor: "#9333EA",
-    rating: 5,
-    date: "4 months ago",
-    service: "Window Tinting",
-    text: "Good friend of mine recommended me to get the tints done from skyline and i can confidently say that my car looks awesome. I work from 8:30-6 so they were super flexible with my schedule, letting me drop my car off in the morning and pick it up later. I appreciate the work and happy with it!!",
-  },
-  {
-    name: "Isra Ibrahim",
-    initials: "II",
-    avatarColor: "#4F46E5",
-    rating: 5,
-    date: "1 month ago",
-    service: "Ceramic Coating",
-    text: "From start to finish, the experience was top-notch. Clear communication, fair pricing, and incredible workmanship. The ceramic coating completely transformed the look of my car and the shine is unreal. You can tell they take pride in their work. Highly recommend!!!",
-  },
-  {
-    name: "Hassan Awan",
-    initials: "HA",
-    avatarColor: "#059669",
-    rating: 5,
-    date: "1 month ago",
-    service: "Tinting + Ceramic Coating",
-    text: "The boys at Skyline Customs took care of me with my Cybertruck — tints all around and got it ceramic coated as well. Came out flawless, and the service was quick and professional. Will be bringing my other vehicles here as well.",
-  },
-  {
-    name: "Jonathan Cao",
-    initials: "JC",
-    avatarColor: "#DC2626",
-    rating: 5,
-    date: "3 weeks ago",
-    service: "Window Tinting",
-    text: "Got my new-to-me car tinted by Skyline Customs. Everyone was super friendly and extremely patient — I had to reschedule multiple times and they were very accommodating. Professional quality work done at a great price. Highly recommend and will be returning for future work!",
-  },
-  {
-    name: "Issac Tecle",
-    initials: "IT",
-    avatarColor: "#7C3AED",
-    rating: 5,
-    date: "1 month ago",
-    service: "Window Tinting",
-    text: "Top-tier service and excellent quality. Out of all the cars I've ever had tinted I've never received this level of expertise. The edges are perfect, there's not a single bubble. The tints look amazing and the staff was super friendly.",
-  },
-  {
-    name: "Omhani Mohamed",
-    initials: "OM",
-    avatarColor: "#0891B2",
-    rating: 5,
-    date: "1 month ago",
-    service: "Tinting + Ceramic Coating",
-    text: "Skyline Customs did an amazing job on my Tahoe. I came in for tint and ceramic coating, and the results honestly exceeded my expectations. You can tell they really care about their work and about their customers. My truck looks incredible.",
-  },
-  {
-    name: "Mohamed Ahmed",
-    initials: "MA",
-    avatarColor: "#D97706",
-    rating: 5,
-    date: "1 month ago",
-    service: "Tinting + Ceramic Coating",
-    text: "I had my window tints and ceramic coating done by Skyline Customs, and the entire experience was top-tier from start to finish. Communication was clear and consistent, the process was smooth, and the work itself was done at a very high standard.",
-  },
-  {
-    name: "Md Israil",
-    initials: "MI",
-    avatarColor: "#BE185D",
-    rating: 5,
-    date: "1 month ago",
-    service: "Window Tinting",
-    text: "I took my car to Skyline Customs to get the windows tinted and I'm very happy with how everything turned out. The staff was professional, respectful, and explained everything clearly without trying to upsell me. The work was done on time and at a fair price.",
-  },
-  {
-    name: "Md Moon",
-    initials: "MM",
-    avatarColor: "#0369A1",
-    rating: 5,
-    date: "1 month ago",
-    service: "Auto Detailing",
-    text: "I had a great experience with Skyline Customs. The quality of their work really stands out, and you can tell they take pride in what they do. Everything was done professionally, on time, and exactly how I wanted it. The staff was amazing.",
-  },
-  {
-    name: "Ai Ai",
-    initials: "AA",
-    avatarColor: "#15803D",
-    rating: 5,
-    date: "1 month ago",
-    service: "Ceramic Tinting",
-    text: "Just got my ceramic tints done at Skyline Custom and wow — my car looks completely different now. Definitely recommend this spot. Great pricing and amazing staff!",
-  },
-  {
-    name: "albedri m",
-    initials: "AM",
-    avatarColor: "#B45309",
-    rating: 5,
-    date: "3 weeks ago",
-    service: "Auto Detailing",
-    text: "Great service. Best work I've seen yet!!",
-  },
-];
+const COLORS = ["#7C3AED", "#0891B2", "#D97706", "#DB2777", "#16A34A", "#2563EB"];
+const initialsOf = (n: string) => n.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+
+/**
+ * Real reviews from the Skyline Customs Google Business Profile, exactly as Google returns them (author, rating,
+ * text, date, profile photo). Used when the live feed is not loaded; the live feed (newer, with the current
+ * rating and count) replaces it as soon as it is. Refresh with `node scripts/sync-reviews.mjs`.
+ */
+export const ALL_REVIEWS: Review[] = (snapshot.reviews as { author: string; rating: number; text: string; time: number; photo?: string }[]).map((r, i) => ({
+  name: r.author,
+  initials: initialsOf(r.author),
+  avatarColor: COLORS[i % COLORS.length],
+  rating: r.rating,
+  date: relativeWhen(r.time),
+  service: "Google Review",
+  text: r.text,
+  time: r.time,
+  photo: r.photo,
+}));
 
 interface TestimonialsProps {
   service?: string;
@@ -223,6 +93,28 @@ export function Avatar({ review, size = "w-10 h-10" }: { review: Pick<Review, "n
   );
 }
 
+/** The reviewer's own photo of their car, posted on Google. Hidden if Google stops serving it. */
+export function JobPhoto({ review, className = "" }: { review: Pick<Review, "name" | "jobPhoto">; className?: string }) {
+  const [broken, setBroken] = useState(false);
+  if (!review.jobPhoto || broken) return null;
+  return (
+    <figure className={className}>
+      <img
+        src={review.jobPhoto.url}
+        alt={`Photo ${review.name} posted with their Google review of Skyline Customs`}
+        width={review.jobPhoto.width}
+        height={review.jobPhoto.height}
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        onError={() => setBroken(true)}
+        className="w-full h-40 object-cover bg-[#111] border border-zinc-800"
+      />
+      <figcaption className="text-zinc-500 text-[11px] mt-1">Photo by {review.name} on Google</figcaption>
+    </figure>
+  );
+}
+
 function ReviewCard({ review, featured }: { review: Review; featured: boolean }) {
   return (
     <div
@@ -243,7 +135,9 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
       </div>
 
       {/* Review text */}
-      <p className="text-zinc-300 text-sm leading-relaxed flex-1">"{review.text}"</p>
+      <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{review.text}"</p>
+
+      {review.jobPhoto && <JobPhoto review={review} />}
 
       {/* Service tag */}
       <span className="text-[#E85D04] text-xs font-bold tracking-widest uppercase border border-[#E85D04]/30 px-2 py-0.5 self-start">
@@ -308,8 +202,8 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY", focus }
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 fill-[#E85D04] text-[#E85D04]" />
               ))}
-              <span className="text-[#E85D04] font-bold text-lg ml-1">{rating ? rating.toFixed(1) : "5.0"}</span>
-              <span className="text-zinc-400 text-sm ml-1">· {googleTotal ?? "140+"} Google reviews</span>
+              {rating && <span className="text-[#E85D04] font-bold text-lg ml-1">{rating.toFixed(1)}</span>}
+              <span className="text-zinc-400 text-sm ml-1">· {googleTotal ? `${googleTotal} Google reviews` : "Google reviews"}</span>
             </div>
             <h2 className="font-['Bebas_Neue',sans-serif] text-5xl md:text-6xl text-white leading-none">
               {title}

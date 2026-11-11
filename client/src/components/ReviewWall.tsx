@@ -5,13 +5,12 @@
  */
 import { useMemo, useState } from "react";
 import { Star, ExternalLink } from "lucide-react";
-import { trpc } from "@/lib/trpc";
-import { ALL_REVIEWS } from "@/components/Testimonials";
+import { Avatar, JobPhoto, type Review } from "@/components/Testimonials";
 import { GOOGLE_MAPS_URL } from "@/lib/social";
 import { track } from "@/lib/analytics";
-import { rankReviews } from "@/lib/reviews";
+import { useSiteReviews } from "@/lib/reviews";
 
-interface WallReview { name: string; date: string; text: string; rating: number; tags: string[]; live?: boolean; photo?: string }
+interface WallReview extends Review { tags: string[] }
 
 const SERVICE_TAGS: [string, RegExp][] = [
   ["PPF", /\bppf\b|paint protection|\bfilm\b|clear bra/i],
@@ -38,17 +37,13 @@ function tagsFor(service: string, text: string): string[] {
 const PAGE = 9;
 
 /** `initial`: how many cards show before "more"; the promo page keeps it short. */
-export default function ReviewWall({ total = "140+", initial = PAGE }: { total?: string; initial?: number }) {
-  const { data: live } = trpc.site.googleReviews.useQuery(undefined, { staleTime: 60 * 60 * 1000 });
+export default function ReviewWall({ total = "", initial = PAGE }: { total?: string; initial?: number }) {
+  // Same list as every other review block: live Google reviews plus the real-review snapshot, ranked.
+  const { reviews: site, rating, total: liveTotal } = useSiteReviews();
   const [filter, setFilter] = useState("All");
   const [shown, setShown] = useState(initial);
 
-  const reviews = useMemo<WallReview[]>(() => {
-    const fromLive = (live?.reviews ?? []).filter((r) => r.rating >= 4 && r.text?.trim()).map((r) => ({ name: r.author, date: r.when, text: r.text, rating: r.rating, tags: tagsFor("", r.text), live: true, photo: r.photo }));
-    const names = new Set(fromLive.map((r) => r.name));
-    const fromStatic = ALL_REVIEWS.filter((r) => !names.has(r.name)).map((r) => ({ name: r.name, date: r.date, text: r.text, rating: r.rating, tags: tagsFor(r.service, r.text) }));
-    return rankReviews([...fromLive, ...fromStatic]);
-  }, [live]);
+  const reviews = useMemo<WallReview[]>(() => site.map((r) => ({ ...r, tags: tagsFor("", r.text) })), [site]);
 
   const chips = useMemo(() => {
     const counts = new Map<string, number>();
@@ -58,16 +53,16 @@ export default function ReviewWall({ total = "140+", initial = PAGE }: { total?:
   }, [reviews]);
 
   const visible = (filter === "All" ? reviews : reviews.filter((r) => r.tags.includes(filter)));
-  const ratingLabel = live?.rating ? live.rating.toFixed(1) : "5.0";
-  const totalLabel = live?.total ? `${live.total}` : total;
+  const ratingLabel = rating ? rating.toFixed(1) : "";
+  const totalLabel = liveTotal ? `${liveTotal}` : total;
 
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-0.5">{[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-[#E85D04] text-[#E85D04]" />)}</div>
-          <span className="text-white text-sm font-bold">{ratingLabel}</span>
-          <span className="text-zinc-400 text-sm">· {totalLabel} Google reviews</span>
+          {ratingLabel && <span className="text-white text-sm font-bold">{ratingLabel}</span>}
+          <span className="text-zinc-400 text-sm">· {totalLabel ? `${totalLabel} Google reviews` : "Google reviews"}</span>
         </div>
         <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[#E85D04] text-xs font-bold tracking-wider uppercase underline underline-offset-2 decoration-1 hover:decoration-2">
           Read them on Google <ExternalLink className="w-3.5 h-3.5" />
@@ -91,11 +86,12 @@ export default function ReviewWall({ total = "140+", initial = PAGE }: { total?:
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {visible.slice(0, shown).map((r) => (
-          <figure key={`${r.name}-${r.date}`} className="border border-zinc-800 bg-[#0D0D0D] p-6 flex flex-col">
+          <figure key={`${r.name}-${r.time ?? r.date}`} className="border border-zinc-800 bg-[#0D0D0D] p-6 flex flex-col">
             <div className="flex items-center gap-0.5 mb-3">{[...Array(r.rating)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-[#E85D04] text-[#E85D04]" />)}</div>
-            <blockquote className="text-zinc-200 text-sm leading-relaxed flex-1">{r.text}</blockquote>
+            <blockquote className="text-zinc-200 text-sm leading-relaxed flex-1 whitespace-pre-line">{r.text}</blockquote>
+            {r.jobPhoto && <JobPhoto review={r} className="mt-4" />}
             <figcaption className="mt-5 pt-4 border-t border-zinc-800 flex items-center gap-3">
-              {r.photo && <img src={r.photo} alt="" aria-hidden="true" width={36} height={36} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="w-9 h-9 rounded-full object-cover border border-zinc-700 shrink-0 bg-[#111]" />}
+              <Avatar review={r} size="w-9 h-9" />
               <div>
               <p className="text-white font-bold text-sm">{r.name}</p>
               <p className="text-zinc-400 text-xs mt-0.5">
