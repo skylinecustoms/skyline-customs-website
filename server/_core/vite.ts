@@ -8,7 +8,7 @@ import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 import { pathToFileURL } from "node:url";
-import { getBlogPostBySlug , getAllBlogPosts } from "../db";
+import { getBlogPostBySlug, getBlogPostSummaries } from "../db";
 import { getGalleryRows } from "../galleryJobs";
 import { getGoogleReviews } from "../googleReviews";
 import { getActivePromoByActive, getPromoSlots, getArchivedPromoBySlug } from "../db";
@@ -57,7 +57,7 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
     // Every page with a review block renders the real Google reviews into the HTML (cached for an hour, so this is cheap).
     preload.googleReviews = (await getGoogleReviews().catch(() => null)) ?? undefined;
     // The blog index and every post list the other posts: render the list so crawlers see the links.
-    if (/^\/blog(\/|$)/.test(urlPath) || urlPath === "/") preload.blogList = await getAllBlogPosts().catch(() => undefined);
+    if (/^\/blog(\/|$)/.test(urlPath) || urlPath === "/") preload.blogList = await getBlogPostSummaries().catch(() => undefined);
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
     if (/^\/gallery(\/|$)|^\/services\/ppf$|-ppf$|^\/ppf-/.test(urlPath)) preload.gallery = await getGalleryRows().catch(() => undefined);
     // Every page: the promo strip under the nav (and the space it takes) renders with the page, so nothing jumps when it loads.

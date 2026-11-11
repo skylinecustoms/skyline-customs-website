@@ -5,7 +5,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { getAllBlogPosts, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo, getArchivedPromos } from "./db";
+import { getBlogPostSummaries, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo, getArchivedPromos } from "./db";
 import { getDb } from "./db";
 import { getGoogleReviews } from "./googleReviews";
 import { getInstagramFeed } from "./instagram";
@@ -275,8 +275,9 @@ export const appRouter = router({
   system: systemRouter,
 
   blog: router({
+    // Titles, excerpts and images only: the lists never show a post's body (blog.getBySlug has it).
     list: publicProcedure.query(async () => {
-      return getAllBlogPosts();
+      return getBlogPostSummaries();
     }),
 
     getBySlug: publicProcedure

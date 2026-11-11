@@ -97,6 +97,21 @@ export async function getAllBlogPosts() {
   return db.select().from(blogPosts).where(eq(blogPosts.status, 'published')).orderBy(desc(blogPosts.createdAt));
 }
 
+/**
+ * Published posts without their bodies, for lists (home page teaser, /blog, related posts). The full
+ * content of every post was ~120 KB of the home page's HTML (server-rendered query state) and of every
+ * blog.list fetch; a list only shows titles, excerpts and images.
+ */
+export async function getBlogPostSummaries() {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select({ id: blogPosts.id, slug: blogPosts.slug, title: blogPosts.title, excerpt: blogPosts.excerpt, date: blogPosts.date, readTime: blogPosts.readTime, category: blogPosts.category, heroImage: blogPosts.heroImage, heroImageAlt: blogPosts.heroImageAlt, createdAt: blogPosts.createdAt })
+    .from(blogPosts)
+    .where(eq(blogPosts.status, 'published'))
+    .orderBy(desc(blogPosts.createdAt));
+}
+
 export async function getBlogPostBySlug(slug: string) {
   const db = await getDb();
   if (!db) return undefined;
