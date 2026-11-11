@@ -1,132 +1,2123 @@
 {
-  "placeId": "ChIJNW7sCXJFtokRVBtPKs11cNI",
+  "source": "Google Business Profile API",
   "rating": 5,
   "total": 156,
-  "syncedAt": "2026-11-11T00:18:53.501Z",
-  "sources": [
-    "live site archive (17 reviews, fetched 2026-11-10T23:57:15.253Z)",
-    "Places API newest (5 reviews)",
-    "Places API most_relevant (5 reviews)"
-  ],
+  "syncedAt": "2026-11-11T00:39:29.034Z",
   "reviews": [
     {
+      "id": "AbFvOqlMu4TzHyRASbBbaTTlHhYxVXQKdNlzSZl57lmbmgR3y9_nPoigIFaWuZXDUUwm7PhdEZuE",
       "author": "Tanya Boudreaux",
       "rating": 5,
       "text": "My car looks amazing, ceramic coating and PPF , Skyline Customs did an amazing job! I  would recommend them to anyone looking for a professional and reliable paint protection of your vehicle!",
-      "time": 1794086466,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVTiICThFNgm6WETAsZBKvryCnV-6ThC9Q5T6_bDm_04SMGLoA=s128-c0x00000000-cc-rp-mo"
+      "time": 1794086433,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVTiICThFNgm6WETAsZBKvryCnV-6ThC9Q5T6_bDm_04SMGLoA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Tanya, thank you for the glowing review. We are delighted the PPF and ceramic coating made your car look fantastic, and we truly appreciate you recommending us to others. We look forward to working with you again.",
+        "time": 1794087128
+      }
     },
     {
+      "id": "AbFvOqmwoL5OvyfwJrvxu3GuwzgSYwKYOy-3Jby4EUuZxWrHABg8Jn8cBR7Aui1YufD4DELwEBZB",
       "author": "Randi Richardson",
       "rating": 5,
       "text": "These guys are so professional and performed a quality job on the coat. I highly recommend. 10/10!!!",
       "time": 1794016449,
-      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJVv-aGcUNU2RCOEsf-B-PRcW81sutdp4wCI07a2mdlRnWUJw=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJVv-aGcUNU2RCOEsf-B-PRcW81sutdp4wCI07a2mdlRnWUJw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Randi, we truly appreciate your fantastic rating. We are so pleased our team delivered a professional, high quality coat and that you would recommend us. Your 10/10 feedback means a lot and motivates us to keep it up.",
+        "time": 1794048323
+      }
     },
     {
+      "id": "AbFvOqlBsU6nPnpu8JJtkHl_BZHnalbUOhX51npYSa8TweITVx2LBjHFWmoi3hYIYKwTAn4Lyk91Hw",
       "author": "Greg Drew",
       "rating": 5,
       "text": "PPF and ceramic coat came out looking great!",
       "time": 1793839467,
-      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKrW4AtI5kwiDotlihigYhgbyj1Z2ymj26tfAf1S6UU5MjGsw=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKrW4AtI5kwiDotlihigYhgbyj1Z2ymj26tfAf1S6UU5MjGsw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Greg, thanks for the five-star review. We're glad the PPF and ceramic coating met your expectations and look great. Hearing that really motivates our team to keep delivering quality work. We appreciate you choosing us and hope to serve you again.",
+        "time": 1793875237
+      }
     },
     {
+      "id": "AbFvOqlJwLsQ0Oc4hV_lqvVua4R83O_VVBSdDTLtizThFyCOcCqWtX2u_kQGMWNCCflQa9uzXod3Ug",
       "author": "Sahil Desai",
       "rating": 5,
       "text": "Great experience awesome job with my telluride",
       "time": 1793824199,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUwwoeaaZXdXmJG9rELDv_5soUrgm_OkiTe5BRUXy87O9dzSy7fCQ=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUwwoeaaZXdXmJG9rELDv_5soUrgm_OkiTe5BRUXy87O9dzSy7fCQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Sahil, we appreciate the five-star rating. We are thrilled you had a great experience and that your Telluride looks fantastic. Your feedback means a lot to our team and keeps us motivated, and we look forward to assisting you again.",
+        "time": 1793825150
+      }
     },
     {
+      "id": "AbFvOqnOGQ72b2Z51Q96-ocJb1kr-aFGicsETOK8To_e2RDWj3QX27MydxGYAeCxt-Vz_CLJjllaRA",
       "author": "Jacque Johnson",
       "rating": 5,
       "text": "Great job caring people",
       "time": 1793034750,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjURzqm5h_BD22S1AXu5jiF8ly6X-Ge0hTiNAH_t3dod41Xvqzvl=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjURzqm5h_BD22S1AXu5jiF8ly6X-Ge0hTiNAH_t3dod41Xvqzvl=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Jacque, thank you for the kind review. We’re happy our team’s caring approach stood out to you. Hearing this encourages us to keep delivering thoughtful service. We appreciate you sharing your experience.",
+        "time": 1793035407
+      }
     },
     {
+      "id": "AbFvOqmTJp0KdBVgMYbFsNTjcvHckS-Y8ojINW1yqGjY7uoH5KVCLnQzyVUVThXnDkCjDJoQpgB_ug",
       "author": "Miguel Ramos",
       "rating": 5,
       "text": "Knowledge and kind people work here. I'm very happy with how my ppf turned out.",
       "time": 1792800503,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjU0XKl9bpAP4aN3bI1ve7xejasvLw0r9xR910NMr05wuKaxiMWq=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjU0XKl9bpAP4aN3bI1ve7xejasvLw0r9xR910NMr05wuKaxiMWq=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Miguel, thank you for the kind review. We’re glad our knowledgeable, friendly team made the process smooth and that you’re happy with how the PPF turned out. Hearing this keeps our crew proud and motivated.",
+        "time": 1792801450
+      }
     },
     {
+      "id": "AbFvOqnjeoegz9_qG8D3ruFCKWi5aL0kLeTt7hMs0B9dtFgj38J5gNClBacPywMy31ncqcozwbNzoQ",
+      "author": "Shawn Edwards",
+      "rating": 5,
+      "text": "",
+      "time": 1792366292,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLV8ZcIu6HRSMzcMTZJt6XGPQKAuNTrQujc-n3ox5iydn4sDw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Shawn, we truly appreciate your five-star rating. Your support motivates our team, and we look forward to providing the same great experience next time.",
+        "time": 1792367242
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/shawn-edwards-2026-10-18-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/shawn-edwards-2026-10-18-1-320.webp",
+          "uploaded": "2026-10-18T23:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqnLMA162_URMbaOUN79oXcNeuy56uN4NrSVFw8L4NPH-XzgEEAHk3ibOdKKHS-8taWBX-V3OQ",
       "author": "Steven Kim",
       "rating": 5,
       "text": "Skyline custom did an amazing job with full front PPF and ceramic coating. Great communication throughout the whole process. Cant get over how glossy the whole car looks.",
       "time": 1792257567,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVraboaFHzjUxFHMpkKF6lDu4SV0hvHaq_OGmHac9FeSeCcZzzlwA=s128-c0x00000000-cc-rp-mo-ba4"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVraboaFHzjUxFHMpkKF6lDu4SV0hvHaq_OGmHac9FeSeCcZzzlwA=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Steven, thank you for the great review. We’re glad the full front PPF and ceramic coating gave your car that high gloss look and that our communication kept you informed. Hearing you loved the results really motivates the team.",
+        "time": 1792258256
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/steven-kim-2026-10-17-1-1000.webp",
+          "width": 1000,
+          "height": 831,
+          "thumb": "/images/reviews/steven-kim-2026-10-17-1-320.webp",
+          "uploaded": "2026-10-17T17:00:00Z"
+        },
+        {
+          "src": "/images/reviews/steven-kim-2026-10-17-2-1000.webp",
+          "width": 1000,
+          "height": 646,
+          "thumb": "/images/reviews/steven-kim-2026-10-17-2-320.webp",
+          "uploaded": "2026-10-17T17:00:00Z"
+        },
+        {
+          "src": "/images/reviews/steven-kim-2026-10-17-3-1000.webp",
+          "width": 1000,
+          "height": 875,
+          "thumb": "/images/reviews/steven-kim-2026-10-17-3-320.webp",
+          "uploaded": "2026-10-17T17:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqlYWQhGQJX5HwA8xJyYOlTYrNQLgH2K8Fr7u65lhe2AtsisfZ5Q2iyvaBktgKiN8Gp25wId-w",
       "author": "James Larosa",
       "rating": 5,
       "text": "These guys are amazing! Great to work with and they have a talented and friendly staff. I entrusted them with my baby and I was not disappointed!!  They installed PPF on the front 1/2 of my car and ceramic coating on the whole car and the results were amazing. The best part is now I can drive my car and not stress about stone chips! I highly recommend Skyline Customs!!",
       "time": 1792151888,
-      "photo": "https://lh3.googleusercontent.com/a/ACg8ocI7NsSha5QxDoRN3jP5d6qjZ1NnUyIXj07g7UQP1YDww6VcKQ=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocI7NsSha5QxDoRN3jP5d6qjZ1NnUyIXj07g7UQP1YDww6VcKQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "James, we are thrilled the PPF and ceramic coating gave you peace of mind and that you enjoyed working with our team. We appreciate you trusting us with your car and your kind words about our staff. Thanks for recommending us, we look forward to helping again.",
+        "time": 1792152847
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/james-larosa-2026-10-16-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/james-larosa-2026-10-16-1-320.webp",
+          "uploaded": "2026-10-16T11:00:00Z"
+        },
+        {
+          "src": "/images/reviews/james-larosa-2026-10-16-2-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/james-larosa-2026-10-16-2-320.webp",
+          "uploaded": "2026-10-16T11:00:00Z"
+        },
+        {
+          "src": "/images/reviews/james-larosa-2026-10-16-3-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/james-larosa-2026-10-16-3-320.webp",
+          "uploaded": "2026-10-16T11:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOql_hczVeXQzsmyaQHnEpXNISqlpEFeX7kj6B4V9pQOyhCk593laPDOcq7IJ40CjZ5irg_1LTg",
       "author": "Zharie Grae Aguirre",
       "rating": 5,
       "text": "got the Tesla Model Y Full Front PPE with whole ceramic coating and Front Window Tint with Skyline Customs! ✨\n\nI have inquired other places but this place got my heart as the Team were easy to talk to, meticulous, explain the process, no intimidation and very professional. i want them to do the work with my car. i feel the heart and dedication they have for the business!\n\nI do Highly recommend this place for PPE, Ceramic and Tint needs!",
       "time": 1791232533,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXgUxfkr8NBd90qb-5kMtcapeJ1KJ_Rtcgdkn84afp8drIrLw=s128-c0x00000000-cc-rp-mo-ba2"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXgUxfkr8NBd90qb-5kMtcapeJ1KJ_Rtcgdkn84afp8drIrLw=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Zharie, thank you for your fantastic review. We are delighted you felt comfortable with our team and appreciated the careful work and clear explanations. Hearing that our dedication stood out is incredibly encouraging for everyone here. We appreciate your strong recommendation and look forward to working on your Model Y.",
+        "time": 1791232665
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/zharie-grae-aguirre-2026-10-05-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/zharie-grae-aguirre-2026-10-05-1-320.webp",
+          "uploaded": "2026-10-05T20:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqmvgiNl8J9TpaXyNVEwh1vSfDP31Lux7T4T9gj17IgqmRj-DKM_kdFt0xEuKDwAFOq1KEbnDA",
       "author": "Nasib Hafeez",
       "rating": 5,
       "text": "Very patient. Worked with me and my situation. Explained everything to me and made sure I was taken care of and left satisfied. Would recommend anyone to get their car taken care of by them. Truly kind and caring people that take pride in their reputation and work",
       "time": 1790584670,
-      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIf5yDKuZm69LXxfj75qSvOHXXg_KG_1d1-HmJ2jMiHR-nk_g=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIf5yDKuZm69LXxfj75qSvOHXXg_KG_1d1-HmJ2jMiHR-nk_g=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Nasib, thank you for taking the time to share this. Walking through the process step-by-step and making sure you understood exactly what your car needed is exactly how we operate here in Chantilly — no shortcuts, no rushed explanations. Mo and the team genuinely appreciate you trusting us with your vehicle, and comments like this about our reputation and work ethic mean a lot to us. Enjoy the ride, and we're here whenever you need us next.",
+        "time": 1790586314
+      }
     },
     {
+      "id": "AbFvOqmPmUUJzVVS6rnLMt9K2xsUAfpToQqh-UU9gKZ-3uHmx2wbplZpDvanxVtCgC50llxqwHXVvQ",
+      "author": "Valerie Pickard",
+      "rating": 5,
+      "text": "I had an excellent experience with Skyline for my full-front PPF installation and ceramic coating, and I couldn’t be happier with the results!\n\nI did my research and received quotes from several other companies, and honestly, some of the prices were outrageous. Skyline offered a very reasonable and competitive price without compromising on the quality of the work. The value I received was outstanding.\n\nWhat really stood out to me, though, was the customer service. From start to finish, the communication, professionalism, attention to detail, and willingness to answer my questions were unmatched. They made the entire process easy and stress-free, and I felt like they genuinely cared about making sure I was satisfied with the finished product.\n\nThe PPF looks great, and the ceramic coating really brought the finish to another level. You can tell they take pride in their work.\n\nIf you’re considering PPF or ceramic coating, I definitely recommend giving Skyline a call. Great work, great pricing, and exceptional customer service. You really can’t ask for much more than that!",
+      "time": 1790471309,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocICcW-SYSZq4no81NU_ZQrXi-U4SP-HB-mwG-6Nfw8WK0gUBg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Valerie, thank you for taking the time to write such a thorough review. We are so glad the PPF and ceramic coating exceeded your expectations and that our team made the process easy and stress free. Providing great value without cutting corners is important to us, and your recommendation truly means a lot.",
+        "time": 1790472258
+      }
+    },
+    {
+      "id": "AbFvOqmpyKvsGSCGzWbrsvXuFpRghR58VO8pI-5-johR4srqllf0wXaGng74hzSnci-Sju4DSv3Kag",
+      "author": "Eva Yuen",
+      "rating": 5,
+      "text": "Excellent job on the PPF and ceramic coating services, as well as the follow-up! The team is friendly, professional, and takes the time to explain the work and how everything will be done. They are also very willing to help if any issues arise after the service.\nI highly recommend them based on the excellent service and experience I received!",
+      "time": 1790303141,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJ04mybnNryxxKBpcIIhxdaCS8UdQO0gkojxTb7rf31god-Aw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Eva, for the wonderful review. It means a lot to hear the PPF and ceramic coating met your expectations and that our team was friendly, professional, and clear about the process. We appreciate your recommendation and are happy to assist if anything comes up.",
+        "time": 1790303790
+      }
+    },
+    {
+      "id": "AbFvOqlmvvYryjrQAVqxzH08WWAYwVlhPjMlqlX8RG6pi1S3Ef0RGPiPj4rS74BcCnIy9yKoMn5wZA",
+      "author": "Andrew Berg",
+      "rating": 5,
+      "text": "Mo and Z were awesome, my car received full front PPF and a full ceramic coat and it came out perfect. They are knowledgeable and extremely passionate about making these cars look as good as possible.",
+      "time": 1790262911,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW2Cr1NBf3WEVZv7bCmIFdKMTq5mEZW3ZQE77hZaNFG_2YhM5Y=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "We appreciate the great review, Andrew. We're thrilled Mo and Z delivered a flawless front PPF and full ceramic coating, and glad the finished result met your expectations. It means a lot that you noticed their expertise and passion for making cars look their best. Thank you for trusting us and for sharing your experience.",
+        "time": 1790263860
+      }
+    },
+    {
+      "id": "AbFvOqmOPFnHqsln7azXy4jhHuj1k7xvDMo-Ku9bCldPM7g2sjThmCvBEgCwsxJ5dVP9902Jb1ToVw",
+      "author": "John Bender",
+      "rating": 5,
+      "text": "Mohamed and his team did a wonderful job on my car.  I really appreciated his high level of customer service and responsiveness.    He was very detailed n his description of what he was going to do.   The end product is amazing.  I am very pleased with his workmanship.   I recommend him and his team.",
+      "time": 1789840899,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUjlGF3V11McWhgZPIAntw94T1i_GrQaRNq06lQmZtU6Y8Jd03A=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thanks for the wonderful review, John. We are thrilled Mohamed and the team provided attentive communication and clear explanations, and that you are so pleased with the final result. Hearing our workmanship met your expectations means a lot. We appreciate your recommendation.",
+        "time": 1790360744
+      }
+    },
+    {
+      "id": "AbFvOqlN2EfU0EJ92b53nbkHY2jD9yW2xK3UI_TqFvAkSK3em6AMVW6sjdMre53m7LnJv-PtDtco",
       "author": "Henry Gates",
       "rating": 5,
       "text": "The guys done a outstanding job they were very professional and didn’t hesitated to help and making the customer happy job well done",
       "time": 1789601225,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUmM4gDZ-JES1wf8cK8png37xl-nOO-TlKmH4bIVcvwo5JeQ6gR=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUmM4gDZ-JES1wf8cK8png37xl-nOO-TlKmH4bIVcvwo5JeQ6gR=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for taking the time to share this, Henry. Professionalism and making sure customers feel heard is something we hold every technician to, whether we're prepping paint for a coating or dialing in a film install. Glad that came through in your visit. We appreciate you trusting us with your vehicle and look forward to seeing you again at the shop.",
+        "time": 1789602897
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/henry-gates-2026-09-16-1-1000.webp",
+          "width": 1000,
+          "height": 750,
+          "thumb": "/images/reviews/henry-gates-2026-09-16-1-320.webp",
+          "uploaded": "2026-09-16T23:00:00Z"
+        },
+        {
+          "src": "/images/reviews/henry-gates-2026-09-16-2-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/henry-gates-2026-09-16-2-320.webp",
+          "uploaded": "2026-09-16T23:00:00Z"
+        },
+        {
+          "src": "/images/reviews/henry-gates-2026-09-16-3-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/henry-gates-2026-09-16-3-320.webp",
+          "uploaded": "2026-09-16T23:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqlJJK_rhGfqClGdrO57cjnyXblricKsxJuCFIb3pHeLUbIvG-BiwGk9Dv-mO-JIJ7X3E1GQrQ",
+      "author": "von rob",
+      "rating": 5,
+      "text": "Communicated very well in informing me about their PPF and ceramic coating offers. My truck was ready at our scheduled pickup time and they did a great job.",
+      "time": 1789234912,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWqvCJ6U0vzqd-HIQlXZt-BPneWh6CbSs56BBIHlurVceN1Ear_=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "von rob, thanks for the kind words. Skyline Customs appreciates you choosing us in Chantilly, Virginia.",
+        "time": 1789236704
+      }
+    },
+    {
+      "id": "AbFvOqlJoh12iQkZBTaVr1V3pYwIJbydCqAT16aF7xgLHH2W9N2Sh_XMhjjO9739wyomIgnVw0F8Nw",
+      "author": "Mark Baker",
+      "rating": 5,
+      "text": "This crew knows how to provide excellent customer service and are very professional. I walked in on a Thursday asking if I could get my car tinted next week and by Sunday afternoon the excellent job was completed. Trust me, if you need tinting (or any of the other services they provide) this is the place to go. Excellent communication throughout the process and just very pleasant to deal with. Plus, the car looks great!",
+      "time": 1788889441,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWmZIpnVYT3StBgGLAWEyMpIlZhSMz4fn8PU1bs9tV0wH6Yqko=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Mark, thank you for the kind words and for trusting us with your car on short notice. Our team takes pride in keeping communication clear from the first walk-in through the final reveal, and we're glad that came through in your experience. Window tinting is one of the services we enjoy most because the difference is so visible right away, so it's great to hear the finished look matched what you were hoping for. We appreciate you taking the time to share this with other Chantilly drivers considering us for tinting or any of our other services.",
+        "time": 1788890531
+      }
+    },
+    {
+      "id": "AbFvOqnskBueaMbMwi8gSGggKpcco5PaEX_9cuNMxSuUxW_35h0zIgD129YJ8lMy9U-lECM8B7xjYA",
+      "author": "Chris Hons",
+      "rating": 5,
+      "text": "I can’t say enough good things about my ceramic coat. I took a picture of it to show my friend and it literally looked like it was a mirror. Scheduling was easy. Payment was easy. Everything about the process was easy with top quality results. You won’t be disappointed! Thanks Mo!",
+      "time": 1788304679,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW4y8ZQrA5_ZKVI1yBCuDXbCyKJpJHyB9ZdaBrMCfiOOAMDcl9D=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Chris, thank you for taking the time to share this — a mirror-like reflection is exactly the kind of result we aim for with every ceramic coating job, and it starts with getting the paint prep right before any product goes on. We're glad the scheduling and payment process felt straightforward too; we try to keep things simple so the focus stays on the car. Mo and the team appreciate you trusting us with your vehicle, and we're looking forward to seeing you again down the road.",
+        "time": 1788305308
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/chris-hons-2026-09-01-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/chris-hons-2026-09-01-1-320.webp",
+          "uploaded": "2026-09-01T23:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqnVpXBpGDIguUc327beB9BrgsaQ-VbH_-aWtCUI4toFR3r4OgVcrtpdwu_Ft54LrHFsD87B",
+      "author": "Scott Smedile",
+      "rating": 5,
+      "text": "Choose skyline for a PPF wrap and they delivered but also are committed to doing quality work and standing by their workmanship. They do a follow up inspection and touch up if needed. Also had window tinting done and it was also very well done.",
+      "time": 1787141061,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUyRQ88pFUeqj5NmBFJ1UBQfPjnDo_IYZ2DNYJ7evumUMRTrks=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Scott, thank you for taking the time to share this. Standing behind our work is non-negotiable for us, which is why the follow-up inspection and touch-up process is built into every PPF install we do here in Chantilly. Glad to hear the window tint met the same standard. Enjoy the car, and we're here if you ever need anything down the road.",
+        "time": 1787143178
+      }
+    },
+    {
+      "id": "AbFvOqmnfdaBG38HHxUki6QGFLoInaO-itVBVfpS5ba3ablTcV5iRCVJn3Tfb0xQNObI-ELkZUodtA",
+      "author": "Jody ross",
+      "rating": 5,
+      "text": "I am over 50 years old, and had multiple cars detailed and serviced in my lifetime. And skyline customs was absolutely the best experience I’ve ever had! With their professionalism, and attention to detail, was absolutely amazing. Met with an entire team, and customer service was incredible, so refreshing.\n\nI had a white metallic BMW, ceramic coated and PPF protection. And the work was flawless. I recommend any and everyone to skyline customs.\n\nTo the team at skyline, thank you so very much and keep up the great work.",
+      "time": 1786936931,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJQsnZSFMXbeHjtCUsgbyLpMV6NizGWT9VYFW-sAn8xJNTYgg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Jody, for this wonderful review and for trusting Skyline Customs with your white metallic BMW. We’re thrilled our team's professionalism, attention to detail, and customer service made this the best experience you've had and that the ceramic coating and PPF turned out flawless. Your recommendation means the world to us and we'll keep up the great work for every customer.",
+        "time": 1786937885
+      }
+    },
+    {
+      "id": "AbFvOqn5QwelBBkSUn7VduOI9Tl0ImX6Xc8F8GoX2aWHPJd2pmtx8ZXnfcmIF_zxEUXODp2pe3ym",
       "author": "Pedro Rivera",
       "rating": 5,
       "text": "I have a 2025 Nissan Pathfinder. I had the ceramic wax (the entire car), front end PPF installed and the two front door windows tinted (see the attached photographs). The workmanship on the vehicle and the customer service was excellent. Skyline Customs did a fantastic job and I greatly appreciate it.  They definitely took care of every detail and were very attentive. I'm looking forward to doing business with them in the future and send any referrals to them. If you're looking for professional work and great customer service at a great price, I highly recommend Skyline Customs!!",
       "time": 1786753420,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVCCG2zIs8kis3fb00iHgPAHQt8_udXmi_UhcPGWN1aQHbLRNWOpQ=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVCCG2zIs8kis3fb00iHgPAHQt8_udXmi_UhcPGWN1aQHbLRNWOpQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Pedro, thank you for the detailed feedback and for trusting us with your Pathfinder. Full ceramic coating, front-end PPF, and the front window tints is a great combination for daily protection, and we're glad the process and the finish met your expectations. Our team always takes the prep work seriously before any film or coating goes on, so it means a lot to hear that attentiveness came through. We appreciate you keeping us in mind for referrals and future work!",
+        "time": 1786754764
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/pedro-rivera-2026-08-15-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/pedro-rivera-2026-08-15-1-320.webp",
+          "uploaded": "2026-08-15T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/pedro-rivera-2026-08-15-2-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/pedro-rivera-2026-08-15-2-320.webp",
+          "uploaded": "2026-08-15T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/pedro-rivera-2026-08-15-3-1000.webp",
+          "width": 1000,
+          "height": 750,
+          "thumb": "/images/reviews/pedro-rivera-2026-08-15-3-320.webp",
+          "uploaded": "2026-08-15T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/pedro-rivera-2026-08-15-4-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/pedro-rivera-2026-08-15-4-320.webp",
+          "uploaded": "2026-08-15T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/pedro-rivera-2026-08-15-5-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/pedro-rivera-2026-08-15-5-320.webp",
+          "uploaded": "2026-08-15T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/pedro-rivera-2026-08-15-6-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/pedro-rivera-2026-08-15-6-320.webp",
+          "uploaded": "2026-08-15T00:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqnSevzun5XhOSV0NHhny5Z-klvH8vbxhKhAvh8CZW0bvqP-OP8J2Nd5NARrm5Uyb9NAtD277A",
+      "author": "Traci",
+      "rating": 5,
+      "text": "Skyline Customs did an awesome job on my window tint. They answered all my questions and were very accommodating. Thanks, Skyline, for a job well done.",
+      "time": 1786222051,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjU5y66pQQvKiFak8ReXF5q14MEHsagXYjB9h3u6GU8CAWTi6XNnww=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Traci, for the great review. We're glad our team could answer your questions and provide accommodating service. Enjoy your newly tinted windows, and we look forward to helping you again in the future.",
+        "time": 1786239936
+      }
+    },
+    {
+      "id": "AbFvOqmgL8_yGWpNJL3chhGVKGzOhujkKXR7iv4D7Ex-oOQTWgbuwt-WbHukSOWl1Wlu0YKMf4NPTg",
+      "author": "Scott Brown",
+      "rating": 5,
+      "text": "Z once again did a great job on time with courteous service I highly recommend this shop great team great work and very helpful I asked a million questions and he was very patient and clear in his explaining things to me",
+      "time": 1785686290,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWNwG3bcGfI_vhNab_0xHd5E-OnfNPFEu3GORoneC26yw9L0IS1=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the glowing review, Scott. We’re thrilled Z and the team provided timely, courteous service and took the time to answer all your questions. Your recommendation means a lot to us. We look forward to helping you again whenever you need us.",
+        "time": 1785718642
+      }
+    },
+    {
+      "id": "AbFvOqm8Csi9xNn4gNRvqK_BMKnrvMzQbPanWTiIkd3DraEyjK_mKiHQuCBFPoJ3pUdtmTQD-BLjVw",
+      "author": "Zack Brown",
+      "rating": 5,
+      "text": "Z and crew did an amazing job on two cars I had done! I'll be back for the PPF!",
+      "time": 1785681938,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWpEujZstcVVqBGLNdsVkDol38tXTBZYUjYo3Ikw-PqNVMc8znU=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thanks so much, Zack! We’re thrilled you loved the work on both cars. Z and the crew appreciate your kind words and look forward to installing your PPF when you’re ready. We’ll be here to make it perfect.",
+        "time": 1785682883
+      }
+    },
+    {
+      "id": "AbFvOqkZNk7VVBaNaVdRG0aBoJ42NcBAxz0FswFvq_xNVFGs_ycvVmjOqapwSTwajsT5keomggCXQw",
+      "author": "Paul Conteh",
+      "rating": 5,
+      "text": "I contacted Skyline Customs with a last-minute request while preparing for a move and wanted both of my vehicles tinted on short notice. They were incredibly responsive, communicated clearly throughout the process, and worked with me to find an appointment that fit my timeline.\n\nThe team was friendly, professional, and took the time to explain the different tint options, the benefits of each product, and their lifetime warranty, all while offering a great price.\n\nIf you're looking for quality window tinting and excellent customer service, I highly recommend giving Skyline Customs a call.",
+      "time": 1785096101,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVLXl3nSTqiKzhUAwb3e8nOYNIs9iJ4WxCeLej37qQQvaNx2YYmbw=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you, Paul, for the fantastic review and for trusting us with both vehicles on short notice. We're glad our team could make scheduling easy, explain the tint options and lifetime warranty, and provide a great value. We appreciate your recommendation and look forward to helping with any future needs.",
+        "time": 1785104716
+      }
+    },
+    {
+      "id": "AbFvOql-e82uQkFeMQPIuctafkp0NE8m83kDhe5XpXE_S3ZSkBk2CaJaskwDT59QOZQYUTRtJbi1kw",
+      "author": "Queenie Lee",
+      "rating": 5,
+      "text": "I have been to this shop twice one for the two cars I own, they are really nice people and good at communicating. Great customer service too! Recommended!!",
+      "time": 1784848406,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIj2WVFi8Ik1zEEiWKNweHvx3AD1CguMH3zPRL8t1GVPKuYzg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much, Queenie, for bringing both of your cars to us and for the kind words. We're glad our team communicated well and provided great customer service; your recommendation means a lot. We look forward to helping you again and are always here if you need anything.",
+        "time": 1785069631
+      }
+    },
+    {
+      "id": "AbFvOqmnP_WkgIkvhhcPZM-dvAe2491ywKtgZmtzFHV6zuvKrLETKVV88ulcInBl6nsMzsEOUA7k",
+      "author": "John Yoo",
+      "rating": 5,
+      "text": "Excellent experience at Skyline customs. Got a full front ppf and additional ceramic coating through their July special. The team was professional and quality of the work was outstanding. Highly recommend!",
+      "time": 1784846230,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIKOS3mlnlhUAl4Ey45xe0eFESSswusrb_uERfJALAvLGlDhw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, John, for the fantastic review and for choosing Skyline Customs. We’re thrilled you’re pleased with the full front PPF and ceramic coating and appreciate the shout-out to our team’s professionalism and quality. Your recommendation means a lot to us. We look forward to helping keep your vehicle protected and looking great.",
+        "time": 1784989946
+      }
+    },
+    {
+      "id": "AbFvOqkzJGJbLURecV8CIHz3wwxQ2RduHVFFP2kaGoP96t1LMdDLtNLSO0Co210Gtk5dq3uwj9UZnA",
+      "author": "Hassan Rao",
+      "rating": 5,
+      "text": "Great guys at the spot. Mohammad did a great job great customer service and did it in a timely manner too. Would definitely recommend this spot",
+      "time": 1784843887,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUPoIEtD3ZivxJqzMhFyBttF7qtVQyMTn8KFo-YXFx-uiSNStc=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Hassan! We're thrilled Mohammad provided great service and completed everything promptly. We really appreciate your recommendation and kind words. We look forward to helping you again whenever you need us.",
+        "time": 1785065913
+      }
+    },
+    {
+      "id": "AbFvOqlwK41q_PUf9aryfoI_WSmZSuFkB3izDiCJKRusCvs8WCwOUh3oGOS3Xkrpjj13Xv21MXr6Uw",
+      "author": "Sean Large",
+      "rating": 5,
+      "text": "Great service, team walked me through everything and thoroughly explained the process. I would highly recommend skyline customs",
+      "time": 1784775159,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIZFDZhJANGB-yp-EQ5fWHnQOHLtQBC-KprP9Xw0UxMdM40678=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Sean. We’re thrilled the team guided you through the process and made everything clear. We really appreciate your recommendation of Skyline Customs and look forward to helping you again.",
+        "time": 1784856399
+      }
+    },
+    {
+      "id": "AbFvOqk9M_N7EiPX71uVuZ3pnt_l_aKuHMVF53El4zky8xPev670bx9EAtOLRK0Tr6YCAoNeNSPjDA",
+      "author": "Anisur Rahman",
+      "rating": 5,
+      "text": "They did an amazing job on my PPF, wrapped the edges and everything! They also communicate very well and always kept meinformed. Definitely recommend them. If you want to get PPF this is the spot to go!",
+      "time": 1782942619,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocI4v2otItWBDt8nXFezka5pEDWM9EkNEqyqCYxLL4weCFvSNA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Anisur, for the glowing review. We’re thrilled you loved the PPF and the wrapped edges, and appreciate you noting our communication and updates. Your recommendation means a lot to our team. We look forward to helping you again.",
+        "time": 1782943255
+      }
+    },
+    {
+      "id": "AbFvOqm-osqdbAKwwDEA5aOjuAh_EJRBlzsxs1NvajENBFcsbZDfxMeHnl3qHtTiVAxj3hstf_Cz4A",
       "author": "Paolo Miclat",
       "rating": 5,
       "text": "Great people to deal with. Owner was very transparent with all their services and they offer payment plans. I got the front half of my car PPF'd and back half ceramic coated (one of the packages they offered) and has been raining for a few days on an off. You cant even tell it rained. The PPF and ceramic coat works as intended.",
       "time": 1782766088,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjX3W-zZuG1k5d4PKqrb15t2jBJdiFG0F2G0WpisRMJQFPIvty_o=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjX3W-zZuG1k5d4PKqrb15t2jBJdiFG0F2G0WpisRMJQFPIvty_o=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the great review and for trusting us with your car. We're glad the PPF and ceramic coating held up in the rain and that our team and payment plans met your needs. We appreciate the recommendation and look forward to helping you again.",
+        "time": 1782766735
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/paolo-miclat-2026-06-29-1-1000.webp",
+          "width": 901,
+          "height": 1600,
+          "thumb": "/images/reviews/paolo-miclat-2026-06-29-1-320.webp",
+          "uploaded": "2026-06-29T20:00:00Z"
+        },
+        {
+          "src": "/images/reviews/paolo-miclat-2026-06-29-2-1000.webp",
+          "width": 901,
+          "height": 1600,
+          "thumb": "/images/reviews/paolo-miclat-2026-06-29-2-320.webp",
+          "uploaded": "2026-06-29T20:00:00Z"
+        },
+        {
+          "src": "/images/reviews/paolo-miclat-2026-06-29-3-1000.webp",
+          "width": 901,
+          "height": 1600,
+          "thumb": "/images/reviews/paolo-miclat-2026-06-29-3-320.webp",
+          "uploaded": "2026-06-29T20:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqkDL9qOdt0Lhoff8qceZ4dXDXKS5TnkP41WkFjJet89ZfDE1n3or6-qzF38HKeS-er1j7Bcvg",
+      "author": "Beanz",
+      "rating": 5,
+      "text": "Called yesterday, got me a appointment today, and done in only a few hours. Perfect guys here.",
+      "time": 1782413966,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIWs7Ba0R-uUnAteojCo1ICpY8jMrrubKiMVoqcth58EJT81A=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the great review, Beanz! We’re glad we could get you in quickly and finish everything the same day. I’ll pass your compliment along to the team. We appreciate you choosing us and look forward to helping again.",
+        "time": 1782414600
+      }
+    },
+    {
+      "id": "AbFvOqka6GIcQvgpyqqvl7ZlKiGR8iQYFxsVPn3Bxk2uyKPxq6nUCE0SswV9fgumVK_hOWU8PZO6Fw",
+      "author": "Bo Tunsarawut",
+      "rating": 5,
+      "text": "Very welcoming, friendly, and professional. It was quick and easy to schedule an appointment. Highly recommend!",
+      "time": 1782142772,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLCchsdtPRhZfoXI6ztj1LTbL48Xiom4rp1WtBBgIeAvhQbH1yd=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you, Bo! We’re so glad you found our team welcoming, friendly, and professional and that scheduling was quick and easy. We really appreciate your recommendation and look forward to serving you again. If you need anything, please reach out.",
+        "time": 1782143418
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/bo-tunsarawut-2026-06-22-1-1000.webp",
+          "width": 1000,
+          "height": 750,
+          "thumb": "/images/reviews/bo-tunsarawut-2026-06-22-1-320.webp",
+          "uploaded": "2026-06-22T15:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqkTPd4YnPyD5orrIRLa3UYNn77UkLq-I_6D-CAXtszqE3BPfcciHowG4tPg_2Pk819grPE8",
       "author": "Youngsu Kim",
       "rating": 5,
       "text": "​I highly recommend these guys! They did an excellent job on both the front end PPF installation and the two front window tints. The attention to detail they put into their work is awesome, and everything looks flawless.\n​On top of the great quality, the staff is incredibly friendly and very flexible with scheduling. If you're looking for professional work and great customer service, this is the place to go. Highly recommended!",
       "time": 1782088372,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUbpvlw9LVMgZzQ6k0LaXy5Ohck1j64CxBgips1OrKOwP6jROHtqA=s128-c0x00000000-cc-rp-mo-ba2"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUbpvlw9LVMgZzQ6k0LaXy5Ohck1j64CxBgips1OrKOwP6jROHtqA=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you so much for the wonderful recommendation, Youngsu. We’re delighted the PPF installation and front window tints met your expectations and that our team’s attention to detail and flexible scheduling made the experience easy. We appreciate your kind words about our staff and service and look forward to working with you again or helping any friends or family you refer.",
+        "time": 1782089018
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/youngsu-kim-2026-06-22-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/youngsu-kim-2026-06-22-1-320.webp",
+          "uploaded": "2026-06-22T00:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqlx_3FALOBaTB36eRYHlew9wPuFPtnVx5MNrz3JdiifyA0dEkNsMWmjVZu_UhBMzpc92aXZ6g",
+      "author": "Karim Ahmadzai",
+      "rating": 5,
+      "text": "Great tint work on my car with reasonable price. Highly recommend",
+      "time": 1781716038,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWRa0zx1XqBsnfMpsPhVDD-ePHqKNpIJ-z4nmW_WDraj9PHo4vZ=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thanks so much, Karim. We're glad you’re pleased with the tint and the price, and we really appreciate the recommendation. We look forward to helping you again or anyone you send our way.",
+        "time": 1781716677
+      }
+    },
+    {
+      "id": "AbFvOqmgDBSafTvT-vIze72poF3ubgDDWQLsvWdxORmNMCzesLmPYAPr4Nb0EheIY5ai22yXoVEnkw",
+      "author": "Nick Wright",
+      "rating": 5,
+      "text": "These guys are very professional and do great work! I highly recommend them!",
+      "time": 1781552385,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVuei7R3Ux_1Td0byr7A6ui1thvfgL__2NKa7qU2KEp7R0ajBCB=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much, Nick! We’re thrilled you were pleased with our work and really appreciate the recommendation. If you need anything in the future, we’re here to help.",
+        "time": 1781553031
+      }
+    },
+    {
+      "id": "AbFvOqmneJGAaPNT-euxoMsf_FiOwYOhAL5rpWqA3TgKsggUmxyeDUSTFQsNMn6T6UuHAm7f0kS7",
+      "author": "Malcolm Banks",
+      "rating": 5,
+      "text": "I got ceramic tint for the side windows and rear. Great and fast service, really clean results.",
+      "time": 1781198564,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIuN3P7701SxEJ9vXpE_J-vQ7uO_VbvcG7_vA236Mvik1j_KQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the great review, Malcolm! We're thrilled the ceramic tint on your side windows and rear met your expectations and that you liked our fast, clean service. We appreciate you choosing us and the five stars. If you need anything else, feel free to stop by or call.",
+        "time": 1781199224
+      }
+    },
+    {
+      "id": "AbFvOqlmy1h2m9DgYf4cFfJRq2fjY95wS5an5n53MfXCzCCSO5Q5D8kO5ueqxzHjPB9_kdWXzjs1Fw",
+      "author": "Jd Smith",
+      "rating": 5,
+      "text": "Great people, good work, very detailed and clean and professional",
+      "time": 1781110487,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVQ6HcKWrjzxWhoI_pOWPsltW_zuKv89oclWHClX7jn35rMv_I=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Jd Smith, for the 5-star review. We’re glad our team delivered detailed, clean, and professional work. We appreciate your kind words and look forward to serving you again.",
+        "time": 1781118708
+      }
+    },
+    {
+      "id": "AbFvOqkk_JqU0eP4svfCnUASPYI-VAdwzDMxU9mJ58QEDJwu6vMyEriHZIIgw3Ex4k3u-tA8ozitMA",
+      "author": "Auriel Young",
+      "rating": 5,
+      "text": "“Great experience! The tint job came out looking really clean and the team was fast and efficient. Would definitely recommend!”",
+      "time": 1781105123,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVcJDxOPKM8nPX-YgNdd4pUKIej81ahodnqn2E8yU2py2HrUC0_=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Auriel! We're thrilled the tint job came out clean and that our team was fast and efficient. We really appreciate the recommendation. If you need any adjustments or help with another vehicle, we'd be happy to assist.",
+        "time": 1781105762
+      }
+    },
+    {
+      "id": "AbFvOqkx8Z4NYmvBco6EY-XLM8ojSt7W48N3SUbtAIrhMCnkOL8OBRVuv6SXKRC2cgD9ySRnXucE8Q",
+      "author": "Abdul Aleem Asim",
+      "rating": 5,
+      "text": "Got a front-end PPF done on my M340i and couldn’t be happier.  no bubbles, no lifted edges, just a perfectly clean finish. You can barely tell it’s on, which is exactly what you want. Highly recommend.",
+      "time": 1780768177,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLwkmyDOXSGQyPklafggv0aHkKTHddrpoN0RxcDHsfNSdExzw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Abdul! We’re thrilled the front-end PPF on your M340i met your expectations and that the finish is seamless. We take pride in precise installations and will pass your kind words along to the team. Appreciate the recommendation and look forward to helping with any future protection needs.",
+        "time": 1780768815
+      }
+    },
+    {
+      "id": "AbFvOqkY7iVUJC4_0KWg2lZCCzZmBVB-aeS8kd17qRUMzaWFRkmLwxRplIC1jy6-G5kgmMW68SVR0w",
+      "author": "Jason Brown",
+      "rating": 5,
+      "text": "Excellent job on tinting my car. Will be being my wife’s car in next week. They were on top everything and flexible for scheduling. I would highly recommend them for any of your cars!\n\nEdited for second review:\n\nI just had my wife’s car done and it looks great!",
+      "time": 1780674297,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJXuAq_1-z--Jn07n7UZ7cDEGbKh25MB46MBx3utSLkkqo71g=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you, Jason, for the great review. We’re glad you were happy with the tint job and our scheduling flexibility. We look forward to tinting your wife’s car next week and appreciate you recommending us. If you need anything before or after the appointment, we’re happy to help.",
+        "time": 1780674931
+      }
+    },
+    {
+      "id": "AbFvOqkIyXO-KkzDg6D4A_QUg9Fm7cGRz4ZypRrK88W9VqhQZrCGhGw9UJpSEUtQbv3jgsma2YYSug",
+      "author": "DJ Bhandari",
+      "rating": 5,
+      "text": "Best Tint in VA",
+      "time": 1780608726,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLGQ1PCl-byyf5Pv7lU43iTqX9CZjX4W8-UiGUEwNQv0xG7Fg=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thanks so much for the 5-star review, DJ Bhandari. We're thrilled you think we're the best tint in VA and appreciate you choosing us. If you need any future tint touch-ups or recommendations, we're here to help. Thank you for spreading the word.",
+        "time": 1780609362
+      }
+    },
+    {
+      "id": "AbFvOqkcpG-Zl6gbaBWQtIWk1up2FZRIE6zTRjIfDz8dzeqYqdd9DWNXHMUGm6b00AhG846IOghYTg",
+      "author": "Andrew Pearce",
+      "rating": 5,
+      "text": "Awesome tint job. Great heat rejection with the tint. Good price for full car and turnaround time for job completion!",
+      "time": 1780510371,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLDBNZp12VdyAh3TEhs6_D70bGNEc9dH8jk7DtySM0khn4myw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks Andrew, we're thrilled you love the tint job. We're glad the heat rejection, price, and quick turnaround met your expectations. If you need anything else or want another vehicle tinted, feel free to call or stop by.",
+        "time": 1780512256
+      }
+    },
+    {
+      "id": "AbFvOqnwc2q1r0-hgm6T9kZsIbI_GfX2yiBJ6Fmio6JMGykz8fpVDLRZFQ154pxADV7s-16F2xWFlw",
+      "author": "Raymond Smith",
+      "rating": 5,
+      "text": "Great shop experience, appreciate the customer service, and hopefully cooler temps",
+      "time": 1780000426,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWDrxhE6iqXpzRlwj3Ab6asKb3bPRB76GBVRgVS7He_fLyttryCpQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the kind review, Raymond. We're glad you enjoyed the shop and our customer service. We’re working to keep the temperature comfortable and appreciate the feedback about cooler temps. We look forward to seeing you again soon.",
+        "time": 1780001057
+      }
+    },
+    {
+      "id": "AbFvOqkA42e5tG28VkHrMrJQSfc85wNOqNXYG8pwR0jskvH4EDAtN508PEhHju5jJyhx2i2Eu6UzZQ",
+      "author": "G Dub",
+      "rating": 5,
+      "text": "I didn't know what to expect as this is my first time ever getting tint. Great staff, knowledge and transparency.  Car looks great, I highly recommend them.",
+      "time": 1779815822,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWzgvVEuT_rMIjbvMUmKaXab77VJbtKnmQuYdrKhQ_Zw0jcNHLw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the 5-star rating, G Dub! We’re thrilled you had a great experience and appreciate your support. We look forward to serving you again.",
+        "time": 1779816466
+      }
+    },
+    {
+      "id": "AbFvOqmngS_h3uGJjSP-6p3ccTw60lDuzqYeJ9qL2uJjODszP8_L-aT7xemDsTvZMQpmZOOB8Geg5w",
+      "author": "M H",
+      "rating": 5,
+      "text": "Friendly, prompt service. Tint looks great and service time to complete the job was done in an hour. Will be back for more work.",
+      "time": 1779576969,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLMUejr7RUV5D5B_8A0a1swZ1Fg3XBeQRfGcctMT02-c5vkQA=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you for the great review, M H. We're glad the tint looks great and the job was completed promptly; we appreciate you choosing us and look forward to your next visit. If you need anything else, please let us know.",
+        "time": 1779577609
+      }
+    },
+    {
+      "id": "AbFvOqnxy8j72CUt-0glIE5G93FII40xTs7andk2FfPP-FVig8fw--UsQTdiQh_41McrH9lQRHQJ1w",
+      "author": "Charan 1981",
+      "rating": 5,
+      "text": "Excellent Job. Definitely coming back for more.",
+      "time": 1779311305,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocINSb-HENoKxUevSX5RYwTn0s9bRb7k2dw2gTEukDhvb4zJIT4=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the wonderful review, Charan! We’re delighted you enjoyed the service and look forward to welcoming you back soon for more.",
+        "time": 1779324400
+      }
+    },
+    {
+      "id": "AbFvOqmVtHjVE6KV1Rry_Ce6Z4TI5dCbzdx6txua3LwgR-3GtPa-LP0Z6l8b1aSHjMfezTDGjRdM",
+      "author": "Caleb Belforte",
+      "rating": 5,
+      "text": "Just got my cars tinted here and would highly recommend them",
+      "time": 1779307948,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJ4fSTPMy_oOnL9dARCN8G-z39P4jTHfHARQYMsOea_PQSIk2g=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much, Caleb! We’re thrilled you’re happy with the tint and really appreciate the recommendation. If you ever need another vehicle done or have any questions, we’re here to help. Hope to see you again.",
+        "time": 1779308581
+      }
+    },
+    {
+      "id": "AbFvOqnh-33idOL73ghrKiLMuTMqntoM9E88oAH5ZQWyloswmj0FDy2McQjlpU_EgHdHj0bJE7XH",
+      "author": "Noah Anastacio",
+      "rating": 5,
+      "text": "Very nice people love this place good vibe and good price and good tint",
+      "time": 1779228247,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXh_WafaZr9B-Yw6yzniqGosxwZwo2tDh9n9SkH6XTbggv7Q1E5=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the great review, Noah! We're thrilled you enjoyed the vibe, pricing, tint, and our team. We appreciate your support and look forward to seeing you again. If you need anything, just let us know.",
+        "time": 1779237970
+      }
+    },
+    {
+      "id": "AbFvOqmxrNcUBZJN8APF5D4J4ISE8MlFBHwKn3o2Ds71H8v9LQbF_0WzdUxL6ntws4Ouyfet379TJw",
+      "author": "Michael O'Neill",
+      "rating": 5,
+      "text": "Great shop fit me in a small window easy to work with 10/10 would recommend",
+      "time": 1778779012,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLnEesyG00ACZUGZb-Mym0zaatMWZibk8Ufgvcu4XmT57bTBw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the kind words, Michael! We're glad we could fit you into a small window and make the process easy, and we really appreciate the 10/10 recommendation. We look forward to helping you again whenever you need us.",
+        "time": 1778783516
+      }
+    },
+    {
+      "id": "AbFvOqlaRpCm3OfAZtsDgWHsZiUHGDl5GOLBOpzfkb2mZq44UCCQXQc1OQIFmTt14qCWKBecHPyVwg",
+      "author": "Semra Gerber",
+      "rating": 5,
+      "text": "The professionalism and kindness they showed was outstanding. They were respectful of my time, made the entire process easy, and did an amazing job with my window tint appointment. I’m extremely happy with the results and would highly recommend them!",
+      "time": 1778771133,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLW0WYjbl5h4-iiiUdJi5Q0eMbugZ2zo_1j1fSo1Xj5Fi3aAg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Semra. We’re thrilled to hear our team was professional, respectful of your time, and that you’re extremely happy with your window tint. Thank you for recommending us — we truly appreciate it and look forward to serving you again.",
+        "time": 1778771782
+      }
+    },
+    {
+      "id": "AbFvOql3swBf9dZvB4Vuloi88EU3K0RxuPBuu4wl_SJ95LAME8RFKMlF0PLeCN_S-PbLa0xqOicFBA",
       "author": "Clara Kim",
       "rating": 5,
       "text": "Good friend of mine recommended me to get the tints done from skyline and i can confidently say that my car looks awesome. I work from 8:30-6 so they were super flexible with my schedule, letting me drop my car off in the morning and pick it up later. I appreciate the work and happy with it!!",
       "time": 1778720883,
-      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIsoVT7soBUyuLnybazRn3qSXC7Q34N6slNpvtNedZ1iSA9cA=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIsoVT7soBUyuLnybazRn3qSXC7Q34N6slNpvtNedZ1iSA9cA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the 5-star review, Clara. We're thrilled your friend recommended Skyline and that you're happy with how the tints turned out. Glad our flexible drop-off and pick-up hours worked with your schedule. We appreciate your trust and hope to help with anything else in the future—please reach out if you need anything.",
+        "time": 1778721538
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/clara-kim-2026-05-14-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/clara-kim-2026-05-14-1-320.webp",
+          "uploaded": "2026-05-14T01:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqkAVSB9tXoHxMDcINdVLoOOI2ArMwVps-QsNFnW18IpZy_19VwY07IGbKkxTckS0LXtNOa4",
+      "author": "Michael Thompson",
+      "rating": 5,
+      "text": "I trusted my brand new whip to the caring and capable hands of Skyline Customs of Chantilly, Va.  Ramy gave me not only exceptional service and explained everything to include the benefits of the work I was getting done, but at the end - delivered a fully beautiful vehicle.\n\nIf you have a new WHIP, and you want to make sure it's properly protected, reach out to Skyline Customs, they will take exceptional care of you.",
+      "time": 1778610215,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjU15QwGd1_lzQUUZCT_4N7GQHR4hb7vnE0Rjcf8W9WsR5-SYb2R=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Michael, thank you for trusting Skyline Customs with your new whip and for the glowing five-star review. We're thrilled Ramy and the team explained the work, protected your vehicle, and delivered results you love. Your recommendation means a lot to us, and we'll always be here to protect and maintain your ride. Enjoy the new look and drive safe.",
+        "time": 1778610687
+      }
+    },
+    {
+      "id": "AbFvOqlDvVYoeUV6t1z1zJg1efotutyEUBOmUQ-kIfj8y0gOFfvnS5AH_neGj9-YUEt3GTahO7BFdQ",
+      "author": "Vernon Samuel",
+      "rating": 5,
+      "text": "Mohammad did a great job with my model y.  He is easy to coordinate with and very knowledgeable about all the tinting and PPF options. The work quality was excellent.",
+      "time": 1777742874,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLUWkh4Em6sc2enb5QU3w8AU4WJdPleSc90tb_jsBwFrUmgRg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Vernon, we're thrilled Mohammad did a great job on your Model Y. He's a valued member of our team and we're glad his coordination and expertise made the process smooth. We appreciate you noticing the quality of the tinting and PPF work. Please reach out anytime for future needs or referrals.",
+        "time": 1777764586
+      }
+    },
+    {
+      "id": "AbFvOqmjfMjesXvh7FdJLSEI45kNZutyBQY8aGrsyLTcpTaVFzQo5Lj2RAwoNzkNm7d-sKA_ErtqiA",
+      "author": "Leigh mergler",
+      "rating": 5,
+      "text": "They took my car in and had it out in no time very professional and friendly.  And did an amazing job",
+      "time": 1777674349,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLS6IT1Jt4O0w_iCLf_jU7nCZpHOzng9oiXog8QMrwGZdSJMA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much Leigh for the great review, glad we did an amazing job on your vehicle, anything else you need just let us know!",
+        "time": 1777675211
+      }
+    },
+    {
+      "id": "AbFvOqlvdKbTUvClj8VlGLE2lJHocRhgnb82sggmGC94McC3crsgRWPRCp4K4hAJOMbEM88wU29bdg",
+      "author": "Jeraldo Ruiz",
+      "rating": 5,
+      "text": "Skyline customs did an amazing job and everyone was more than happy to help with everything that was asked. Will definitely recommend others to get anything done here.",
+      "time": 1777662336,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJ3KJngPCP-HhkSyF4-oQiqxOQ0G5zSdQLpkQ7oJZXOagInwg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Jeraldo, for the fantastic review and recommendation. We're thrilled our team made everything easy and that you're happy with the results. We appreciate you trusting Skyline Customs and referring others our way. If you need anything else, just reach out.",
+        "time": 1777662978
+      }
+    },
+    {
+      "id": "AbFvOqk6HWYSELdwM-7xry-auTaS7_oCmxkbIUP_P-5qrBuCBdnZVCp77HrToAUFo0F4dXHiIQY9aQ",
+      "author": "Ant Jay",
+      "rating": 5,
+      "text": "Everybody don't walk, DRIVE FAST to get your windows tinted here. They did a great job and I am excited to keep the heat out.",
+      "time": 1777458941,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXO9FOrlLj8gBMY88Et7IzbDUrdECoV5rpA1TWtc9Vx9M6emjXfKw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks, Ant! We're thrilled you love the tint and that it's helping keep the heat out. Our team takes pride in quality installs and we appreciate the strong recommendation. If you need any adjustments or have questions about care, feel free to stop by.",
+        "time": 1777468796
+      }
+    },
+    {
+      "id": "AbFvOqlcJdhS6cO2tYJuHzwI8Xb55PjGr92FUo2x9xom4aGZ7YRkSIoH7bovzsADaxyIw4mbDr_m",
+      "author": "Johnny Bill",
+      "rating": 5,
+      "text": "Thanks to the agents for taking care of my Dodge Ram quad cab. The feel inside of the truck is completely different. Giving privacy as well as heat protection with the type of tint the suggested. I couldn’t be happier about how it all turned out, especially for my first ever job on one of my vehicles. I will definitely use their service again as well as shout them out. Thanks again gentlemen, keep up the great work, keep grinding 🫡🤙🏾",
+      "time": 1776867591,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLYEQmG8Vy7wIzAXWer91kLEBdBrd4s4vsCW7RDEZKIKVyWNw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Johnny, thank you for the great review and for trusting us with your Dodge Ram quad cab. We’re thrilled the tint improved privacy and heat protection and that you’re so happy with the results for your first vehicle job. Your shout-out means a lot to the team, and we’ll keep grinding to maintain that level of care. We look forward to working on your next vehicle.",
+        "time": 1776874834
+      }
+    },
+    {
+      "id": "AbFvOqn1gSY65Fbg3vIc8ZeQqvzELariloUhMmIn9CdIHKQZyzCcrOdguefK7ej542r0pXukfRL8pQ",
+      "author": "Richard Holmes",
+      "rating": 5,
+      "text": "Fast work. The team worked with my schedule as was able to perform a clean install on all my windows.",
+      "time": 1776716229,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocL8ofi8yJXFXjEUon2fV8NUhh_KwnR5rYTPUz9kAw7zTaI2dg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the great review, Richard. We're glad our team could work with your schedule and complete a clean install on all your windows. We appreciate you choosing us and the 5-star rating. We look forward to helping with any future projects.",
+        "time": 1776717927
+      }
+    },
+    {
+      "id": "AbFvOql-eatYsrpOowd2Bs7mvRzMvpUgV1vbxbWFG6BlxVvVniwCIKz5bEt39WaIgqshIZGc7ENO4A",
+      "author": "Trey Lewis",
+      "rating": 5,
+      "text": "Great tint work on my bmw, extremely satisfied with what was done to my car. If y'all need tints THIS IS THE PLACE!!!",
+      "time": 1776448383,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJrdGpTGlcD3VuiVWJnxjAjyKvt4RBTgiFCEiahXdhOmXRGLA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the awesome review, Trey! We're thrilled you’re extremely satisfied with the BMW tint and appreciate the recommendation. If you need any adjustments or additional services, give us a call or stop by. Enjoy the ride!",
+        "time": 1776455619
+      }
+    },
+    {
+      "id": "AbFvOqmqik3jLXGbn9tQZCCEDn70_hjO_Ssrb86HHsVkkSpsf-j0aO_lFmmWVS8p4KjOcwJoeizYJw",
+      "author": "Jr N",
+      "rating": 5,
+      "text": "These guys are friendly, helpful and answer absolutely every question you have. They aren’t pushy and make sure that all your concerns are discussed when reviewing options for your cars modifications. Would happily recommend them to anyone wanting to get PPF/coating or tinting done on their car.",
+      "time": 1776386615,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLy79pm0SH9NyHMrC3TtPZ3le47wpMuRoFNFujSp5y6ADZ80AQP=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the fantastic review and recommendation. We’re glad our team could be friendly, helpful, and thorough while discussing your options. It means a lot that you felt comfortable and not pressured during the process. We look forward to helping you or anyone you refer with PPF, coating, or tinting in the future.",
+        "time": 1776393845
+      }
+    },
+    {
+      "id": "AbFvOqnFNgWb9Bv-VDWDDq6_hkWWpZhmZODEgissO_2KNakXNgGRP-P6S_NZ7sii3sZVNKqGid4q5w",
+      "author": "Ray Gerber",
+      "rating": 5,
+      "text": "Communicative, professional, friendly, affordable and quick.  Did great work on my Lexus on short notice.  Highly reccomend.",
+      "time": 1775519496,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJAj58mEmnsOgNMIBIlENAdTwCxtHte226Ya3oqGT31nKeCOg=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thanks for the great review, Ray. We're glad we could accommodate your Lexus on short notice and that you found our team communicative, professional, friendly, affordable, and quick. We appreciate the recommendation and look forward to helping you again.",
+        "time": 1775526725
+      }
+    },
+    {
+      "id": "AbFvOqkW9uweEWt-fgAKJRaCe1i4kS-yItXOoGrysYXkdy5gkWAoqhGtZi1JMEJS8JmUIgRc2ofd",
+      "author": "Caleb J. Serrano-Sanchez",
+      "rating": 5,
+      "text": "Quick, efficient, and excellent product. My windows were tinted, and I did not even see a few bubbles in them. Amazing work!",
+      "time": 1775084050,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUeb7f4GvDkZG5LwzjjI-tlEujv-t2bKFydO0qOSZYFo0MXlwLTGw=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you, Caleb! We’re thrilled you’re happy with the quick, efficient service and the flawless tint. We take pride in quality workmanship and appreciate you noticing the details. If you need anything else in the future, we’re here to help.",
+        "time": 1775104817
+      }
+    },
+    {
+      "id": "AbFvOqlSVqBLYAiiRzzjEUW8XB4Upe7i5ItX1Xb61FVSgGfVHKW6-YhYmOGmzEzkWYuaJY2YkYGU",
+      "author": "Farah A",
+      "rating": 5,
+      "text": "Skyline Customs did such an amazing job on my tint - it was everything I asked for! Their prices are affordable especially considering the tint’s quality and the company’s professionalism. I will definitely recommend Skyline to anyone who’s looking for a tint!",
+      "time": 1775080057,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJI8hdQZA7ddP1z8jHl2DbBDP-4a-xlpI9b3azn_LozlcRirw=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you so much for the kind words, Farah. We're thrilled the tint met your expectations and that you found our pricing and professionalism to your liking. We truly appreciate the recommendation and look forward to helping anyone you send our way. If you need anything else, we're here to help.",
+        "time": 1775080858
+      }
+    },
+    {
+      "id": "AbFvOqn0_UA1ODbPW29vYFTJGkssofJuv-2pe3qxN-xZwruZ71ajLvuS8J9yjvmXXdQlh4rNeal7",
+      "author": "Matthew Brickey",
+      "rating": 5,
+      "text": "The window tinting looks great, Skyline Customs did an amazing job!",
+      "time": 1774385681,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJetdEbQNCZpa6nj2xENyleuysGEfsuUMo3mLYlEnAtZpLk1w=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the great review, Matthew! We're thrilled you love the window tint and proud our team delivered results you’re happy with. If you need any care tips or adjustments down the road, just give us a call. We appreciate your business and recommendation.",
+        "time": 1774390811
+      }
+    },
+    {
+      "id": "AbFvOqkIRnGQymV1t0rIK0YA-oqZ_NjzxCgzLYqkWJ2ZaFf0ihXWMZrku2Eg0x5U0sJbo5liHf9AkQ",
+      "author": "Emad E",
+      "rating": 5,
+      "text": "I recently had my car windows tinted at this shop, and the experience exceeded my expectations from start to finish. The staff was professional, knowledgeable, and took the time to explain the different tint options, including heat rejection, UV protection, and local legal limits. They helped me choose the perfect shade without any pressure to upsell. Thanks again guys!!",
+      "time": 1773879468,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocICzHyxAD0Ry5fLU0wdJL5B5PUM2tLuG9GLmgAWVZy_okjs7g=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Emad, we’re thrilled your window tinting experience exceeded expectations. We appreciate you highlighting our team's professionalism and that the information about heat rejection, UV protection, and local legal limits was helpful. It’s great to hear you felt no pressure to upsell and that we helped you choose the perfect shade. Thanks again for the kind words, and we look forward to helping with any future needs.",
+        "time": 1773886700
+      }
+    },
+    {
+      "id": "AbFvOqnKfhrrAikSn56R7vWuEmA7SbAKXE3HXjCdggWOclPh5wrMW8Ih380N-1wA40n4WVYLGYIg",
+      "author": "Dorian Augins",
+      "rating": 5,
+      "text": "I appreciate the speedy and quality service from the guys at Skyline Customs. They were very knowledgeable when giving me advice on the tint film. This is now my new go to spot for any of my vehicles in the future!",
+      "time": 1773080863,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKManrgZw1hhXnfKA80SkKXR97Ts4SdodhSSAmez8JMuKxgpw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks, Dorian! We’re thrilled you appreciated the speedy, quality service and that our team could help with the tint selection. It means a lot to be your new go-to spot. We look forward to helping you with any future vehicles.",
+        "time": 1773088095
+      }
+    },
+    {
+      "id": "AbFvOqmsnRWexoNzr4x2jXGQDmSK0E8CfIcY9P1LnCdmEL3x8PSVARjTh42mzlkrpLGbhAfXYj8eHA",
+      "author": "Bobby Humphrey",
+      "rating": 5,
+      "text": "It was a pleasure working with them, texted me several times to  confirm appointment it was a Sunday, as for the work it was high quality and professional . I had many questions and they answered all of them would recommend this company .",
+      "time": 1772384622,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIgpDhnpmHBsOSDcs7wZtxL92JjPP9QS3nuW_gRmZ0zB2RKFw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Bobby. We’re glad we could accommodate a Sunday appointment and that our reminders, workmanship, and professionalism met your expectations. It was our pleasure to answer all your questions. We appreciate your recommendation and look forward to helping you again.",
+        "time": 1772391851
+      }
+    },
+    {
+      "id": "AbFvOql_0oNDRecSUGn8JtuC3EpZ2jwp9x5yPP_xln6U47S4BUQI8PfzxJsKSSATVjSOFgpewXQ",
+      "author": "Mohamed Elhag",
+      "rating": 5,
+      "text": "I went here to get my tints done and had a fantastic experience. The work was done quickly, the crew answered all my questions and now a week later the tints look great! Amazing service and amazing quality.",
+      "time": 1771678092,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLO4BcKYNeMARgIg7MUydJSG2qBeZFFkPcP2G5vn05kRTzz2A=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mohamed, for the great review. We’re thrilled the tinting was quick, our crew answered your questions, and the film is still looking great after a week. We appreciate your kind words about our service and quality and look forward to helping you again.",
+        "time": 1771685331
+      }
+    },
+    {
+      "id": "AbFvOqktjaX8D6PLqy8bcg_p-8APHYmcTtysBX_Zec7WVkaciRAZPYMcuV53Otet9p21JEANCefQ",
+      "author": "Dan Reilly",
+      "rating": 5,
+      "text": "Skyline Customs did an awesome job on the ceramic tint for my Tesla Model Y. The install came out super clean, the difference in heat reduction is noticeable right away, and the price was very fair for the quality of work. Great communication, quick turnaround, and I’d absolutely recommend them to anyone looking for ceramic tint done right.",
+      "time": 1771527764,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWcchrI-LOfAVRVmEw2SSL-HVFvPzHQJKfARmktpfbjhoxSMmcnzQ=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Dan, thanks for the awesome review and for trusting Skyline Customs with your Model Y. We’re thrilled the ceramic tint looks great, reduces heat noticeably, and delivered fair value. Your callout on our communication and quick turnaround means a lot, and we appreciate the recommendation. If you need anything else down the road, we’re here to help.",
+        "time": 1771534998
+      }
+    },
+    {
+      "id": "AbFvOqm0_qBaG8TVkkMJJ7GjHxjfhrvZw9IpJHtXUTPTr5tvcZ7d_fCzKMpiK0eEW5uMDwc3gWFTMA",
+      "author": "christian Franco",
+      "rating": 5,
+      "text": "Fantastic client service from beginning to end!  My car was ready in a timely manner and the Tint looked like it was from the factory.  I will definitely bring my other two cars!  Thank you guys for making my car look like it belongs in a magazine!",
+      "time": 1770998757,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWHsXms2-UHZDgGOhlL0Z6MFY0Tc8zd94yy8XHfjGM0ose2DYlGPQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much, Christian! We're thrilled you loved the tint and the service, and that your car came out looking magazine-ready. We look forward to working on your other two cars and appreciate the recommendation.",
+        "time": 1771005994
+      }
+    },
+    {
+      "id": "AbFvOqlkehqqMO01PE-F3-Iyq1QjmoasS2TsnyR0jvgtthxVkIYopB6JyMG03Pet0hfwPxhl7W0w",
+      "author": "Frederick",
+      "rating": 5,
+      "text": "The service was great and very prompt, the team kept me updated on the timing of everything, and the end product is amazing. 10/10 would recommend!",
+      "time": 1770586182,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLO6_BnwqZK0OGzqsHCMDjBI7cY5ALaEjAbMu-oIhxwRnEVmg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Frederick! We're thrilled to hear the team delivered prompt service, clear updates, and an amazing final product. Your 10/10 recommendation means a lot to us. We look forward to helping with any future projects.",
+        "time": 1770593420
+      }
+    },
+    {
+      "id": "AbFvOqmx_VaBIWZLtGVpqKCphxK_1aV8Mb1G3tIITXV1UJuM6Q_mf2WwbOiOiNQVY2o9y36AeMrfAg",
+      "author": "Vijaykumar Belli",
+      "rating": 5,
+      "text": "Hi my name is VJ. I got my Toyota Tacoma windows tinted, and it looks great both inside and outside. These guys did an excellent job — very fast service and at a great price.\n\nThank you so much for taking good care of me and my vehicle. I really appreciate your work and highly recommend this place to others. The staff is friendly, communication is excellent, and they make customers feel comfortable and welcome.",
+      "time": 1769907127,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXFS2hNdRNSnfyJ9NRJQHL3IRGQVYKSGtoOIOBWQfQ6mp9YXU4T=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, VJ, for trusting us with your Toyota Tacoma. We’re glad the tint looks great both inside and out and that you experienced fast service at a great price. It means a lot that you found our staff friendly and our communication excellent, and we really appreciate your recommendation. We look forward to serving you again.",
+        "time": 1769914364
+      }
+    },
+    {
+      "id": "AbFvOqlnLhkCE_3rAyoycwxGRsfVJtrAjlCbe4bj-o_lubJw2NSJmhvXDinlAtXkrWBhvkpXI34sCw",
+      "author": "Mehad Bakri",
+      "rating": 5,
+      "text": "I’m really happy with my ceramic tints. They reduce glare, look sleek, and feel high quality. Highly recommend!",
+      "time": 1769887041,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJCGeOiQInmmT39aohUr1KwsEBu63WdAWIJa4SpEDh5HLIfuw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the great review, Mehad! We’re thrilled your ceramic tints are reducing glare, looking sleek, and feeling high quality. We appreciate the recommendation and look forward to helping you again.",
+        "time": 1769895410
+      }
+    },
+    {
+      "id": "AbFvOqng393m7dCgMTwrroUi05l2nt07ogJso2qnUqRDX2gs-op_2TSRYavHJeJL46GKHI00hdhL",
+      "author": "Barkath Tarzi",
+      "rating": 5,
+      "text": "10/10 across the board. Not just the tint, but the way they communicate and handle their work is top tier. Super easy to work with and the results were amazing. Highly recommend.",
+      "time": 1769882724,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIlL6e_dyVtpOhp_x196-RBcFm2PXJxg6apT7cf0tHQNJ-PAA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the 10/10 review and the five stars — we’re thrilled you found our communication and workmanship top tier. It was a pleasure working with you, and we’re glad the results exceeded your expectations. We appreciate the recommendation and look forward to helping again whenever you need us.",
+        "time": 1769889961
+      }
+    },
+    {
+      "id": "AbFvOqmTPNdYym3S-mF36XMdLBsWUr7xciriFgqp71X1QDrkfqVeAYlkKYdizRfheOveUiE7n4_PCw",
+      "author": "Chino",
+      "rating": 5,
+      "text": "Really nice super helpful got my tint done here 100/10 they did they thing if you need anything else done here they can do it whatever you want!!!",
+      "time": 1769813886,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVeaEnBO_yavdvk8Xw4LVMOODE_wj71uYpNfh8OVzR9_DmH7u8=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much, Chino! We're thrilled you love your tint and that our team could help. If you need anything else, just give us a call or stop by. We appreciate your recommendation and look forward to helping again.",
+        "time": 1769817911
+      }
+    },
+    {
+      "id": "AbFvOqnkDVSAtBGEtZcP07l4H0EsxK5JqWKTNxyU1F3hRx36j8-viNPnBbgFJdNwFDUpgEq9cmLz_w",
+      "author": "Amar Dad",
+      "rating": 5,
+      "text": "Tints were amazing and done in a very reasonable time frame very satisfied",
+      "time": 1769800986,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIk6VA5rDoMyPwt0DaDwYcIHih7hnqDPOF2n3bLnqmyxZQ0ow=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much, Amar! We're glad you’re happy with the tints and the quick turnaround. We appreciate your feedback and look forward to helping you again.",
+        "time": 1769817911
+      }
+    },
+    {
+      "id": "AbFvOqnoT-Y-NsNYW1SST5Mlt6x3ci8LZdi-vNkUoSq-E_HtCxd9v0zk9_5oVOODm8KZKiSfiPaW",
+      "author": "albedri m",
+      "rating": 5,
+      "text": "Great service. Best work I’ve seen yet !!",
+      "time": 1769779755,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIDa2s8LPabhiLEFBMsat7r9uYv2hvMeLhqtKtvwMQ0Kyr0Vw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the great review! We're thrilled our work stood out and appreciate your kind words. We look forward to serving you again soon.",
+        "time": 1769786997
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/albedri-m-2026-01-30-1-1000.webp",
+          "width": 750,
+          "height": 1125,
+          "thumb": "/images/reviews/albedri-m-2026-01-30-1-320.webp",
+          "uploaded": "2026-01-30T13:00:00Z"
+        },
+        {
+          "src": "/images/reviews/albedri-m-2026-01-30-2-1000.webp",
+          "width": 750,
+          "height": 1125,
+          "thumb": "/images/reviews/albedri-m-2026-01-30-2-320.webp",
+          "uploaded": "2026-01-30T13:00:00Z"
+        },
+        {
+          "src": "/images/reviews/albedri-m-2026-01-30-3-1000.webp",
+          "width": 750,
+          "height": 1125,
+          "thumb": "/images/reviews/albedri-m-2026-01-30-3-320.webp",
+          "uploaded": "2026-01-30T13:00:00Z"
+        },
+        {
+          "src": "/images/reviews/albedri-m-2026-01-30-4-1000.webp",
+          "width": 750,
+          "height": 1125,
+          "thumb": "/images/reviews/albedri-m-2026-01-30-4-320.webp",
+          "uploaded": "2026-01-30T13:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqmBzoBgC7SwLWheLCRvxlo5MOGxj4SjnJfGe0eepZGiKn4szPkrrCMr9RxTZUhz8uOSERMg",
+      "author": "Najib",
+      "rating": 5,
+      "text": "Love the new ceramic tints on my vehicle 10/10 would recommend, pure professionals",
+      "time": 1769735219,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWPQHCzXlB8zWBUz_zmfHaL4pIV8uhccFatppxjrHqrOI_Iu5Zs=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks Najib — we’re thrilled you love the new ceramic tints and appreciate the 10/10 recommendation. Our team takes pride in professional work, and it’s great to know it showed. Enjoy the ride and we look forward to helping again.",
+        "time": 1769749399
+      }
+    },
+    {
+      "id": "AbFvOqlClJvs8eNFiUtU0jZt1GNOuu_M1jIu4bLOL12P2xdOVF1ZyY7PL90eBXLAFA2Uw7D8bHpvOw",
+      "author": "Ahsan Murtza",
+      "rating": 5,
+      "text": "Top-tier shop with even better service. Came in for window tints and ceramic coating and the results were flawless. Super professional, attention to detail is on point, and they really take pride in their work. The shop is clean, the process was smooth, and the car came out looking brand new. If you’re looking for tints, PPF, ceramic coatings, or wraps, this is the place to go. Highly recommend — definitely coming back.",
+      "time": 1769730143,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVpXlmA07YLA5eMNSaFgJBbvmtyZEQ7ryVfBL_cOS_yXf2pQPG5=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Ahsan! We're thrilled you had such a great experience and love the results from your window tints and ceramic coating. Our team takes pride in attention to detail and a clean, smooth process, so we appreciate you noticing. We look forward to helping with PPF, wraps, or any future services whenever you're ready.",
+        "time": 1769749412
+      }
+    },
+    {
+      "id": "AbFvOqntqpBbjHnzKXDB6pKQVODiDtUgMcmoynDFQcEzJ-iQl5UYkBoaVxuNQy8EfHs_f8wPh7wwWQ",
+      "author": "Mohammad Edris Raid",
+      "rating": 5,
+      "text": "Amazing experience. The quality of work is A1 and the attention to detail is crazy.🔥❤️",
+      "time": 1769726554,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjX72Ei2utfCyGv3Ey_jRFUoInRDnftSdTUI1ZiQxFtjMfU5vMWt=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much, Mohammad. We’re thrilled you had an amazing experience and that our attention to detail and quality stood out. Your kind words mean a lot and motivate our team to keep delivering A1 results. We look forward to serving you again soon.",
+        "time": 1769749405
+      }
+    },
+    {
+      "id": "AbFvOqnn2nfYhF-yJpSSYUL3yma4bB_RxF1YKfQbmwVE4iEexUxR1fUp_deaEuiQHdDERkDhZDovDw",
+      "author": "the one",
+      "rating": 5,
+      "text": "Got a tint and a wrap with these guys 20 out of 10 def recommend them!!!",
+      "time": 1769726265,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWWM-QTaTfkzVss_FF3yzDn_i1qsOWc4szwVILOTAR_FSB05FE=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the amazing review, the one! We're thrilled you love your tint and wrap and appreciate the 20 out of 10 recommendation. It means a lot to our team and we look forward to helping with any future projects. Enjoy the ride!",
+        "time": 1769726498
+      }
+    },
+    {
+      "id": "AbFvOqmI7J83iG-KYXa_gXI0OJ7au38ucIFVBB3l2dwhV4F8gTAYYOTKnZcvTmzDoVSStc_x96z4lA",
       "author": "Jonathan Cao",
       "rating": 5,
       "text": "Got my new to me car tinted by Skyline Customs. Everyone was super friendly and extremely patient, I had to reschedule multiple times and they were very accommodating. Professional quality work done at a great price,  I highly recommend their services and will be returning for future work!",
       "time": 1769725871,
-      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWT0lZnA17DEs1wKFkgRhFiCK05JsZQsL75K3XxHTdfcmUpLgkD=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWT0lZnA17DEs1wKFkgRhFiCK05JsZQsL75K3XxHTdfcmUpLgkD=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks, Jonathan! We appreciate you taking the time to leave this review and for the recommendation. We're glad our team could accommodate your schedule and that you're happy with the tint, quality, and price. We look forward to working with you again on future projects.",
+        "time": 1769726498
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/jonathan-cao-2026-01-29-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/jonathan-cao-2026-01-29-1-320.webp",
+          "uploaded": "2026-01-29T22:00:00Z"
+        },
+        {
+          "src": "/images/reviews/jonathan-cao-2026-01-29-2-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/jonathan-cao-2026-01-29-2-320.webp",
+          "uploaded": "2026-01-29T22:00:00Z"
+        },
+        {
+          "src": "/images/reviews/jonathan-cao-2026-01-29-3-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/jonathan-cao-2026-01-29-3-320.webp",
+          "uploaded": "2026-01-29T22:00:00Z"
+        }
+      ]
     },
     {
+      "id": "AbFvOqnTu5RUU2HYJ6FrkdnfPbEGdXmGfGgo3vlAxgF5puT_jiShuUwXvwt7A79RN7Ui4y4zfo_i",
+      "author": "Khalid Babikir",
+      "rating": 5,
+      "text": "Hands down one of the best shops I’ve been to. The attention to detail here is on another level. I came in for tint, but after seeing the quality of their work I’d trust them with anything, tint, PPF, ceramic coating, and full wraps. They take their time, explain everything clearly, and don’t cut corners. The install was flawless. No bubbles, no edges lifting, no rushed work. You can tell they actually care about the end result, not just getting cars in and out. If you’re someone who’s picky about your car or just wants it done right the first time, this is the place. Professional, honest, and straight up perfection in their work. Highly recommend. I’ll definitely be back for more.",
+      "time": 1769724042,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKTPatjQaNRb0kDTvSPPkigZXvOpTTAQ3cPLaJXzUzPc_oIzQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Khalid, we really appreciate the fantastic review. We're glad the tint turned out flawless and that our attention to detail and care came through; your trust in us for PPF, ceramic and full wraps means a lot. Hearing that you value our professionalism and honesty makes our day. We look forward to working with you again on future projects.",
+        "time": 1769726497
+      }
+    },
+    {
+      "id": "AbFvOqmAVUjDM1ZC1dQRo28Au4eMjR-oQ5UxxaymSZP4_u1Aq8YRgFFflPjvW1A2fK67GkcXk4dBkQ",
+      "author": "Moe S.",
+      "rating": 5,
+      "text": "First off; great customer service. As a customer who is very picky on who works on my personal vehicles, let me just say this was not just any ordinary service. The detail, quality, precision and organization around the shop was phenomenal. Thank you again for the (CERAMIC COATING) Great work!",
+      "time": 1769720332,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWColcGyXQa3uPKt3KmG3MAwLGpAjsy3YwwAp8fdNuou_mE7wVs=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Moe, for the fantastic review and for trusting us with your vehicle. We're proud the ceramic coating, attention to detail, and shop organization met your high standards. We appreciate your recommendation and look forward to serving you again. Please reach out anytime if you need anything.",
+        "time": 1769726500
+      }
+    },
+    {
+      "id": "AbFvOqmq5I2u9q2Hqg7JDwkIWRY6Xm9wYclhVeFSMgCz8FMr9nSXake2UmVii3vCbvlP5dmWAHUWdA",
+      "author": "Edris Fazli",
+      "rating": 5,
+      "text": "The top in dmv keep it up my guy",
+      "time": 1769718320,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJnpKN0IS6zAHYNPHBD9efBPF_4_Rnt3hM31rhmgCoYOfjID_Q=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the awesome review, Edris! We really appreciate the support and are glad you think we're among the top in the DMV. We'll keep it up for you. Hope to see you again soon.",
+        "time": 1769726495
+      }
+    },
+    {
+      "id": "AbFvOqmbZahNrparciU2VbVtNfQ6OShFIPRgknhjU9hSxELXsAq4lM5BoAK1F1CvOh2D7N96CwU4",
+      "author": "Yousef Elsayed",
+      "rating": 5,
+      "text": "They wrapped my car and did an incredible job everything is amazing from the craftsmanship, the finish, the experience, I will most definitely be back",
+      "time": 1769718267,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLIbjvTG1IN5_FzHPEwmFynhQKcW6v6aclqX6sKj4Ju85OPiQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Yousef! We're thrilled you loved the wrap — our team takes great pride in the craftsmanship and finish, and we're glad the entire experience met your expectations. We look forward to working with you again. Safe driving and see you next time.",
+        "time": 1769726500
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/yousef-elsayed-2026-01-29-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/yousef-elsayed-2026-01-29-1-320.webp",
+          "uploaded": "2026-01-29T20:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqmZC0lPyuGfevP1MOVr4N592_f_IYIXXFhT1EMdck-pG0CO_FCfTSipksyP4iX1HOpme90p",
+      "author": "Osman",
+      "rating": 5,
+      "text": "Top-tier work. Got my car tinted and coated here and the results were flawless. Clean install, no bubbles, no shortcuts just solid craftsmanship. These guys know what they’re doing and take pride in their work. If you need tints, PPF, wraps, or ceramic coating, this is the place to go. Highly recommend.",
+      "time": 1769717609,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLtpF0V1429I1y4H1DgZgz6G0I60QroWgTasAP7eSsO3-D_tw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the fantastic review, Osman. We're thrilled the tint and ceramic coating turned out flawless and appreciate you noticing the attention to detail and craftsmanship. Thank you for the recommendation and we look forward to helping with any future tints, PPF, wraps, or coatings.",
+        "time": 1769726494
+      }
+    },
+    {
+      "id": "AbFvOqkj6Pd-bl3Wgw2RWCq4CosRrNEJivAPjx6nysgYGhkj6dLWoXkj1IJSCVv1jyVcDZJ6vGxfQw",
+      "author": "Mustafa Mahmoud",
+      "rating": 5,
+      "text": "I’ve taken 2 of my cars to Skyline Customs for body work and they’ve done an incredible job on both occasions. They were super friendly, responsive, and timely with the repairs. They’ve become my go to and would highly recommend!",
+      "time": 1769717425,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIKaWWyi4cx5-qx0c0I1GcJ8FN65zsEOqDPxCjnmE9pMaEpgA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mustafa, for the fantastic review and for trusting Skyline Customs with both of your cars. We're thrilled our team was friendly, responsive, and timely, and that you're pleased with the repair work. It means a lot that we've become your go-to and that you would recommend us. We look forward to helping with any future needs.",
+        "time": 1769726496
+      }
+    },
+    {
+      "id": "AbFvOqkMmS2AwmlOnpqntItE2YvLuX2Rt3zQsjQU2u9P15Q_rFMrnc-U4IvWlvRQ2zRMmk82fyirUw",
+      "author": "Zekariase Nebeyu",
+      "rating": 5,
+      "text": "Best Tints and Coats in the DMV!!!! Recommend for sure",
+      "time": 1769717209,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIycVO07sWxf_AeYPOxqJMnAwqao6pIlWUWlQsYop--p0UEaw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the 5-star review, Zekariase! We're thrilled you recommend us and appreciate you calling us the best for tints and coats in the DMV. We look forward to helping with any future projects. Thanks again for choosing us.",
+        "time": 1769726498
+      }
+    },
+    {
+      "id": "AbFvOqnMvsdrSp135MiRifm5_jE2__DglxohS751uzy5nvbuj-k5Pzn-sUcVlle26r2WlhfoeJbw",
+      "author": "salem",
+      "rating": 5,
+      "text": "second time i’ve got my tints done and decided to go with a different company. Good communication in their product and great price to value ratio. Will be taking future cars here all the time.",
+      "time": 1769715457,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIqPWqBi_Qe-B221KcTOakQQUXse57TT8TDUnxSVqo5UnhHiQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for choosing us again, Salem. We're glad our communication and price-to-value met your expectations. We look forward to tinting your future cars and appreciate your trust. If you need anything, just give us a call.",
+        "time": 1769726497
+      }
+    },
+    {
+      "id": "AbFvOqn8BoaCxC4CulgdELRi3yvaxItiaAzK7Zne7KMeHacGeRc4HysDeKgY5jUmynsojyY9-7FSWg",
+      "author": "Won Song",
+      "rating": 5,
+      "text": "Outstanding job and great service I truly recommend Skyline tinted glasses for your car!",
+      "time": 1769713743,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXIqVup_d3IRPJEKTfLTxjym93b8plluck1tp2FoJWw_mgY_BoM=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you, Won, for the kind words and recommendation! We're thrilled you had a great experience and are happy with your car tint. We appreciate you choosing Skyline Customs and recommending us to others. If you need anything in the future, we're here to help.",
+        "time": 1769721039
+      }
+    },
+    {
+      "id": "AbFvOqkvMjddjQWdT4K5htlmBH_jjIxq8Aau9WTHzdM60CZxwmxluE8wUyHWmTbH2x8zXPtiKbgg",
+      "author": "Kyle Forte",
+      "rating": 5,
+      "text": "Excellent work and attention to detail. The team was professional, transparent, and delivered exactly what they promised. Highly recommend this shop!",
+      "time": 1769105120,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJa9IFwM0XUWKU5NekVNKIJ8CacV9oi6kORR5C2zo-uiZ4H=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Kyle! We're glad our team met your expectations and that you appreciated the attention to detail and transparency. We appreciate the recommendation and look forward to helping you again.",
+        "time": 1769112379
+      }
+    },
+    {
+      "id": "AbFvOqkcBvfVAsachHnLK-mhRkWtiq0btLksdPnMhaH8xESS1z5M__E9_N_cE_XwHIMYurJMQ-So",
+      "author": "samir sayed",
+      "rating": 5,
+      "text": "I had a very good experience getting my windows tented yesterday. They were very respectful of my time, and the customer service was really good. I highly recommend going there!!",
+      "time": 1769078116,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWu9xTBCGAvHnQQ_JpQl2_w4TSmI_swHvMD3wy6BwJySwrNSf8=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Samir, for the wonderful review! We’re glad your window tinting went smoothly and that our team respected your time while providing great customer service. We appreciate your recommendation and look forward to helping you again whenever you need us.",
+        "time": 1769089146
+      }
+    },
+    {
+      "id": "AbFvOqliQ2kvEbk78R8IevMsuMWFxkzOmFWc3_8dCAiqs36ey_E6cXcUv5nAExWgSJwOCjUM_XRtTA",
+      "author": "Bilal Shabbir",
+      "rating": 5,
+      "text": "I recently got the window tint done on my Acura ADX at Skyline Customs, and they did an amazing job.\n\nThe team was easy to communicate with, very professional, and transparent throughout the process. Pricing was fair, the turnaround was quick, and the quality of work exceeded my expectations.\n\nHighly recommend Skyline Customs if you’re looking for high quality tinting and great customer service.",
+      "time": 1768848593,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWtowVzzZgtYIdvZcZ67o_wZ6qPyfAoLqnX93zH1hRCEcI0cqw=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thanks so much for the great review, Bilal. We’re thrilled you’re happy with the tint on your Acura ADX and that our team’s professionalism, transparency, and quick turnaround met your expectations. We appreciate the recommendation and look forward to helping with any future needs or referrals.",
+        "time": 1768851589
+      }
+    },
+    {
+      "id": "AbFvOqmhUZBiKq6VxxNLr1lLRH-rAQ99VH0Ih4q1mcMs_NKkYAKRzA_Xi44HPk1ACLdTmazFVXclEw",
+      "author": "A goodala",
+      "rating": 5,
+      "text": "Skyline customs was great. The guys here patiently helped me decide the level of tint I wanted and did a great job with the final product. Will definitely be returning for any future jobs!",
+      "time": 1768847431,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocK2Qorkb2bSJmn8e_x_yVS4RdxII6-cKpZtyKcaQjIw6eUrnw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the kind words! We're glad our team could help you choose the right tint and that you're pleased with the final result. We look forward to working with you again for any future jobs. If you need anything in the meantime, just give us a call.",
+        "time": 1768851588
+      }
+    },
+    {
+      "id": "AbFvOqnK_-T6NpGv8OJ_15DQG0asD2ZVCK0QHWsxo2lQXWWMsy8beELKIfUfEzt08V5_5OTwt5E5mw",
+      "author": "Moutwakil Omer",
+      "rating": 5,
+      "text": "Was looking into getting my card tinted and and friend of mine suggested skyline customs. Amazing group of young men who are very knowledgeable and worked with precision.",
+      "time": 1768668856,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIIvCgaAAdPyZiBSybNXLlLaTWZk4C6GIWFiNZAAWr2Lij4YA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the great review, Moutwakil. We're glad your friend recommended us and that our team could deliver a precise, knowledgeable tint job. We appreciate you recognizing our crew and hope you’re enjoying the finished product. We look forward to helping with any future upgrades.",
+        "time": 1768673107
+      }
+    },
+    {
+      "id": "AbFvOqmmXanjR3pjYoMYwYSJ2PtfMw0RoIvJKrtezOyuYi2tgTO8rchazf2tHttmvfSIJOqg6_vAgQ",
+      "author": "Blue Vertical",
+      "rating": 5,
+      "text": "If you’re looking for quality work done on your tints. This is the spot to go to! I took some times to read their reviews and it all aligns with the work they do and quality they do! And I didn’t have to driver far to get it done! Thanks guys.",
+      "time": 1768581190,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJnKmuiuEmvexNO0lBe-aJArT5Mqjbr74Ij-ynJzNg2KrWiJw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the great review and for taking the time to read our customer feedback. We're thrilled the tint quality and convenience met your expectations, and we appreciate you trusting us with your vehicle. We'll pass your thanks on to the team and look forward to helping you again.",
+        "time": 1768584200
+      }
+    },
+    {
+      "id": "AbFvOqnik92AXdksmjtDvSmv_omvmmFr-PlvdrRiU6T1yz8U6pFK2PRxtR09TCzMLMEsq1qc6gQS",
+      "author": "lux homebuyers",
+      "rating": 5,
+      "text": "Top of the line. Young professional that knows how to get the job done right! Hats off to you guys. I’ve got another car to bring to them. They definitely earned my trust and business. 🤝",
+      "time": 1768581044,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIAGD3e9OkNGegjkT_g4xe-kulkr9W9gn8Bfh41YAQprRzg1w=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Lux Homebuyers. We’re thrilled to hear you had a great experience and that our team earned your trust. We look forward to working on your next car and will be ready when you bring it in.",
+        "time": 1768584199
+      }
+    },
+    {
+      "id": "AbFvOqlQVjrACPGyktEz25QswxBCxFKVc9Xzn8za6TfFC05VqROZHt4iowe5fb_qsTPYaz0JvVgk",
+      "author": "AGX",
+      "rating": 5,
+      "text": "Very impressed with the work they did! Surprisingly, it didn’t even take long and very budget friendly pricing. I’m sending a few guys your way! No doubt. Thanks fellas 👍",
+      "time": 1768580885,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocItdI2vRWabbPcyVf0L8uxf2Py4PPIAtWLyG89xp-MPC8tTeQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the kind words, AGX! We're thrilled you were impressed with the quick, budget-friendly work and really appreciate you sending a few guys our way. We’ll take great care of anyone you refer and look forward to helping them.",
+        "time": 1768584198
+      }
+    },
+    {
+      "id": "AbFvOqlKCnxQ_j97mt4C_lwnNr5MiGoUMQ4wM9y7nsL94pYErB9S1qnbuRAwNLzfSMfGOxtw0m24_g",
+      "author": "Blue Nile Transports",
+      "rating": 5,
+      "text": "High quality work! Very professional & Very knowledgeable! All you have to do is tell them what you’re looking and they’ll take it from there. They made everything very seamless and got the job done fast! Great value for the price they charge. Getting your tints done here is a no brainer guys! Tap in.",
+      "time": 1768580718,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUorNlQ4qcUfRPQN1sZuU9tDXUIwpLtPmzYLrb3tgCtxTjqtGrh=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the five-star review and for sharing your experience. We're thrilled our team made the process seamless, fast, and provided great value. We appreciate the recommendation and look forward to helping you again or assisting anyone you refer.",
+        "time": 1768584199
+      }
+    },
+    {
+      "id": "AbFvOqkGTYa1iuY9FTZQcVZLrAjCUWcUdxpwpwhmSdIhNCzOsCwuk8CKw_c_wt9395OIHsD_DHRonw",
+      "author": "EasyPro Staffing",
+      "rating": 5,
+      "text": "Awesome group of guys. Very detailed oriented and fast turn around time! Highly recommended",
+      "time": 1768580395,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIZN8pRs-fEzCvAZ_zfnVFMAmX-qevKWV1PNKyoZKREKyx3Tg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, EasyPro Staffing. We appreciate your kind words and are glad our attention to detail and fast turnaround met your expectations. Your recommendation means a lot to our team. We look forward to working with you again.",
+        "time": 1768584197
+      }
+    },
+    {
+      "id": "AbFvOqnvITsTbczaSYMYMoS3PFMacUFP05l1SzjxSOQysMYXTzF69Qy9GO1ErAoC5MLTixYo4kv2Rg",
+      "author": "Sofonis Arega",
+      "rating": 5,
+      "text": "Best quality and excellent customer service!",
+      "time": 1768538048,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVUnWG-iq9hG6bL-adchEBsjnTo2qxkdJAZCQmiZ9oC2YwwSt8E=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the wonderful review, Sofonis! We’re thrilled to hear you enjoyed the quality and customer service. We look forward to serving you again soon.",
+        "time": 1768539492
+      }
+    },
+    {
+      "id": "AbFvOqkTYEIBDxxjJD3-ve8n_ZQr_Rkz_pU8YNZZtpTA1I65vtJXXRabI6VgSZ5utMPXXNr9C3MudA",
+      "author": "Nadeem Aissa",
+      "rating": 5,
+      "text": "Had an amazing experience here! Got my car partially wrapped and I was very satisfied with the results! Would definitely recommend to others and the staff were very friendly and professional as well!",
+      "time": 1768525093,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocK3lSt-KCqwWnll-CZzTdWx679U5Dm3r1Te2kH3W0UOaa-RnA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Nadeem! We're thrilled you had an amazing experience and are pleased you’re happy with your partial wrap. Your recommendation and kind words about our team mean a lot. We look forward to helping you again in the future.",
+        "time": 1768539491
+      }
+    },
+    {
+      "id": "AbFvOqnfalxQyPuo1yzFix62lJ3_zNjHYBX4pUoFR_fgDn7pLC3AKC6uR6rSN_ExLbNpDUiouYM1",
+      "author": "Md Israil",
+      "rating": 5,
+      "text": "I took my car to Skyline Customs to get the windows tinted and I’m very happy with how everything turned out. The staff was professional, respectful, and explained everything clearly without trying to upsell me. The work was done on time and the tint looks clean and even with no bubbles or flaws.\n\nYou can tell they take pride in their work and know what they’re doing. Prices were fair and the quality speaks for itself. I would definitely recommend Skyline Customs to anyone looking to get their car done right the first time.",
+      "time": 1768520053,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJZfQSrnUyW64Mm6rBZSL9vmG8_RzKUGsWU64FjQcuZrJdM5g=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the kind review, Md Israil. We’re thrilled the tint turned out exactly as you hoped and that our team was professional, respectful, and transparent without trying to upsell. We take pride in timely, high-quality work at fair prices and appreciate you recommending Skyline Customs. We look forward to helping you or anyone you send our way in the future.",
+        "time": 1768527312
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/md-israil-2026-01-15-1-1000.webp",
+          "width": 1000,
+          "height": 1500,
+          "thumb": "/images/reviews/md-israil-2026-01-15-1-320.webp",
+          "uploaded": "2026-01-15T23:00:00Z"
+        },
+        {
+          "src": "/images/reviews/md-israil-2026-01-15-2-1000.webp",
+          "width": 1000,
+          "height": 1500,
+          "thumb": "/images/reviews/md-israil-2026-01-15-2-320.webp",
+          "uploaded": "2026-01-15T23:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqlOcJuXJjFytDSynN1Kzndt8Mzmd9KLCswrRiRVdwCwfq51OAJETttt4l3sh0pXm0ukDbcL",
+      "author": "Mohamed Mohamed",
+      "rating": 5,
+      "text": "Amazing experience at Skyline Customs! Professional work and great customer service, some of the best ceramic coating and tint work I’ve seen. Appreciate the team heavily and will definitely be back!",
+      "time": 1768485351,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIDcVuFHWQW8lR4bVYH9MpHol0vC8dXfIVt0g7RB5G__x99TA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mohamed! We’re thrilled you had an amazing experience and appreciate your kind words about our ceramic coating and tint work. Our team takes pride in delivering professional results and great customer service. We look forward to helping you again on your next visit.",
+        "time": 1768495108
+      }
+    },
+    {
+      "id": "AbFvOqnuG7lyFqJ4OPa8Rge59-iamcjh2OQawIaSxwqkisuollhabKbJggPdhwXFwYZc0AZttruLJw",
+      "author": "qais jehan",
+      "rating": 5,
+      "text": "Got my windows tinted by them. Came out perfect. Would recommend everyone to go there for windows tints and other custom work  on your car.",
+      "time": 1768451001,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIju5ECRB0lGipQDh3t3DPEbgygailP5bLwxO16GkYyKid4cg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the great review, Qais! We're thrilled your window tint turned out perfect and appreciate the recommendation. We look forward to helping you or your friends with any future tinting or custom work.",
+        "time": 1768472874
+      }
+    },
+    {
+      "id": "AbFvOqlG0LaVtUQu1-INXIj5JQGKedVhZk0NKDH6vDo1rpvDEbJA9LnrafA5rv0Rvhot2DqKaUXD",
+      "author": "Lap Truong",
+      "rating": 5,
+      "text": "Great service!!! Delivered my Tesla Model x on time and shiny as promised. They were willing to accommodate my last minute request with no additional cost. Overall, I’m still happy with their work after a month.",
+      "time": 1768442646,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjW_9s6atBvBrU-G44QoY5-p3p9hNDGHa0XUsSLqBsxTXZUXinEx=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the five-star review, Lap. We're thrilled to hear your Model X was delivered on time and looking great, and that our team could accommodate your last-minute request at no extra cost. It's wonderful to know you're still happy with the work after a month. We appreciate your trust and look forward to serving you again.",
+        "time": 1768450674
+      }
+    },
+    {
+      "id": "AbFvOqkAuh2x7941t61rT7zCLWX9-JiPT5ddyWkovbnZr2HIVed3845TOBWIWp7p8D0iBWJsn9mDCA",
+      "author": "LT Geeks",
+      "rating": 5,
+      "text": "Incredible people and work, ive been looking for a tint spot for at least a month that makes sure installment is smooth because ive had bubbles come up in the past, but this place showed out and delivered a great job on my tints and actually cleaned my car and threw in a air freshener",
+      "time": 1768439411,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocI16ISRhJze1q52D1Cxzfcxeo-1T6aUcD770-4IecAELHRFyg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the 5‑star review! We're thrilled you had a smooth, bubble-free tint experience and that the team cleaned your car and included an air freshener. We appreciate you trusting us after searching for the right shop and are glad we could deliver. We look forward to helping you again whenever you need us.",
+        "time": 1768446644
+      }
+    },
+    {
+      "id": "AbFvOqk3ijdYv9GOnljh5_NDoc1rvRf06OpUq5T70WoL0RrWdYoRxlfFoGorAQCEhdFfNt7_SFg36Q",
+      "author": "Adrien Henao",
+      "rating": 5,
+      "text": "Had a PPF job done at Skyline Customs and it came out amazing. From the very beginning, everything was explained clearly and the final result matched exactly what they told me to expect. The install was clean, precise, and professional. I felt comfortable and confident throughout the entire process knowing my car was in good hands. Definitely recommend Skyline Customs if you’re looking for quality PPF work.",
+      "time": 1768430169,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVb9mCsdbCq2dYhWnbwQ3ciaw7igKfxo_cbr6sko16qDiSq-bFm=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you, Adrien, for sharing your experience and recommendation. We’re glad the PPF install met your expectations and that you felt comfortable with our process. We appreciate you trusting Skyline Customs with your car and look forward to helping with any future needs.",
+        "time": 1768450671
+      }
+    },
+    {
+      "id": "AbFvOqmHzgJodZNdcBS1nXpRdBi2R-d2shQicjKAqN1y3EUejNse80pdxgEjtCrmqF4ESUBpkjEb5Q",
+      "author": "sami osman",
+      "rating": 5,
+      "text": "Hands down the best custom shop in the area! Totally worth it and I’ll definitely be coming back.",
+      "time": 1768429020,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJEwc-Aojiu-cc3o-57wxClSCqgZEynpfGNKuPR_SEWr3VjZg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the fantastic review, Sami! We're thrilled you loved our custom shop and appreciate you recommending us. We look forward to seeing you again for your next project; feel free to contact us anytime.",
+        "time": 1768450672
+      }
+    },
+    {
+      "id": "AbFvOqnChBP2-07zhoLLkeV_EUqolzSWkCD_ewHU4DN4NDaVfkAMtXJQ-bf9EWu2fdQSuEmpR0eC",
+      "author": "Mannan Khalil",
+      "rating": 5,
+      "text": "Skyline Custom does great work. Quality is solid, details are on point, and everything came out exactly how I wanted. Easy to work with and definitely recommend.",
+      "time": 1768418542,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKMxqDFY8LKY_tobrN9HEzJsIkrzfNmglRAuifQiZ5LnaWRgA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mannan! We’re thrilled you’re happy with the quality and details, and we really appreciate your recommendation. It was a pleasure working with you, and we look forward to helping with any future projects.",
+        "time": 1768428865
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/mannan-khalil-2026-01-14-1-1000.webp",
+          "width": 1000,
+          "height": 667,
+          "thumb": "/images/reviews/mannan-khalil-2026-01-14-1-320.webp",
+          "uploaded": "2026-01-14T19:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqkQdVomI9FOkEK3snEP8srhB0QBR9-J1JRb_vUY0gnCwdq2u8qT3hmEnR57q9BuvFaXhDCXDw",
+      "author": "Miaad Bakri",
+      "rating": 5,
+      "text": "I had my car tinted with ceramic coating and couldn’t be happier with the experience. Everyone was very welcoming and professional. The service was excellent, and I have no complaints at all. They took the time to explain the process and the benefits of ceramic tint, which I really appreciated. As someone who doesn’t know much about cars, I felt comfortable trusting them and they executed everything perfectly.",
+      "time": 1768415443,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocL9drm7Ufb0hKDKTp4RijmWvRtnAy8Z1HCdbV2q3buZGjjjzw=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the wonderful review, Miaad. We’re thrilled the ceramic tint and our team’s service made you feel comfortable and informed. We appreciate you trusting us with your car and are glad everything was executed perfectly. If you need anything in the future or want to refer a friend, we’re here to help.",
+        "time": 1768428866
+      }
+    },
+    {
+      "id": "AbFvOqnBlUccT-Er1d1JACxfXT6fuWgkNh6Hi6v89VoY3Kq8mlDlBcMka3Ael4hWWrroh4mz3Blw",
+      "author": "DATBOY DRISSA",
+      "rating": 5,
+      "text": "They helped me with my car and went above and beyond professional service, great communication, and attention to detail from start to finish. My car came out better than I imagined. Flawless tint, perfect finish, and a really clean install every step of the way. The team is friendly, skilled, and truly passionate about what they do.",
+      "time": 1768414974,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUzILjpOyUyj9dAzuzNMv-IDH2x1vzCL5o9X75t5blpdey0mYBb=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the fantastic review, DATBOY DRISSA. We're thrilled we could exceed your expectations and that the tint and finish came out even better than you imagined. We appreciate your kind words about our communication, attention to detail, and the team's passion, and we'll be sure to share them with everyone. We look forward to helping you again and hope you enjoy the ride.",
+        "time": 1768428867
+      }
+    },
+    {
+      "id": "AbFvOqlS4Mb87XFdD1nf-foRoAkNwK02Va1j84egHIpmJdPDXYrC29Ii3aHVz4Dd0eI_XbfD9Afokw",
+      "author": "Daniel Solomon",
+      "rating": 5,
+      "text": "Very professional, did a wonderful job and went above and beyond!",
+      "time": 1768414583,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocK1xRVPrQMo5XyJI11vlbMOubFbC2Iw1wbfRyxFjJQCMgar4w=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Daniel! We’re so glad our team was professional and went above and beyond to deliver a great result. Your kind words mean a lot and help our team keep up the high standard. We look forward to helping you again in the future.",
+        "time": 1768421820
+      }
+    },
+    {
+      "id": "AbFvOqlmkXHzWrGUMB1l1uF5AYktSiaN2BRp-OvgZCfkrtpHF3WAMtwXmWMe_w0OynYtFeWUHQ2vOA",
+      "author": "Muste",
+      "rating": 5,
+      "text": "Great experience overall. The staff was friendly and professional, the work was high quality, and my car looks amazing. Everything was done on time with clear communication. I’d definitely recommend this body shop.",
+      "time": 1768401505,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVv1tMqbfxGPcSQzpZ8Yr4N0hEVmHOjVCp_yURm6t0wtQFngqQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the kind review, Muste. We’re thrilled our team provided friendly, professional service and delivered high-quality work on time. We appreciate your recommendation and are glad your car looks amazing. We look forward to helping you again if you need us.",
+        "time": 1768407170
+      }
+    },
+    {
+      "id": "AbFvOqksEw77-j1w_iI4yN4Zi3Tywo3Ho6p2oAhAwlFKcgQKTeVc9tavfD_SK-jvWpakP2tVW2JXSQ",
+      "author": "Fatima Ibrahim",
+      "rating": 5,
+      "text": "The experience I had here with skyline customs was phenomenal! I had brought my daughter’s car here last week and the transition from start to finish was truly amazing. The team was so efficient and overall professional. Will be bringing back my own personal car here next week can’t wait!",
+      "time": 1768399000,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocIHAGA45arupvBHeXSaUzvOs7ERh9NQOeUKL4hdbFHizMVaLQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much, Fatima! We’re thrilled you had a phenomenal experience and that our team made the process smooth for your daughter’s car. We look forward to servicing your personal car next week and truly appreciate your trust and kind words.",
+        "time": 1768407169
+      }
+    },
+    {
+      "id": "AbFvOqmHgQkRy014XU8FG2V-1Zy1I4UCRozWD1SxpbTZIGkJdgse2-19PhpUxC2SAoF5EgyEJD6RbA",
+      "author": "Ahab Davis",
+      "rating": 5,
+      "text": "The team at Skyline Customs has top-tier customer service and absolutely killed it. Super clean work, great prices, and a genuinely friendly, professional staff. I’ll definitely be coming back, next time in my Bugatti (manifesting). If you need work done in the area, I highly recommend checking them out.",
+      "time": 1768391197,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocImJHVrYCGKc0JkvhN5Y_7oK-S_sWHVvct8YuCDr4FkBc8mrfM=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much, Ahab! We're thrilled you had a great experience and we appreciate the shout-out for our customer service, clean work, fair pricing, and friendly staff. We look forward to working with you again and we'll be ready when you bring in that Bugatti. Thanks for recommending us to others.",
+        "time": 1768398429
+      }
+    },
+    {
+      "id": "AbFvOql0PvmL5mPO5Jth9uMSbhbkF25bI6B46r41F4eh-Abam_KdM1DBDn-hhUCJh0nu7YHstSvtOQ",
+      "author": "Don Thornton",
+      "rating": 5,
+      "text": "I just got sum work done by them last week. Let me just say i'm in awe at the precision and detail they put into their work. The car came out phenomenal",
+      "time": 1768370053,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJZF3Lizpj3PPzKx6X2UNP3iPmFaM9yR2n2SGfuPyEzHcDU5w=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much, Don. We're thrilled to hear you’re impressed with the precision and detail and that your car came out phenomenal. Our team takes pride in that level of craftsmanship. We appreciate you trusting us with your vehicle and look forward to serving you again.",
+        "time": 1768385270
+      }
+    },
+    {
+      "id": "AbFvOqlxdMIrF7V57AWxC688SR3QUbMZsIlPht0TUh62TzQvESAo2uPD4zhvOwrk0PwtDOuKL6zS",
+      "author": "Danny OsmN",
+      "rating": 5,
+      "text": "they did a nice ppf job on my car",
+      "time": 1768356988,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVklPNoYzJQ_lqamMpQ1abjbFgnwYxmaP0yGGvnJ8NxWFgC77o=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the great review, Danny. We’re glad you’re happy with the PPF on your car. If you need any touch-ups or have questions about care or warranty, give us a call or stop by. We appreciate the recommendation and look forward to helping you again.",
+        "time": 1768363305
+      }
+    },
+    {
+      "id": "AbFvOqk0Y9ea3K3ECK05KWrBuLktNF-kNY6r9wBvlVBH2tiFcjp9Z0DQDi5jfpYIxwpWJiPCrOi_hg",
+      "author": "Jama Ayalew",
+      "rating": 5,
+      "text": "Great service, and fair rates! Would recommend for anyone who’s looking for the service",
+      "time": 1768355007,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjWj0C2E8qlQ5ILz8dip0PWLomxUIdz5Rjx3L7EFChN8A3wmaHEF=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much, Jama! We’re thrilled you had a great experience and appreciate your recommendation. We aim to keep our rates fair and service reliable for all customers. We look forward to helping you again or anyone you refer in the future.",
+        "time": 1768363300
+      }
+    },
+    {
+      "id": "AbFvOqlbdaR5n6snFjzqVT7oV_qXK87aTFfn2J6r7TT3b-Twq49styQRdwcfVbn9ogwgEsNTMtiDDg",
+      "author": "Omar M.",
+      "rating": 5,
+      "text": "Absolutely top-tier work. I brought my lamborghini from my rental company in for customization and the results exceeded my expectations. The team was professional, knowledgeable, and took the time to explain every detail so I felt confident in the process from start to finish. The quality of craftsmanship is outstanding clean work, attention to detail, and everything was done exactly how I wanted it.",
+      "time": 1768349972,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjV5MfKv04k7hXlVj8P_Srk6jJsbdlafG6vUcY-0VXDEu1U7J-lk=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Omar, for the fantastic review. We’re thrilled the customization on your Lamborghini exceeded your expectations and that our team’s professionalism and craftsmanship gave you confidence throughout the process. We take pride in our attention to detail and look forward to helping with any future projects.",
+        "time": 1768357209
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/omar-m-2026-01-14-1-1000.webp",
+          "width": 1000,
+          "height": 1007,
+          "thumb": "/images/reviews/omar-m-2026-01-14-1-320.webp",
+          "uploaded": "2026-01-14T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqlRYnxqr32HZGzqdqH81KahUIJYvPZ_MEDZ1XMQIWPy-3Ly_bwTRSxXei5FHUvwI-8iR5XGUA",
+      "author": "Mohamed Omer",
+      "rating": 5,
+      "text": "From start to finish skyline has been nothing but respectful, time efficient, and gave me a sense of a family vibe. I’ve walked into other shops but it felt so unorganized, rushed, and low quality. But, the experience I had with the skyline team getting my Chevy impala ceramic coated far exceeded my expectations. I defiently recommend this shop for anyone in the area looking for ceramic coatings, ppfs, tints, or simply a good time!",
+      "time": 1768333976,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJWyy8kfffelbC00JvM5-MLzfobt2-cvHZrnmdbdfUe3V52Mg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mohamed — we really appreciate the kind words. We're thrilled to hear our team treated you respectfully, worked efficiently, and made you feel like part of the family. It’s great to know the ceramic coating on your Chevy Impala exceeded your expectations. Thank you for recommending us to others. We look forward to helping with any future ceramic coatings, PPF, tinting, or other needs.",
+        "time": 1768341712
+      }
+    },
+    {
+      "id": "AbFvOqkPb73UYbu8dWVLUH12C8umpmz4hhKBi_cOkpP9Sx8o9E13w1MwD5ibw0kbSDAjM9r6uI6FEw",
+      "author": "Abdalh Suliman",
+      "rating": 5,
+      "text": "I got my tints done it was amazing work, the professionalism of the establishment was amazing!",
+      "time": 1768333828,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKYkE1rNoDyEl1mxt4VJGJNEo0fHqwxIYwF3Ea9kNfAQqggIQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Abdalh! We're thrilled you loved your tints and that our team's professionalism stood out. We appreciate your kind words and look forward to helping you with any future needs or recommending us to friends.",
+        "time": 1768341711
+      }
+    },
+    {
+      "id": "AbFvOqnWWSod2VihaCCyJ7o8S7X06wUwB3K6eSmfeYAmCH7RAMWjwYg2_Wyk5Cmrag39dPUk9q-v",
+      "author": "Mohamed Elamin",
+      "rating": 5,
+      "text": "Super impressed with the service! The ceramic coating has kept my car looking clean and glossy, and the window tint keeps the interior cool. Excellent attention to detail.",
+      "time": 1768330969,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJfe_lVJ_lfiak5m-_WK8QdBoLsgD0K63kr4TzmARTAq20x=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mohamed! We’re thrilled the ceramic coating and window tint are keeping your car glossy and the interior cool. Your recognition of our attention to detail means a lot. We look forward to helping with any future care or upgrades.",
+        "time": 1768341716
+      }
+    },
+    {
+      "id": "AbFvOql-kwOOlh14-eEuELnAwI_nZ5REKz-F_-irR3xOkOUhDiYIJPM_-UUJZ_fuEM1HK5s_oEQ5jQ",
+      "author": "Abraham Jame",
+      "rating": 5,
+      "text": "Great job on PPF my full car. Went to a different shop in Maryland before and they completely ruined my car and done a shitty job but thanks to these guys my baby is perfect.",
+      "time": 1768329548,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJn2KtwtkLno6Lt2Kkn3RXgOBzXj58jaY35xbPqtqIRPQ53SQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the great review, Abraham. We're thrilled we could restore your car’s finish and that you're happy with the PPF work. We appreciate you trusting us after a bad experience elsewhere. If you need any follow-up care or detailing, feel free to contact us. Enjoy your car and safe driving!",
+        "time": 1768341714
+      }
+    },
+    {
+      "id": "AbFvOqn26RiGgn-2NrmUIyUmyoMwOGokWBZIukK-hC1PbgfxlC2LD-txZKVogeGfc98o60y1e7vraA",
+      "author": "Omer Abdelhamid",
+      "rating": 5,
+      "text": "Quality service and excellent customer service. Overall an amazing experience from start to finish",
+      "time": 1768323226,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLpR2YdZdeyA1tAgAkqgdt1ZJFzfTl9ZUk8vqlULOTVCV8aoA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the 5-star review, Omer. We’re thrilled to hear you had an amazing experience and that our team delivered quality service and excellent customer care. We appreciate your feedback and look forward to serving you again.",
+        "time": 1768341707
+      }
+    },
+    {
+      "id": "AbFvOqnwcLHwL9BjYHbBw6sZFuV_ed33lV7f3hbBMXYC13vEvvJHDXPvO98LCjYfWkOk2AL0trAqQA",
+      "author": "محمود احمد حوت",
+      "rating": 5,
+      "text": "Got my car tinted here. Literally no bubbles, perfect edges. I’m truly amazed. Great communication. I’ll definitely bring my other cars here. Highly recommended",
+      "time": 1768321011,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXbzAebvdoux20hFsMDQj09Y_ZocaUFlMqqNdli79vLy0xvBPY=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the fantastic review, Mahmoud. We're thrilled the tint came out bubble-free with perfect edges and that our communication met your expectations. We look forward to working on your other cars and truly appreciate the recommendation. If you need anything else, just give us a call or stop by.",
+        "time": 1768341716
+      }
+    },
+    {
+      "id": "AbFvOqklTeStAaMRrXoGyel4OiX3znzYdAEk9BfXOwE3gHXQeyS7E8yt7BbWl0glRa3fwyA6zGMb1A",
+      "author": "Issac Tecle",
+      "rating": 5,
+      "text": "Top-tier service and excellent quality. Out of all the cars I’ve ever had tinted I’ve never received this level of expertise. The edges are perfect, there’s not a single bubble or heat reduction. The tints look amazing and the staff was super friendly.",
+      "time": 1768320762,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLX0vURllKjW-mznYW2vjEmD1NgLO18ymfXsndgR-i9CRrjSQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Issac — we really appreciate your 5-star review. We're thrilled our team delivered the precise, bubble-free tinting and the heat reduction you wanted, and that you love the finished look. I’ll share your praise with the staff; they’ll be glad to hear it. We look forward to helping with any future vehicles.",
+        "time": 1768328007
+      }
+    },
+    {
+      "id": "AbFvOqkPDRA0nO7syWu4YZ27bX603p8LwntD6AgZQMMz5Su_bnVkDUKtfn9vyXJKIyqeSb7rFOyr",
+      "author": "Omhani Mohamed",
+      "rating": 5,
+      "text": "Skyline Customs did an amazing job on my Tahoe. I came in for tint and ceramic coating, and the results honestly exceeded my expectations. You can tell they really care about their work and about their customers. My truck looks incredible, and I’m truly grateful for the quality and attention they put into it. I definitely recommend them to anyone looking to take care of their vehicle the right way.",
+      "time": 1768269745,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJQDPRjVvdvpL56Z76cPjtKic7J-SgHULiUrlJq17TA_irj4A=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the kind words, Omhani. We’re thrilled the tint and ceramic coating exceeded your expectations and that your Tahoe looks incredible. Our team takes pride in quality and customer care, and it’s rewarding to hear that reflected in your experience. We appreciate the recommendation and look forward to helping keep your truck looking its best whenever you need us.",
+        "time": 1768276791
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/omhani-mohamed-2026-01-13-1-1000.webp",
+          "width": 1000,
+          "height": 667,
+          "thumb": "/images/reviews/omhani-mohamed-2026-01-13-1-320.webp",
+          "uploaded": "2026-01-13T02:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqmJoDJAFfrQFDoF8iM5q6Z49kNzetZMZh9IMw3MmLGxoR3Nx1l2i8V_zAt9ERqJH8tqYhYX",
+      "author": "Ai Ai",
+      "rating": 5,
+      "text": "Just got my ceramic tints done at Skyline custom and wow my car looks completely different now definitely recommend this spot great pricing and amazing staff!",
+      "time": 1768263877,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLnL9jSx9X1yf2mpOZzKoAQUZ3qgBb53t5fjZjUenQ8rXkduQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks so much for the great review, Ai Ai! We’re thrilled the ceramic tint transformed your car and that you loved our pricing and team. We appreciate the recommendation and look forward to helping you again.",
+        "time": 1768271140
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/ai-ai-2026-01-13-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/ai-ai-2026-01-13-1-320.webp",
+          "uploaded": "2026-01-13T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/ai-ai-2026-01-13-2-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/ai-ai-2026-01-13-2-320.webp",
+          "uploaded": "2026-01-13T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/ai-ai-2026-01-13-3-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/ai-ai-2026-01-13-3-320.webp",
+          "uploaded": "2026-01-13T00:00:00Z"
+        },
+        {
+          "src": "/images/reviews/ai-ai-2026-01-13-4-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/ai-ai-2026-01-13-4-320.webp",
+          "uploaded": "2026-01-13T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqlCj4nOtdPragEv2mALxkSVkkI5duWA_nv90D_YxyL-DQiEn5Rjzc4ZSixYseJSwv1RkmAPOA",
+      "author": "Md Moon",
+      "rating": 5,
+      "text": "I had a great experience with Skyline Customs. The quality of their work really stands out, and you can tell they take pride in what they do. Everything was done professionally, on time, and exactly how I wanted it. The staff was knowledgeable, respectful, and made the whole process easy from start to finish. If you’re looking for a reliable shop that delivers clean, high-quality results, I highly recommend Skyline Customs.",
+      "time": 1768255351,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjXREXzjI_65dxPAKZD-Iv1htTXg0LuTwtj5GjfclZ9mtIUhfYST=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Md Moon, for your wonderful review. We're thrilled our team delivered professional, on-time, high-quality results and made the process easy for you. I’ll share your kind words with the staff; they take pride in their work and will be encouraged by your feedback. We appreciate the recommendation and look forward to helping with any future projects.",
+        "time": 1768276795
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/md-moon-2026-01-12-1-1000.webp",
+          "width": 1000,
+          "height": 1500,
+          "thumb": "/images/reviews/md-moon-2026-01-12-1-320.webp",
+          "uploaded": "2026-01-12T22:00:00Z"
+        },
+        {
+          "src": "/images/reviews/md-moon-2026-01-12-2-1000.webp",
+          "width": 1000,
+          "height": 1500,
+          "thumb": "/images/reviews/md-moon-2026-01-12-2-320.webp",
+          "uploaded": "2026-01-12T22:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqlLWu_Z8RS11lpKz9hJqbhZw-Rc8XTvQqjBRTrWL2nBBFlINe1kYyfvPbCqS18rqu1yBz4YPA",
+      "author": "Silent Treatment",
+      "rating": 5,
+      "text": "I reached out to them I spoke to the owner, we made an appointment and since it was Christmas season they cut me a break. I took my vehicle there and they had it done just what I asked for they even delivered me the vehicle. Couldn’t ask for a more transparent process.",
+      "time": 1768255166,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocKXhN1YaXOn9y7T1jpPGVrVAOjAtnPcFi9ejpYbEOK9VkeHh1c=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you for the wonderful review. We’re glad we could accommodate you during the Christmas season and that the repair and delivery met your expectations. Your comments about our transparent process mean a lot, and the owner will be pleased to hear them. We look forward to helping you again whenever you need us.",
+        "time": 1768276789
+      }
+    },
+    {
+      "id": "AbFvOqnmPBLCaKsSYHcYfcCUDZnaTyFGyKftbgXPv_zS5Rx56eFcHxg_KKSBlZpAhlbTO6UXQC8PpA",
+      "author": "Mohamed Ahmed",
+      "rating": 5,
+      "text": "I had my window tints and ceramic coating done by Skyline Customs, and the entire experience was top-tier from start to finish. Communication was clear and consistent, the process was smooth, and the work itself was done at a very high professional standard.\n\nMonzir and Mo were great to work with—they made everything easy, explained my options clearly, and ensured I got exactly what I wanted done. You can tell they take pride in their work and customer service. I would definitely recommend Skyline Custom to anyone looking for quality tint and ceramic coating work.",
+      "time": 1768239744,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLE9jL7ieC7kHWnDjc4iwLm5w8Ia9QAnw3HHx_bgVf9R-wVxQ=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mohamed, for the fantastic review and for trusting Skyline Customs with your window tints and ceramic coating. We're thrilled Monzir and Mo provided clear communication and high-quality work and that you were pleased with the process and results. We truly appreciate your recommendation. Enjoy the new finish and safe driving.",
+        "time": 1768255108
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/mohamed-ahmed-2026-01-12-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/mohamed-ahmed-2026-01-12-1-320.webp",
+          "uploaded": "2026-01-12T17:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqlcK6bVcn0-wZ5ULhA9E2gUSbrJCkWNZZOV3wownOnHTQ47YFpDSBoEHRAXC_viqixwE7qO",
+      "author": "Salifu Turay",
+      "rating": 5,
+      "text": "ceramic coating and tints done skyline customs did an amazing job car looks great !!",
+      "time": 1768239641,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVxZv4KfAInq2uyim3A8-Jb1exenPm1OlOwmUjJBIwtnbdpQPpl=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the 5-star review, Salifu! We're thrilled you love the ceramic coating and tint work and that your car looks great. We appreciate you choosing Skyline Customs and look forward to helping with any future detailing or upgrades.",
+        "time": 1768246883
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/salifu-turay-2026-01-12-1-1000.webp",
+          "width": 1000,
+          "height": 1003,
+          "thumb": "/images/reviews/salifu-turay-2026-01-12-1-320.webp",
+          "uploaded": "2026-01-12T17:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqlSgixJsyzWZbaf7XdO9sfnzr8_2ZaL9-fK_AznUJMfQoberw-6buAYlX-GUS1HZwcPDmj7OA",
+      "author": "Isra Ibrahim",
+      "rating": 5,
+      "text": "From start to finish, the experience was top-notch. Clear communication, fair pricing, and incredible workmanship. The ceramic coating completely transformed the look of my car and the shine is unreal. You can tell they take pride in their work. Highly recommend!!!",
+      "time": 1768069527,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjX7yqo7j8YC8VzdV2Qw37lGGhYXSg9WHWtv4pyslQIoVBz0KD11=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you so much for the fantastic review, Isra. We’re thrilled the ceramic coating transformed your car and that our communication, pricing, and workmanship met your expectations. We take pride in every job and truly appreciate your recommendation. If you need any future maintenance or detailing, we’re here to help.",
+        "time": 1768081784
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/isra-ibrahim-2026-01-10-1-1000.webp",
+          "width": 1000,
+          "height": 1332,
+          "thumb": "/images/reviews/isra-ibrahim-2026-01-10-1-320.webp",
+          "uploaded": "2026-01-10T18:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqnbTdcdFz1xOvWU_fbtUb6eg2B14Wrby9VNofWIJg2iJljaHBvp2uXZ1h0di2WIjyN495f9",
+      "author": "Saja Omer",
+      "rating": 5,
+      "text": "Ceramic tint came out perfect. Super professional shop and great service. Highly recommend.",
+      "time": 1768064190,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjUfz0AzP_3Sek2qjXS163dwzkuV1acqkkB_qFQyPxrWAU_MRDqc=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Saja — we’re thrilled your ceramic tint turned out perfect and that you enjoyed our service. We appreciate the recommendation and your kind words about our professionalism. If you need any future adjustments or have questions, feel free to reach out.",
+        "time": 1768071466
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/saja-omer-2026-01-10-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/saja-omer-2026-01-10-1-320.webp",
+          "uploaded": "2026-01-10T16:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqksGdqy47dBRKMTpr9aEWAAWTIc1cnvLkJdhUIsUxbVYLyQxkDjgvGNSH8N9YZKQXw3tUKtwA",
+      "author": "Hassan Awan",
+      "rating": 5,
+      "text": "The boys at skyline customs took care of me with my cybertruck, tints all around and got it ceramic coated as well. Came out flawless, and the service was quick and professional. Will be bringing my other vehicles here as well.",
+      "time": 1767938896,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLQgY8Pgi8fIxChhhA2U7yU1XFt-bc-BEUHSJyQWkjrAFriDg=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thanks for the great review, Hassan! We’re thrilled the tints and ceramic coating on your Cybertruck came out flawless and that you experienced quick, professional service. We appreciate you trusting Skyline Customs and look forward to taking care of your other vehicles. See you next time.",
+        "time": 1768255596
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/hassan-awan-2026-01-09-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/hassan-awan-2026-01-09-1-320.webp",
+          "uploaded": "2026-01-09T06:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqlT8kTvVdLm6ZNGShe3FoPBkg9ouWEgehkfotk1dOUcU41k7xpyWxO2Eui7_XA4kvlCkKY2Vw",
+      "author": "Monzer Ali",
+      "rating": 5,
+      "text": "Wow skyline custom did a best job in my Tesla tent and ceramic coding best price in Virginia best ever",
+      "time": 1767918194,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVFA9L73mi_Roz6cXHOo0FJ-flk8cNOEM98Tt-t5B196HWswsk=s120-c-rp-mo-ba12-br100",
+      "reply": {
+        "text": "Thank you Monzer Ali — we’re thrilled you loved your Tesla tint and ceramic coating and that you found our pricing the best in Virginia. We appreciate the high praise and are glad you had a great experience. We look forward to serving you again.",
+        "time": 1768255574
+      }
+    },
+    {
+      "id": "AbFvOqnEgC0rbEdmhBRhDCqWIwXnsNuHXsSNqwynqDEjiCqF2U6GAX2u385ZzmDRA3XO82RQtd7SOQ",
+      "author": "Mohamed Abdelhamid",
+      "rating": 5,
+      "text": "Got my tints done and the results speak for themselves. Clean professional and done right.",
+      "time": 1766890609,
+      "photo": "https://lh3.googleusercontent.com/a-/ALV-UjVGYGu1knKELc4cS7Ejz-_LI8F9jdcHnF9qjNWhL0VyoLzzS3T0=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Mohamed! We're thrilled you’re happy with your tints. Our team takes pride in clean, professional work and we appreciate you noticing. We look forward to serving you again or helping any friends you refer.",
+        "time": 1768255554
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/mohamed-abdelhamid-2025-12-28-1-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/mohamed-abdelhamid-2025-12-28-1-320.webp",
+          "uploaded": "2025-12-28T02:00:00Z"
+        },
+        {
+          "src": "/images/reviews/mohamed-abdelhamid-2025-12-28-2-1000.webp",
+          "width": 1000,
+          "height": 1333,
+          "thumb": "/images/reviews/mohamed-abdelhamid-2025-12-28-2-320.webp",
+          "uploaded": "2025-12-28T02:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "AbFvOqnzXTUAwneMzD2ZatHyTWDN1ML7oohnimXsytyeQjSjsgZveKq3HsvEr3F5mia0K4E7NGbzrQ",
       "author": "Moeez Omer",
       "rating": 5,
       "text": "An Excellent and professional team. I got my rear and side windows tinted and the process was exceptional from the jump. The gave me a step by step process which gave me full confidence with my purchase. Will definitely come back for my mother’s car!",
       "time": 1766719732,
-      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJXfn37iMLP3EAyuz_lE6GJV0Fanq3JfrNtAPhla3KNrPJwwA=s128-c0x00000000-cc-rp-mo"
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocJXfn37iMLP3EAyuz_lE6GJV0Fanq3JfrNtAPhla3KNrPJwwA=s120-c-rp-mo-br100",
+      "reply": {
+        "text": "Thank you, Moeez, for the excellent review. We’re thrilled our step-by-step tinting process gave you confidence and that you’re happy with the rear and side windows. We look forward to doing the same for your mother’s car and will ensure she receives the same professional service. If you need anything before then, just let us know.",
+        "time": 1768255528
+      },
+      "photos": [
+        {
+          "src": "/images/reviews/moeez-omer-2025-12-26-1-1000.webp",
+          "width": 740,
+          "height": 1600,
+          "thumb": "/images/reviews/moeez-omer-2025-12-26-1-320.webp",
+          "uploaded": "2025-12-26T03:00:00Z"
+        }
+      ]
     }
   ]
 }

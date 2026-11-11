@@ -1,15 +1,17 @@
 /**
  * SKYLINE CUSTOMS — Testimonials Carousel
- * Real Google Business reviews: live from the Places API (server, hourly), falling back to the snapshot in
- * shared/googleReviews.json (scripts/sync-reviews.mjs). Rating and count are live, never typed in.
+ * Real Google reviews from the shop's Google Business Profile (shared/googleReviews.json, synced by
+ * scripts/sync-reviews.mjs, with the photos customers attached), served by the server with the live rating
+ * and count. Order: recent reviews with photos first, then newest first.
  * Design: Industrial Brutalism | Dark matte black + burnt orange (#E85D04)
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, Quote, X } from "lucide-react";
 import { useSiteReviews, type ReviewFocus } from "@/lib/reviews";
-import snapshot from "@shared/googleReviews.json";
-import { relativeWhen } from "@shared/reviewTime";
+
+/** A photo the customer attached to their Google review (a local copy under /images/reviews). */
+export interface ReviewPhoto { src: string; thumb: string; width: number; height: number }
 
 export interface Review {
   name: string;
@@ -19,33 +21,13 @@ export interface Review {
   date: string;
   service: string;
   text: string;
-  /** Review date (Unix seconds), when known: the "3 weeks ago" label is worked out from it. */
+  /** Review date (Unix seconds). */
   time?: number;
   /** Reviewer profile picture from Google, when available. */
   photo?: string;
-  /** The reviewer's own photo of their car from the Google listing (live feed only; URLs are short-lived). */
-  jobPhoto?: { url: string; width: number; height: number };
+  /** Photos the customer attached to this review. */
+  photos?: ReviewPhoto[];
 }
-
-const COLORS = ["#7C3AED", "#0891B2", "#D97706", "#DB2777", "#16A34A", "#2563EB"];
-const initialsOf = (n: string) => n.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
-
-/**
- * Real reviews from the Skyline Customs Google Business Profile, exactly as Google returns them (author, rating,
- * text, date, profile photo). Used when the live feed is not loaded; the live feed (newer, with the current
- * rating and count) replaces it as soon as it is. Refresh with `node scripts/sync-reviews.mjs`.
- */
-export const ALL_REVIEWS: Review[] = (snapshot.reviews as { author: string; rating: number; text: string; time: number; photo?: string }[]).map((r, i) => ({
-  name: r.author,
-  initials: initialsOf(r.author),
-  avatarColor: COLORS[i % COLORS.length],
-  rating: r.rating,
-  date: relativeWhen(r.time),
-  service: "Google Review",
-  text: r.text,
-  time: r.time,
-  photo: r.photo,
-}));
 
 interface TestimonialsProps {
   service?: string;
@@ -93,25 +75,51 @@ export function Avatar({ review, size = "w-10 h-10" }: { review: Pick<Review, "n
   );
 }
 
-/** The reviewer's own photo of their car, posted on Google. Hidden if Google stops serving it. */
-export function JobPhoto({ review, className = "" }: { review: Pick<Review, "name" | "jobPhoto">; className?: string }) {
-  const [broken, setBroken] = useState(false);
-  if (!review.jobPhoto || broken) return null;
+/**
+ * The photos a customer attached to their review: a row of thumbnails; tapping one opens it large
+ * (arrows/swipe between them, Escape or tap outside to close).
+ */
+export function ReviewPhotos({ review, className = "", max = 4 }: { review: Pick<Review, "name" | "photos">; className?: string; max?: number }) {
+  const photos = review.photos ?? [];
+  const [open, setOpen] = useState<number | null>(null);
+  useEffect(() => {
+    if (open === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(null);
+      if (e.key === "ArrowRight") setOpen((i) => (i === null ? i : (i + 1) % photos.length));
+      if (e.key === "ArrowLeft") setOpen((i) => (i === null ? i : (i - 1 + photos.length) % photos.length));
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, photos.length]);
+  if (!photos.length) return null;
+  const shown = photos.slice(0, max);
+  const extra = photos.length - shown.length;
   return (
-    <figure className={className}>
-      <img
-        src={review.jobPhoto.url}
-        alt={`Photo ${review.name} posted with their Google review of Skyline Customs`}
-        width={review.jobPhoto.width}
-        height={review.jobPhoto.height}
-        loading="lazy"
-        decoding="async"
-        referrerPolicy="no-referrer"
-        onError={() => setBroken(true)}
-        className="w-full h-40 object-cover bg-[#111] border border-zinc-800"
-      />
-      <figcaption className="text-zinc-500 text-[11px] mt-1">Photo by {review.name} on Google</figcaption>
-    </figure>
+    <div className={className} data-review-photos={photos.length}>
+      <div className="flex gap-2">
+        {shown.map((p, i) => (
+          <button key={p.src} type="button" onClick={() => setOpen(i)} aria-label={`Open photo ${i + 1} of ${photos.length} from ${review.name}'s review`} className="relative w-20 h-20 shrink-0 overflow-hidden border border-zinc-800 hover:border-[#E85D04] transition-colors bg-[#111]">
+            <img src={p.thumb} alt={`Photo ${review.name} attached to their Google review`} width={80} height={80} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+            {i === shown.length - 1 && extra > 0 && <span className="absolute inset-0 bg-black/60 text-white text-sm font-bold flex items-center justify-center">+{extra}</span>}
+          </button>
+        ))}
+      </div>
+      <p className="text-zinc-500 text-[11px] mt-1">{photos.length === 1 ? "Photo" : `${photos.length} photos`} from {review.name}'s Google review</p>
+      {open !== null && (
+        <div role="dialog" aria-modal="true" aria-label={`${review.name}'s review photos`} className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onClick={() => setOpen(null)}>
+          <img src={photos[open].src} alt={`Photo ${open + 1} of ${photos.length} from ${review.name}'s Google review`} width={photos[open].width} height={photos[open].height} className="max-w-full max-h-[85vh] w-auto h-auto object-contain" onClick={(e) => e.stopPropagation()} />
+          <button type="button" aria-label="Close" onClick={() => setOpen(null)} className="absolute top-4 right-4 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><X className="w-5 h-5" /></button>
+          {photos.length > 1 && (
+            <>
+              <button type="button" aria-label="Previous photo" onClick={(e) => { e.stopPropagation(); setOpen((open - 1 + photos.length) % photos.length); }} className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronLeft className="w-5 h-5" /></button>
+              <button type="button" aria-label="Next photo" onClick={(e) => { e.stopPropagation(); setOpen((open + 1) % photos.length); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronRight className="w-5 h-5" /></button>
+              <p className="absolute bottom-4 left-0 right-0 text-center text-zinc-300 text-sm">{open + 1} / {photos.length}</p>
+            </>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -135,9 +143,9 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
       </div>
 
       {/* Review text */}
-      <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{review.text}"</p>
+      {review.text ? <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{review.text}"</p> : <div className="flex-1" />}
 
-      {review.jobPhoto && <JobPhoto review={review} />}
+      {review.photos?.length ? <ReviewPhotos review={review} /> : null}
 
       {/* Service tag */}
       <span className="text-[#E85D04] text-xs font-bold tracking-widest uppercase border border-[#E85D04]/30 px-2 py-0.5 self-start">
@@ -181,9 +189,12 @@ export default function Testimonials({ title = "WHAT OUR CUSTOMERS SAY", focus }
 
   // Auto-advance every 5 s
   useEffect(() => {
+    if (total < 2) return;
     const t = setInterval(() => go("right"), 5000);
     return () => clearInterval(t);
   }, [go]);
+
+  if (total === 0) return null;
 
   // Show 3 cards on desktop, 1 on mobile
   const visible = [

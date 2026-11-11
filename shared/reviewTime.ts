@@ -8,11 +8,19 @@ export function relativeWhen(timeSec: number, now = Date.now()): string {
   return y === 1 ? "a year ago" : `${y} years ago`;
 }
 
+/** "Recent" for the photo group: the last two months. */
+export const RECENT_PHOTO_DAYS = 61;
+
+/** A review from the last two months that has customer photos attached: these lead every review list. */
+export function isRecentWithPhotos(r: { time?: number; photos?: unknown[] }, now = Date.now()): boolean {
+  return !!r.photos?.length && !!r.time && now / 1000 - r.time <= RECENT_PHOTO_DAYS * 86400;
+}
+
 /**
- * The one review order on the site (owner's call): reviews with a customer photo of their car first, newest
- * first; then the rest, newest first. Used by the server (so the server-rendered page and the hourly photo
- * refresh agree) and by every review block on the client.
+ * The one review order on the site (owner's call): reviews from the last two months with the customer's own
+ * photos first, newest first; then every other review, newest first. Used by the server (so the
+ * server-rendered page matches) and by every review block on the client.
  */
-export function compareReviews(a: { time?: number; jobPhoto?: unknown }, b: { time?: number; jobPhoto?: unknown }): number {
-  return (a.jobPhoto ? 0 : 1) - (b.jobPhoto ? 0 : 1) || (b.time ?? 0) - (a.time ?? 0);
+export function compareReviews(a: { time?: number; photos?: unknown[] }, b: { time?: number; photos?: unknown[] }, now = Date.now()): number {
+  return (isRecentWithPhotos(a, now) ? 0 : 1) - (isRecentWithPhotos(b, now) ? 0 : 1) || (b.time ?? 0) - (a.time ?? 0);
 }

@@ -7,7 +7,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { getBlogPostSummaries, getBlogPostBySlug, insertBlogPost, blogPostSlugExists, getActivePromo, getActivePromoByActive, getPromoSlots, addPromoSlot, addToWaitlist, getWaitlistCount, getArchivedPromoBySlug, getLastArchivedPromo, getArchivedPromos } from "./db";
 import { getDb } from "./db";
-import { getGoogleReviews } from "./googleReviews";
+import { getGoogleReviews, getAllGoogleReviews } from "./googleReviews";
 import { getInstagramFeed } from "./instagram";
 import { getGalleryRows } from "./galleryJobs";
 import { siteSettings, galleryPhotos } from "../drizzle/schema";
@@ -703,6 +703,8 @@ Guidelines:
   site: router({
     // Public: live Google rating/count/newest reviews (null when no API key is configured)
     googleReviews: publicProcedure.query(async () => getGoogleReviews()),
+    // Public: every review (the /reviews page and the review wall); same order and source as googleReviews.
+    allReviews: publicProcedure.query(async () => getAllGoogleReviews()),
 
     // Public: latest Instagram posts (Graph API, cached 1h). Null when no token is set.
     instagram: publicProcedure.query(async () => getInstagramFeed()),

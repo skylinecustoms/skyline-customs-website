@@ -5,7 +5,7 @@
  */
 import { useMemo, useState } from "react";
 import { Star, ExternalLink } from "lucide-react";
-import { Avatar, JobPhoto, type Review } from "@/components/Testimonials";
+import { Avatar, ReviewPhotos, type Review } from "@/components/Testimonials";
 import { GOOGLE_MAPS_URL } from "@/lib/social";
 import { track } from "@/lib/analytics";
 import { useSiteReviews } from "@/lib/reviews";
@@ -39,7 +39,7 @@ const PAGE = 9;
 /** `initial`: how many cards show before "more"; the promo page keeps it short. */
 export default function ReviewWall({ total = "", initial = PAGE }: { total?: string; initial?: number }) {
   // Same list as every other review block: live Google reviews plus the real-review snapshot, ranked.
-  const { reviews: site, rating, total: liveTotal } = useSiteReviews();
+  const { reviews: site, rating, total: liveTotal } = useSiteReviews(undefined, { all: true });
   const [filter, setFilter] = useState("All");
   const [shown, setShown] = useState(initial);
 
@@ -89,7 +89,7 @@ export default function ReviewWall({ total = "", initial = PAGE }: { total?: str
           <figure key={`${r.name}-${r.time ?? r.date}`} className="border border-zinc-800 bg-[#0D0D0D] p-6 flex flex-col">
             <div className="flex items-center gap-0.5 mb-3">{[...Array(r.rating)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-[#E85D04] text-[#E85D04]" />)}</div>
             <blockquote className="text-zinc-200 text-sm leading-relaxed flex-1 whitespace-pre-line">{r.text}</blockquote>
-            {r.jobPhoto && <JobPhoto review={r} className="mt-4" />}
+            {r.photos?.length ? <ReviewPhotos review={r} className="mt-4" /> : null}
             <figcaption className="mt-5 pt-4 border-t border-zinc-800 flex items-center gap-3">
               <Avatar review={r} size="w-9 h-9" />
               <div>

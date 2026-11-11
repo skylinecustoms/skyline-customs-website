@@ -10,7 +10,7 @@ import { resolveMetaForPath, injectMetaIntoHtml, isKnownPath } from "./ssrMeta";
 import { pathToFileURL } from "node:url";
 import { getBlogPostBySlug, getBlogPostSummaries } from "../db";
 import { getGalleryRows } from "../galleryJobs";
-import { getGoogleReviews } from "../googleReviews";
+import { getGoogleReviews, getAllGoogleReviews } from "../googleReviews";
 import { getActivePromoByActive, getPromoSlots, getArchivedPromoBySlug } from "../db";
 
 /**
@@ -19,7 +19,7 @@ import { getActivePromoByActive, getPromoSlots, getArchivedPromoBySlug } from ".
  * live bits (promo, gallery, reviews, feeds) load on the client after hydration.
  * Set SSR=0 to serve the empty shell instead.
  */
-type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; live?: unknown }) => Promise<{ html: string; state: string }> };
+type Renderer = { render: (url: string, preload?: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; allReviews?: unknown; live?: unknown }) => Promise<{ html: string; state: string }> };
 let renderer: Promise<Renderer | null> | null = null;
 const ssrCache = new Map<string, { html: string; state: string; at: number }>();
 /** Drop every cached page (the portal's instant edits changed). */
@@ -53,9 +53,11 @@ export async function renderPageWithState(urlPath: string, distPath = path.resol
   const hit = ssrCache.get(urlPath);
   if (hit && Date.now() - hit.at < SSR_TTL_MS) return hit;
   try {
-    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; live?: unknown } = { live: getLiveEdits() };
+    const preload: { blogPost?: { slug: string; post: unknown }; gallery?: unknown[]; promo?: unknown; blogList?: unknown[]; archivedPromo?: { slug: string; promo: unknown }; googleReviews?: unknown; allReviews?: unknown; live?: unknown } = { live: getLiveEdits() };
     // Every page with a review block renders the real Google reviews into the HTML (cached for an hour, so this is cheap).
     preload.googleReviews = (await getGoogleReviews().catch(() => null)) ?? undefined;
+    // The full review list is only server-rendered where it is shown in full.
+    if (urlPath === "/reviews" || urlPath === "/promo") preload.allReviews = (await getAllGoogleReviews().catch(() => null)) ?? undefined;
     // The blog index and every post list the other posts: render the list so crawlers see the links.
     if (/^\/blog(\/|$)/.test(urlPath) || urlPath === "/") preload.blogList = await getBlogPostSummaries().catch(() => undefined);
     // Gallery pages and every page with a "recent installs" strip render with the photo list.
