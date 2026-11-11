@@ -6,7 +6,7 @@
  *   - the photos customers uploaded to the listing (v4 media/customers)
  * A customer photo belongs to a review when it was uploaded by the same reviewer (same display name) within a day
  * of the review. Only those photos are used: never the owner's uploads, never a photo that matches no review.
- * Matched photos are downloaded and converted to WebP (1000 px and 320 px wide) so the site never needs Google
+ * Matched photos are downloaded and converted to WebP (1000, 640 and 320 px wide) so the site never needs Google
  * credentials at runtime and the images never expire.
  *
  * Fallback when the GBP credentials are not set: the Places API (up to 10 recent reviews, no photos) is merged into
@@ -85,7 +85,7 @@ async function savePhoto(item, base) {
   fs.writeFileSync(tmp, buf);
   const out = {};
   try {
-    for (const [key, w, q] of [["src", 1000, 62], ["thumb", 320, 60]]) {
+    for (const [key, w, q] of [["src", 1000, 62], ["mid", 640, 64], ["thumb", 320, 60]]) {
       const name = `${base}-${w}.${hasConvert ? "webp" : "jpg"}`;
       if (hasConvert) execFileSync("convert", [tmp, "-auto-orient", "-strip", "-resize", `${w}x${w * 2}>`, "-quality", String(q), path.join(PHOTO_DIR, name)]);
       else fs.copyFileSync(tmp, path.join(PHOTO_DIR, name));
@@ -120,7 +120,7 @@ if (token) {
     const base = `${slugify(author)}-${rv.createTime.slice(0, 10)}`;
     for (const [i, m] of mine.entries()) {
       used.add(m.name);
-      if (check) { photos.push({ src: "(check)", thumb: "(check)", width: 0, height: 0, uploaded: m.createTime }); continue; }
+      if (check) { photos.push({ src: "(check)", mid: "(check)", thumb: "(check)", width: 0, height: 0, uploaded: m.createTime }); continue; }
       photos.push({ ...(await savePhoto(m, `${base}-${i + 1}`)), uploaded: m.createTime });
     }
     out.push({
@@ -138,7 +138,7 @@ if (token) {
   next = { source: "Google Business Profile API", rating: average, total, syncedAt: new Date().toISOString(), reviews: out };
   // Photos from an earlier sync that no review uses any more are removed.
   if (!check && fs.existsSync(PHOTO_DIR)) {
-    const keep = new Set(out.flatMap((r) => (r.photos ?? []).flatMap((p) => [p.src, p.thumb])).map((p) => path.basename(p)));
+    const keep = new Set(out.flatMap((r) => (r.photos ?? []).flatMap((p) => [p.src, p.mid, p.thumb].filter(Boolean))).map((p) => path.basename(p)));
     for (const f of fs.readdirSync(PHOTO_DIR)) if (!keep.has(f)) fs.rmSync(path.join(PHOTO_DIR, f));
   }
 } else {

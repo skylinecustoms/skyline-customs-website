@@ -88,8 +88,8 @@ export default function ReviewWall({ total = "", initial = PAGE }: { total?: str
         {visible.slice(0, shown).map((r) => (
           <figure key={`${r.name}-${r.time ?? r.date}`} className="border border-zinc-800 bg-[#0D0D0D] p-6 flex flex-col">
             <div className="flex items-center gap-0.5 mb-3">{[...Array(r.rating)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-[#E85D04] text-[#E85D04]" />)}</div>
-            <blockquote className="text-zinc-200 text-sm leading-relaxed flex-1 whitespace-pre-line">{r.text}</blockquote>
-            {r.photos?.length ? <ReviewPhotos review={r} className="mt-4" /> : null}
+            {r.photos?.length ? <ReviewPhotos review={r} fill={!r.text} className="mb-4" /> : null}
+            {r.text ? <blockquote className="text-zinc-200 text-sm leading-relaxed flex-1 whitespace-pre-line">{r.text}</blockquote> : null}
             <figcaption className="mt-5 pt-4 border-t border-zinc-800 flex items-center gap-3">
               <Avatar review={r} size="w-9 h-9" />
               <div>

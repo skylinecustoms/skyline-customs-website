@@ -19,7 +19,7 @@ import { siteSettings } from "../drizzle/schema";
 import snapshot from "../shared/googleReviews.json";
 
 /** A photo the customer attached to their Google review, stored on this site. */
-export interface ReviewPhoto { src: string; thumb: string; width: number; height: number }
+export interface ReviewPhoto { src: string; /** 640 px */ mid?: string; thumb: string; width: number; height: number }
 export interface GoogleReview {
   author: string; rating: number; when: string; text: string; time: number;
   /** Reviewer profile picture (Google-hosted). */ photo?: string;
@@ -35,7 +35,7 @@ export const SUMMARY_SIZE = 24;
 export { relativeWhen } from "../shared/reviewTime";
 import { relativeWhen, compareReviews } from "../shared/reviewTime";
 
-type SnapshotReview = { author: string; rating: number; text: string; time: number; photo?: string; photos?: { src: string; thumb: string; width: number; height: number }[] };
+type SnapshotReview = { author: string; rating: number; text: string; time: number; photo?: string; photos?: ReviewPhoto[] };
 const SNAPSHOT = snapshot as { rating?: number; total?: number; reviews: SnapshotReview[] };
 
 const norm = (n: string) => n.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");

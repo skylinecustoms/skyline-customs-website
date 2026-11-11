@@ -75,8 +75,8 @@ export default function Reviews() {
               <article key={`${r.name}-${r.time ?? r.date}`} className="bg-[#0D0D0D] p-8 flex flex-col">
                 <Quote className="w-6 h-6 text-[#E85D04] mb-4" />
                 <div className="flex mb-3">{[...Array(r.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-[#E85D04] text-[#E85D04]" />)}</div>
-                {r.text ? <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{r.text}"</p> : <div className="flex-1" />}
-                {r.photos?.length ? <ReviewPhotos review={r} className="mt-5" /> : null}
+                {r.photos?.length ? <ReviewPhotos review={r} fill={!r.text} className="mb-4" /> : null}
+                {r.text ? <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{r.text}"</p> : r.photos?.length ? null : <div className="flex-1" />}
                 <div className="mt-6 flex items-center gap-3">
                   <Avatar review={r} />
                   <div>

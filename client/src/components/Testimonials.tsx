@@ -6,12 +6,12 @@
  * Design: Industrial Brutalism | Dark matte black + burnt orange (#E85D04)
  */
 
-import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Star, Quote, X } from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { ChevronLeft, ChevronRight, Star, Quote, X, Expand } from "lucide-react";
 import { useSiteReviews, type ReviewFocus } from "@/lib/reviews";
 
 /** A photo the customer attached to their Google review (a local copy under /images/reviews). */
-export interface ReviewPhoto { src: string; thumb: string; width: number; height: number }
+export interface ReviewPhoto { src: string; /** 640 px */ mid?: string; thumb: string; width: number; height: number }
 
 export interface Review {
   name: string;
@@ -75,50 +75,95 @@ export function Avatar({ review, size = "w-10 h-10" }: { review: Pick<Review, "n
   );
 }
 
-/**
- * The photos a customer attached to their review: a row of thumbnails; tapping one opens it large
- * (arrows/swipe between them, Escape or tap outside to close).
- */
-export function ReviewPhotos({ review, className = "", max = 4 }: { review: Pick<Review, "name" | "photos">; className?: string; max?: number }) {
-  const photos = review.photos ?? [];
-  const [open, setOpen] = useState<number | null>(null);
+/** Large viewer for a review's photos: arrows, swipe, Escape; tap outside the photo closes it. */
+function PhotoViewer({ name, photos, index, onIndex, onClose }: { name: string; photos: ReviewPhoto[]; index: number; onIndex: (i: number) => void; onClose: () => void }) {
+  const n = photos.length;
+  const touch = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    if (open === null) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(null);
-      if (e.key === "ArrowRight") setOpen((i) => (i === null ? i : (i + 1) % photos.length));
-      if (e.key === "ArrowLeft") setOpen((i) => (i === null ? i : (i - 1 + photos.length) % photos.length));
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onIndex((index + 1) % n);
+      if (e.key === "ArrowLeft") onIndex((index - 1 + n) % n);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, photos.length]);
-  if (!photos.length) return null;
-  const shown = photos.slice(0, max);
-  const extra = photos.length - shown.length;
+  }, [index, n, onIndex, onClose]);
+  useEffect(() => { closeRef.current?.focus(); }, []);
+  const p = photos[index];
   return (
-    <div className={className} data-review-photos={photos.length}>
-      <div className="flex gap-2">
-        {shown.map((p, i) => (
-          <button key={p.src} type="button" onClick={() => setOpen(i)} aria-label={`Open photo ${i + 1} of ${photos.length} from ${review.name}'s review`} className="relative w-20 h-20 shrink-0 overflow-hidden border border-zinc-800 hover:border-[#E85D04] transition-colors bg-[#111]">
-            <img src={p.thumb} alt={`Photo ${review.name} attached to their Google review`} width={80} height={80} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-            {i === shown.length - 1 && extra > 0 && <span className="absolute inset-0 bg-black/60 text-white text-sm font-bold flex items-center justify-center">+{extra}</span>}
-          </button>
-        ))}
-      </div>
-      <p className="text-zinc-500 text-[11px] mt-1">{photos.length === 1 ? "Photo" : `${photos.length} photos`} from {review.name}'s Google review</p>
-      {open !== null && (
-        <div role="dialog" aria-modal="true" aria-label={`${review.name}'s review photos`} className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onClick={() => setOpen(null)}>
-          <img src={photos[open].src} alt={`Photo ${open + 1} of ${photos.length} from ${review.name}'s Google review`} width={photos[open].width} height={photos[open].height} className="max-w-full max-h-[85vh] w-auto h-auto object-contain" onClick={(e) => e.stopPropagation()} />
-          <button type="button" aria-label="Close" onClick={() => setOpen(null)} className="absolute top-4 right-4 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><X className="w-5 h-5" /></button>
-          {photos.length > 1 && (
-            <>
-              <button type="button" aria-label="Previous photo" onClick={(e) => { e.stopPropagation(); setOpen((open - 1 + photos.length) % photos.length); }} className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronLeft className="w-5 h-5" /></button>
-              <button type="button" aria-label="Next photo" onClick={(e) => { e.stopPropagation(); setOpen((open + 1) % photos.length); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronRight className="w-5 h-5" /></button>
-              <p className="absolute bottom-4 left-0 right-0 text-center text-zinc-300 text-sm">{open + 1} / {photos.length}</p>
-            </>
-          )}
+    <div
+      role="dialog" aria-modal="true" aria-label={`${name}'s review photos`} data-photo-viewer={index}
+      className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+      onClick={() => { if (swiped.current) { swiped.current = false; return; } onClose(); }}
+      onTouchStart={(e) => { touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }}
+      onTouchEnd={(e) => {
+        const t0 = touch.current; touch.current = null;
+        if (!t0 || n < 2) return;
+        const dx = e.changedTouches[0].clientX - t0.x, dy = e.changedTouches[0].clientY - t0.y;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { swiped.current = true; onIndex(dx < 0 ? (index + 1) % n : (index - 1 + n) % n); }
+      }}
+    >
+      <img src={p.src} alt={`Photo ${index + 1} of ${n} from ${name}'s Google review`} width={p.width} height={p.height} className="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded-lg" onClick={(e) => e.stopPropagation()} />
+      <button ref={closeRef} type="button" aria-label="Close" onClick={onClose} className="absolute top-4 right-4 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#E85D04]"><X className="w-5 h-5" /></button>
+      {n > 1 && (
+        <>
+          <button type="button" aria-label="Previous photo" onClick={(e) => { e.stopPropagation(); onIndex((index - 1 + n) % n); }} className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronLeft className="w-5 h-5" /></button>
+          <button type="button" aria-label="Next photo" onClick={(e) => { e.stopPropagation(); onIndex((index + 1) % n); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/60 text-white border border-zinc-600"><ChevronRight className="w-5 h-5" /></button>
+          <p className="absolute bottom-4 left-0 right-0 text-center text-zinc-300 text-sm">{index + 1} / {n}</p>
+        </>
+      )}
+    </div>
+  );
+}
+
+const PRESS = "cursor-pointer transition duration-150 hover:brightness-110 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E85D04]";
+
+/**
+ * The photos a customer attached to their review: the first one large across the card (16:10), the rest as
+ * small thumbnails under it (+N on the last one when there are more). Every photo opens the large viewer at
+ * that photo. `fill`: a review with no text, where the big photo takes the text's place and grows to fill it.
+ */
+export function ReviewPhotos({ review, className = "", maxThumbs = 4, fill = false }: { review: Pick<Review, "name" | "photos">; className?: string; maxThumbs?: number; fill?: boolean }) {
+  const photos = review.photos ?? [];
+  const [open, setOpen] = useState<number | null>(null);
+  if (!photos.length) return null;
+  const n = photos.length;
+  const label = (i: number) => `Open photo ${i + 1} of ${n} from ${review.name}'s review`;
+  const first = photos[0];
+  const rest = photos.slice(1);
+  const thumbs = rest.slice(0, maxThumbs);
+  const extra = rest.length - thumbs.length;
+  return (
+    <div className={`${fill ? "flex-1 flex flex-col" : ""} ${className}`} data-review-photos={n}>
+      <button type="button" onClick={() => setOpen(0)} aria-label={label(0)} data-photo-index={0}
+        className={`group relative block w-full overflow-hidden rounded-lg bg-[#111] border border-zinc-800 ${fill ? "flex-1 min-h-[220px]" : "aspect-[16/10]"} ${PRESS}`}>
+        <img
+          src={first.mid ?? first.src}
+          srcSet={first.mid ? `${first.mid} 640w, ${first.src} 1000w` : undefined}
+          sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
+          alt={`Photo ${review.name} attached to their Google review`}
+          width={first.width} height={first.height} loading="lazy" decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <span aria-hidden="true" className="absolute right-2 bottom-2 w-8 h-8 rounded-full bg-black/65 text-white flex items-center justify-center group-hover:bg-[#E85D04] transition-colors">
+          <Expand className="w-4 h-4" />
+        </span>
+      </button>
+      {thumbs.length > 0 && (
+        <div className="flex gap-2 mt-2">
+          {thumbs.map((p, i) => (
+            <button key={p.src} type="button" onClick={() => setOpen(i + 1)} aria-label={label(i + 1)} data-photo-index={i + 1}
+              className={`relative w-16 h-16 shrink-0 overflow-hidden rounded-md border border-zinc-800 bg-[#111] ${PRESS}`}>
+              <img src={p.thumb} alt="" width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              {i === thumbs.length - 1 && extra > 0 && <span className="absolute inset-0 bg-black/60 text-white text-sm font-bold flex items-center justify-center">+{extra}</span>}
+            </button>
+          ))}
         </div>
       )}
+      <p className="text-zinc-500 text-[11px] mt-1.5">{n === 1 ? "Photo" : `${n} photos`} from {review.name}'s Google review</p>
+      {open !== null && <PhotoViewer name={review.name} photos={photos} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />}
     </div>
   );
 }
@@ -142,10 +187,9 @@ function ReviewCard({ review, featured }: { review: Review; featured: boolean })
         ))}
       </div>
 
-      {/* Review text */}
-      {review.text ? <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{review.text}"</p> : <div className="flex-1" />}
-
-      {review.photos?.length ? <ReviewPhotos review={review} /> : null}
+      {/* The customer's photos (first one large), then the review text; a photo-only review lets the photo fill the space. */}
+      {review.photos?.length ? <ReviewPhotos review={review} fill={!review.text} /> : null}
+      {review.text ? <p className="text-zinc-300 text-sm leading-relaxed flex-1 whitespace-pre-line">"{review.text}"</p> : review.photos?.length ? null : <div className="flex-1" />}
 
       {/* Service tag */}
       <span className="text-[#E85D04] text-xs font-bold tracking-widest uppercase border border-[#E85D04]/30 px-2 py-0.5 self-start">
