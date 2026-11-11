@@ -107,11 +107,14 @@ if (token) {
   if (!check) fs.mkdirSync(PHOTO_DIR, { recursive: true });
   const used = new Set();
   const out = [];
+  // Photos the owner chose not to show (not car photos). The review itself still shows. Key: "<reviewer>|<review date>".
+  const HIDE_PHOTOS = new Set(["Chris Hons|2026-09-01", "Moeez Omer|2025-12-26"]);
   for (const rv of reviews) {
     const author = rv.reviewer?.displayName ?? "A Google user";
     const created = Date.parse(rv.createTime);
     // The reviewer's own uploads, within a day of the review: the photos they attached to it.
-    const mine = media
+    const hidden = HIDE_PHOTOS.has(`${author}|${rv.createTime.slice(0, 10)}`);
+    const mine = hidden ? [] : media
       .filter((m) => m.mediaFormat === "PHOTO" && norm(m.attribution?.profileName) === norm(author) && Math.abs(Date.parse(m.createTime) - created) <= DAY && !used.has(m.name))
       .sort((a, b) => Date.parse(a.createTime) - Date.parse(b.createTime));
     const text = (rv.comment ?? "").trim();
